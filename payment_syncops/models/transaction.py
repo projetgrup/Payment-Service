@@ -123,13 +123,13 @@ class PaymentTransaction(models.Model):
 
         result, message = self.env['syncops.connector'].sudo()._execute('payment_post_partner_payment', reference=str(self.id), params={
             'id': self.id,
-            'ref': ref,
-            'vat': vat,
-            'name': name,
-            'tag': self.paylox_item_tag_name,
+            'ref': ref or '',
+            'vat': vat or '',
+            'name': name or '',
+            'tag': self.paylox_item_tag_name or '',
             'date': date.strftime('%Y-%m-%d %H:%M:%S'),
             'amount': abs(self.amount),
-            'reference': self.reference,
+            'reference': self.reference or '',
             'provider': self.acquirer_id.provider,
             'partner_name': self.partner_id.name,
             'currency_name': self.currency_id.name,
@@ -151,7 +151,7 @@ class PaymentTransaction(models.Model):
             'amount_customer_cost': abs(self.jetcheckout_customer_amount or 0),
             'amount_commission_rate': abs(self.jetcheckout_commission_rate or 0),
             'amount_customer_rate': abs(self.jetcheckout_customer_rate or 0),
-            'description': self.state_message,
+            'description': self.state_message or '',
             'items': [{
                 'ref': item.ref,
                 'amount': float_round(item.amount, 2)
