@@ -19,7 +19,7 @@ class PaymentTransaction(models.Model):
                     'product_uom_qty': product.qty,
                 }) for product in products]
             })
-            for line in order:
+            for line in order.order_line:
                 line._onchange_product_id()
             self.sale_order_ids = [(6, 0, order.ids)]
         return res
