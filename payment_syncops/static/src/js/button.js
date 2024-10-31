@@ -3,9 +3,15 @@ odoo.define('payment_syncops.SyncController', function (require) {
 
 const PartnerController = require('payment_jetcheckout_system.PartnerController');
 const ItemController = require('payment_jetcheckout_system.ItemController');
-const SyncButton = require('connector_syncops.SyncButton');
+const SyncButtonMixin = require('connector_syncops.SyncButtonMixin');
 
-SyncButton.include({
+Object.assign(SyncButtonMixin, {
+
+    init: function () {
+        this._super.apply(this, arguments);
+        this.show_button = true;
+    },
+
     willStart: function() {
         const shown = this._rpc({
             model: 'syncops.connector',
@@ -25,6 +31,12 @@ SyncButton.include({
     },
 });
 
-PartnerController.include(SyncButton.prototype);
-ItemController.include(SyncButton.prototype);
+PartnerController.include(_.extend(SyncButtonMixin, {
+    events: _.extend(SyncButtonMixin, PartnerController.prototype.events),
+}));
+
+ItemController.include(_.extend(SyncButtonMixin, {
+    events: _.extend(SyncButtonMixin, ItemController.prototype.events),
+}));
+
 });

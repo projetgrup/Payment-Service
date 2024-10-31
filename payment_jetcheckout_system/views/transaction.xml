@@ -73,6 +73,10 @@
             <field name="jetcheckout_partner_user_id" optional="hide"/>
             <field name="jetcheckout_partner_team_id" optional="hide"/>
             <field name="jetcheckout_partner_categ_ids" options="{'color_field': 'color', 'no_create': True}" widget="many2many_tags" optional="hide"/>
+            <field name="jetcheckout_can_export_txt" invisible="1"/>
+        </xpath>
+        <xpath expr='//header' position="inside">
+            <button name="action_export_txt" type="object" string="TXT"/>
         </xpath>
     </field>
     </record>

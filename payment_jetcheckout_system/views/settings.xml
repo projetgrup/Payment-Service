@@ -169,6 +169,17 @@
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane">
+                                    <field name="payment_transaction_export_txt"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="payment_transaction_export_txt" string="Export Transaction as TXT"/>
+                                    <div class="text-muted">
+                                        Select transactions and export them as TXT file
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
                                     <field name="payment_dashboard_button_contactless_ok"/>
                                 </div>
                                 <div class="o_setting_right_pane">
