@@ -7,7 +7,7 @@ class PaymentTransaction(models.Model):
 
     def _paylox_done_postprocess(self):
         res = super()._paylox_done_postprocess()
-        products = self.env['payment.transaction.product'].sudo().search([('transaction_id', '=', self.id)])
+        products = self.env['payment.transaction.product'].sudo().search([('transaction_id', '=', self.id), ('product_id', '!=', False)])
         if products:
             order = self.env['sale.order'].sudo().create({
                 'company_id': self.company_id.id,
