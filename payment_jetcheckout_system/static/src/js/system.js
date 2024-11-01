@@ -25,29 +25,34 @@ payloxPage.include({
 
     _getParams: function () {
         let params = this._super.apply(this, arguments);
-        let $items = $('input.input-switch:checked');
-        if ($items.length) {
-            let payments = [];
-            let items = [];
-            $items.each(function () {
-                let $this = $(this);
-                let id = parseInt($this.data('id'));
-                let amount = parseFloat($this.data('paid'));
-                payments.push(id);
-                items.push([id, amount]);
-            });
-
-            let payment_tag = false;
-            let $payment_tag = $('button[field="payment.due.tag"].btn-primary');
-            if ($payment_tag.length) {
-                payment_tag = parseInt($payment_tag[0].dataset.id);
+        let payments = [];
+        let items = [];
+        let payment_tag = false;
+        let sale_ref = false;
+        let $sale_ref = $('div.payment-saleref');
+        if ($sale_ref.length && !$sale_ref.hasClass('d-none')) {
+            sale_ref = $sale_ref.find('input').val();
+        } else {
+            let $items = $('input.input-switch:checked');
+            if ($items.length) {
+                $items.each(function () {
+                    let $this = $(this);
+                    let id = parseInt($this.data('id'));
+                    let amount = parseFloat($this.data('paid'));
+                    payments.push(id);
+                    items.push([id, amount]);
+                });
+                let $payment_tag = $('button[field="payment.due.tag"].btn-primary');
+                if ($payment_tag.length) {
+                    payment_tag = parseInt($payment_tag[0].dataset.id);
+                }
             }
-
-            params['system'] = this.system.value;
-            params['items'] = items;
-            params['payments'] = payments;
-            params['payment_tag'] = payment_tag;
         }
+        params['system'] = this.system.value;
+        params['items'] = items;
+        params['payments'] = payments;
+        params['payment_tag'] = payment_tag;
+        params['sale_ref'] = sale_ref;
         return params;
     },
 
@@ -222,7 +227,14 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
                 remove: new fields.element({
                     events: [['click', this._onClickAdvanceRemove]],
                 }),
-            }
+            },
+            saleRef: {
+                button: new fields.element({
+                    events: [['click', this._onClickSaleRefButton]],
+                }),
+                value: new fields.string(),
+                ok: false,
+            },
         };
     },
 
@@ -627,6 +639,26 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
             });
         });
         framework.hideLoading();
+    },
+
+    _onClickSaleRefButton: function (ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
+        if (this.payment.saleRef.ok) {
+            $('.payment-item').removeClass('d-none');
+            $('.payment-saleref').addClass('d-none');
+            $('.payment-amount-total-readonly').removeClass('d-none');
+            $('.payment-amount-total-editonly').addClass('d-none');
+            this.payment.saleRef.button.text = _t('Pay with payment items');
+            this.payment.saleRef.ok = false;
+        } else {
+            $('.payment-item').addClass('d-none');
+            $('.payment-saleref').removeClass('d-none');
+            $('.payment-amount-total-readonly').addClass('d-none');
+            $('.payment-amount-total-editonly').removeClass('d-none');
+            this.payment.saleRef.button.text = _t('Pay with sale reference');
+            this.payment.saleRef.ok = true;
+        }
     },
 
     _onClickCompany: function (ev) {

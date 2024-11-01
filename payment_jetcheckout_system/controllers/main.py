@@ -115,6 +115,10 @@ class PayloxSystemController(Controller):
         tag = kwargs.get('payment_tag', False)
         if tag:
             vals.update({'paylox_item_tag_id': tag})
+
+        sale_ref = kwargs.get('sale_ref', False)
+        if sale_ref:
+            vals.update({'paylox_sale_ref': sale_ref})
         return vals
 
     def _process(self, **kwargs):

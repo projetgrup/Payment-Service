@@ -28,7 +28,7 @@ class PaymentItemImport(models.TransientModel):
         }
 
     def _prepare_row(self, line):
-        partner = self.env['res.partner'].search([('vat', '=', line.partner_vat)], limit=1)
+        partner = self.env['res.partner'].search([('vat', '=', line.partner_vat), ('company_id', '=', line.company_id.id)], limit=1)
         if not partner:
             partner = partner.create({
                 'name': line.partner_name,

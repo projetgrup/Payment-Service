@@ -28,6 +28,9 @@
             <br colspan="2"/>
             <field name="paylox_prepayment_amount" class="mr-5 float-right" attrs="{'invisible': [('source_transaction_id', '!=', False)]}"/>
         </xpath>
+        <xpath expr="//field[@name='acquirer_reference']" position="after">
+            <field name="paylox_sale_ref" attrs="{'invisible': [('paylox_sale_ref', '=', False)]}"/>
+        </xpath>
         <xpath expr="//field[@name='state_message']/.." position="before">
             <notebook>
                 <page string="Payment Items" attrs="{'invisible': [('paylox_transaction_item_ids', '=', False)]}" groups="payment_jetcheckout_system.group_system_manager">

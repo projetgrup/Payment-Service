@@ -51,17 +51,27 @@
                                 <strong class="text-primary font-weight-bold z-index-1 flex-fill">Payment</strong>
                                 <strong class="text-primary font-weight-bold text-right z-index-1 mt-3">Amount</strong>
                                 <div class="h2 text-right font-weight-bold z-index-1 payment-amount-total">
+                                    <t t-set="language" t-value="request.env['res.lang']._lang_get(request.env.lang)"/>
                                     <t t-if="company.payment_page_amount_editable">
-                                        <t t-set="language" t-value="request.env['res.lang']._lang_get(request.env.lang)"/>
                                         <div>
                                             <span t-if="currency.position == 'before'" t-esc="currency.symbol"/>
-                                            <input type="text" name="amount" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" field="payment.amount"/>
+                                            <input name="amount" type="text" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" field="payment.amount"/>
                                             <span t-if="currency.position == 'after'" t-esc="currency.symbol"/>
                                         </div>
                                     </t>
                                     <t t-else="">
-                                        <t t-esc="amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <span class="payment-amount-total-readonly">
+                                            <t t-esc="amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        </span>
+                                        <div class="payment-amount-total-editonly d-none">
+                                            <span t-if="currency.position == 'before'" t-esc="currency.symbol"/>
+                                            <input name="amount" type="text" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" field="payment.amount"/>
+                                            <span t-if="currency.position == 'after'" t-esc="currency.symbol"/>
+                                        </div>
                                     </t>
+                                </div>
+                                <div class="text-right">
+                                    <button class="btn btn-sm btn-light text-primary" field="payment.saleRef.button">Pay with payment items</button>
                                 </div>
                             </div>
                         </div>
@@ -76,6 +86,13 @@
                         </div>
                         <div t-if="company.payment_page_button_access_transaction" class="mb-1 ml-auto mx-0 px-3 text-nowrap">
                             <a role="button" class="btn btn-secondary px-3 font-weight-bold text-uppercase" t-attf-href="/p/#{token}/transaction">See All Transactions</a>
+                        </div>
+                    </div>
+                    <div class="row px-3 justify-content-center bg-100 py-3 rounded border mx-3 payment-saleref d-none">
+                        <div class="field-container" style="min-width: 50%;">
+                            <input type="text" class="text-center border-primary" required="required" field="payment.saleRef.value"/>
+                            <span class="bar-container"/>
+                            <label class="text-primary"><span>Sale Reference</span></label>
                         </div>
                     </div>
                     <t t-if="payments">
