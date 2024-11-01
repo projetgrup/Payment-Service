@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 import xlrd
+from datetime import datetime
 
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
@@ -14,14 +15,22 @@ class PaymentItemImport(models.TransientModel):
     filename = fields.Char()
     line_ids = fields.One2many('payment.item.import.line', 'wizard_id', 'Lines', readonly=True)
 
+    def _get_date(self, value):
+        if value:
+            try:
+                return datetime.strptime(value, '%Y-%m-%d')
+            except:
+                return datetime(*xlrd.xldate_as_tuple(value, 0))
+        return value
+
     def _get_row(self, value):
         return {
             'partner_name': value['Partner Name'],
             'partner_vat': value['Partner VAT'],
             'partner_email': value['Partner Email'],
             'amount': float(value['Amount']),
-            'date': value.get('Date', False),
-            'due_date': value.get('Due Date', False),
+            'date': self._get_date(value.get('Date', False)),
+            'due_date': self._get_date(value.get('Due Date', False)),
             'ref': value.get('Reference', False),
             'tag': value.get('Tag', False),
             'description': value.get('Description', False),

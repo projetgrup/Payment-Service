@@ -14,7 +14,6 @@ const ItemController = ListController.extend({
     },
 
     _onClickImportItem: function () {
-        console.log(123)
         this.do_action({
             type: 'ir.actions.act_window',
             res_model: 'payment.item.import',
