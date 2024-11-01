@@ -614,7 +614,21 @@
                         <h4 t-else="" class="font-weight-bold m-3 p-3 text-center w-100">
                             <div class="mb-3 text-center w-100">Payment is not successful. Please try again later.</div>
                             <span class="font-italic font-weight-light btn-sm">A technical error occured and we couldn't record your payment. Please contact with us for more information.</span>
-                            <span t-esc="tx.state_message" class="font-italic font-weight-light btn-sm"/>
+                            <t t-if="tx.state_message">
+                                <br/>
+                                <span t-esc="tx.state_message.capitalize()" class="font-italic font-weight-light btn-sm"/>
+                            </t>
+                            <t t-if="tx.jetcheckout_service_message">
+                                <br/>
+                                <span t-esc="tx.jetcheckout_service_message.capitalize()" class="font-italic font-weight-light btn-sm px-0"/>
+                                <t t-if="tx.jetcheckout_service_code">
+                                    <span t-esc="'(%s)' % tx.jetcheckout_service_code" class="font-italic font-weight-light btn-sm px-0"/>
+                                </t>
+                            </t>
+                            <t t-if="tx.jetcheckout_service_suggestion and tx.jetcheckout_service_suggestion != 'None'">
+                                <br/>
+                                <span t-esc="tx.jetcheckout_service_suggestion.capitalize()" class="font-italic font-weight-light btn-sm"/>
+                            </t>
                         </h4>
                     </div>
                 </div>

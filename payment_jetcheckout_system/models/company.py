@@ -35,6 +35,8 @@ class Company(models.Model):
         ('jetcheckout_fund_amount', 'Fund Amount'),
     ], string='Dashboard Payment Amount Field', default='jetcheckout_payment_paid')
 
+    payment_transaction_export_txt = fields.Boolean(string='Payment Trasansaction Export TXT')
+
     payment_page_advance_ok = fields.Boolean(string='Payment Page Advance')
     payment_page_due_ok = fields.Boolean(string='Payment Page Due')
     payment_page_due_ids = fields.One2many('payment.settings.due', 'company_id', 'Payment Page Dues')

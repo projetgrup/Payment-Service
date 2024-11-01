@@ -254,26 +254,13 @@ publicWidget.registry.payloxSystemPageDynamic = publicWidget.Widget.extend({
         } catch {}
 
         if (!partner.id) {
-            this.wizard.register.name.$.addClass('border-danger').siblings('label').addClass('text-danger');
-            this.wizard.register.vat.$.addClass('border-danger').siblings('label').addClass('text-danger');
-            this.wizard.register.email.$.addClass('border-danger').siblings('label').addClass('text-danger');
-            this.wizard.register.phone.$.addClass('border-danger').siblings('label').addClass('text-danger');
-            this.wizard.page.register.$.find('div[name=title]').addClass('text-500');
-            this.wizard.page.register.$.find('div[name=text]').addClass('text-danger').html(partner.error || _t('An error occured. Please try again.'));
-            this.wizard.button.register.done.$.addClass('border-danger text-danger');
+            this._highlightWizardRegisterFields(partner.error);
         } else {
             this.partner.value = partner.id;
             this.vat.value = this.wizard.register.vat.value;
             this.wizard.partner.html = partner.name || '-';
             this._queryPartnerPostprocess(partner);
-
-            this.wizard.register.name.$.removeClass('border-danger').siblings('label').removeClass('text-danger');
-            this.wizard.register.vat.$.removeClass('border-danger').siblings('label').removeClass('text-danger');
-            this.wizard.register.email.$.removeClass('border-danger').siblings('label').removeClass('text-danger');
-            this.wizard.register.phone.$.removeClass('border-danger').siblings('label').removeClass('text-danger');
-            this.wizard.page.register.$.find('div[name=title]').removeClass('text-500');
-            this.wizard.page.register.$.find('div[name=text]').removeClass('text-danger').text(_t('Please enter your VAT number'));
-            this.wizard.button.register.done.$.removeClass('border-danger text-danger');
+            this._clearWizardRegisterFields();
 
             this.wizard.page.register.$.addClass('slide').removeClass('show');
             self.wizard.page.welcome.$.removeClass('invisible').addClass('slide show');
@@ -397,6 +384,26 @@ publicWidget.registry.payloxSystemPageDynamic = publicWidget.Widget.extend({
         //page.addClass('invisible');
         setTimeout(() => overlay.remove(), 500);
         setTimeout(() => page.remove(), 500);
+    },
+
+    _highlightWizardRegisterFields: function (error) {
+        this.wizard.button.register.done.$.addClass('border-danger text-danger');
+        this.wizard.register.name.$.addClass('border-danger').siblings('label').addClass('text-danger');
+        this.wizard.register.vat.$.addClass('border-danger').siblings('label').addClass('text-danger');
+        this.wizard.register.email.$.addClass('border-danger').siblings('label').addClass('text-danger');
+        this.wizard.register.phone.$.addClass('border-danger').siblings('label').addClass('text-danger');
+        this.wizard.page.register.$.find('div[name=title]').addClass('text-500');
+        this.wizard.page.register.$.find('div[name=text]').addClass('text-danger').html(error || _t('An error occured. Please try again.'));
+    },
+
+    _clearWizardRegisterFields: function () {
+        this.wizard.button.register.done.$.removeClass('border-danger text-danger');
+        this.wizard.register.name.$.removeClass('border-danger').siblings('label').removeClass('text-danger');
+        this.wizard.register.vat.$.removeClass('border-danger').siblings('label').removeClass('text-danger');
+        this.wizard.register.email.$.removeClass('border-danger').siblings('label').removeClass('text-danger');
+        this.wizard.register.phone.$.removeClass('border-danger').siblings('label').removeClass('text-danger');
+        this.wizard.page.register.$.find('div[name=title]').removeClass('text-500');
+        this.wizard.page.register.$.find('div[name=text]').removeClass('text-danger').text(_t('Please enter your VAT number'));
     },
 });
 

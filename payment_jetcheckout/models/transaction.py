@@ -91,6 +91,10 @@ class PaymentTransaction(models.Model):
     jetcheckout_payment_paid = fields.Monetary('Amount Paid', compute='_compute_amounts', readonly=True, copy=False, store=True)
     jetcheckout_payment_net = fields.Monetary('Amount Net', compute='_compute_amounts', readonly=True, copy=False, store=True)
 
+    jetcheckout_service_code = fields.Char('Paylox Service Code', readonly=True, copy=False)
+    jetcheckout_service_message = fields.Char('Paylox Service Message', readonly=True, copy=False)
+    jetcheckout_service_suggestion = fields.Char('Paylox Service Suggestion', readonly=True, copy=False)
+
     jetcheckout_installment_count = fields.Integer('Installment Count', readonly=True, copy=False)
     jetcheckout_installment_plus = fields.Integer('Plus Installment Count', readonly=True, copy=False)
     jetcheckout_installment_description = fields.Char('Installment Description', readonly=True, copy=False)
@@ -480,11 +484,14 @@ class PaymentTransaction(models.Model):
             'jetcheckout_vpos_id': vpos_id,
             'jetcheckout_vpos_name': vpos_name,
             'jetcheckout_vpos_ref': values.get('vpos_ref', ''),
+            'jetcheckout_vpos_ref': values.get('vpos_ref', ''),
             'jetcheckout_vpos_code': values.get('vpos_code', ''),
+            'jetcheckout_service_code': values.get('service_code', False),
+            'jetcheckout_service_message': values.get('service_message', False),
             'jetcheckout_commission_rate': values.get('commission_rate', 0),
             'jetcheckout_commission_amount': values.get('commission_amount', 0),
-            'jetcheckout_card_family': values.get('card_family', self.jetcheckout_card_family),
             'jetcheckout_card_type': values.get('card_program', self.jetcheckout_card_type),
+            'jetcheckout_card_family': values.get('card_family', self.jetcheckout_card_family),
             'jetcheckout_card_number': self.jetcheckout_card_number or '%s**********' % (values.get('bin_code', '') or '',),
             'jetcheckout_payment_amount': self.jetcheckout_payment_amount or amount - self.jetcheckout_customer_amount,
         })
@@ -511,6 +518,7 @@ class PaymentTransaction(models.Model):
                 self.write({
                     'state': 'error',
                     'state_message': _('%s (Error Code: %s)') % (values.get('message', '-'), values.get('code','')),
+                    'jetcheckout_service_suggestion': values.get('service_suggestion') or False,
                     'last_state_change': fields.Datetime.now(),
                 })
 
@@ -549,6 +557,8 @@ class PaymentTransaction(models.Model):
                 'auth_code': result['auth_code'],
                 'preauth': result['preauth'],
                 'postauth': result['postauth'],
+                'service_code': result['payment_response_code'],
+                'service_message': result['payment_response_message'],
                 'card_family': result['card_family'] and result['card_family'].lower().capitalize() or '',
                 'card_program': result['card_program'] and result['card_program'].lower().capitalize() or '',
                 'bin_code': result['bin_code'],

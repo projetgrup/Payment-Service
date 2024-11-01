@@ -54,13 +54,12 @@ class PaymentItem(models.Model):
             ])
             amount = item.amount
             paid = sum(items.mapped('amount'))
-            item.paid_amount = amount if paid > amount else paid
+            item.paid_amount = amount if abs(paid) > abs(amount) else paid
 
     @api.depends('amount', 'paid_amount')
     def _compute_residual_amount(self):
         for item in self:
-            residual = item.amount - item.paid_amount
-            item.residual_amount = residual if residual > 0 else 0
+            item.residual_amount = item.amount - item.paid_amount
 
     @api.depends('amount', 'date', 'due_date')
     def _compute_due_amount(self):

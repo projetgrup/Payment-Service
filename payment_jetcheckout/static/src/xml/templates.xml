@@ -242,6 +242,12 @@
         </t>
     </t>
 
+    <t t-name="paylox.tokens">
+        <main>
+            test
+        </main>
+    </t>
+
     <t t-name="paylox.campaigns">
         <table style="border:none !important">
             <colgroup>

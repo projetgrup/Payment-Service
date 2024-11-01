@@ -970,6 +970,30 @@ class PayloxController(http.Controller):
             return []
 
     @staticmethod
+    def _get_card_tokens(**kwargs):
+        acquirer = PayloxController._get_acquirer()
+        url = '%s/api/v1/prepayment/listcards' % acquirer._get_paylox_api_url()
+        data = {
+            "application_key": acquirer.jetcheckout_api_key,
+            "mode": acquirer._get_paylox_env(),
+            "card_owner_key": "",
+            "language": "tr",
+        }
+
+        try:
+            response = requests.post(url, data=json.dumps(data), timeout=5)
+            if response.status_code == 200:
+                result = response.json()
+                if result['response_code'] == "00":
+                    return result.get('cards', [])
+                else:
+                    raise Exception(result.get('message', _('An error occured')))
+            else:
+                raise Exception(_('An error occured'))
+        except:
+            raise Exception(_('An error occured'))
+
+    @staticmethod
     def _get_card_points(**kwargs):
         acquirer = PayloxController._get_acquirer()
         currency = PayloxController._get_currency(kwargs.get('currency'), acquirer)
@@ -989,8 +1013,6 @@ class PayloxController(http.Controller):
             "hash_data": hash,
             "language": "tr",
         }
-
-        raise Exception(data)
 
         try:
             response = requests.post(url, data=json.dumps(data), timeout=5)
@@ -1027,6 +1049,9 @@ class PayloxController(http.Controller):
             'successful': kwargs.get('response_code') == '00',
             'code': kwargs.get('response_code', ''),
             'message': kwargs.get('response_message', ''),
+            'service_code': kwargs.get('service_resp_code', ''),
+            'service_message': kwargs.get('service_resp_message', ''),
+            'service_suggestion': kwargs.get('suggestion', ''),
             'amount': kwargs.get('amount', 0),
             'vpos_id': kwargs.get('virtual_pos_id', 0),
             'vpos_name': kwargs.get('virtual_pos_name', ''),
@@ -1035,7 +1060,6 @@ class PayloxController(http.Controller):
             'postauth': kwargs.get('postauth', tx.jetcheckout_postauth),
             'commission_rate': corate,
         })
-
         return url, tx, False
 
     @http.route('/payment/acquirer', type='json', auth='user', website=True)
@@ -1417,10 +1441,15 @@ class PayloxController(http.Controller):
                 "campaign_name": campaign,
                 "amount": amount_integer,
                 "currency": currency.name,
-                "installment_count": installment_count,
                 "hash_data": hash,
+                "installment_count": installment_count,
                 "language": "tr",
             }
+            if acquirer.jetcheckout_soft_pos_version:
+                data.update({
+                    "user_email": acquirer.jetcheckout_soft_pos_email or '',
+                    "v2_active": True,
+                })
 
             if getattr(partner, 'tax_office_id', False):
                 data.update({'billing_tax_office': partner.tax_office_id.name})

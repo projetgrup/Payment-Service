@@ -1173,12 +1173,19 @@ class PayloxSystemController(Controller):
                 if partner:
                     raise UserError(_('There is already a partner with the same ID Number'))
 
+            if values.get('company_type') == 'company' and not values.get('tax_office'):
+                raise UserError(_('Please enter a tax office'))
+
             if not values.get('email'):
                 email = company.email
                 if not email or '@' not in email:
                     email = 'vat@paylox.io'
                 name, domain = email.rsplit('@', 1)
                 values['email'] = '%s@%s' % (values['vat'], domain)
+
+            if 'tax_office' in values:
+                values['paylox_tax_office'] = values['tax_office']
+                del values['tax_office']
 
             partner = request.env['res.partner'].sudo().with_context(no_vat_validation=True).create(values)
             return partner.read([value for value in kwargs.keys()])[0] or {}
@@ -1227,3 +1234,74 @@ class PayloxSystemController(Controller):
             return request.make_response(text, headers=texthttpheaders)
         else:
             raise werkzeug.exceptions.HTTPException(description='Converter %s not implemented.' % converter)
+
+    @http.route(['/paylox/payment/transactions/txt'], type='http', auth='user', methods=['GET'], sitemap=False, website=True)
+    def page_transactions_txt(self, **data):
+        result = []
+        headers = [
+            'UYEISYERINO',
+            'TERMID',
+            'ISLEMTARIHI',
+            'GUNSONUTARIHI',
+            'VALOR',
+            'BATCHNO',
+            'AUTHCODE',
+            'PARABIRIMI',
+            'ISLEMTIPI',
+            'KARTNO',
+            'KARTTIPI',
+            'KARTKAYNAK',
+            'TAKSITNO',
+            'TAKSITSAYISI',
+            'HAREKETTIPI',
+            'TAKSITTUTARI',
+            'ISLEMTUTARI',
+            'KOMISYONTUTARI',
+            'SERVISUCRETTUTARI',
+            'KATKITUTARI',
+            'KAMPANYAKATKITUTARI',
+            'NETTUTAR',
+            'MUSTERINO',
+            ''
+        ]
+        result.append(';'.join(headers))
+
+        txs = request.env['payment.transaction'].sudo().search([
+            ('id', 'in', list(map(int, data[''].split(',')))),
+            ('jetcheckout_payment_type', '=', 'virtual_pos'),
+            ('company_id', '=', request.env.user.company_ids.ids),
+            ('state', '=', 'done'),
+        ])
+        for tx in txs:
+            values = [
+                '000000000480150',
+                'VP692034',
+                tx.create_date.strftime('%d/%m/%Y'),
+                tx.create_date.strftime('%d/%m/%Y'),
+                tx.create_date.strftime('%d/%m/%Y'),
+                '3120',
+                '869286',
+                'TL',
+                'Peşin Satış - E-Ticaret',
+                tx.jetcheckout_card_number,
+                'KREDİ KART',
+                'YURT İCİ',
+                tx.jetcheckout_installment_count,
+                tx.jetcheckout_installment_count,
+                'A',
+                '%0.2f' % tx.jetcheckout_installment_amount,
+                '%0.2f' % tx.jetcheckout_payment_amount,
+                '%0.2f' % tx.jetcheckout_customer_amount,
+                '%0.2f' % tx.jetcheckout_commission_amount,
+                '%0.2f' % tx.jetcheckout_fund_amount,
+                '%0.2f' % 0,
+                '%0.2f' % tx.jetcheckout_payment_net,
+                tx.partner_id.ref,
+                ''
+            ]
+            result.append(';'.join(map(str, values)))
+        headers = [
+            ('Content-Type', 'text/plain'),
+            ('Content-Disposition', content_disposition('Transactions.txt'))
+        ]
+        return request.make_response('\n'.join(result), headers=headers)

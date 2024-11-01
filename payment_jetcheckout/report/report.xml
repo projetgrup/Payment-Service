@@ -162,9 +162,23 @@
         </html>
     </template>
 
-    <!--<report id="report_receipt" model="payment.transaction" string="Receipt" report_type="qweb-pdf" name="payment_jetcheckout.payment_receipt" file="payment_jetcheckout.payment_receipt"/>
-    <report id="report_conveyance" model="payment.transaction" string="Conveyance" report_type="qweb-pdf" name="payment_jetcheckout.payment_conveyance" file="payment_jetcheckout.payment_conveyance"/>-->
+    <record id="report_receipt" model="ir.actions.report">
+        <field name="name">Receipt</field>
+        <field name="model">payment.transaction</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">payment_jetcheckout.payment_receipt</field>
+        <field name="report_file">payment_jetcheckout.payment_receipt</field>
+        <field name="binding_model_id" ref="payment.model_payment_transaction"/>
+        <field name="binding_type">report</field>
+    </record>
 
-    <report id="report_receipt" model="payment.transaction" string="Receipt" report_type="qweb-html" name="payment_jetcheckout.payment_receipt" file="payment_jetcheckout.payment_receipt"/>
-    <report id="report_conveyance" model="payment.transaction" string="Conveyance" report_type="qweb-html" name="payment_jetcheckout.payment_conveyance" file="payment_jetcheckout.payment_conveyance"/>
+    <record id="report_conveyance" model="ir.actions.report">
+        <field name="name">Conveyance</field>
+        <field name="model">payment.transaction</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">payment_jetcheckout.payment_conveyance</field>
+        <field name="report_file">payment_jetcheckout.payment_conveyance</field>
+        <field name="binding_model_id" ref="payment.model_payment_transaction"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

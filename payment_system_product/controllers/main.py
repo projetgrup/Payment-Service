@@ -162,10 +162,11 @@ class PaymentSystemProductController(SystemController):
         vals = super()._get_tx_values(**kwargs)
         products = kwargs.get('products', [])
         if products:
-            vals.update({'paylox_product_ids': [(0, 0, {
-                'product_id': product['pid'],
-                'quantity': product['qty'],
-            }) for product in products]})
+            vals.update({
+                'paylox_product_ids': [(0, 0, {
+                    'product_id': product['pid'],
+                    'qty': product['qty'],
+                }) for product in products]})
         return vals
 
     def _check_product_page(self, **kwargs):

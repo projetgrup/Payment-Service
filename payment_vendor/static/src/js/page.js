@@ -15,7 +15,7 @@ systemFlow.dynamic.include({
         Object.assign(this.wizard.register, {
             country_id: new fields.integer(),
             company_type: new fields.string(),
-            paylox_tax_office: new fields.string(),
+            tax_office: new fields.string(),
             state_id: new fields.selection(),
             city: new fields.string(),
             street: new fields.string(),
@@ -50,7 +50,7 @@ systemFlow.dynamic.include({
 
         const name = this.wizard.register.name.$.parent().find('label span');
         const vat = this.wizard.register.vat.$.parent().find('label span');
-        const office = this.wizard.register.paylox_tax_office;
+        const office = this.wizard.register.tax_office;
         if (type === 'company') {
             name.text(_t('Company Name'));
             vat.text(_t('VAT'));
@@ -61,6 +61,16 @@ systemFlow.dynamic.include({
             office.value = '';
             office.$.parent().addClass('d-none');
         }
+    },
+
+    _highlightWizardRegisterFields: function() {
+        this._super.apply(this, arguments);
+        this.wizard.register.tax_office.$.addClass('border-danger').siblings('label').addClass('text-danger');
+    },
+
+    _clearWizardRegisterFields: function() {
+        this._super.apply(this, arguments);
+        this.wizard.register.tax_office.$.removeClass('border-danger').siblings('label').removeClass('text-danger');
     },
 });
 
