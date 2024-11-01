@@ -50,6 +50,17 @@
             <field name="jetcheckout_no_smart_buttons" widget="boolean_toggle" attrs="{'invisible': [('provider', '!=', 'jetcheckout')]}"/>
             <field name="jetcheckout_payment_page" widget="boolean_toggle" attrs="{'invisible': [('provider', '!=', 'jetcheckout')]}"/>
         </xpath>
+        <xpath expr='//group[@name="payment_form"]' position="after">
+            <group string="Soft PoS" attrs="{'invisible': [('provider', '!=', 'jetcheckout')]}">
+                <label for="jetcheckout_soft_pos_version" string="Version" attrs="{'invisible': [('provider', '!=', 'jetcheckout')]}"/>
+                <div attrs="{'invisible': [('provider', '!=', 'jetcheckout')]}">
+                    <em class="mr-2">v1</em>
+                    <field name="jetcheckout_soft_pos_version" nolabel="1" widget="boolean_toggle"/>
+                    <em>v2</em>
+                </div>
+                <field name="jetcheckout_soft_pos_email" string="Email" placeholder="Enter an account email..." attrs="{'invisible': ['|', ('provider', '!=', 'jetcheckout'), ('jetcheckout_soft_pos_version', '=', False)], 'required': [('provider', '=', 'jetcheckout'), ('jetcheckout_soft_pos_version', '!=', False)]}"/>
+            </group>
+        </xpath>
         <xpath expr='//page[@name="acquirer_credentials"]' position="after">
             <page name="methods" string="Methods" attrs="{'invisible': [('provider', '!=', 'jetcheckout')]}">
                 <field name="paylox_journal_ids" nolabel="1" colspan="2" context="{'default_company_id': company_id, 'default_website_id': website_id}">

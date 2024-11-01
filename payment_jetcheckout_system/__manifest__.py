@@ -4,7 +4,7 @@
 
 {
     'name': 'Paylox Payment System',
-    'version': '1.17',
+    'version': '1.18',
     'author': 'Projet',
     'website': 'https://bulutkobi.io',
     'license': 'LGPL-3',
@@ -38,6 +38,7 @@
         'wizards/send.xml',
         'wizards/item.xml',
         'wizards/follower.xml',
+        'wizards/item_import.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
     ],
@@ -45,6 +46,7 @@
         'web.assets_qweb': [
             'payment_jetcheckout_system/static/src/xml/dashboard.xml',
             'payment_jetcheckout_system/static/src/xml/company.xml',
+            'payment_jetcheckout_system/static/src/xml/item.xml',
         ],
         'web.assets_backend': [
             'payment_jetcheckout_system/static/src/js/partner.js',

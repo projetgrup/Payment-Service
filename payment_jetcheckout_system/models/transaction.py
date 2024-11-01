@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
-from datetime import datetime
 from odoo import fields, models, api, _
+from odoo.exceptions import UserError
 
 
 class PaymentTransaction(models.Model):
@@ -11,6 +11,10 @@ class PaymentTransaction(models.Model):
     def _compute_item_count(self):
         for tx in self:
             tx.paylox_item_count = len(tx.jetcheckout_item_ids)
+
+    def _compute_jetcheckout_can_export_txt(self):
+        for tx in self:
+            tx.jetcheckout_can_export_txt = tx.company_id.payment_transaction_export_txt
 
     state = fields.Selection(tracking=True)
     system = fields.Selection(related='company_id.system')
@@ -22,6 +26,7 @@ class PaymentTransaction(models.Model):
     paylox_item_tag_code = fields.Char('Payment Item Tag Code', readonly=True, copy=False)
     paylox_prepayment_amount = fields.Monetary('Prepayment Amount', readonly=True, copy=False)
     paylox_transaction_item_ids = fields.One2many('payment.transaction.item', 'transaction_id', string='Transaction Items')
+    jetcheckout_can_export_txt = fields.Boolean('Can Export TXT', compute='_compute_jetcheckout_can_export_txt')
 
     jetcheckout_item_ids = fields.Many2many('payment.item', 'transaction_item_rel', 'transaction_id', 'item_id', string='Payment Items')
     jetcheckout_webhook_ok = fields.Boolean('Webhook Notification', readonly=True)
@@ -87,6 +92,16 @@ class PaymentTransaction(models.Model):
                 'jetcheckout_connector_state': False,
                 'jetcheckout_connector_state_message': _('This transaction has been successfully notified.')
             })
+
+    def action_export_txt(self):
+        txs = self.filtered(lambda t: t.jetcheckout_can_export_txt)
+        if not txs:
+            raise UserError(_('You are not allowed to export transactions as TXT file. Please contact with your administrator.'))
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/paylox/payment/transactions/txt?=%s' % ','.join(map(str, txs.ids))
+        }
+
 
     def _get_notification_webhook_data(self):
         return {

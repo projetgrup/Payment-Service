@@ -68,8 +68,9 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
                 events: [['click', this._onClickCardSample]],
             }),
             token: {
-                list: new fields.element({
-                    events: [['click', this._onClickCardTokenList]],
+                all: [],
+                popup: new fields.element({
+                    events: [['click', this._onClickCardTokenPopup]],
                 }),
                 selected: new fields.element({
                     events: [['click', this._onClickCardToken]],
@@ -500,12 +501,12 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
         }
     },
 
-    _onClickCardTokenList: function () {
-        if (this.card.sample.$.hasClass('flipped')) {
-            this._onFocusCardFront();
-        } else {
-            this._onFocusCardBack();
-        }
+    _onClickCardTokenPopup: function () {
+        const popup = new dialog(this, {
+            title: _t('Saved Cards'),
+            $content: qweb.render('paylox.tokens', {}),
+        });
+        popup.open();
     },
 
     _onClickCardPoint: async function (ev) {

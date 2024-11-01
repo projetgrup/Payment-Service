@@ -1,12 +1,10 @@
-odoo.define('connector_syncops.SyncButton', function (require) {
+odoo.define('connector_syncops.SyncButtonMixin', function (require) {
 "use strict";
 
 const ListController = require('web.ListController');
-const core = require('web.core');
+const { qweb } = require('web.core');
 
-const qweb = core.qweb;
-
-const SyncButton = ListController.extend({
+const SyncButtonMixin = {
     events: _.extend({
         'click .o_button_sync': '_onClickSync',
     }, ListController.prototype.events),
@@ -33,8 +31,8 @@ const SyncButton = ListController.extend({
             },
         });
     }
-});
+};
 
-return SyncButton;
+return SyncButtonMixin;
 });
     

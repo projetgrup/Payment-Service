@@ -77,6 +77,7 @@ class SmsApi(models.AbstractModel):
                         <usercode>{username}</usercode>
                         <password>{password}</password>
                         <type>n:n</type>
+                        <filter>0</filter>
                         <msgheader>{originator}</msgheader>
                     </header>
                     <body>
