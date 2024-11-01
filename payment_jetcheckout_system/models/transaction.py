@@ -25,6 +25,7 @@ class PaymentTransaction(models.Model):
     paylox_item_tag_name = fields.Char('Payment Item Tag Name', readonly=True, copy=False)
     paylox_item_tag_code = fields.Char('Payment Item Tag Code', readonly=True, copy=False)
     paylox_prepayment_amount = fields.Monetary('Prepayment Amount', readonly=True, copy=False)
+    paylox_sale_ref = fields.Char('Sale Reference', readonly=True, copy=False)
     paylox_transaction_item_ids = fields.One2many('payment.transaction.item', 'transaction_id', string='Transaction Items')
     jetcheckout_can_export_txt = fields.Boolean('Can Export TXT', compute='_compute_jetcheckout_can_export_txt')
 
