@@ -16,24 +16,39 @@ class PaymentItemImport(models.TransientModel):
 
     def _get_row(self, value):
         return {
-            'partner_id': self.env['res.partner'].search([('name', '=', value['Partner'])], limit=1).id,
+            'partner_name': value['Partner Name'],
+            'partner_vat': value['Partner VAT'],
+            'partner_email': value['Partner Email'],
             'amount': float(value['Amount']),
-            'state': value['Status'],
-            'state_message': 'Message' in value and value['Message'],
+            'date': value.get('Date', False),
+            'due_date': value.get('Due Date', False),
+            'ref': value.get('Reference', False),
+            'tag': value.get('Tag', False),
+            'description': value.get('Description', False),
         }
 
     def _prepare_row(self, line):
+        partner = self.env['res.partner'].search([('vat', '=', line.partner_vat)], limit=1)
+        if not partner:
+            partner = partner.create({
+                'name': line.partner_name,
+                'vat': line.partner_vat,
+                'email': line.partner_email,
+                'system': line.company_id.system,
+                'company_id': line.company_id.id,
+            })
+
         return {
-            'acquirer_id': line.acquirer_id.id,
-            'partner_id': line.partner_id.id,
+            'parent_id': partner.id,
             'amount': line.amount,
-            'fees': line.fees,
-            'jetcheckout_payment_amount': line.amount - line.cost,
+            'date': line.date,
+            'due_date': line.due_date,
+            'ref': line.ref,
+            'tag': line.tag,
+            'description': line.description,
+            'system': line.company_id.system,
             'currency_id': line.currency_id.id,
             'company_id': line.company_id.id,
-            'state': line.state,
-            'state_message': line.state_message,
-            'is_post_processed': True,
         }
 
     @api.onchange('file')
@@ -48,27 +63,25 @@ class PaymentItemImport(models.TransientModel):
                 row = sheet.row_values(i)
                 if not i:
                     cols = row
-                    if not 'Partner' in cols:
-                        raise UserError(_('Please create a "Partner" column'))
+                    if not 'Partner Name' in cols:
+                        raise UserError(_('Please create a "Partner Name" column'))
+                    if not 'Partner VAT' in cols:
+                        raise UserError(_('Please create a "Partner VAT" column'))
+                    if not 'Partner Email' in cols:
+                        raise UserError(_('Please create a "Partner Email" column'))
                     elif not 'Amount' in cols:
                         raise UserError(_('Please create a "Amount" column'))
-                    elif not 'Status' in cols:
-                        raise UserError(_('Please create a "Status" column'))
                 else:
                     val = dict(zip(cols, row))
-                    if val['Status'] not in ['draft', 'pending', 'authorized', 'done', 'cancel', 'expired', 'error']:
-                        raise UserError(_('Status must be one of the following options for row %s:\n%s') % (i+1, 'draft, pending, authorized, done, cancel, expired, error'))
-
                     vals = self._get_row(val)
                     if 'Currency' in val:
-                        vals['currency_id'] = self.env['res.currency'].search([('name', '=', val['Currency'])], limit=1).id
+                        currency = self.env['res.currency'].search([('name', '=', val['Currency'])], limit=1)
+                        if currency:
+                            vals['currency_id'] = currency.id
                     if 'Company' in val:
-                        vals['company_id'] = self.env['res.company'].search([('name', '=', val['Company'])], limit=1).id
-                    if 'Acquirer' in val:
-                        vals['acquirer_id'] = self.env['payment.acquirer'].search([('name', '=', val['Acquirer'])], limit=1).id
-                    else:
-                        vals['acquirer_id'] = self.env['payment.acquirer'].search([('provider', '=', 'jetcheckout')], limit=1).id
-
+                        company = self.env['res.company'].search([('name', '=', val['Company'])], limit=1)
+                        if company:
+                            vals['company_id'] = company.id
                     values.append(vals)
             self.line_ids = [(5, 0, 0)] + [(0, 0, value) for value in values]
 
@@ -81,26 +94,26 @@ class PaymentItemImport(models.TransientModel):
             row = self._prepare_row(line)
             items.create(row)
 
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
+
 
 class PaymentItemImportLine(models.TransientModel):
     _name = 'payment.item.import.line'
     _description = 'Payment Item Import Line'
 
     wizard_id = fields.Many2one('payment.item.import')
-    partner_id = fields.Many2one('res.partner', readonly=True, required=True)
-    acquirer_id = fields.Many2one('payment.acquirer', readonly=True, required=True)
-    amount = fields.Monetary(readonly=True)
-    fees = fields.Monetary(readonly=True)
-    cost = fields.Monetary(readonly=True)
+    partner_id = fields.Many2one('res.partner', readonly=True)
+    partner_name = fields.Char('Partner Name', readonly=True)
+    partner_vat = fields.Char('Partner VAT', readonly=True)
+    partner_email = fields.Char('Partner Email', readonly=True)
+    amount = fields.Monetary('Amount', readonly=True)
+    date = fields.Date('Date', readonly=True)
+    due_date = fields.Date('Due Date', readonly=True)
+    ref = fields.Char('Reference', readonly=True)
+    tag = fields.Char('Tag', readonly=True)
+    description = fields.Char('Description', readonly=True)
     currency_id = fields.Many2one('res.currency', readonly=True, required=True, default=lambda self: self.env.company.currency_id)
     company_id = fields.Many2one('res.company', readonly=True, required=True, default=lambda self: self.env.company)
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('pending', 'Pending'),
-        ('authorized', 'Authorized'),
-        ('done', 'Confirmed'),
-        ('cancel', 'Canceled'),
-        ('expired', 'Expired'),
-        ('error', 'Error')
-    ], string='Status', default='draft', readonly=True, required=True)
-    state_message = fields.Text(string='Message', readonly=True)
