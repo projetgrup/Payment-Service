@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 from odoo import http, fields, _
 from odoo.http import request
 from odoo.addons.payment_jetcheckout.controllers.main import PayloxController as Controller
@@ -24,7 +25,7 @@ class PayloxSystemOtpController(Controller):
     @http.route(['/otp/prepare'], type='json', auth='public', sitemap=False, website=True)
     def page_system_otp_prepare(self, **kwargs):
         company = request.env.company
-        login = kwargs['login']
+        login = re.sub(r'\W', '', kwargs['login'])
         query = f"""
 SELECT id
 FROM res_partner
