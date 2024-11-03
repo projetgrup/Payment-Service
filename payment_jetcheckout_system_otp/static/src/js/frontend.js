@@ -92,39 +92,57 @@ publicWidget.registry.PayloxSystemOtp = publicWidget.Widget.extend({
             return;
         }
 
+        if (this.login.value.search(/\W/) >= 0) {
+            this.displayNotification({
+                type: 'danger',
+                title: _t('Error'),
+                message: _t('Only alphanumeric characters are allowed'),
+            });
+            this.login.$.focus();
+            return;
+        }
+
         framework.showLoading();
         const self = this;
         rpc.query({
             route: '/otp/prepare',
             params: this._getParams(),
         }).then(function (result) {
-            self.duration = 120;
-            self.previous.$.removeClass('d-none');
-            self.submit.$.removeClass('d-none');
-            self.resend.$.addClass('d-none');
-            self.countdown.$.html(self.duration + ' ' + _t('seconds'));
-            self.interval = setInterval(function() {
-                if (self.duration === 0) {
-                    clearInterval(self.interval);
-                    self.countdown.html = _t('expired');
-                    self.submit.$.addClass('d-none');
-                    self.resend.$.addClass('d-none');
-                    return;
-                }
-                self.duration -= 1;
-                self.countdown.html = self.duration + ' ' + _t('seconds');
-            }, 1000);
-            self.id.value = result.id;
-            self.email.html = result.email;
-            self.phone.html = result.phone;
-            self.vat.html = result.vat;
-            self.ref.html = result.ref;
-            if (self.page !== 1) {
-                self.page = 1;
-                self.next.$.addClass('d-none');
+            if (result.error) {
+                self.displayNotification({
+                    type: 'danger',
+                    title: _t('Error'),
+                    message: result.error,
+                });
+            } else {
+                self.duration = 120;
+                self.previous.$.removeClass('d-none');
                 self.submit.$.removeClass('d-none');
-                self.card0.$.addClass('fly-left');
-                self.card1.$.removeClass('fly-right');
+                self.resend.$.addClass('d-none');
+                self.countdown.$.html(self.duration + ' ' + _t('seconds'));
+                self.interval = setInterval(function() {
+                    if (self.duration === 0) {
+                        clearInterval(self.interval);
+                        self.countdown.html = _t('expired');
+                        self.submit.$.addClass('d-none');
+                        self.resend.$.addClass('d-none');
+                        return;
+                    }
+                    self.duration -= 1;
+                    self.countdown.html = self.duration + ' ' + _t('seconds');
+                }, 1000);
+                self.id.value = result.id;
+                self.email.html = result.email;
+                self.phone.html = result.phone;
+                self.vat.html = result.vat;
+                self.ref.html = result.ref;
+                if (self.page !== 1) {
+                    self.page = 1;
+                    self.next.$.addClass('d-none');
+                    self.submit.$.removeClass('d-none');
+                    self.card0.$.addClass('fly-left');
+                    self.card1.$.removeClass('fly-right');
+                }
             }
             framework.hideLoading();
         }).guardedCatch(function (error) {
