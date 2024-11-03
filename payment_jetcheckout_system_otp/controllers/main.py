@@ -24,8 +24,13 @@ class PayloxSystemOtpController(Controller):
 
     @http.route(['/otp/prepare'], type='json', auth='public', sitemap=False, website=True)
     def page_system_otp_prepare(self, **kwargs):
+        if re.search(r'\W', kwargs['login']):
+            return {
+                'error': _('Only alphanumeric characters are allowed')
+            }
+
         company = request.env.company
-        login = re.sub(r'\W', '', kwargs['login'])
+        login = kwargs['login']
         query = f"""
 SELECT id
 FROM res_partner
