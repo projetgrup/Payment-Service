@@ -1155,8 +1155,13 @@ class PayloxSystemController(Controller):
         if message:
             return message
 
-        company = request.env.company
         values = {**kwargs}
+        if 'tax_office' in values:
+            values['paylox_tax_office'] = values['tax_office']
+            del values['tax_office']
+        keys = [value for value in values.keys()]
+
+        company = request.env.company
         values.update({
             'company_id': company.id,
             'system': company.system,
@@ -1187,12 +1192,8 @@ class PayloxSystemController(Controller):
                 name, domain = email.rsplit('@', 1)
                 values['email'] = '%s@%s' % (values['vat'], domain)
 
-            if 'tax_office' in values:
-                values['paylox_tax_office'] = values['tax_office']
-                del values['tax_office']
-
             partner = request.env['res.partner'].sudo().with_context(no_vat_validation=True).create(values)
-            return partner.read([value for value in kwargs.keys()])[0] or {}
+            return partner.read(keys)[0] or {}
         except UserError as e:
             return {'error': str(e)}
         except Exception as e:
