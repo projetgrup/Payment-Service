@@ -1182,7 +1182,7 @@ class PayloxSystemController(Controller):
                 if partner:
                     raise UserError(_('There is already a partner with the same ID Number'))
 
-            if values.get('company_type') == 'company' and not values.get('tax_office'):
+            if values.get('company_type') == 'company' and not values.get('paylox_tax_office'):
                 raise UserError(_('Please enter a tax office'))
 
             if not values.get('email'):
