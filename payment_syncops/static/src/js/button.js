@@ -5,12 +5,7 @@ const PartnerController = require('payment_jetcheckout_system.PartnerController'
 const ItemController = require('payment_jetcheckout_system.ItemController');
 const SyncButtonMixin = require('connector_syncops.SyncButtonMixin');
 
-Object.assign(SyncButtonMixin, {
-
-    init: function () {
-        this._super.apply(this, arguments);
-        this.show_button = true;
-    },
+_.extend(SyncButtonMixin, {
 
     willStart: function() {
         const shown = this._rpc({
@@ -29,14 +24,15 @@ Object.assign(SyncButtonMixin, {
 
         return Promise.all([this._super.apply(this, arguments), shown, granted]);
     },
+
 });
 
-PartnerController.include(_.extend(SyncButtonMixin, {
-    events: _.extend(SyncButtonMixin, PartnerController.prototype.events),
+PartnerController.include(_.extend({}, SyncButtonMixin, {
+    events: _.extend({}, SyncButtonMixin.events, PartnerController.prototype.events),
 }));
 
-ItemController.include(_.extend(SyncButtonMixin, {
-    events: _.extend(SyncButtonMixin, ItemController.prototype.events),
+ItemController.include(_.extend({}, SyncButtonMixin, {
+    events: _.extend({}, SyncButtonMixin.events, ItemController.prototype.events),
 }));
 
 });

@@ -5,9 +5,7 @@ const ListController = require('web.ListController');
 const { qweb } = require('web.core');
 
 const SyncButtonMixin = {
-    events: _.extend({
-        'click .o_button_sync': '_onClickSync',
-    }, ListController.prototype.events),
+    events: _.extend({}, ListController.prototype.events, {'click .o_button_sync': '_onClickSync'}),
 
     init: function () {
         this._super.apply(this, arguments);
@@ -18,7 +16,7 @@ const SyncButtonMixin = {
         this._super.apply(this, arguments);
         if (this.show_button) {
             const $buttons = $(qweb.render('connector_syncops.sync_button'));
-            this.$buttons.find('.o_list_export_xlsx').before($buttons);
+            this.$buttons.find('.o_list_button_add').after($buttons);
         }
     },
 
