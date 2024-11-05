@@ -372,7 +372,7 @@ class PayloxSystemController(Controller):
         items = request.env['payment.item'].sudo().search([
             ('parent_id', '=', partner.id),
             ('paid', '=', False),
-        ] + payment_tag_filter, order='date')
+        ] + payment_tag_filter, order='date,amount')
         for item in items:
             if item.currency_id:
                 currency = {
@@ -403,6 +403,83 @@ class PayloxSystemController(Controller):
             'due_base': company.payment_page_due_base,
             'due_ok': company.payment_page_due_ok and not (payment_tag and payment_tag.campaign_id),
             'advance_ok': company.payment_page_advance_ok,
+        }
+        return payments, company
+
+    @http.route(['/p/item/add'], type='json', auth='public', website=True, csrf=False)
+    def page_system_link_item_add(self, **kwargs):
+        token = urlparse(request.httprequest.referrer).path.rsplit('/', 1).pop()
+        id, token = request.env['res.partner'].sudo()._resolve_token(token)
+        if not id or not token:
+            raise
+
+        company = request.env.company
+        partner = request.env['res.partner'].sudo().search([
+            ('id', '=', id),
+            ('access_token', '=', token),
+            ('company_id', '=', company.id),
+        ], limit=1)
+        if not partner:
+            raise
+
+        payment_tagv = kwargs.get('tag', False)
+        payment_tags = company.sudo().payment_page_campaign_tag_ids
+        payment_tag = payment_tags.filtered(lambda x: x.name == payment_tagv)
+        payment_tag_filter = []
+
+        if len(payment_tag) == 1 and payment_tag.campaign_id:
+            payment_tag_filter.append(('tag', 'in', payment_tag.line_ids.mapped('name')))
+        else:
+            payment_tag_filter.append(('tag', 'not in', payment_tags.mapped('line_ids.name')))
+
+        payment_date = kwargs.get('date', False)
+        if payment_date:
+            payment_date = datetime.strptime(payment_date, '%d-%m-%Y')
+
+        request.env['payment.item'].sudo().create({
+            'parent_id': partner.id,
+            'tag': payment_tagv,
+            'date': payment_date,
+            'amount': kwargs.get('amount', False),
+            'description': kwargs.get('desc', False),
+        })
+
+        payments = []
+        items = request.env['payment.item'].sudo().search([
+            ('parent_id', '=', partner.id),
+            ('paid', '=', False),
+        ] + payment_tag_filter, order='date,amount')
+        for item in items:
+            if item.currency_id:
+                currency = {
+                    'id': item.currency_id.id,
+                    'decimal': item.currency_id.decimal_places,
+                    'name': item.currency_id.name,
+                    'position': item.currency_id.position,
+                    'symbol': item.currency_id.symbol, 
+                }
+            else:
+                currency = False
+
+            payments.append({
+                'id': item.id,
+                'date': item.date,
+                'due_date': item.due_date,
+                'amount': item.amount,
+                'advance': item.advance,
+                'residual_amount': item.residual_amount,
+                'description': item.description,
+                'file': item.file,
+                'token': token,
+                'currency': currency,
+            })
+
+        company = request.env.company
+        company = {
+            'campaign': payment_tag and payment_tag.campaign_id.name or False,
+            'advance_ok': company.payment_page_advance_ok,
+            'due_base': company.payment_page_due_base,
+            'due_ok': payment_tag and not payment_tag.campaign_id and company.payment_page_due_ok or False,
         }
         return payments, company
 
@@ -457,7 +534,7 @@ class PayloxSystemController(Controller):
         items = request.env['payment.item'].sudo().search([
             ('parent_id', '=', partner.id),
             ('paid', '=', False),
-        ] + payment_tag_filter, order='date')
+        ] + payment_tag_filter, order='date,amount')
         for item in items:
             if item.currency_id:
                 currency = {
@@ -485,10 +562,10 @@ class PayloxSystemController(Controller):
 
         company = request.env.company
         company = {
-            'campaign': payment_tag and payment_tag.campaign_id.name,
+            'campaign': payment_tag and payment_tag.campaign_id.name or False,
             'advance_ok': company.payment_page_advance_ok,
             'due_base': company.payment_page_due_base,
-            'due_ok': payment_tag and not payment_tag.campaign_id and company.payment_page_due_ok,
+            'due_ok': payment_tag and not payment_tag.campaign_id and company.payment_page_due_ok or False,
         }
         return payments, company
 
@@ -522,7 +599,7 @@ class PayloxSystemController(Controller):
         items = request.env['payment.item'].sudo().search([
             ('parent_id', '=', partner.id),
             ('paid', '=', False),
-        ] + payment_tag_filter, order='date')
+        ] + payment_tag_filter, order='date,amount')
 
         for item in items:
             if item.currency_id:
@@ -551,7 +628,7 @@ class PayloxSystemController(Controller):
 
         company = request.env.company
         company = {
-            'campaign': payment_tag and payment_tag.campaign_id.name,
+            'campaign': payment_tag and payment_tag.campaign_id.name or False,
             'due_base': company.payment_page_due_base,
             'due_ok': company.payment_page_due_ok,
             'advance_ok': company.payment_page_advance_ok,

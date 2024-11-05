@@ -182,6 +182,9 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
             items: new fields.element({
                 events: [['change', this._onChangePaidAll]],
             }),
+            itemAdd: new fields.element({
+                events: [['click', this._onClickItemAdd]],
+            }),
             itemsBtn: new fields.element({
                 events: [['click', this._onChangePaidAllBtn]],
             }),
@@ -565,6 +568,77 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
         } else {
             $total.html(format.currency(amount, currency.position, currency.symbol, currency.decimal));
         }
+    },
+ 
+    _onClickItemAdd: function (ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
+
+        const popup = new dialog(this, {
+            title: _t('Add Payment Item'),
+            size: 'small',
+            buttons: [{
+                text: _t('Add'),
+                classes: 'btn-block btn-primary font-weight-bold',
+            }],
+            $content: qweb.render('paylox.item.add', {
+                currency: this.currency,
+            })
+        });
+
+        popup.opened(() => {
+            const $date = popup.$modal.find('input#payment_item_add_date');
+            const $desc = popup.$modal.find('input#payment_item_add_desc');
+            const $amount = popup.$modal.find('input#payment_item_add_amount');
+            const mask = payloxPage.prototype._maskAmount.apply(this);
+            const amount = new IMask($amount[0], mask);
+
+            const $footer = popup.$modal.find('footer');
+            $footer.css('box-shadow', '0 10px 10px -5px #ccc inset');
+
+            const $button = popup.$modal.find('footer button');
+            $button.click(() => {
+                framework.showLoading();
+                $date.prop('disabled', true);
+                $desc.prop('disabled', true);
+                $amount.prop('disabled', true);
+                $button.prop('disabled', true);
+                const context = this._getContext();
+                rpc.query({
+                    route: '/p/item/add',
+                    params: { date: $date.val(), desc: $desc.val(), amount: amount.typedValue, lang: context.lang },
+                }).then(([payments, company]) => {
+                    $('.payment-item').html(qweb.render('paylox.item.all', {
+                        payments,
+                        company,
+                        format,
+                        prioritize: this.itemPriority,
+                        currency: this.currency
+                    }));
+                    payloxPage.prototype._start.apply(this, [
+                        'payment.item',
+                        'payment.items',
+                        'payment.itemsBtn',
+                        'payment.due.date',
+                        'payment.due.days',
+                        'payment.advance.add',
+                        'payment.advance.remove',
+                    ]);
+                    this._onChangePaid();
+                }).guardedCatch(() => {
+                    this.displayNotification({
+                        type: 'danger',
+                        title: _t('Error'),
+                        message: _t('An error occured. Please try again.'),
+                        sticky: false,
+                    });
+                }).finally(() => {
+                    popup.destroy();
+                    framework.hideLoading();
+                });
+            });
+        });
+        popup.open();
     },
 
     _onClickAdvanceAdd: function (ev) {
