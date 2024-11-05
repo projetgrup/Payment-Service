@@ -91,6 +91,7 @@ class PaymentItem(models.Model):
     tag = fields.Char(readonly=True)
     file = fields.Binary()
     description = fields.Char()
+    manual = fields.Boolean()
 
     paid = fields.Boolean(compute='_compute_paid', store=True, readonly=True)
     paid_amount = fields.Monetary(compute='_compute_paid_amount', store=True, readonly=True)
