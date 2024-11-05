@@ -63,15 +63,18 @@
                                         <span class="payment-amount-total-readonly">
                                             <t t-esc="amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
                                         </span>
-                                        <div class="payment-amount-total-editonly d-none">
+                                        <div t-if="company.payment_page_can_use_saleref" class="payment-amount-total-editonly d-none">
                                             <span t-if="currency.position == 'before'" t-esc="currency.symbol"/>
                                             <input name="amount" type="text" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" field="payment.amount"/>
                                             <span t-if="currency.position == 'after'" t-esc="currency.symbol"/>
                                         </div>
                                     </t>
                                 </div>
-                                <div class="text-right">
+                                <div t-if="company.payment_page_can_use_saleref" class="text-right">
                                     <button class="btn btn-sm btn-light text-primary" field="payment.saleRef.button">Pay with payment items</button>
+                                </div>
+                                <div t-if="company.payment_page_can_add_item" class="text-right">
+                                    <button class="btn btn-sm btn-light text-primary" field="payment.itemAdd">Add new payment item</button>
                                 </div>
                             </div>
                         </div>
@@ -152,12 +155,15 @@
                                             <th class="text-right px-2">Amount</th>
                                             <th class="text-right px-2">Residual</th>
                                             <th class="text-right px-2">Paid</th>
+                                            <th class="text-right px-2">Total</th>
                                             <th class="text-center px-2">Document</th>
                                             <th/>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <t t-set="total_amount" t-value="0"/>
                                         <t t-foreach="payments" t-as="payment">
+                                            <t t-set="total_amount" t-value="total_amount + payment.residual_amount"/>
                                             <tr>
                                                 <td class="px-2"><span t-field="payment.date"/></td>
                                                 <td t-if="company.payment_page_due_base == 'date_due'" class="px-2"><span t-field="payment.due_date"/></td>
@@ -165,6 +171,7 @@
                                                 <td class="text-right px-2"><span t-field="payment.amount"/></td>
                                                 <td class="text-right px-2"><span t-field="payment.paid_amount"/></td>
                                                 <td class="text-right px-2"><span t-field="payment.residual_amount" class="payment-amount-paid"/></td>
+                                                <td class="text-right px-2"><span t-esc="total_amount" class="payment-amount-total" t-options="{'widget': 'monetary', 'display_currency': currency}"/></td>
                                                 <td class="text-center">
                                                     <form t-if="payment.file" t-att-action="'/p/%s/%s' % (token, payment.id)" method="POST">
                                                         <button type="submit" class="btn btn-outline-danger bg-100 text-danger px-2 py-0 fa fa-file-pdf-o"/>
@@ -184,7 +191,7 @@
                                     </tbody>
                                     <tfoot class="shadow bg-light">
                                         <tr>
-                                            <td class="text-left" colspan="5">
+                                            <td class="text-left" colspan="6">
                                                 <div t-if="company.payment_page_due_ok and (not payment_tags or not payment_tags[0].campaign_id)" class="d-flex flex-wrap gap-1">
                                                     <em class="font-weight-bold">Average Due: <span t-esc="due_date" field="payment.due.date"/> (<span t-esc="due_days" field="payment.due.days"/> Days)</em>
                                                     <em t-if="company.payment_page_advance_ok" class="cursor-pointer" field="payment.advance.add"><i class="fa fa-circle-o-notch fa-spin text-600"/></em>

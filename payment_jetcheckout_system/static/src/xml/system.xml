@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
+    <t t-name="paylox.item.add">
+        <div class="field-container w-100">
+            <input type="text" id="payment_item_add_date" name="payment_item_add_date" class="form-control datepicker-input text-center border-primary" required="required" data-toggle="datetimepicker" data-date-format="DD-MM-YYYY" data-target="#payment_item_add_date" data-date-locale="tr"/>
+            <span class="bar-container"/>
+            <label for="payment_item_add_date" class="text-primary" style="left: 36px; top: 16px;"><span>Date</span></label>
+        </div>
+        <div class="field-container w-100">
+            <input type="text" id="payment_item_add_desc" name="payment_item_add_amount" class="text-center border-primary" required="required"/>
+            <span class="bar-container"/>
+            <label for="payment_item_add_desc" class="text-primary" style="left: 36px; top: 16px;"><span>Description</span></label>
+        </div>
+        <div class="field-container w-100">
+            <input id="payment_item_add_amount" name="payment_item_add_amount" type="text" inputmode="decimal" class="text-center border-primary" required="required" placeholder="0,00"/>
+            <span class="bar-container"/>
+            <span t-if="currency.position == 'before'" class="symbol symbol-before" t-esc="currency.symbol" style="left: 28px; top: 28px; font-size: 24px;"/>
+            <span t-else="" class="symbol symbol-after" t-esc="currency.symbol" style="right: 28px; top: 28px; font-size: 20px;"/>
+            <label for="payment_item_add_amount" class="text-primary" style="left: 36px; top: 16px;"><span>Amount</span></label>
+        </div>
+    </t>
+
     <t t-name="paylox.item.link">
         <div class="bg-info-light mb-2 mt-3 overflow-hidden p-2 shadow-sm small text-monospace text-wrap" style="word-break:break-all">
             <span t-esc="link"/>
@@ -89,20 +109,24 @@
                         <th class="text-right px-2">Amount</th>
                         <th class="text-right px-2">Residual</th>
                         <th class="text-right px-2">Paid</th>
+                        <th class="text-right px-2">Total</th>
                         <th class="text-center px-2">Document</th>
                         <th/>
                     </tr>
                 </thead>
                 <tbody>
+                    <t t-set="total_amount" t-value="0"/>
                     <t t-foreach="payments" t-as="payment">
+                        <t t-set="total_amount" t-value="total_amount + payment.residual_amount"/>
                         <t t-set="curr" t-value="payment.currency or currency"/>
                         <tr>
                             <td class="px-2"><span t-esc="format.date(payment.date)"/></td>
                             <td t-if="company.due_base === 'date_due'" class="px-2"><span t-esc="format.date(payment.due_date)"/></td>
                             <td class="px-2"><span t-esc="payment.description"/></td>
                             <td class="text-right px-2"><span t-esc="format.currency(payment.amount, curr.position, curr.symbol, curr.decimal)"/></td>
-                            <td class="text-right px-2"><span t-esc="format.currency(payment.residual_amount, curr.position, curr.symbol, curr.decimal)"/></td>
+                            <td class="text-right px-2"><span t-esc="format.currency(payment.paid_amount, curr.position, curr.symbol, curr.decimal)"/></td>
                             <td class="text-right px-2"><span t-esc="format.currency(payment.residual_amount, curr.position, curr.symbol, curr.decimal)" class="payment-amount-paid"/></td>
+                            <td class="text-right px-2"><span t-esc="format.currency(total_amount, curr.position, curr.symbol, curr.decimal)" class="payment-amount-total"/></td>
                             <td class="text-center">
                                 <form t-if="payment.file" t-att-action="'/p/' + payment.token + '/' + payment.id" method="POST">
                                     <button type="submit" class="btn btn-outline-danger bg-100 text-danger px-2 py-0 fa fa-file-pdf-o"/>
@@ -122,7 +146,7 @@
                 </tbody>
                 <tfoot class="shadow bg-light">
                     <tr>
-                        <td class="text-left" colspan="5">
+                        <td class="text-left" colspan="6">
                             <div t-if="company.due_ok" t-attf-class="d-flex flex-wrap {{ company.campaign ? '' : 'd-none' }}" style="gap: 5px;">
                                 <em class="font-weight-bold">Average Due: <span field="payment.due.date"/> (<span field="payment.due.days"/> Days)</em>
                                 <em t-if="company.advance_ok" class="cursor-pointer" field="payment.advance.add"><i class="fa fa-circle-o-notch fa-spin text-600"/></em>

@@ -180,6 +180,28 @@
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane">
+                                    <field name="payment_page_can_use_saleref"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="payment_page_can_use_saleref" string="Use Sale Reference for Payment Link"/>
+                                    <div class="text-muted">
+                                        Make payments with using sale reference
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="payment_page_can_add_item"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="payment_page_can_add_item" string="Add Payment Items on Payment Link"/>
+                                    <div class="text-muted">
+                                        Add new payment item lines on payment link page
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
                                     <field name="payment_dashboard_button_contactless_ok"/>
                                 </div>
                                 <div class="o_setting_right_pane">
