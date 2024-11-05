@@ -390,6 +390,7 @@ class PayloxSystemController(Controller):
                 'date': item.date,
                 'due_date': item.due_date,
                 'amount': item.amount,
+                'manual': item.manual,
                 'advance': item.advance,
                 'residual_amount': item.residual_amount,
                 'description': item.description or '',
@@ -440,6 +441,7 @@ class PayloxSystemController(Controller):
             'parent_id': partner.id,
             'tag': payment_tagv,
             'date': payment_date,
+            'manual': True,
             'amount': kwargs.get('amount', False),
             'description': kwargs.get('desc', False),
         })
@@ -466,6 +468,7 @@ class PayloxSystemController(Controller):
                 'date': item.date,
                 'due_date': item.due_date,
                 'amount': item.amount,
+                'manual': item.manual,
                 'advance': item.advance,
                 'residual_amount': item.residual_amount,
                 'description': item.description,
@@ -480,6 +483,75 @@ class PayloxSystemController(Controller):
             'advance_ok': company.payment_page_advance_ok,
             'due_base': company.payment_page_due_base,
             'due_ok': payment_tag and not payment_tag.campaign_id and company.payment_page_due_ok or False,
+        }
+        return payments, company
+
+    @http.route(['/p/item/remove'], type='json', auth='public', website=True, csrf=False)
+    def page_system_link_item_remove(self, **kwargs):
+        token = urlparse(request.httprequest.referrer).path.rsplit('/', 1).pop()
+        id, token = request.env['res.partner'].sudo()._resolve_token(token)
+        if not id or not token:
+            raise
+
+        company = request.env.company
+        partner = request.env['res.partner'].sudo().search([
+            ('id', '=', id),
+            ('access_token', '=', token),
+            ('company_id', '=', company.id),
+        ], limit=1)
+        if not partner:
+            raise
+
+        payment_tagv = kwargs.get('tag', False)
+        payment_tags = company.sudo().payment_page_campaign_tag_ids
+        payment_tag = payment_tags.filtered(lambda x: x.name == payment_tagv)
+        payment_tag_filter = []
+
+        request.env['payment.item'].sudo().search([
+            ('id', '=', kwargs.get('pid', 0)),
+            ('parent_id', '=', partner.id),
+            ('paid_amount', '=', 0),
+            ('manual', '=', True),
+        ] + payment_tag_filter).unlink()
+
+        payments = []
+        items = request.env['payment.item'].sudo().search([
+            ('parent_id', '=', partner.id),
+            ('paid', '=', False),
+        ] + payment_tag_filter, order='date,amount')
+
+        for item in items:
+            if item.currency_id:
+                currency = {
+                    'id': item.currency_id.id,
+                    'decimal': item.currency_id.decimal_places,
+                    'name': item.currency_id.name,
+                    'position': item.currency_id.position,
+                    'symbol': item.currency_id.symbol, 
+                }
+            else:
+                currency = False
+
+            payments.append({
+                'id': item.id,
+                'date': item.date,
+                'due_date': item.due_date,
+                'amount': item.amount,
+                'manual': item.manual,
+                'advance': item.advance,
+                'residual_amount': item.residual_amount,
+                'description': item.description,
+                'file': item.file,
+                'token': token,
+                'currency': currency,
+            })
+
+        company = request.env.company
+        company = {
+            'campaign': payment_tag and payment_tag.campaign_id.name or False,
+            'due_base': company.payment_page_due_base,
+            'due_ok': company.payment_page_due_ok,
+            'advance_ok': company.payment_page_advance_ok,
         }
         return payments, company
 
@@ -552,6 +624,7 @@ class PayloxSystemController(Controller):
                 'date': item.date,
                 'due_date': item.due_date,
                 'amount': item.amount,
+                'manual': item.manual,
                 'advance': item.advance,
                 'residual_amount': item.residual_amount,
                 'description': item.description,
@@ -618,6 +691,7 @@ class PayloxSystemController(Controller):
                 'date': item.date,
                 'due_date': item.due_date,
                 'amount': item.amount,
+                'manual': item.manual,
                 'advance': item.advance,
                 'residual_amount': item.residual_amount,
                 'description': item.description,

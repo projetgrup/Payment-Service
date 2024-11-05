@@ -180,10 +180,10 @@
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane">
-                                    <field name="payment_page_can_use_saleref"/>
+                                    <field name="payment_page_saleref_ok"/>
                                 </div>
                                 <div class="o_setting_right_pane">
-                                    <label for="payment_page_can_use_saleref" string="Use Sale Reference for Payment Link"/>
+                                    <label for="payment_page_saleref_ok" string="Use Sale Reference for Payment Link"/>
                                     <div class="text-muted">
                                         Make payments with using sale reference
                                     </div>
@@ -191,12 +191,18 @@
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane">
-                                    <field name="payment_page_can_add_item"/>
+                                    <field name="payment_page_item_add_ok"/>
                                 </div>
                                 <div class="o_setting_right_pane">
-                                    <label for="payment_page_can_add_item" string="Add Payment Items on Payment Link"/>
+                                    <label for="payment_page_item_add_ok" string="Add Payment Items on Payment Link"/>
                                     <div class="text-muted">
                                         Add new payment item lines on payment link page
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('payment_page_item_add_ok', '=', False)]}">
+                                        <div class="row mt16">
+                                            <label for="payment_page_item_add_desc_prefix" string="Description Prefix" class="col-lg-4 o_light_label"/>
+                                            <field name="payment_page_item_add_desc_prefix" class="flex-fill" placeholder="SO"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

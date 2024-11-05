@@ -182,8 +182,12 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
             items: new fields.element({
                 events: [['change', this._onChangePaidAll]],
             }),
+            itemAddDescPrefix: new fields.element(),
             itemAdd: new fields.element({
                 events: [['click', this._onClickItemAdd]],
+            }),
+            itemRemove: new fields.element({
+                events: [['click', this._onClickItemRemove]],
             }),
             itemsBtn: new fields.element({
                 events: [['click', this._onChangePaidAllBtn]],
@@ -583,6 +587,8 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
             }],
             $content: qweb.render('paylox.item.add', {
                 currency: this.currency,
+                date: moment().format('DD-MM-YYYY'),
+                prefix: this.payment.itemAddDescPrefix.value || '',
             })
         });
 
@@ -619,6 +625,7 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
                         'payment.item',
                         'payment.items',
                         'payment.itemsBtn',
+                        'payment.itemRemove',
                         'payment.due.date',
                         'payment.due.days',
                         'payment.advance.add',
@@ -641,6 +648,44 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
         popup.open();
     },
 
+    _onClickItemRemove: function (ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
+        framework.showLoading();
+
+        rpc.query({
+            route: '/p/item/remove',
+            params: { pid: $(ev.currentTarget).data('id') }
+        }).then(([payments, company]) => {
+            $('.payment-item').html(qweb.render('paylox.item.all', {
+                payments,
+                company,
+                format,
+                prioritize: this.itemPriority,
+                currency: this.currency
+            }));
+            payloxPage.prototype._start.apply(this, [
+                'payment.item',
+                'payment.items',
+                'payment.itemsBtn',
+                'payment.itemRemove',
+                'payment.due.date',
+                'payment.due.days',
+                'payment.advance.add',
+                'payment.advance.remove',
+            ]);
+            this._onChangePaid();
+        }).guardedCatch(() => {
+            this.displayNotification({
+                type: 'danger',
+                title: _t('Error'),
+                message: _t('An error occured. Please try again.'),
+                sticky: false,
+            });
+        });
+        framework.hideLoading();
+    },
+
     _onClickAdvanceAdd: function (ev) {
         ev.stopPropagation();
         ev.preventDefault();
@@ -661,6 +706,7 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
                 'payment.item',
                 'payment.items',
                 'payment.itemsBtn',
+                'payment.itemRemove',
                 'payment.due.date',
                 'payment.due.days',
                 'payment.advance.add',
@@ -698,6 +744,7 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
                 'payment.item',
                 'payment.items',
                 'payment.itemsBtn',
+                'payment.itemRemove',
                 'payment.due.date',
                 'payment.due.days',
                 'payment.advance.add',
@@ -817,6 +864,7 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
                 'payment.item',
                 'payment.items',
                 'payment.itemsBtn',
+                'payment.itemRemove',
                 'payment.due.date',
                 'payment.due.days',
                 'payment.advance.add',

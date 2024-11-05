@@ -63,18 +63,19 @@
                                         <span class="payment-amount-total-readonly">
                                             <t t-esc="amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
                                         </span>
-                                        <div t-if="company.payment_page_can_use_saleref" class="payment-amount-total-editonly d-none">
+                                        <div t-if="company.payment_page_saleref_ok" class="payment-amount-total-editonly d-none">
                                             <span t-if="currency.position == 'before'" t-esc="currency.symbol"/>
                                             <input name="amount" type="text" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" field="payment.amount"/>
                                             <span t-if="currency.position == 'after'" t-esc="currency.symbol"/>
                                         </div>
                                     </t>
                                 </div>
-                                <div t-if="company.payment_page_can_use_saleref" class="text-right">
+                                <div t-if="company.payment_page_saleref_ok" class="text-right">
                                     <button class="btn btn-sm btn-light text-primary" field="payment.saleRef.button">Pay with payment items</button>
                                 </div>
-                                <div t-if="company.payment_page_can_add_item" class="text-right">
+                                <div t-if="company.payment_page_item_add_ok" class="text-right">
                                     <button class="btn btn-sm btn-light text-primary" field="payment.itemAdd">Add new payment item</button>
+                                    <input type="hidden" t-att-value="company.payment_page_item_add_desc_prefix" field="payment.itemAddDescPrefix"/>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +92,7 @@
                             <a role="button" class="btn btn-secondary px-3 font-weight-bold text-uppercase" t-attf-href="/p/#{token}/transaction">See All Transactions</a>
                         </div>
                     </div>
-                    <div class="row px-3 justify-content-center bg-100 py-3 rounded border mx-3 payment-saleref d-none">
+                    <div t-if="company.payment_page_saleref_ok" class="row px-3 justify-content-center bg-100 py-3 rounded border mx-3 payment-saleref d-none">
                         <div class="field-container" style="min-width: 50%;">
                             <input type="text" class="text-center border-primary" required="required" field="payment.saleRef.value"/>
                             <span class="bar-container"/>
@@ -178,6 +179,9 @@
                                                     </form>
                                                     <button t-if="payment.advance" class="btn btn-sm text-danger font-weight-bold float-right" t-att-data-id="payment.id" field="payment.advance.remove">
                                                         <i class="fa fa-times mr-1" t-translation="off"/>Remove Advance
+                                                    </button>
+                                                    <button t-if="payment.manual" class="btn btn-sm text-danger font-weight-bold float-right" t-att-data-id="payment.id" field="payment.itemRemove">
+                                                        <i class="fa fa-times mr-1" t-translation="off"/>Remove Item
                                                     </button>
                                                 </td>
                                                 <td class="text-center">
