@@ -31,6 +31,16 @@ class SyncopsSyncWizard(models.TransientModel):
             return True
         return res
 
+    def _set_notif(self, company, partner):
+        if company.syncops_cron_sync_item_notif_ok:
+            cids = company.syncops_cron_sync_item_notif_tag_ids.ids
+            if company.syncops_cron_sync_item_notif_tag_ok:
+                return partner.category_id.id in cids
+            else:
+                return partner.category_id.id not in cids
+        else:
+            return False
+
     @api.model
     def default_get(self, fields):
         res = super().default_get(fields)
@@ -291,6 +301,8 @@ class SyncopsSyncWizard(models.TransientModel):
                                     refs.update({line['partner_ref']: partner.id})
 
                             items_all.create({
+                                'syncops_ok': True,
+                                'syncops_notif': self._set_notif(company, partner),
                                 'system': wizard.system or company.system,
                                 'amount': line['partner_balance'],
                                 'parent_id': partner.id,
@@ -349,6 +361,8 @@ class SyncopsSyncWizard(models.TransientModel):
                                     refs.update({line['partner_ref']: partner.id})
 
                             items_all.create({
+                                'syncops_ok': True,
+                                'syncops_notif': self._set_notif(company, partner),
                                 'system': wizard.system or company.system,
                                 'amount': line['invoice_amount'],
                                 'description': line['invoice_name'],

@@ -1,6 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">            
+    <data noupdate="1">
+        <record id="mail_item_done" model="mail.template">
+            <field name="name">Payment: Item Done</field>
+            <field name="model_id" ref="payment_jetcheckout_system.model_payment_item"/>
+            <field name="subject">Payment Notification | {{ ctx['company']['name'] }}</field>
+            <field name="email_to">{{ ctx['partner']['email'] }}</field>
+            <field name="email_from">{{ ctx['from'] }}</field>
+            <field name="body_html" type="html">
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+<tbody>
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr>
+                    <td valign="middle">
+                        <span style="font-size: 10px;">Payment Notification</span>
+                    </td>
+                    <td valign="middle" align="right">
+                        <img t-attf-src="/logo.png?company={{ ctx['company']['id'] }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="ctx['company']['name']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;">
+                        <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr>
+                    <td valign="top" style="font-size: 13px;">
+                        <div>
+                            Hello,<br/><br/>
+                            Your payment information is as follows:<br/><br/>
+                            Your payment will be sent you via IYZICO accounts.<br/><br/>
+                            Payment Amount: <strong t-out="format_amount(object.paid_amount, object.currency_id) or ''"/><br/>
+                            Payer Company: <strong t-out="ctx['company']['name']"/><br/>
+                            Payee IBAN Account: <strong t-out="ctx['iban']"/><br/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;">
+                        <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="middle" align="left">
+                    <t t-out="ctx['company']['name'] or ''">YourCompany</t>
+                </td></tr>
+                <tr><td valign="middle" align="left" style="opacity: 0.7;">
+                    <t t-out="ctx['company']['phone'] or ''">+1 650-123-4567</t>
+                    <t t-if="ctx['company']['email']">
+                        | <a t-attf-href="'mailto:%s' % {{ ctx['company']['email'] }}" style="text-decoration:none; color: #454748;" t-out="ctx['company']['email'] or ''">info@yourcompany.com</a>
+                    </t>
+                    <t t-if="ctx['company']['website']">
+                        | <a t-attf-href="'%s' % {{ ctx['company']['website'] }}" style="text-decoration:none; color: #454748;" t-out="ctx['company']['website'] or ''">http://www.example.com</a>
+                    </t>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+</tbody>
+</table>
+</td></tr>
+</table>
+            </field>
+            <field name="lang">{{ ctx['lang'] }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
         <record id="mail_item_approved" model="mail.template">
             <field name="name">Transaction: Supplier Payment Email</field>
             <field name="model_id" ref="base.model_res_partner"/>

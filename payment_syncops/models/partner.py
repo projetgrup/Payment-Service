@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime, timedelta
 from odoo import models, api, fields
 
 
@@ -8,8 +9,13 @@ class Partner(models.Model):
     @api.model
     def cron_sync(self):
         self = self.sudo()
-        for company in self.env['res.company'].search([('system', '!=', False)]):
-            if company.syncops_cron_sync_partner:
+        offset = timedelta(hours=3) # Turkiye Timezone
+        now = datetime.now() + offset
+        pre = now - timedelta(hours=1)
+        for company in self.env['res.company'].search([('system', '!=', False), ('syncops_cron_sync_partner', '=', True)]):
+            hour = company.syncops_cron_sync_partner_hour % 24
+            time = now.replace(hour=hour, minute=0, second=0, microsecond=0)
+            if pre < time <= now:
                 wizard = self.env['syncops.sync.wizard'].create({
                     'type': 'partner',
                     'system': company.system,
