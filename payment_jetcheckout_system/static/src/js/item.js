@@ -4,9 +4,7 @@ const ListController = require('web.ListController');
 const { _t } = require('web.core');
 
 const ItemController = ListController.extend({
-    events: _.extend({}, ListController.prototype.events, {
-        'click .o_button_import_item': '_onClickImportItem',
-    }),
+    events: _.extend({}, ListController.prototype.events, {'click .o_button_import_item': '_onClickImportItem'}),
 
     init: function () {
         this._super.apply(this, arguments);

@@ -193,6 +193,7 @@ class PartnerCategory(models.Model):
     _inherit = 'res.partner.category'
 
     company_id = fields.Many2one('res.company')
+    code = fields.Char()
 
     @api.model
     def default_get(self, fields):
