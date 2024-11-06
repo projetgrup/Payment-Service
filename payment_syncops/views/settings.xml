@@ -30,6 +30,12 @@
                             <div class="text-muted">
                                 Run a cronjob and sync partner list every day
                             </div>
+                            <div class="content-group" attrs="{'invisible': [('syncops_cron_sync_partner', '=', False)]}">
+                                <div class="row mt16">
+                                    <label for="syncops_cron_sync_partner_hour" string="Sync Time" class="col-lg-4 o_light_label"/>
+                                    <field name="syncops_cron_sync_partner_hour" class="text-right text-700" style="width:16px;margin-top:-1px;" placeholder="00"/>:00 
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 o_setting_box">
@@ -69,6 +75,17 @@
                     </div>
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane">
+                            <field name="syncops_sync_item_split"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="syncops_sync_item_split" string="Split Done Payment Items"/>
+                            <div class="text-muted">
+                                Sync done payment items one by one
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
                             <field name="syncops_cron_sync_item"/>
                         </div>
                         <div class="o_setting_right_pane">
@@ -84,6 +101,18 @@
                                 <div class="row">
                                     <label for="syncops_cron_sync_item_subtype" string="Sync Type" class="col-lg-4 o_light_label"/>
                                     <field name="syncops_cron_sync_item_subtype" widget="radio" attrs="{'required': [('syncops_cron_sync_item', '!=', False)]}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="syncops_cron_sync_item_notif_ok" string="Notify Partners" class="col-lg-4 o_light_label"/>
+                                    <field name="syncops_cron_sync_item_notif_ok" widget="boolean_toggle"/>
+                                </div>
+                                <div class="pl-3 border-left" style="border-width:2px !important" attrs="{'invisible': [('syncops_cron_sync_item_notif_ok', '=', False)]}">
+                                    <label for="syncops_cron_sync_item_notif_hour" string="Notification Time" class="o_light_label"/>
+                                    <field name="syncops_cron_sync_item_notif_hour" class="text-right text-700" style="width:16px;margin-top:-1px;" placeholder="00"/>:00 
+                                </div>
+                                <div class="pl-3 border-left" style="border-width:2px !important" attrs="{'invisible': [('syncops_cron_sync_item_notif_ok', '=', False)]}">
+                                    Only <field name="syncops_cron_sync_item_notif_tag_opt" attrs="{'required': [('syncops_cron_sync_item_notif_ok', '!=', False)]}" class="text-center mx-1" style="width: 64px"/> following partner tags<br/><br/><field name="syncops_cron_sync_item_notif_tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create': True, 'no_open': True}" class="w-100" placeholder="Partner Tags..."/>
+                                    <field name="syncops_cron_sync_item_notif_tag_ok" invisible="1"/>
                                 </div>
                             </div>
                         </div>
