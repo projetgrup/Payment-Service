@@ -32,8 +32,12 @@
                             </div>
                             <div class="content-group" attrs="{'invisible': [('syncops_cron_sync_partner', '=', False)]}">
                                 <div class="row mt16">
+                                    <label for="syncops_cron_sync_partner_day_ids" string="Sync Day" class="col-lg-4 o_light_label"/>
+                                    <field name="syncops_cron_sync_partner_day_ids" class="o_syncops_checkboxes_horizontal" widget="many2many_checkboxes"/>
+                                </div>
+                                <div class="row">
                                     <label for="syncops_cron_sync_partner_hour" string="Sync Time" class="col-lg-4 o_light_label"/>
-                                    <field name="syncops_cron_sync_partner_hour" class="text-right text-700" style="width:16px;margin-top:-1px;" placeholder="00"/>:00 
+                                    <field name="syncops_cron_sync_partner_hour" class="text-right text-700" style="width:16px;margin-top:-1px;" placeholder="00"/>:00
                                 </div>
                             </div>
                         </div>
@@ -95,6 +99,10 @@
                             </div>
                             <div class="content-group" attrs="{'invisible': [('syncops_cron_sync_item', '=', False)]}">
                                 <div class="row mt16">
+                                    <label for="syncops_cron_sync_item_day_ids" string="Sync Day" class="col-lg-4 o_light_label"/>
+                                    <field name="syncops_cron_sync_item_day_ids" class="o_syncops_checkboxes_horizontal" widget="many2many_checkboxes"/>
+                                </div>
+                                <div class="row">
                                     <label for="syncops_cron_sync_item_hour" string="Sync Time" class="col-lg-4 o_light_label"/>
                                     <field name="syncops_cron_sync_item_hour" class="text-right text-700" style="width:16px;margin-top:-1px;" placeholder="00"/>:00 
                                 </div>
@@ -105,6 +113,10 @@
                                 <div class="row">
                                     <label for="syncops_cron_sync_item_notif_ok" string="Notify Partners" class="col-lg-4 o_light_label"/>
                                     <field name="syncops_cron_sync_item_notif_ok" widget="boolean_toggle"/>
+                                </div>
+                                <div class="pl-3 border-left" style="border-width:2px !important" attrs="{'invisible': [('syncops_cron_sync_item_notif_ok', '=', False)]}">
+                                    <label for="syncops_cron_sync_item_notif_type_ids" string="Notification Type" class="o_light_label"/>
+                                    <field name="syncops_cron_sync_item_notif_type_ids" class="o_syncops_checkboxes_horizontal" widget="many2many_checkboxes"/>
                                 </div>
                                 <div class="pl-3 border-left" style="border-width:2px !important" attrs="{'invisible': [('syncops_cron_sync_item_notif_ok', '=', False)]}">
                                     <label for="syncops_cron_sync_item_notif_hour" string="Notification Time" class="o_light_label"/>
