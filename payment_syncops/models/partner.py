@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 from odoo import models, api, fields
+from odoo.addons.connector_syncops.models.config import DAYS
 
 
 class Partner(models.Model):
@@ -12,17 +13,24 @@ class Partner(models.Model):
         offset = timedelta(hours=3) # Turkiye Timezone
         now = datetime.now() + offset
         pre = now - timedelta(hours=1)
-        for company in self.env['res.company'].search([('system', '!=', False), ('syncops_cron_sync_partner', '=', True)]):
-            hour = company.syncops_cron_sync_partner_hour % 24
-            time = now.replace(hour=hour, minute=0, second=0, microsecond=0)
-            if pre < time <= now:
-                wizard = self.env['syncops.sync.wizard'].create({
-                    'type': 'partner',
-                    'system': company.system,
-                })
-                wizard.with_company(company.id).confirm()
-                wizard.with_company(company.id).with_context(wizard_id=wizard.id).sync()
-                wizard.unlink()
+        companies = self.env['res.company'].search([
+            ('system', '!=', False),
+            ('syncops_cron_sync_partner', '=', True),
+            ('syncops_cron_sync_item_subtype', '!=', False),
+        ])
+        for company in companies:
+            days = map(lambda d: DAYS[d], company.syncops_cron_sync_partner_day_ids.mapped('code'))
+            if now.weekday() in days:
+                hour = company.syncops_cron_sync_partner_hour % 24
+                time = now.replace(hour=hour, minute=0, second=0, microsecond=0)
+                if pre < time <= now:
+                    wizard = self.env['syncops.sync.wizard'].create({
+                        'type': 'partner',
+                        'system': company.system,
+                    })
+                    wizard.with_company(company.id).confirm()
+                    wizard.with_company(company.id).with_context(wizard_id=wizard.id).sync()
+                    wizard.unlink()
 
 
 class PartnerBank(models.Model):
