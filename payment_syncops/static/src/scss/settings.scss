@@ -1,0 +1,22 @@
+.o_web_client {
+    .o_syncops_checkboxes_horizontal {
+        /*flex: 1 1 auto;*/
+
+        > div {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            > div {
+                min-width: 100px;
+            }
+
+            input + label {
+                &::before, &::after {
+                    width: 12px !important;
+                    height: 12px !important;
+                }
+            }
+        }
+    }
+}

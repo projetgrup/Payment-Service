@@ -10,6 +10,9 @@ syncops_connector_line_output_manager,syncops_connector_line_output_manager,mode
 syncops_connector_line_default_user,syncops_connector_line_default_user,model_syncops_connector_line_default,base.group_user,1,0,0,0
 syncops_connector_line_default_manager,syncops_connector_line_default_manager,model_syncops_connector_line_default,base.group_system,1,1,1,1
 
+syncops_settings_day_user,syncops_settings_day_user,model_syncops_settings_day,base.group_user,1,0,0,0
+syncops_settings_notif_type_user,syncops_settings_notif_type_user,model_syncops_settings_notif_type,base.group_user,1,0,0,0
+
 syncops_log_user,syncops_log_user,model_syncops_log,base.group_user,1,0,0,0
 syncops_log_wizard_user,syncops_log_wizard_user,model_syncops_log_wizard,base.group_user,1,1,1,1
 syncops_sync_wizard_user,syncops_sync_wizard_user,model_syncops_sync_wizard,base.group_user,1,1,1,1

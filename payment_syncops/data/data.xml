@@ -117,5 +117,13 @@
             <field name="lang">{{ ctx['lang'] }}</field>
             <field name="auto_delete" eval="True"/>
         </record>
+
+        <record id="sms_template_item_notif" model="sms.template">
+            <field name="name">Payment: syncOPS Item Notification</field>
+            <field name="model_id" ref="payment_jetcheckout_system.model_payment_item"/>
+            <field name="body">Hello, you can get payment page on {{ ctx['domain'] }} by clicking the following link.\n{{ ctx['link'] }}</field>
+            <field name="system" eval="True"/>
+            <field name="lang">{{ object.lang }}</field>
+        </record>
     </data>
 </odoo>

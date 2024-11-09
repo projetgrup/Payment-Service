@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+from urllib.parse import urlparse
 from datetime import datetime, timedelta
+
 from odoo import models, fields, api
+from odoo.addons.connector_syncops.models.config import DAYS
 
 
 class PaymentItem(models.Model):
@@ -21,17 +24,19 @@ class PaymentItem(models.Model):
             ('syncops_cron_sync_item_subtype', '!=', False),
         ])
         for company in companies:
-            hour = company.syncops_cron_sync_item_hour % 24
-            time = now.replace(hour=hour, minute=0, second=0, microsecond=0)
-            if pre < time <= now:
-                wizard = self.env['syncops.sync.wizard'].create({
-                    'type': 'item',
-                    'system': company.system,
-                    'type_item_subtype': company.syncops_cron_sync_item_subtype,
-                })
-                wizard.with_company(company.id).confirm()
-                wizard.with_company(company.id).with_context(wizard_id=wizard.id).sync()
-                wizard.unlink()
+            days = map(lambda d: DAYS[d], company.syncops_cron_sync_item_day_ids.mapped('code'))
+            if now.weekday() in days:
+                hour = company.syncops_cron_sync_item_hour % 24
+                time = now.replace(hour=hour, minute=0, second=0, microsecond=0)
+                if pre < time <= now:
+                    wizard = self.env['syncops.sync.wizard'].create({
+                        'type': 'item',
+                        'system': company.system,
+                        'type_item_subtype': company.syncops_cron_sync_item_subtype,
+                    })
+                    wizard.with_company(company.id).confirm()
+                    wizard.with_company(company.id).with_context(wizard_id=wizard.id).sync()
+                    wizard.unlink()
 
     @api.model
     def cron_sync_notif(self):
@@ -58,35 +63,70 @@ class PaymentItem(models.Model):
                     if items:
                         partners = set()
                         context = self.env.context.copy()
-                        mail_server = company.mail_server_id
-                        email_from = mail_server.email_formatted or company.email_formatted
-                        context.update({'server': mail_server, 'from': email_from, 'company': company})
-                        template = self.env.ref('payment_syncops.mail_template_item_notif')
+                        params = self.env['ir.config_parameter'].sudo().get_param
+                        types = company.syncops_cron_sync_item_notif_type_ids.mapped('code')
+
+                        if 'email' in types:
+                            mail_server = company.mail_server_id
+                            email_from = mail_server.email_formatted or company.email_formatted
+                            context.update({'server': mail_server, 'from': email_from, 'company': company})
+                            mail_template = self.env.ref('payment_syncops.mail_template_item_notif')
+                        if 'sms' in types:
+                            sms_template = self.env.ref('payment_syncops.sms_template_item_notif')
+                            sms_provider = self.env['sms.provider'].get(company.id)
+                            if not sms_provider and params('paylox.sms.default'):
+                                id = int(params('paylox.sms.provider', '0'))
+                                sms_provider = self.env['sms.provider'].browse(id)
 
                         for item in items:
                             if item.parent_id.id in partners:
                                 item.syncops_notif = False
                                 continue
 
-                            try:
-                                with self.env.cr.savepoint():
-                                    template.with_context(
-                                        **context,
-                                        partner=item.parent_id,
-                                        lang=item.parent_id.lang,
-                                        link=item.parent_id._get_payment_url(),
-                                    ).send_mail(
-                                        item.parent_id.id,
-                                        force_send=True,
-                                        email_values={
-                                            'is_notification': True,
-                                            'mail_server_id': mail_server.id,
+                            if 'email' in types:
+                                try:
+                                    with self.env.cr.savepoint():
+                                        mail_template.with_context(
+                                            **context,
+                                            partner=item.parent_id,
+                                            lang=item.parent_id.lang,
+                                            link=item.parent_id._get_payment_url(),
+                                        ).send_mail(
+                                            item.parent_id.id,
+                                            force_send=True,
+                                            email_values={
+                                                'is_notification': True,
+                                                'mail_server_id': mail_server.id,
+                                            }
+                                        )
+                                except:
+                                    pass
+
+                            if 'sms' in types:
+                                try:
+                                    with self.env.cr.savepoint():
+                                        link = item.parent_id._get_payment_url()
+                                        body = sms_template.with_context(
+                                            **context,
+                                            link=link,
+                                            partner=item.parent_id,
+                                            lang=item.parent_id.lang,
+                                            domain=urlparse(link).netloc,
+                                        )._render_field('body', [item.parent_id.id], set_lang=item.parent_id.lang)[item.parent_id.id]
+                                        sms_values = {
+                                            'partner_id': item.parent_id.id,
+                                            'body': body,
+                                            'number': item.parent_id.mobile,
+                                            'state': 'outgoing',
+                                            'provider_id': sms_provider.id,
                                         }
-                                    )
-                                    item.syncops_notif = False
-                                    partners.add(item.parent_id.id)
-                            except:
-                                pass
+                                        sms_message = self.env['sms.sms'].sudo().create(sms_values)
+                                        sms_message.send(unlink_failed=False, unlink_sent=True, raise_exception=False)
+                                except:
+                                    pass
+
+                            item.syncops_notif = False
+                            partners.add(item.parent_id.id)
 
                         self.env.cr.commit()
             except:

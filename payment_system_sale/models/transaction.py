@@ -20,6 +20,6 @@ class PaymentTransaction(models.Model):
                 }) for product in products]
             })
             for line in order.order_line:
-                line._onchange_product_id()
+                line.product_id_change()
             self.sale_order_ids = [(6, 0, order.ids)]
         return res

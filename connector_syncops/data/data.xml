@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+        <record id="settings_day_monday" model="syncops.settings.day">
+            <field name="name">Monday</field>
+            <field name="code">MO</field>
+        </record>
+
+        <record id="settings_day_tuesday" model="syncops.settings.day">
+            <field name="name">Tuesday</field>
+            <field name="code">TU</field>
+        </record>
+
+        <record id="settings_day_wednesday" model="syncops.settings.day">
+            <field name="name">Wednesday</field>
+            <field name="code">WE</field>
+        </record>
+
+        <record id="settings_day_thursday" model="syncops.settings.day">
+            <field name="name">Thursday</field>
+            <field name="code">TH</field>
+        </record>
+
+        <record id="settings_day_friday" model="syncops.settings.day">
+            <field name="name">Friday</field>
+            <field name="code">FR</field>
+        </record>
+
+        <record id="settings_day_saturday" model="syncops.settings.day">
+            <field name="name">Saturday</field>
+            <field name="code">SA</field>
+        </record>
+
+        <record id="settings_day_sunday" model="syncops.settings.day">
+            <field name="name">Sunday</field>
+            <field name="code">SU</field>
+        </record>
+
+        <record id="settings_notif_type_email" model="syncops.settings.notif.type">
+            <field name="name">Email</field>
+            <field name="code">email</field>
+        </record>
+
+        <record id="settings_notif_type_sms" model="syncops.settings.notif.type">
+            <field name="name">SMS</field>
+            <field name="code">sms</field>
+        </record>
+
     	<record id="parameter_url" model="ir.config_parameter">
             <field name="key">syncops.url</field>
             <field name="value">https://syncops.io</field>
