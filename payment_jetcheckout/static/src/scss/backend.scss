@@ -24,3 +24,23 @@
         }
     }
 }
+
+.o_web_client {
+    .o_form_payment_acquirer_jetcheckout_report {
+        .o_field_many2many_tags {
+            width: 100% !important;
+
+            .o_field_tags {
+                width: 100% !important;
+            }
+        }
+
+        .o_field_char {
+            width: 100% !important;
+        }
+
+        .o_field_many2one {
+            width: 100% !important;
+        }
+    }
+}
