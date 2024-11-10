@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tree_report" model="ir.ui.view">
+    <field name="name">payment.acquirer.jetcheckout.report.tree</field>
+    <field name="model">payment.acquirer.jetcheckout.report</field>
+    <field name="arch" type="xml">
+        <tree decoration-muted="active == False">
+            <field name="sequence" widget="handle"/>
+            <field name="name" decoration-bf="1"/>
+            <field name="type" widget="badge"/>
+            <field name="version"/>
+            <field name="active" widget="boolean_toggle"/>
+            <field name="acquirer_id" invisible="1"/>
+            <field name="company_id" invisible="1"/>
+        </tree>
+    </field>
+    </record>
+
+    <record id="form_report" model="ir.ui.view">
+    <field name="name">payment.acquirer.jetcheckout.report.form</field>
+    <field name="model">payment.acquirer.jetcheckout.report</field>
+    <field name="arch" type="xml">
+        <form class="o_form_payment_acquirer_jetcheckout_report">
+            <sheet>
+                <div class="row ml4 mr4">
+                    <div class="col-md-8">
+                        <field name="body" colspan="2" nolabel="1" options="{'codeview': true}"/>
+                    </div>
+                    <div class="col-md-4 shadow-sm table-bordered" style="position: sticky; top: 20px; border-radius: 10px;">
+                        <separator string="Name"/>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <field name="name" placeholder="Enter a report name..."/>
+                            </div>
+                            <div>
+                                <span class="fst-italic mr8">Active</span>
+                                <field name="active" string="Published" widget="boolean_toggle"/>
+                            </div>
+                        </div>
+                        <separator string="Acquirer" invisible="context.get('default_acquirer_id')"/>
+                        <field name="acquirer_id" options="{'no_create': True}" colspan="2" nolabel="1" invisible="context.get('default_acquirer_id')"/>
+                        <field name="company_id" invisible="1"/>
+                        <separator string="Type"/>
+                        <field name="type" widget="radio" colspan="2" nolabel="1" options="{'horizontal': True}"/>
+                        <separator string="Version"/>
+                        <field name="version" colspan="2" nolabel="1" placeholder="1.0"/>
+                        <separator string="Help" class="mt16"/>
+                        <div colspan="2">
+                            <p class="mt16 mb4">Available variables;</p>
+                            <ul class="list-inline">
+                                <li><code>{{var}}</code>: Table of variables</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </sheet>
+        </form>
+    </field>
+    </record>
+
+    <record id="action_report" model="ir.actions.act_window">
+    <field name="name">Reports</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">payment.acquirer.jetcheckout.report</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{'active_test': False}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            No reports yet
+        </p>
+        <p>
+            Create a report then use them in payments
+        </p>
+    </field>
+    </record>
+</odoo>

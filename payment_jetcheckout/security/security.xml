@@ -26,5 +26,16 @@
         <record model="res.groups" id="account.group_account_invoice">
             <field name="implied_ids" eval="[(4, ref('payment_jetcheckout.group_transaction_cancel')), (4, ref('payment_jetcheckout.group_transaction_refund'))]"/>
         </record>
+ 
+        <record id="rule_report" model="ir.rule">
+            <field name="name">Access only related reports for users</field>
+            <field name="model_id" ref="payment_jetcheckout.model_payment_acquirer_jetcheckout_report"/>
+            <field name="domain_force">[('company_id', '=', company_id)]</field>
+            <field name="groups" eval="[Command.link(ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
     </data>
 </odoo>

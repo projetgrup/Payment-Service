@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2022 Projet (https://bulutkobi.io)
+# Copyright © 2024 Projet (https://bulutkobi.io)
 # Part of Paylox License. See LICENSE file for full copyright and licensing details.
 # Set nginx settings to 'proxy_cookie_path / "/; secure; SameSite=none";'
 
@@ -17,6 +17,7 @@
         'views/transaction.xml',
         'views/partner.xml',
         'views/product.xml',
+        'views/report.xml',
         'views/templates.xml',
         'wizards/signin.xml',
         'wizards/application.xml',

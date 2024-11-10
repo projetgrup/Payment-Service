@@ -38,6 +38,7 @@
 
     <menuitem id="menu_acquirers" name="Payment Settings" parent="menu_conf" sequence="4"/>
     <menuitem id="menu_acquirer" action="payment_jetcheckout_system.action_payment_acquirer" name="Payment Acquirers" parent="menu_acquirers" sequence="1"/>
+    <menuitem id="menu_report" action="payment_jetcheckout.action_report" name="Payment Reports" parent="menu_acquirers" sequence="2"/>
 
     <menuitem id="menu_conf_subscription" name="Subscription Settings" parent="menu_conf" sequence="4" groups="payment_system_subscription.group_subscription"/>
     <menuitem id="menu_conf_subscription_template" action="payment_system_subscription.action_subscription_template" name="Templates" parent="menu_conf_subscription" sequence="1" groups="payment_system_subscription.group_subscription"/>

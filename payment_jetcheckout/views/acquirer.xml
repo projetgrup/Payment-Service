@@ -109,6 +109,9 @@
                     </form>
                 </field>
             </page>
+            <page name="reports" string="Reports" attrs="{'invisible': [('provider', '!=', 'jetcheckout')]}">
+                <field name="paylox_report_ids" nolabel="1" colspan="2" context="{'default_acquirer_id': id, 'default_company_id': company_id}"/>
+            </page>
             <page string="Banks" attrs="{'invisible': [('provider', '!=', 'transfer')]}">
                 <field name="paylox_bank_ids" nolabel="1" colspan="2">
                     <tree editable="bottom">

@@ -7,5 +7,6 @@ from . import token
 from . import payment
 from . import http
 from . import view
+from . import report
 from . import partner
 from . import product
