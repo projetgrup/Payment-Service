@@ -205,7 +205,7 @@ class PayloxSystemController(Controller):
 
     @http.route('/web/system/load', type='json', auth='user')
     def action_load(self, cids=None, action=None, menu_id=None):
-        company = request.env['res.company'].sudo().browse(int(cids and cids.split(',', 1)[0] or 1))
+        company = request.env['res.company'].sudo().browse(int(cids and str(cids).split(',', 1)[0] or request.env.company.id))
         system = company.system
         state = {}
 
