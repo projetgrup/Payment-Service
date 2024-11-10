@@ -183,6 +183,7 @@ class PaymentAcquirer(models.Model):
     paylox_url = fields.Char(compute='_get_paylox_url')
     paylox_journal_ids = fields.One2many('payment.acquirer.jetcheckout.journal', 'acquirer_id', groups='base.group_user')
     paylox_campaign_ids = fields.One2many('payment.acquirer.jetcheckout.campaign', 'acquirer_id', groups='base.group_user')
+    paylox_report_ids = fields.One2many('payment.acquirer.jetcheckout.report', 'acquirer_id', context={'active_test': False}, groups='base.group_user')
     jetcheckout_terms = fields.Html(required_if_provider='jetcheckout', groups='base.group_user', sanitize=False, sanitize_attributes=False, sanitize_form=False)
     jetcheckout_no_terms = fields.Boolean('Hide Terms')
     jetcheckout_no_smart_buttons = fields.Boolean('Hide Smart Buttons')
