@@ -204,29 +204,36 @@ class PayloxSystemController(Controller):
         }
 
     @http.route('/web/system/load', type='json', auth='user')
-    def action_load(self, cids, action, menu_id):
+    def action_load(self, cids=None, action=None, menu_id=None):
         company = request.env['res.company'].sudo().browse(int(cids and cids.split(',', 1)[0] or 1))
         system = company.system
-        if system:
-            action_data = request.env['ir.model.data'].sudo().search([('model', '=', 'ir.actions.act_window'), ('res_id', '=', action)], limit=1)
-            menu_data = request.env['ir.model.data'].sudo().search([('model', '=', 'ir.ui.menu'), ('res_id', '=', menu_id)], limit=1)
-            action_xmlid = action_data.complete_name if action_data else None
-            menu_xmlid = menu_data.complete_name if menu_data else None
+        state = {}
 
-            if menu_xmlid:
-                match = re.match(r'^payment_(.+)\.menu_(.+)$', menu_xmlid)
-                if match:
-                    menu_xmlid = f'payment_{system}.menu_{match.group(2)}'
+        if action:
+            state['action'] = action
+            if system:
+                action_data = request.env['ir.model.data'].sudo().search([('model', '=', 'ir.actions.act_window'), ('res_id', '=', action)], limit=1)
+                action_xmlid = action_data.complete_name if action_data else None
+                if action_xmlid:
+                    match = re.match(r'^payment_(.+)\.action_(.+)$', action_xmlid)
+                    if match:
+                        action_xmlid = f'payment_{system}.action_{match.group(2)}'
+                        if not request.env.ref(action_xmlid, False):
+                            action_xmlid = 'payment_jetcheckout_system.action_dashboard'
+                    state['action'] = request.env.ref(action_xmlid).id
 
-            if action_xmlid:
-                match = re.match(r'^payment_(.+)\.action_(.+)$', action_xmlid)
-                if match:
-                    action_xmlid = f'payment_{system}.action_{match.group(2)}'
-                    if not request.env.ref(action_xmlid, False):
-                        action_xmlid = 'payment_jetcheckout_system.action_dashboard'
-        
-            return {'action': request.env.ref(action_xmlid).id, 'menu_id': request.env.ref(menu_xmlid).id}
-        return {'action': action, 'menu_id': menu_id}
+        if menu_id:
+            state['menu_id'] = menu_id
+            if system:
+                menu_data = request.env['ir.model.data'].sudo().search([('model', '=', 'ir.ui.menu'), ('res_id', '=', menu_id)], limit=1)
+                menu_xmlid = menu_data.complete_name if menu_data else None
+                if menu_xmlid:
+                    match = re.match(r'^payment_(.+)\.menu_(.+)$', menu_xmlid)
+                    if match:
+                        menu_xmlid = f'payment_{system}.menu_{match.group(2)}'
+                    state['menu_id'] = request.env.ref(menu_xmlid).id
+
+        return state
 
     @http.route('/p/<token>', type='http', auth='public', methods=['GET'], csrf=False, sitemap=False, website=True)
     def page_system_link(self, token, **kwargs):

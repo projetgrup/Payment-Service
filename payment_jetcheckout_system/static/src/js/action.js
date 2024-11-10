@@ -11,8 +11,12 @@ actionService.start = async function start(env) {
     if (services.user.context.system) {
         try {
             const state = await services.rpc("/web/system/load", { cids, action, menu_id });
-            router.current.hash.action = state.action;
-            router.current.hash.menu_id = state.menu_id;
+            if (state.action) {
+                router.current.hash.action = state.action;
+            }
+            if (state.menu_id) {
+                router.current.hash.menu_id = state.menu_id;
+            }
             router.pushState(state, { replace: true });
         } catch {}
     }
