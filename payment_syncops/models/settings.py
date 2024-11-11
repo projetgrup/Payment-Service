@@ -16,6 +16,7 @@ class PaymentSettings(models.TransientModel):
 
     syncops_sync_item_force = fields.Boolean(related='company_id.syncops_sync_item_force', readonly=False)
     syncops_sync_item_split = fields.Boolean(related='company_id.syncops_sync_item_split', readonly=False)
+    syncops_sync_item_no_partner = fields.Boolean(related='company_id.syncops_sync_item_no_partner', readonly=False)
     syncops_cron_sync_partner = fields.Boolean(related='company_id.syncops_cron_sync_partner', readonly=False)
     syncops_cron_sync_partner_hour = fields.Integer(related='company_id.syncops_cron_sync_partner_hour', readonly=False)
     syncops_cron_sync_partner_day_ids = fields.Many2many(related='company_id.syncops_cron_sync_partner_day_ids', readonly=False)

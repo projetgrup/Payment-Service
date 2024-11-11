@@ -8,6 +8,7 @@ class ResCompany(models.Model):
     syncops_sync_item_subtype = fields.Char()
     syncops_sync_item_force = fields.Boolean()
     syncops_sync_item_split = fields.Boolean()
+    syncops_sync_item_no_partner = fields.Boolean()
     syncops_cron_sync_partner = fields.Boolean()
     syncops_cron_sync_partner_hour = fields.Integer()
     syncops_cron_sync_partner_day_ids = fields.Many2many(

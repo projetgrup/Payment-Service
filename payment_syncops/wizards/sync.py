@@ -95,6 +95,14 @@ class SyncopsSyncWizard(models.TransientModel):
                 if lines == None:
                     lines = []
 
+                if self.env.company.syncops_sync_item_no_partner:
+                    refs = self.env['res.partner'].sudo().search([
+                        ('company_id', '=', self.env.company.id),
+                        ('system', '=', self.env.company.system),
+                        ('ref', 'not in', ('', False)),
+                    ]).mapped('ref')
+                    lines = list(filter(lambda l: l.get('ref') in refs, lines))
+
                 self.line_ids = [(5, 0, 0)] + [(0, 0, {
                     'name': line.get('name', False),
                     'partner_name': line.get('partner', False),
@@ -118,6 +126,14 @@ class SyncopsSyncWizard(models.TransientModel):
                 lines = self.env['syncops.connector']._execute('payment_get_unreconciled_list', params=params)
                 if lines == None:
                     lines = []
+
+                if self.env.company.syncops_sync_item_no_partner:
+                    refs = self.env['res.partner'].sudo().search([
+                        ('company_id', '=', self.env.company.id),
+                        ('system', '=', self.env.company.system),
+                        ('ref', 'not in', ('', False)),
+                    ]).mapped('ref')
+                    lines = list(filter(lambda l: l.get('ref') in refs, lines))
 
                 currencies = self.env['res.currency'].with_context(active_test=False).search_read([], ['id', 'name'])
                 currencies = {currency['name']: currency['id'] for currency in currencies}
