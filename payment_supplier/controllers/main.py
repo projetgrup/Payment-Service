@@ -65,7 +65,7 @@ class PayloxSystemSupplierController(Controller):
             'success_url': '/payment/token/success',
             'fail_url': '/payment/token/fail',
         }
-        return request.render('payment_supplier.page_token_verify', values)
+        return request.render('payment_jetcheckout.page_token_verify', values)
 
     @route(['/payment/token/success', '/payment/token/fail'], type='http', auth='public', methods=['POST'], sitemap=False, csrf=False, save_session=False)
     def payment_token_finalize(self, **kwargs):
