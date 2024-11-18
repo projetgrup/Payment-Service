@@ -718,6 +718,7 @@
             <input type="hidden" name="success_url" t-att-value="success_url" field="payment.successurl"/>
             <input type="hidden" name="fail_url" t-att-value="fail_url" field="payment.failurl"/>
             <input type="hidden" name="partner" t-att-value="partner.id" field="partner"/>
+            <input type="hidden" name="amount" value="1" field="amount"/>
             <span id="campaign" class="d-none" t-esc="campaign" field="campaign.text"/>
             <div id="payment_type" class="d-none">
                 <input type="radio" name="payment_type" checked="checked" value="virtual_pos"/>
