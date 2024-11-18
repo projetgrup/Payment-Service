@@ -1654,15 +1654,16 @@
     #payment_card, .payment-card {
         .ccicon {
             top: auto !important;
-            bottom: -20px !important;
+            bottom: 10px !important;
             width: 50px !important;
             height: 30px !important;
         }
         .cclogo {
             top: auto !important;
-            bottom: -20px !important;
+            bottom: 10px !important;
             width: 50px !important;
             height: 30px !important;
+            right: 16px !important;
         }
     }
 
