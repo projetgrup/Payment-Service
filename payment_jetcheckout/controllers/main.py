@@ -2206,6 +2206,8 @@ class PayloxController(http.Controller):
  
     @http.route(['/payment/token/verify'], type='http', auth='user', website=True, sitemap=False)
     def payment_token_verify(self, **kwargs):
+        self._del()
+ 
         acquirer = self._get_acquirer()
         company = request.env.company
         currency = company.currency_id
