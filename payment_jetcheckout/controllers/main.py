@@ -269,6 +269,7 @@ class PayloxController(http.Controller):
         shopping_credits = []
         wallets = []
         transfers = []
+
         for ptype in types:
             if ptype['code'] == 'credit':
                 shopping_credits = self._prepare_credit(acquirer=acquirer, currency=currency)
