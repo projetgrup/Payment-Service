@@ -200,8 +200,16 @@
                                     </div>
                                     <div class="content-group" attrs="{'invisible': [('payment_page_item_add_ok', '=', False)]}">
                                         <div class="row mt16">
+                                            <label for="payment_page_item_add_date_readonly" string="Date Readonly" class="col-lg-4 o_light_label"/>
+                                            <field name="payment_page_item_add_date_readonly" widget="boolean_toggle"/>
+                                        </div>
+                                        <div class="row">
                                             <label for="payment_page_item_add_desc_prefix" string="Description Prefix" class="col-lg-4 o_light_label"/>
                                             <field name="payment_page_item_add_desc_prefix" class="flex-fill" placeholder="SO"/>
+                                        </div>
+                                        <div class="row">
+                                            <label for="payment_page_item_add_desc_maxlength" string="Description Maximum Length" class="col-lg-4 o_light_label"/>
+                                            <field name="payment_page_item_add_desc_maxlength" class="flex-fill" placeholder="0"/>
                                         </div>
                                     </div>
                                 </div>

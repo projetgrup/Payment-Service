@@ -82,7 +82,9 @@ class PaymentSettings(models.TransientModel):
     payment_page_saleref_ok = fields.Boolean(related='company_id.payment_page_saleref_ok', readonly=False)
     payment_page_item_priority = fields.Boolean(related='company_id.payment_page_item_priority', readonly=False)
     payment_page_item_add_ok = fields.Boolean(related='company_id.payment_page_item_add_ok', readonly=False)
+    payment_page_item_add_date_readonly = fields.Boolean(related='company_id.payment_page_item_add_date_readonly', readonly=False)
     payment_page_item_add_desc_prefix = fields.Char(related='company_id.payment_page_item_add_desc_prefix', readonly=False)
+    payment_page_item_add_desc_maxlength = fields.Integer(related='company_id.payment_page_item_add_desc_maxlength', readonly=False)
 
     payment_page_campaign_tag_ids = fields.One2many(related='company_id.payment_page_campaign_tag_ids', readonly=False)
     payment_page_campaign_table_ok = fields.Boolean(related='company_id.payment_page_campaign_table_ok', readonly=False)

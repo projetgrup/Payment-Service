@@ -63,7 +63,9 @@ class Company(models.Model):
     payment_page_saleref_ok = fields.Boolean(string='Payment Page Can Use Sale Reference')
     payment_page_item_priority = fields.Boolean(string='Payment Page Items Priority')
     payment_page_item_add_ok = fields.Boolean(string='Payment Page Can Add Payment Item')
+    payment_page_item_add_date_readonly = fields.Boolean(string='Payment Page Add Payment Item Date Readonly')
     payment_page_item_add_desc_prefix = fields.Char(string='Payment Page Add Payment Item Description Prefix')
+    payment_page_item_add_desc_maxlength = fields.Integer(string='Payment Page Add Payment Item Description Maximum Length')
     payment_page_button_access_transaction = fields.Boolean(string='Payment Page See All Transactions')
     payment_page_flow = fields.Selection([
         ('static', 'Static'),
