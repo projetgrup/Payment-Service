@@ -274,10 +274,10 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
     },
 
     _maskAmount: function () {
-        return {
+        const mask = {
             mask: Number,
             min: 0,
-            signed: true,
+            signed: false,
             normalizeZeros: true,
             padFractionalZeros: true,
             scale: this.currency.decimal,
@@ -285,6 +285,11 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
             mapToRadix: [],
             thousandsSeparator: this.currency.thousand,
         }
+        if (window.location.pathname.includes('/p/')) {
+            delete mask.min;
+            delete mask.signed;
+        }
+        return mask
     },
 
     _maskDate: function () {
