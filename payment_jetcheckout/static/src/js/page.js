@@ -277,7 +277,7 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
         return {
             mask: Number,
             min: 0,
-            signed: false,
+            signed: true,
             normalizeZeros: true,
             padFractionalZeros: true,
             scale: this.currency.decimal,
