@@ -182,6 +182,8 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
             items: new fields.element({
                 events: [['change', this._onChangePaidAll]],
             }),
+            itemAddDateReadonly: new fields.element(),
+            itemAddDescMaxlength: new fields.element(),
             itemAddDescPrefix: new fields.element(),
             itemAdd: new fields.element({
                 events: [['click', this._onClickItemAdd]],
@@ -588,6 +590,8 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
             $content: qweb.render('paylox.item.add', {
                 currency: this.currency,
                 date: moment().format('DD-MM-YYYY'),
+                readonly: this.payment.itemAddDateReadonly.exist || undefined,
+                maxlength: this.payment.itemAddDescMaxlength.value || undefined,
                 prefix: this.payment.itemAddDescPrefix.value || '',
             })
         });

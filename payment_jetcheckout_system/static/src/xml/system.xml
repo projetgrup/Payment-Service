@@ -2,12 +2,12 @@
 <templates>
     <t t-name="paylox.item.add">
         <div class="field-container w-100">
-            <input type="text" id="payment_item_add_date" name="payment_item_add_date" class="form-control datepicker-input text-center border-primary" required="required" data-toggle="datetimepicker" data-date-format="DD-MM-YYYY" data-target="#payment_item_add_date" data-date-locale="tr" t-att-value="date"/>
+            <input type="text" id="payment_item_add_date" name="payment_item_add_date" class="form-control datepicker-input text-center border-primary" required="required" data-toggle="datetimepicker" data-date-format="DD-MM-YYYY" data-target="#payment_item_add_date" data-date-locale="tr" t-att-value="date" t-att-disabled="readonly"/>
             <span class="bar-container"/>
             <label for="payment_item_add_date" class="text-primary" style="left: 36px; top: 16px;"><span>Date</span></label>
         </div>
         <div class="field-container w-100">
-            <input type="text" id="payment_item_add_desc" name="payment_item_add_amount" class="text-center border-primary" required="required"/>
+            <input type="text" id="payment_item_add_desc" name="payment_item_add_amount" class="text-center border-primary" required="required" t-att-maxlength="maxlength"/>
             <span class="bar-container"/>
             <span class="symbol symbol-before" t-esc="prefix" style="left: 28px; top: 28px; font-size: 18px;"/>
             <label for="payment_item_add_desc" class="text-primary" style="left: 36px; top: 16px;"><span>Description</span></label>

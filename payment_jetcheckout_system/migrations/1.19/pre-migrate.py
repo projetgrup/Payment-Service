@@ -8,3 +8,7 @@ def migrate(cr, version):
         cr.execute('ALTER TABLE res_company ADD COLUMN payment_page_item_add_ok boolean')
     if not column_exists(cr, 'res_company', 'payment_page_item_add_desc_prefix'):
         cr.execute('ALTER TABLE res_company ADD COLUMN payment_page_item_add_desc_prefix varchar')
+    if not column_exists(cr, 'res_company', 'payment_page_item_add_desc_maxlength'):
+        cr.execute('ALTER TABLE res_company ADD COLUMN payment_page_item_add_desc_maxlength integer')
+    if not column_exists(cr, 'res_company', 'payment_page_item_add_date_readonly'):
+        cr.execute('ALTER TABLE res_company ADD COLUMN payment_page_item_add_date_readonly boolean')
