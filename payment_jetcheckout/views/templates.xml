@@ -718,16 +718,9 @@
             <input type="hidden" name="success_url" t-att-value="success_url" field="payment.successurl"/>
             <input type="hidden" name="fail_url" t-att-value="fail_url" field="payment.failurl"/>
             <input type="hidden" name="partner" t-att-value="partner.id" field="partner"/>
-            <input type="hidden" name="amount" value="1" field="amount"/>
-            <div id="payment_type" class="d-none">
-                <input type="radio" name="payment_type" checked="checked" value="virtual_pos"/>
-            </div>
-            <div class="d-none">
-                <div class="installment-row" data-type="i" field="installment.row"/>
-                <span id="campaign" class="d-none" t-esc="campaign" field="campaign.text"/>
-                <input type="hidden" t-att-value="campaign or ''" field="campaign.name"/>
-            </div>
-            <div id="payment_card" class="payment-card row justify-content-center mx-0 h-100">
+            <input type="hidden" t-att-value="campaign or ''" field="campaign.name"/>
+            <!--<input type="hidden" name="amount" value="1" field="amount"/>-->
+            <div class="payment-card row justify-content-center mx-0 h-100">
                 <div class="col-md-6 row justify-content-center mx-0">
                     <div class="payment-table mt-2 p-3">
                         <div class="payment-form-container payment-gradient">
