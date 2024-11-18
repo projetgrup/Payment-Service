@@ -940,10 +940,6 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
         }
     },
 
-    _getInstallmentInput: function () {
-        return $('.installment-cell input:checked');
-    },
-
     _checkData: function () {
         let checked = true;
         const type = this.type.selected;
@@ -990,7 +986,7 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
                     message: _t('Please fill card security code'),
                 });
                 checked = false;
-            } else if (!this._getInstallmentInput().length) {
+            } else if ($('.installment-cell').length && !$('.installment-cell input:checked').length) {
                 this.displayNotification({
                     type: 'warning',
                     title: _t('Warning'),
@@ -1084,9 +1080,9 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
     },
 
     _getParams: function () {
-        const $input = this._getInstallmentInput();
         const type = this.type.selected;
         if (type === 'virtual_pos') {
+            const $input = $('.installment-cell input:checked');
             return {
                 type,
                 card: {
@@ -1130,7 +1126,6 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
             }
 
         } else if (type === 'transfer') {
-            const $input = this.type.credit.$.find('input[name="payment_type_transfer"]:checked');
             return {
                 type,
                 name: this.type.transfer.selected.value,
