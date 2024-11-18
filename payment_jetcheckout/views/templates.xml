@@ -718,7 +718,7 @@
             <input type="hidden" name="success_url" t-att-value="success_url" field="payment.successurl"/>
             <input type="hidden" name="fail_url" t-att-value="fail_url" field="payment.failurl"/>
             <input type="hidden" name="partner" t-att-value="partner.id" field="partner"/>
-            <div class="payment-card row justify-content-center mx-0 h-100">
+            <div id="payment_card" class="payment-card row justify-content-center mx-0 h-100">
                 <div class="col-md-6 row justify-content-center mx-0">
                     <div class="payment-table mt-2 p-3">
                         <div class="payment-form-container payment-gradient">
