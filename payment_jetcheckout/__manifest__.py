@@ -40,6 +40,7 @@
             'payment_jetcheckout/static/src/js/form.js',
             'payment_jetcheckout/static/src/js/fields.js',
             'payment_jetcheckout/static/src/js/page.js',
+            'payment_jetcheckout/static/src/js/token.js',
         ],
         'web.assets_backend': [
             'payment_jetcheckout/static/src/scss/backend.scss',
