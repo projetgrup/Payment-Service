@@ -2216,7 +2216,7 @@ class PayloxController(http.Controller):
         partner_contact = False
 
         language = request.env['res.lang']._lang_get(request.env.lang)
-        campaign = self._get_campaign(partner=partner)
+        campaign = self._get_campaign(acquirer=acquirer)
 
         values = {
             'user': user,
