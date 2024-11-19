@@ -85,10 +85,10 @@ class PayloxSystemJewelryController(Controller):
         domain = [('system', '=', 'jewelry'), ('company_id', '=', request.env.company.id)]
         if 'XAUTRY' in params:
             response['XAUTRY'] = params['XAUTRY']
-            products.search(domain+[('default_code', '=', 'XAUTRY')]).write({'list_price': params['XAUTRY']})
+            products.search(domain+[('default_code', '=', 'XAUTRY')], limit=1).write({'list_price': params['XAUTRY']})
         if 'XAGTRY' in params:
             response['XAGTRY'] = params['XAGTRY']
-            products.search(domain+[('default_code', '=', 'XAGTRY')]).write({'list_price': params['XAGTRY']})
+            products.search(domain+[('default_code', '=', 'XAGTRY')], limit=1).write({'list_price': params['XAGTRY']})
         return response
 
     @route('/my/product', type='http', auth='public', methods=['GET', 'POST'], sitemap=False, csrf=False, website=True)
