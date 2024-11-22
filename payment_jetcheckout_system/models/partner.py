@@ -110,8 +110,13 @@ class PartnerBank(models.Model):
                 if len(vat) > 10:
                     if self.partner_id.is_company:
                         partner_type = "PersonalCompany"
-                        contact_name = ""
-                        contact_surname = ""
+                        if self.partner_id.child_ids:
+                            contact_names = self.partner_id.child_ids[0].name.split(' ')
+                            contact_surname = contact_names.pop()
+                            contact_name = ' '.join(contact_names)
+                        else:
+                            contact_name = ""
+                            contact_surname = ""
                     else:
                         partner_type = "Individual"
                         contact_names = self.partner_id.name.split(' ')
@@ -120,8 +125,13 @@ class PartnerBank(models.Model):
                 else:
                     if self.partner_id.is_company:
                         partner_type = "Company"
-                        contact_name = ""
-                        contact_surname = ""
+                        if self.partner_id.child_ids:
+                            contact_names = self.partner_id.child_ids[0].name.split(' ')
+                            contact_surname = contact_names.pop()
+                            contact_name = ' '.join(contact_names)
+                        else:
+                            contact_name = ""
+                            contact_surname = ""
                     else:
                         partner_type = "Individual"
                         contact_names = self.partner_id.name.split(' ')
