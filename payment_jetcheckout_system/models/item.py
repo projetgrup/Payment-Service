@@ -196,6 +196,8 @@ class PaymentItem(models.Model):
             amounts = self.env.context.get('amounts', {})
             total = 0
             for item in self:
+                if item.residual_amount < 0:
+                    continue
                 total += amounts.get(item.id, item.residual_amount)
 
             today = fields.Date.today()
@@ -204,6 +206,8 @@ class PaymentItem(models.Model):
             base = company.payment_page_due_base
             sign = -1 if base == 'date_document' else 1
             for item in self:
+                if item.residual_amount < 0:
+                    continue
                 date = item.due_date if sign == 1 else item.date
                 if not date:
                     date = today
