@@ -34,6 +34,9 @@ class PaymentItemImport(models.TransientModel):
             'ref': value.get('Reference', False),
             'tag': value.get('Tag', False),
             'description': value.get('Description', False),
+            'user_name': value.get('Sales Representative Name', False),
+            'user_email': value.get('Sales Representative Email', False),
+            'user_mobile': value.get('Sales Representative Mobile', False),
         }
 
     def _prepare_row(self, line):
@@ -46,6 +49,19 @@ class PaymentItemImport(models.TransientModel):
                 'system': line.company_id.system,
                 'company_id': line.company_id.id,
             })
+
+        if line.user_name:
+            user = self.env['res.users'].search([('partner_id.name', '=', line.user_name)], limit=1)
+            user_values = {}
+            if line.user_email:
+                user_values.update({'email': line.user_email})
+            if line.user_mobile:
+                user_values.update({'mobile': line.user_mobile})
+            if not user:
+                user = self.env['res.users'].create({'name': line.user_name})
+            if user_values:
+                user.partner_id.write(user_values)
+            partner.user_id = user.id
 
         return {
             'parent_id': partner.id,
@@ -123,6 +139,10 @@ class PaymentItemImportLine(models.TransientModel):
     due_date = fields.Date('Due Date', readonly=True)
     ref = fields.Char('Reference', readonly=True)
     tag = fields.Char('Tag', readonly=True)
+    user_id = fields.Many2one('res.users', 'Sales Representative', readonly=True)
+    user_name = fields.Char('Sales Representative Name', readonly=True)
+    user_email = fields.Char('Sales Representative Email', readonly=True)
+    user_mobile = fields.Char('Sales Representative Mobile', readonly=True)
     description = fields.Char('Description', readonly=True)
     currency_id = fields.Many2one('res.currency', readonly=True, required=True, default=lambda self: self.env.company.currency_id)
     company_id = fields.Many2one('res.company', readonly=True, required=True, default=lambda self: self.env.company)
