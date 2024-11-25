@@ -209,6 +209,10 @@ class PayloxSystemController(Controller):
         system = company.system
         state = {}
 
+        if system and not action and not menu_id:
+            state['menu_id'] = request.env.ref('payment_%s.menu_payment' % system).id
+            return state
+
         if action:
             state['action'] = action
             if system:
@@ -219,7 +223,7 @@ class PayloxSystemController(Controller):
                     if match:
                         action_xmlid = f'payment_{system}.action_{match.group(2)}'
                         if not request.env.ref(action_xmlid, False):
-                            action_xmlid = 'payment_jetcheckout_system.action_dashboard'
+                            action_xmlid = request.env['ir.model.data'].sudo().search([('model', '=', 'ir.actions.act_window'), ('res_id', '=', action)], limit=1).complete_name
                     state['action'] = request.env.ref(action_xmlid).id
 
         if menu_id:

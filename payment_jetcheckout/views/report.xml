@@ -48,7 +48,9 @@
                         <div colspan="2">
                             <p class="mt16 mb4">Available variables;</p>
                             <ul class="list-inline">
-                                <li><code>{{var}}</code>: Table of variables</li>
+                                <li><code>{{amount_paid}}</code>: Paid Amount</li>
+                                <li><code>{{partner_name}}</code>: Partner Name</li>
+                                <li><code>{{payment_date}}</code>: Payment Date</li>
                             </ul>
                         </div>
                     </div>

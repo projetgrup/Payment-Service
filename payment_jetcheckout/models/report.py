@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.tools.misc import formatLang
+
 
 class PaymentAcquirerPayloxReport(models.Model):
     _name = 'payment.acquirer.jetcheckout.report'
@@ -23,7 +25,9 @@ class PaymentAcquirerPayloxReport(models.Model):
     acquirer_id = fields.Many2one('payment.acquirer', required=True, domain='[("provider", "=", "jetcheckout")]')
     company_id = fields.Many2one('res.company', compute='_compute_company_id', store=True, readonly=False)
 
-    def render(self):
+    def render(self, tx):
         res = self.body \
-            .replace('{{var}}', '')
+            .replace('{{amount_paid}}', formatLang(self.env, tx.amount, currency_obj=tx.currency_id)) \
+            .replace('{{partner_name}}', tx.partner_name) \
+            .replace('{{payment_date}}', tx.create_date.strftime('%d/%m/%Y'))
         return res
