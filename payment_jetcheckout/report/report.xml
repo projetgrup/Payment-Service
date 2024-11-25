@@ -7,7 +7,7 @@
                 <t t-set="website" t-value="doc.jetcheckout_website_id or doc.acquirer_id.website_id"/>
                 <t t-set="report" t-value="doc.acquirer_id.paylox_report_ids.filtered(lambda r: r.active == True and r.type == ('conveyance' if is_conveyance else 'receipt'))"/>
                 <t t-if="report">
-                    <t t-raw="report[0].render()"/>
+                    <t t-raw="report[0].render(doc)"/>
                 </t>
                 <t t-else="">
                     <div class="header">
