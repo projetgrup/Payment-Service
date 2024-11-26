@@ -51,6 +51,7 @@
                                 <li><code>{{amount_paid}}</code>: Paid Amount</li>
                                 <li><code>{{partner_name}}</code>: Partner Name</li>
                                 <li><code>{{payment_date}}</code>: Payment Date</li>
+                                <li><code>{{card_holder}}</code>: Credit Card Holder Name</li>
                             </ul>
                         </div>
                     </div>

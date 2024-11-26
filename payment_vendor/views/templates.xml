@@ -150,6 +150,17 @@
                             </div>
                             <div class="payment-list bg-white card table-responsive overflow-auto text-nowrap">
                                 <table class="table table-sm sidebar-table mb-0 text-700">
+                                    <colgroup>
+                                        <col width="10%"/>
+                                        <col t-if="company.payment_page_due_base == 'date_due'" width="10%"/>
+                                        <col width="20%"/>
+                                        <col width="10%"/>
+                                        <col width="10%"/>
+                                        <col width="10%"/>
+                                        <col width="10%"/>
+                                        <col width="15%"/>
+                                        <col width="5%"/>
+                                    </colgroup>
                                     <thead>
                                         <tr class="shadow-sm font-weight-bold bg-white">
                                             <th class="px-2">Date</th>
@@ -170,7 +181,7 @@
                                             <tr>
                                                 <td class="px-2"><span t-field="payment.date"/></td>
                                                 <td t-if="company.payment_page_due_base == 'date_due'" class="px-2"><span t-field="payment.due_date"/></td>
-                                                <td class="px-2"><span t-field="payment.description"/></td>
+                                                <td class="px-2 text-wrap"><span t-field="payment.description"/></td>
                                                 <td class="text-right px-2"><span t-field="payment.amount"/></td>
                                                 <td class="text-right px-2"><span t-field="payment.paid_amount"/></td>
                                                 <td class="text-right px-2"><span t-field="payment.residual_amount" class="payment-amount-paid"/></td>
