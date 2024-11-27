@@ -28,6 +28,8 @@ class PaymentItemImport(models.TransientModel):
             'partner_name': value['Partner Name'],
             'partner_vat': value['Partner VAT'],
             'partner_email': value['Partner Email'],
+            'partner_street': value.get('Partner Street', False),
+            'partner_tax_office': value.get('Partner Tax Office', False),
             'amount': float(value['Amount']),
             'date': self._get_date(value.get('Date', False)),
             'due_date': self._get_date(value.get('Due Date', False)),
@@ -43,10 +45,20 @@ class PaymentItemImport(models.TransientModel):
 
     def _prepare_row(self, line):
         partner = self.env['res.partner'].search([('vat', '=', line.partner_vat), ('company_id', '=', line.company_id.id)], limit=1)
-        if not partner:
+        if partner:
+            partner.write({
+                'vat': line.partner_vat,
+                'street': line.partner_street,
+                'paylox_tax_office': line.partner_tax_office,
+                'email': line.partner_email,
+                'system': line.company_id.system,
+            })
+        else:
             partner = partner.create({
                 'name': line.partner_name,
                 'vat': line.partner_vat,
+                'street': line.partner_street,
+                'paylox_tax_office': line.partner_tax_office,
                 'email': line.partner_email,
                 'system': line.company_id.system,
                 'company_id': line.company_id.id,
@@ -107,6 +119,8 @@ class PaymentItemImport(models.TransientModel):
                         raise UserError(_('Please create a "Amount" column'))
                 else:
                     val = dict(zip(cols, row))
+                    if isinstance(val['Partner VAT'], float):
+                        val['Partner VAT'] = '%.0f' % val['Partner VAT']
                     vals = self._get_row(val)
                     if 'Currency' in val:
                         currency = self.env['res.currency'].search([('name', '=', val['Currency'])], limit=1)
@@ -143,6 +157,8 @@ class PaymentItemImportLine(models.TransientModel):
     partner_name = fields.Char('Partner Name', readonly=True)
     partner_vat = fields.Char('Partner VAT', readonly=True)
     partner_email = fields.Char('Partner Email', readonly=True)
+    partner_street = fields.Char('Partner Street', readonly=True)
+    partner_tax_office = fields.Char('Partner Tax Office', readonly=True)
     amount = fields.Monetary('Amount', readonly=True)
     date = fields.Date('Date', readonly=True)
     due_date = fields.Date('Due Date', readonly=True)
