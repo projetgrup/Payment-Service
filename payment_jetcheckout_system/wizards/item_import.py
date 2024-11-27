@@ -33,6 +33,8 @@ class PaymentItemImport(models.TransientModel):
             'due_date': self._get_date(value.get('Due Date', False)),
             'ref': value.get('Reference', False),
             'tag': value.get('Tag', False),
+            'bank_iban': value.get('Bank IBAN', False),
+            'bank_merchant': value.get('Bank Merchant Name', False),
             'description': value.get('Description', False),
             'user_name': value.get('Sales Representative Name', False),
             'user_email': value.get('Sales Representative Email', False),
@@ -62,6 +64,13 @@ class PaymentItemImport(models.TransientModel):
             if user_values:
                 user.partner_id.write(user_values)
             partner.user_id = user.id
+        
+        if line.bank_iban:
+            bank = partner.bank_ids.filtered(lambda b: b.acc_number == line.bank_iban)
+            if bank:
+                bank.api_merchant = line.bank_merchant
+            else:
+                partner.bank_ids = [(0, 0, {'acc_number': line.bank_iban, 'api_merchant': line.bank_merchant})]
 
         return {
             'parent_id': partner.id,
@@ -139,6 +148,8 @@ class PaymentItemImportLine(models.TransientModel):
     due_date = fields.Date('Due Date', readonly=True)
     ref = fields.Char('Reference', readonly=True)
     tag = fields.Char('Tag', readonly=True)
+    bank_iban = fields.Char('IBAN', readonly=True)
+    bank_merchant = fields.Char('Merchant', readonly=True)
     user_id = fields.Many2one('res.users', 'Sales Representative', readonly=True)
     user_name = fields.Char('Sales Representative Name', readonly=True)
     user_email = fields.Char('Sales Representative Email', readonly=True)
