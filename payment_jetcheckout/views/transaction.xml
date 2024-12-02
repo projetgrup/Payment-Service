@@ -170,14 +170,14 @@
         <xpath expr='//field[@name="amount"]' position="after">
             <field name="jetcheckout_vpos_name" optional="hide"/>
             <field name="jetcheckout_payment_amount" optional="hide"/>
-            <field name="jetcheckout_customer_rate" string="Customer Rate (%)" optional="hide"/>
-            <field name="jetcheckout_customer_amount" optional="hide"/>
+            <field name="jetcheckout_customer_rate" string="Customer Rate (%)" optional="hide" groups="payment_jetcheckout.group_transaction_commission"/>
+            <field name="jetcheckout_customer_amount" optional="hide" groups="payment_jetcheckout.group_transaction_commission"/>
             <field name="jetcheckout_payment_paid" optional="hide"/>
-            <field name="jetcheckout_commission_rate" string="Cost Rate (%)" optional="hide"/>
-            <field name="jetcheckout_commission_amount" optional="hide"/>
+            <field name="jetcheckout_commission_rate" string="Cost Rate (%)" optional="hide" groups="payment_jetcheckout.group_transaction_commission"/>
+            <field name="jetcheckout_commission_amount" optional="hide" groups="payment_jetcheckout.group_transaction_commission"/>
             <field name="jetcheckout_payment_net" optional="hide"/>
-            <field name="jetcheckout_fund_amount" optional="hide"/>
-            <field name="jetcheckout_fund_rate" string="Fund Rate (%)" optional="hide"/>
+            <field name="jetcheckout_fund_amount" optional="hide" groups="payment_jetcheckout.group_transaction_commission"/>
+            <field name="jetcheckout_fund_rate" string="Fund Rate (%)" optional="hide" groups="payment_jetcheckout.group_transaction_commission"/>
         </xpath>
         <xpath expr='//field[@name="fees"]' position="replace">
             <field name="fees" invisible="1"/>
