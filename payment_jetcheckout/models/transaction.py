@@ -129,8 +129,8 @@ class PaymentTransaction(models.Model):
             if 'partner_vat' not in values:
                 partner = self.env['res.partner'].browse(values['partner_id'])
                 values.update({'partner_vat': partner.vat})
-            if 'jetcheckout_order_id' not in values and 'acquirer' in values:
-                acquirer = self.env['payment.acquirer'].browse(values['acquirer'])
+            if 'jetcheckout_order_id' not in values and 'acquirer_id' in values:
+                acquirer = self.env['payment.acquirer'].browse(values['acquirer_id'])
                 if acquirer.provider == 'jetcheckout':
                     values.update({'jetcheckout_order_id': str(uuid.uuid4())})
 
