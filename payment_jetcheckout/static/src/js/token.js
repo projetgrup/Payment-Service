@@ -72,7 +72,8 @@ publicWidget.registry.payloxTokenVerify = payloxPage.extend({
 
     _getParams: function () {
         const data = JSON.parse(window.parent.document.querySelector('.o_form_payment_token_verify iframe + span').textContent);
-        const rows = (this.installment.rows || []).forEach(i => i.idesc = _t('Card Verification'));
+        const rows = this.installment.rows || [];
+        rows.forEach(i => i.idesc = _t('Card Verification'));
         return {
             type: 'virtual_pos',
             verify: true,
