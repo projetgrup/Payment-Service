@@ -256,7 +256,7 @@ class Users(models.Model):
 
     @api.model
     def create(self, values):
-        if not self.env.user.has_group('base.group_erp_manager') and self.env.user.has_group('payment_jetcheckout_system.group_system_manager'):
+        if not self.env.user.has_group('base.group_erp_manager') and self.env.user.has_group('payment_jetcheckout_system.group_system_user'):
             self = self.sudo()
 
         res = super(Users, self.with_context(mail_channel_nosubscribe=True)).create(values)
@@ -264,7 +264,7 @@ class Users(models.Model):
         return res
 
     def write(self, values):
-        if not self.env.user.has_group('base.group_erp_manager') and self.env.user.has_group('payment_jetcheckout_system.group_system_manager'):
+        if not self.env.user.has_group('base.group_erp_manager') and self.env.user.has_group('payment_jetcheckout_system.group_system_user'):
             self = self.sudo()
 
         res = super(Users, self).write(values)
