@@ -1432,6 +1432,7 @@ class PayloxController(http.Controller):
             amount_integer = round(amount * 100)
             amount_customer = 0
 
+            order_id = str(uuid.uuid4())
             hash = base64.b64encode(hashlib.sha256(''.join([acquirer.jetcheckout_api_key, order_id, str(amount_integer), acquirer.jetcheckout_secret_key]).encode('utf-8')).digest()).decode('utf-8')
             data = {
                 "application_key": acquirer.jetcheckout_api_key,
@@ -1469,6 +1470,7 @@ class PayloxController(http.Controller):
                 'amount': amount,
                 'fees': 0,
                 'operation': 'online_direct',
+                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_type': payment_type,
                 'jetcheckout_website_id': request.website.id,
                 'jetcheckout_ip_address': tx and tx.jetcheckout_ip_address or request.httprequest.remote_addr,
