@@ -227,7 +227,7 @@
             <t t-set="val" t-value="value + (value * (row.crate || 0) / 100)"/>
             <i class="fa fa-asterisk small mr-2"/> <span t-esc="format.currency(val, position, symbol, decimal)"/>
             <span t-if="row.crate" class="small">(<t t-esc="format.currency(value, position, symbol, decimal)"/> + %<t t-esc="format.float(row.crate)"/> commission)</span>
-            <span> will be charged from this credit card and refunded immediately.</span>
+            <span> will be charged from this credit card and it will be refunded immediately.</span>
         </div>
     </t>
 
