@@ -24,17 +24,19 @@ class PayloxSystemSupplierController(Controller):
     def _get_data_values(self, data, **kwargs):
         values = super()._get_data_values(data, **kwargs)
         if request.env.company.system == 'supplier':
-            partner = self._get_partner(kwargs['partner'], parent=True)
-            reference = partner.bank_ids and partner.bank_ids[0]['api_ref']
-            if not reference:
-                raise ValidationError(_('%s must have at least one bank account which is verified.' % partner.name))
-            values.update({
-                'is_submerchant_payment': True,
-                'submerchant_external_id': reference,
-                'submerchant_price': data['amount']/100,
-            })
-            if not kwargs.get('verify'):
+            ref = request.httprequest.referrer
+            if ref and '/payment/token/verify' in ref:
+                partner = self._get_partner(kwargs['partner'], parent=True)
+                reference = partner.bank_ids and partner.bank_ids[0]['api_ref']
+                if not reference:
+                    raise ValidationError(_('%s must have at least one bank account which is verified.' % partner.name))
                 values.update({
-                    'is_3d': False,
+                    'is_submerchant_payment': True,
+                    'submerchant_external_id': reference,
+                    'submerchant_price': data['amount']/100,
                 })
+                if not kwargs.get('verify'):
+                    values.update({
+                        'is_3d': False,
+                    })
         return values

@@ -434,7 +434,6 @@ class PaymentAcquirer(models.Model):
                 if partner_vat and len(partner_vat) in (10, 11):
                     data.update({'billing_tax_number': partner_vat})
 
-            order_id = str(uuid.uuid4())
             sale_id = int(kwargs.get('order', 0))
             invoice_id = int(kwargs.get('invoice', 0))
 
@@ -456,7 +455,6 @@ class PaymentAcquirer(models.Model):
                 'jetcheckout_card_number': number and  ''.join([number[:6], '*'*6, number[-4:]]) or False,
                 'jetcheckout_card_type': kwargs['card']['type'].capitalize(),
                 'jetcheckout_card_family': kwargs['card']['family'].capitalize(),
-                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_amount': amount,
                 'jetcheckout_installment_count': installment['count'],
                 'jetcheckout_installment_plus': installment['plus'],
@@ -541,7 +539,7 @@ class PaymentAcquirer(models.Model):
             success_url = '/payment/card/success' if 'successurl' not in kwargs or not kwargs['successurl'] else kwargs['successurl']
             fail_url = '/payment/card/fail' if 'failurl' not in kwargs or not kwargs['failurl'] else kwargs['failurl']
             data.update({
-                "order_id": order_id,
+                "order_id": tx.jetcheckout_order_id,
                 "card_holder_name": kwargs['card']['holder'],
                 "cvc": kwargs['card']['code'],
                 "success_url": "%s%s" % (kwargs['website']['domain'], success_url),

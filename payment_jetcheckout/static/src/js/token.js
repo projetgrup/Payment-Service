@@ -116,7 +116,7 @@ publicWidget.registry.payloxTokenVerify = payloxPage.extend({
     _onClickInstallmentCredit: function () {},
     _onInputAmount: function () {},
     _onUpdateAmount: function () {},
-    _getInstallment: function () {},
+    //_getInstallment: function () {},
     _enableButton: function () {},
     _onClickPaymentType: function () {},
     _onClickPaymentTypeCredit: function () {},

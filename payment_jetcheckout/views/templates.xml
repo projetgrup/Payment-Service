@@ -719,7 +719,7 @@
             <input type="hidden" name="fail_url" t-att-value="fail_url" field="payment.failurl"/>
             <input type="hidden" name="partner" t-att-value="partner.id" field="partner"/>
             <input type="hidden" t-att-value="campaign or ''" field="campaign.name"/>
-            <!--<input type="hidden" name="amount" value="1" field="amount"/>-->
+            <input type="hidden" name="amount" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), 100, grouping=True, monetary=True)" field="amount"/>
             <div class="payment-card row justify-content-center mx-0 h-100">
                 <div class="col-md-6 row justify-content-center mx-0">
                     <div class="payment-table mt-2 p-3">
@@ -752,8 +752,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 row justify-content-center mx-0 navbar-light pt48">
+                <div class="col-md-6 flex-column justify-content-center mx-0 navbar-light pt48">
                     <t t-call="payment_jetcheckout.payment_preview"/>
+                    <div class="text-center w-100 flex-fill align-items-end h-100 d-flex justify-content-center pb-5 text-600 font-italic" field="installment.summary"/>
                 </div>
             </div>
         </t>
