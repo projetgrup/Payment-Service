@@ -72,8 +72,10 @@ publicWidget.registry.payloxTokenVerify = payloxPage.extend({
 
     _getParams: function () {
         const data = JSON.parse(window.parent.document.querySelector('.o_form_payment_token_verify iframe + span').textContent);
+        const rows = (this.installment.rows || []).forEach(i => i.idesc = _t('Card Verification'));
         return {
             type: 'virtual_pos',
+            verify: true,
             card: {
                 type: this.card.type || '',
                 family: this.card.family || '',
@@ -83,26 +85,17 @@ publicWidget.registry.payloxTokenVerify = payloxPage.extend({
                 number: this.card.number.value,
                 token: data.id,
             },
-            amount: 1,
-            verify: true,
+            amount: this.amount.value,
             currency: this.currency.id,
             installment: {
                 id: 1,
                 index: 0,
-                rows: [{
-                    id: 1,
-                    count: 1,
-                    plus: 0,
-                    irate: 0.0,
-                    crate: 0.0,
-                    corate: 0.0,
-                    idesc: _t('Card Verification'),
-                }],
+                rows: rows,
             },
+            partner: parseInt(this.partner.value || 0),
             campaign: this.campaign.name.value || '',
             successurl: this.payment.successurl.value,
             failurl: this.payment.failurl.value,
-            partner: parseInt(this.partner.value || 0),
         }
     },
 
