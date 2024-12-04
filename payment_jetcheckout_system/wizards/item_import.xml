@@ -19,6 +19,8 @@
                             <field name="partner_name" force_save="1"/>
                             <field name="partner_vat" force_save="1"/>
                             <field name="partner_email" force_save="1"/>
+                            <field name="partner_street" invisible="1" force_save="1"/>
+                            <field name="partner_tax_office" invisible="1" force_save="1"/>
                             <field name="date" force_save="1" optional="hide"/>
                             <field name="due_date" force_save="1" optional="hide"/>
                             <field name="ref" force_save="1"/>
@@ -41,6 +43,8 @@
                                         <field name="partner_name" force_save="1"/>
                                         <field name="partner_vat" force_save="1"/>
                                         <field name="partner_email" force_save="1"/>
+                                        <field name="partner_street" invisible="1" force_save="1"/>
+                                        <field name="partner_tax_office" invisible="1" force_save="1"/>
                                         <field name="amount" force_save="1"/>
                                         <field name="bank_iban" invisible="1" force_save="1"/>
                                         <field name="bank_merchant" invisible="1" force_save="1"/>

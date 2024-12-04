@@ -126,6 +126,7 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
             rowempty: new fields.string(),
             col: new fields.string(),
             colempty: new fields.string(),
+            summary: new fields.element(),
         };
         this.terms = {
             ok: new fields.boolean(),
@@ -886,6 +887,15 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
                                 format: format,
                                 ...self.currency,
                             });
+
+                            if (self.installment.summary.exist) {
+                                self.installment.summary.html = qweb.render('paylox.installment.summary', {
+                                    row: result.rows?.[0] || {},
+                                    value: self.amount.value,
+                                    format: format,
+                                    ...self.currency,
+                                });
+                            }
 
                             if (result.card) {
                                 if (result.card.family) {

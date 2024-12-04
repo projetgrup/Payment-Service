@@ -1219,7 +1219,6 @@ class PayloxController(http.Controller):
                 if partner_vat and len(partner_vat) in (10, 11):
                     data.update({'billing_tax_number': partner_vat})
 
-            order_id = str(uuid.uuid4())
             sale_id = int(kwargs.get('order', 0))
             invoice_id = int(kwargs.get('invoice', 0))
 
@@ -1240,7 +1239,6 @@ class PayloxController(http.Controller):
                 'jetcheckout_card_number': number and  ''.join([number[:6], '*'*6, number[-4:]]) or False,
                 'jetcheckout_card_type': kwargs['card']['type'].capitalize(),
                 'jetcheckout_card_family': kwargs['card']['family'].capitalize(),
-                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_amount': amount,
                 'jetcheckout_installment_count': installment['count'],
                 'jetcheckout_installment_plus': installment['plus'],
@@ -1326,7 +1324,7 @@ class PayloxController(http.Controller):
             success_url = '/payment/card/success' if 'successurl' not in kwargs or not kwargs['successurl'] else kwargs['successurl']
             fail_url = '/payment/card/fail' if 'failurl' not in kwargs or not kwargs['failurl'] else kwargs['failurl']
             data.update({
-                "order_id": order_id,
+                "order_id": tx.jetcheckout_order_id,
                 "card_holder_name": kwargs['card']['holder'],
                 "cvc": kwargs['card']['code'],
                 "success_url": "https://%s%s" % (base_url, success_url),
@@ -1434,7 +1432,6 @@ class PayloxController(http.Controller):
             amount_integer = round(amount * 100)
             amount_customer = 0
 
-            order_id = str(uuid.uuid4())
             hash = base64.b64encode(hashlib.sha256(''.join([acquirer.jetcheckout_api_key, order_id, str(amount_integer), acquirer.jetcheckout_secret_key]).encode('utf-8')).digest()).decode('utf-8')
             data = {
                 "application_key": acquirer.jetcheckout_api_key,
@@ -1477,7 +1474,6 @@ class PayloxController(http.Controller):
                 'jetcheckout_ip_address': tx and tx.jetcheckout_ip_address or request.httprequest.remote_addr,
                 'jetcheckout_url_address': tx and tx.jetcheckout_url_address or request.httprequest.referrer,
                 'jetcheckout_campaign_name': campaign,
-                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_amount': amount,
                 'jetcheckout_installment_count': installment_count,
                 'jetcheckout_installment_plus': 0,
@@ -1563,7 +1559,7 @@ class PayloxController(http.Controller):
             success_url = '/payment/contactless/success' if 'successurl' not in kwargs or not kwargs['successurl'] else kwargs['successurl']
             fail_url = '/payment/contactless/fail' if 'failurl' not in kwargs or not kwargs['failurl'] else kwargs['failurl']
             data.update({
-                "order_id": order_id,
+                "order_id": tx.jetcheckout_order_id,
                 "success_url": "https://%s%s" % (base_url, success_url),
                 "fail_url": "https://%s%s" % (base_url, fail_url),
                 "customer":  {
@@ -1623,7 +1619,6 @@ class PayloxController(http.Controller):
             amount_integer = round(amount * 100)
             amount_customer = 0
 
-            order_id = str(uuid.uuid4())
             hash = base64.b64encode(hashlib.sha256(''.join([acquirer.jetcheckout_api_key, order_id, str(amount_integer), acquirer.jetcheckout_secret_key]).encode('utf-8')).digest()).decode('utf-8')
             data = {
                 "application_key": acquirer.jetcheckout_api_key,
@@ -1650,7 +1645,6 @@ class PayloxController(http.Controller):
                 'jetcheckout_website_id': request.website.id,
                 'jetcheckout_ip_address': tx and tx.jetcheckout_ip_address or request.httprequest.remote_addr,
                 'jetcheckout_url_address': tx and tx.jetcheckout_url_address or request.httprequest.referrer,
-                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_amount': amount,
                 'jetcheckout_installment_count': 1,
                 'jetcheckout_installment_plus': 0,
@@ -1736,7 +1730,7 @@ class PayloxController(http.Controller):
             success_url = '/payment/success' if 'successurl' not in kwargs or not kwargs['successurl'] else kwargs['successurl']
             fail_url = '/payment/fail' if 'failurl' not in kwargs or not kwargs['failurl'] else kwargs['failurl']
             data.update({
-                "order_id": order_id,
+                "order_id": tx.jetcheckout_order_id,
                 "success_url": "https://%s%s" % (base_url, success_url),
                 "fail_url": "https://%s%s" % (base_url, fail_url),
                 "customer":  {
@@ -1796,7 +1790,6 @@ class PayloxController(http.Controller):
             amount_integer = round(amount * 100)
             amount_customer = 0
 
-            order_id = str(uuid.uuid4())
             hash = base64.b64encode(hashlib.sha256(''.join([acquirer.jetcheckout_api_key, order_id, str(amount_integer), acquirer.jetcheckout_secret_key]).encode('utf-8')).digest()).decode('utf-8')
             data = {
                 "application_key": acquirer.jetcheckout_api_key,
@@ -1825,7 +1818,6 @@ class PayloxController(http.Controller):
                 'jetcheckout_website_id': request.website.id,
                 'jetcheckout_ip_address': tx and tx.jetcheckout_ip_address or request.httprequest.remote_addr,
                 'jetcheckout_url_address': tx and tx.jetcheckout_url_address or request.httprequest.referrer,
-                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_amount': amount,
                 'jetcheckout_installment_count': 1,
                 'jetcheckout_installment_plus': 0,
@@ -1911,7 +1903,7 @@ class PayloxController(http.Controller):
             success_url = '/payment/success' if 'successurl' not in kwargs or not kwargs['successurl'] else kwargs['successurl']
             fail_url = '/payment/fail' if 'failurl' not in kwargs or not kwargs['failurl'] else kwargs['failurl']
             data.update({
-                "order_id": order_id,
+                "order_id": tx.jetcheckout_order_id,
                 "success_url": "https://%s%s" % (base_url, success_url),
                 "fail_url": "https://%s%s" % (base_url, fail_url),
                 "customer":  {
@@ -1979,7 +1971,6 @@ class PayloxController(http.Controller):
             amount_cost = float_round(amount_total * installment['corate'] / 100, 2)
             amount_integer = amount_total #round(amount_total * 100)
 
-            order_id = str(uuid.uuid4())
             hash = base64.b64encode(hashlib.sha256(''.join([acquirer.jetcheckout_api_key, order_id, str(amount_integer), acquirer.jetcheckout_secret_key]).encode('utf-8')).digest()).decode('utf-8')
 
             sale_id = int(kwargs.get('order', 0))
@@ -1998,7 +1989,6 @@ class PayloxController(http.Controller):
                 'jetcheckout_ip_address': tx and tx.jetcheckout_ip_address or request.httprequest.remote_addr,
                 'jetcheckout_url_address': tx and tx.jetcheckout_url_address or request.httprequest.referrer,
                 'jetcheckout_campaign_name': campaign,
-                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_amount': amount,
                 'jetcheckout_installment_count': installment['count'],
                 'jetcheckout_installment_plus': 0,
@@ -2023,8 +2013,8 @@ class PayloxController(http.Controller):
 
             data = {
                 "application_key": acquirer.jetcheckout_api_key,
+                "order_id": tx.jetcheckout_order_id,
                 "mode": acquirer._get_paylox_env(),
-                "order_id": order_id,
                 "amount": amount_integer,
                 "currency": currency.name,
                 "installment_count": installment['count'],
