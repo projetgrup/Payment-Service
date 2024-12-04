@@ -51,7 +51,7 @@ class PaymentCredentialToken(Datamodel):
     _name = "payment.credential.token"
     _inherit = "payment.credential.apikey"
 
-    token = fields.String(required=True, allow_none=False, metadata={"title": _lt("Payment Token"), "description": _lt("UUID which is generated especially for credit card payments"), "example": "15a8ecc1-731c-411b-89fd-283e1c55cfaf"})
+    token = fields.UUID(required=True, allow_none=False, metadata={"title": _lt("Payment Token"), "description": _lt("UUID which is generated especially for credit card payments"), "example": "15a8ecc1-731c-411b-89fd-283e1c55cfaf"})
 
 
 class PaymentRefundInput(Datamodel):

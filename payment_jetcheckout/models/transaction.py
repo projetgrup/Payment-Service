@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-import requests
-import logging
 import json
 import pytz
+import uuid
+import requests
+import logging
 
 from urllib.parse import urlparse
 from datetime import datetime, date
@@ -128,6 +129,10 @@ class PaymentTransaction(models.Model):
             if 'partner_vat' not in values:
                 partner = self.env['res.partner'].browse(values['partner_id'])
                 values.update({'partner_vat': partner.vat})
+            if 'jetcheckout_order_id' not in values and 'acquirer' in values:
+                acquirer = self.env['payment.acquirer'].browse(values['acquirer'])
+                if acquirer.provider == 'jetcheckout':
+                    values.update({'jetcheckout_order_id': str(uuid.uuid4())})
 
         txs = super().create(values_list)
 

@@ -13,10 +13,11 @@ class CustomerPortal(portal.CustomerPortal):
             return request.redirect('/my/payment')
         return super().home(**kwargs)
 
-class PayloxSystemOcoController(Controller):
-    
-    def _get_tx_values(self, **kwargs):
-        values = super()._get_tx_values(**kwargs)
-        if request.env.company.system == 'oco':
-            values.update({'jetcheckout_preauth': True})
-        return values
+
+#class PayloxSystemOcoController(Controller):
+#    
+#    def _get_tx_values(self, **kwargs):
+#        values = super()._get_tx_values(**kwargs)
+#        if request.env.company.system == 'oco':
+#            values.update({'jetcheckout_preauth': True})
+#        return values
