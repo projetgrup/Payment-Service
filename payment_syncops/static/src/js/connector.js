@@ -186,6 +186,7 @@ systemPage.include({
         rpc.query({
             route: '/my/payment/partners/ledger/list',
             params: {
+                partner: self.partner.value,
                 start: $date_start.val(),
                 end: $date_end.val(),
                 format: format,

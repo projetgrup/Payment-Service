@@ -140,6 +140,9 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
             mask: payloxPage.prototype._maskAmount.bind(this),
             default: 0,
         });
+        this.partner = new fields.integer({
+            default: 0,
+        });
         this.vat = new fields.string();
         this.campaign = {
             name: new fields.string(),
