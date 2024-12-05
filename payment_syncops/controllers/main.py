@@ -71,14 +71,6 @@ class PayloxSyncopsController(Controller):
         return values
 
     def _connector_get_partner(self, partner=None):
-        partner = partner and partner.commercial_partner_id or request.env.user.sudo().partner_id.commercial_partner_id
-        return {
-            'name': partner.name,
-            'vat': partner.vat,
-            'ref': partner.ref,
-            'connector': False,
-        }
-        #TODO check cache first
         data = self._get('syncops')
         if data:
             return {
@@ -89,11 +81,15 @@ class PayloxSyncopsController(Controller):
             }
         else:
             partner = partner and partner.commercial_partner_id or request.env.user.sudo().partner_id.commercial_partner_id
-            return {
+            data = {
                 'name': partner.name,
                 'vat': partner.vat,
                 'ref': partner.ref,
-                'connector': False,
+            }
+            self._set('syncops', {**data})
+            return {
+                **data,
+                'connector': True,
             }
 
     def _connector_get_partner_balance(self, vat, ref, company=None):
@@ -311,7 +307,10 @@ class PayloxSyncopsController(Controller):
         if not date_format:
             return {'error': _('Date format cannot be empty')}
 
-        partner_connector = self._connector_get_partner()
+        partner = kwargs.get('partner')
+        if partner:
+            partner = request.env['res.partner'].sudo().browse(partner)
+        partner_connector = self._connector_get_partner(partner=partner)
         vat = partner_connector['vat']
         ref = partner_connector['ref']
         date_format = date_format.replace('DD', '%d').replace('MM', '%m').replace('YYYY', '%Y')
