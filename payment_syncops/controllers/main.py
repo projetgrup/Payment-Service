@@ -71,6 +71,14 @@ class PayloxSyncopsController(Controller):
         return values
 
     def _connector_get_partner(self, partner=None):
+        partner = partner and partner.commercial_partner_id or request.env.user.sudo().partner_id.commercial_partner_id
+        return {
+            'name': partner.name,
+            'vat': partner.vat,
+            'ref': partner.ref,
+            'connector': False,
+        }
+        #TODO check cache first
         data = self._get('syncops')
         if data:
             return {
