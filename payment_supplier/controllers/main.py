@@ -33,7 +33,7 @@ class PayloxSystemSupplierController(Controller):
                 values.update({
                     'is_submerchant_payment': True,
                     'submerchant_external_id': reference,
-                    'submerchant_price': data['amount']/100,
+                    'submerchant_price': float(kwargs['amount']),
                 })
                 if not kwargs.get('verify'):
                     values.update({
