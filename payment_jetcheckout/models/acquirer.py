@@ -575,18 +575,6 @@ class PaymentAcquirer(models.Model):
                     'jetcheckout_expiry': kwargs['card']['date'],
                     'jetcheckout_security': kwargs['card']['code'],
                 })
-
-            if 'submerchant' in kwargs:
-                submerchant_external_id = kwargs['submerchant']['ref']
-                submerchant_price = kwargs['submerchant']['price']
-                if tx.company_id.payment_page_token_wo_commission:
-                    submerchant_price = float_round(submerchant_price * (1 - (tx.jetcheckout_commission_rate / 100)), 4)
-
-                data.update({
-                    "is_submerchant_payment": True,
-                    "submerchant_external_id": submerchant_external_id,
-                    "submerchant_price": submerchant_price,
-                })
             
             if 'item' in kwargs:
                 tx.write({
@@ -638,6 +626,18 @@ class PaymentAcquirer(models.Model):
                         'last_state_change': fields.Datetime.now(),
                     })
                     return {'error': message}
+
+            if 'submerchant' in kwargs:
+                submerchant_external_id = kwargs['submerchant']['ref']
+                submerchant_price = kwargs['submerchant']['price']
+                if tx.company_id.payment_page_token_wo_commission:
+                    submerchant_price = float_round(submerchant_price * (1 - (tx.jetcheckout_commission_rate / 100)), 4)
+
+                data.update({
+                    "is_submerchant_payment": True,
+                    "submerchant_external_id": submerchant_external_id,
+                    "submerchant_price": submerchant_price,
+                })
 
             url = '%s/api/v1/payment' % self._get_paylox_api_url()
             response = requests.post(url, data=json.dumps(data))
