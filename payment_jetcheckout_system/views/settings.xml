@@ -231,6 +231,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="payment_page_token_wo_commission"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="payment_page_token_wo_commission" string="Send Amount without Commission On Credit Card Verify Page"/>
+                                    <div class="text-muted">
+                                        When verifying a credit card, send amount without commission
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="app_settings_block" data-string="Dues" string="Dues" data-key="hr_attendance">

@@ -245,7 +245,7 @@ class PayloxController(http.Controller):
             'jetcheckout_payment_ok': kwargs.get('payment_ok', True),
         }
 
-    def _get_data_values(self, data, **kwargs):
+    def _get_data_values(self, data, transaction, **kwargs):
         return {}
 
     def _prepare(self, acquirer=None, company=None, partner=None, currency=None, transaction=None, balance=True, filters={}):
@@ -1348,6 +1348,13 @@ class PayloxController(http.Controller):
             if tx.token_id and not tx.token_id.verified:
                 if not tx.token_id.jetcheckout_ref:
                     raise Exception(_('Token has not been set'))
+                if tx.company_id.payment_page_token_wo_commission:
+                    amount_customer = amount * installment['crate'] / 100
+                    amount_total = float_round(amount + amount_customer, 2)
+                    amount_cost = float_round(amount_total * installment['corate'] / 100, 2)
+                    amount_integer = round(amount_total * 100)
+                    data.update({'amount': amount_integer})
+
                 data.update({
                     "save_card": True,
                     "card_alias": tx.token_id.name,
@@ -1366,7 +1373,7 @@ class PayloxController(http.Controller):
             if tx.jetcheckout_preauth:
                 data.update({'is_preauth': True})
 
-            data.update(self._get_data_values(data, **kwargs))
+            data.update(self._get_data_values(data, tx, **kwargs))
             response = requests.post(url, data=json.dumps(data))
             if response.status_code == 200:
                 result = response.json()
@@ -2131,7 +2138,7 @@ class PayloxController(http.Controller):
                 },
             })
 
-            data.update(self._get_data_values(data, **kwargs))
+            data.update(self._get_data_values(data, tx, **kwargs))
             response = requests.post(url, data=json.dumps(data))
             if response.status_code == 200:
                 result = response.json()
