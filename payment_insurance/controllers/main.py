@@ -30,7 +30,8 @@ class PayloxSystemInsuranceController(Controller):
             if not reference:
                 raise ValidationError(_('%s must have at least one bank account which is verified.' % partner.name))
 
-            amount = data['amount']/100
+            #amount = data['amount']/100
+            amount = transaction.amount
             if transaction.company_id.payment_page_token_wo_commission:
                 amount = float_round(amount * (1 - (transaction.jetcheckout_commission_rate / 100)), 4)
 
