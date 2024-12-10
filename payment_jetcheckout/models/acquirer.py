@@ -593,7 +593,7 @@ class PaymentAcquirer(models.Model):
                     })]
                 })
 
-            #data.update(self._get_data_values(data, **kwargs))
+            #data.update(self._get_data_values(data, tx, **kwargs))
 
             if options.get('simulate'):
                 url = '%s/api/v1/payment/simulation' % self._get_paylox_api_url()
