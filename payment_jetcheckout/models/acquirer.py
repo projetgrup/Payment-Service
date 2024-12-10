@@ -629,7 +629,7 @@ class PaymentAcquirer(models.Model):
 
             if 'submerchant' in kwargs:
                 submerchant_external_id = kwargs['submerchant']['ref']
-                submerchant_price = kwargs['submerchant']['price']
+                submerchant_price = tx.amount #kwargs['submerchant']['price']
                 if tx.company_id.payment_page_token_wo_commission:
                     submerchant_price = float_round(submerchant_price * (1 - (tx.jetcheckout_commission_rate / 100)), 4)
 
