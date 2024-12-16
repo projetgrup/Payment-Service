@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-02 08:10+0000\n"
-"PO-Revision-Date: 2024-09-02 08:10+0000\n"
+"POT-Creation-Date: 2024-12-16 10:45+0000\n"
+"PO-Revision-Date: 2024-12-16 10:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: payment_jetcheckout
+#: code:addons/payment_jetcheckout/controllers/main.py:0
+#: code:addons/payment_jetcheckout/controllers/main.py:0
 #: code:addons/payment_jetcheckout/controllers/main.py:0
 #: code:addons/payment_jetcheckout/controllers/main.py:0
 #: code:addons/payment_jetcheckout/controllers/main.py:0
@@ -53,6 +55,18 @@ msgstr ""
 #: code:addons/payment_jetcheckout/models/transaction.py:0
 #, python-format
 msgid "%s installment"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_result
+msgid ""
+". Please try again. If this situation occurs anyway, please contact with "
+"system administation."
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "1.0"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -201,6 +215,13 @@ msgid "3D Usage"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_receipt
+msgid ""
+"<br/>\n"
+"                                                        Description:"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_form
 msgid ""
 "<br/>Appliable installment options will be displayed here after you enter "
@@ -215,6 +236,41 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_receipt
 msgid "<br/>Vat:"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "<code>{{amount_paid}}</code>: Paid Amount"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "<code>{{card_holder}}</code>: Credit Card Holder Name"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "<code>{{partner_name}}</code>: Partner Name"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "<code>{{payment_date}}</code>: Payment Date"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_result
+msgid "<em class=\"d-block mt-1 text-600\">Redirecting...</em>"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
+msgid "<em class=\"mr-2\">v1</em>"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
+msgid "<em>v2</em>"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -258,6 +314,14 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_result
 msgid ""
+"<span class=\"font-italic font-weight-light btn-sm\">A technical error "
+"occured and we couldn't record your payment. Please contact with us for more"
+" information.</span>"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_result
+msgid ""
 "<span class=\"font-italic font-weight-light btn-sm\">Transaction is done, "
 "but a technical error occured and we couldn't record your payment. Please "
 "contact with us for more information.</span>"
@@ -266,6 +330,11 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_transaction
 msgid "<span class=\"font-weight-bold\">Message:</span>"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "<span class=\"fst-italic mr8\">Active</span>"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -393,16 +462,24 @@ msgid "<span>Amount to Pay</span>"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_verify
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_form
 msgid "<span>Card Number</span>"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_sidebar
+msgid "<span>Description</span>"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_verify
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_form
 msgid "<span>Expiration</span>"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_verify
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_form
 msgid "<span>Name</span>"
 msgstr ""
@@ -510,8 +587,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_campaign__acquirer_id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal__acquirer_id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line__acquirer_id
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__acquirer_id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_signin__acquirer_id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction_import_line__acquirer_id
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
 msgid "Acquirer"
 msgstr ""
 
@@ -521,6 +600,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_campaigns_line__is_active
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_installment__is_active
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_pos__is_active
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__active
 msgid "Active"
 msgstr ""
 
@@ -563,6 +643,17 @@ msgid "Amount to Pay"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: code:addons/payment_jetcheckout/controllers/main.py:0
+#: code:addons/payment_jetcheckout/controllers/main.py:0
+#: code:addons/payment_jetcheckout/controllers/main.py:0
+#: code:addons/payment_jetcheckout/controllers/main.py:0
+#: code:addons/payment_jetcheckout/controllers/main.py:0
+#: code:addons/payment_jetcheckout/controllers/main.py:0
+#, python-format
+msgid "An error occured"
+msgstr ""
+
+#. module: payment_jetcheckout
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
@@ -579,6 +670,7 @@ msgstr ""
 
 #. module: payment_jetcheckout
 #. openerp-web
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
@@ -646,6 +738,11 @@ msgstr ""
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_transaction_import_line__state__authorized
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_sidebar
 msgid "Authorized"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "Available variables;"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -722,6 +819,11 @@ msgid "Bin Code"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__body
+msgid "Body"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_bank__branch
 msgid "Branch"
 msgstr ""
@@ -740,6 +842,7 @@ msgid "Business Card"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_verify
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_form
 msgid "CVC"
 msgstr ""
@@ -908,6 +1011,13 @@ msgid "Card Type"
 msgstr ""
 
 #. module: payment_jetcheckout
+#. openerp-web
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
+#, python-format
+msgid "Card Verification"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction_product__categ
 msgid "Categ"
 msgstr ""
@@ -977,6 +1087,7 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal__company_id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line__company_id
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__company_id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_term__company_id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction_import_line__company_id
 msgid "Company"
@@ -1006,6 +1117,7 @@ msgstr ""
 
 #. module: payment_jetcheckout
 #: model:ir.actions.report,name:payment_jetcheckout.report_conveyance
+#: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_acquirer_jetcheckout_report__type__conveyance
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_result
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_transaction
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_receipt
@@ -1044,6 +1156,11 @@ msgid "Create a new account"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.actions.act_window,help:payment_jetcheckout.action_report
+msgid "Create a report then use them in payments"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: code:addons/payment_jetcheckout/models/transaction.py:0
 #, python-format
 msgid "Create refund for %s"
@@ -1069,6 +1186,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line__create_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_prestatus__create_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_refund__create_uid
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__create_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_signin__create_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__create_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_term__create_uid
@@ -1099,6 +1217,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line__create_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_prestatus__create_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_refund__create_date
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__create_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_signin__create_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__create_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_term__create_date
@@ -1170,6 +1289,13 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_token__jetcheckout_type
 msgid "Credit Card Type"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_result
+msgid ""
+"Credit card verification status could not be retrieved. Please close the "
+"dialog and check the verification again."
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -1369,6 +1495,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line__display_name
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_prestatus__display_name
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_refund__display_name
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__display_name
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_signin__display_name
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__display_name
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_term__display_name
@@ -1406,6 +1533,11 @@ msgid "Due Date"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
+msgid "Email"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_campaign__to_date
 msgid "End Date"
 msgstr ""
@@ -1417,7 +1549,23 @@ msgid "Enter Manually"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_sidebar
+msgid "Enter a description..."
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "Enter a report name..."
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
+msgid "Enter an account email..."
+msgstr ""
+
+#. module: payment_jetcheckout
 #. openerp-web
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
@@ -1519,6 +1667,11 @@ msgid "HTTP Routing"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "Help"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__jetcheckout_no_smart_buttons
 msgid "Hide Smart Buttons"
 msgstr ""
@@ -1553,6 +1706,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line__id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_prestatus__id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_refund__id
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_signin__id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_term__id
@@ -1601,6 +1755,13 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_application__in_use
 msgid "In Use"
+msgstr ""
+
+#. module: payment_jetcheckout
+#. openerp-web
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#, python-format
+msgid "Info"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -1734,6 +1895,16 @@ msgid "Jetcheckout Secret Key"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__jetcheckout_soft_pos_email
+msgid "Jetcheckout Soft Pos Email"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__jetcheckout_soft_pos_version
+msgid "Jetcheckout Soft Pos Version"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__jetcheckout_terms
 msgid "Jetcheckout Terms"
 msgstr ""
@@ -1780,6 +1951,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line____last_update
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_prestatus____last_update
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_refund____last_update
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report____last_update
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_signin____last_update
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status____last_update
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_term____last_update
@@ -1810,6 +1982,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line__write_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_prestatus__write_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_refund__write_uid
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__write_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_signin__write_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__write_uid
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_term__write_uid
@@ -1840,6 +2013,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line__write_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_prestatus__write_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_refund__write_date
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__write_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_signin__write_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__write_date
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_term__write_date
@@ -1877,6 +2051,7 @@ msgid "Low Cost Rate"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_verify
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_form
 msgid "MM/YY"
 msgstr ""
@@ -1959,9 +2134,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_campaign__name
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal__name
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_journal_line__name
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__name
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction_product__name
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_product_category_jetcheckout_credit__name
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
 msgid "Name"
 msgstr ""
 
@@ -1994,6 +2171,11 @@ msgstr ""
 #: code:addons/payment_jetcheckout/static/src/xml/templates.xml:0
 #, python-format
 msgid "No installment table found"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.actions.act_window,help:payment_jetcheckout.action_report
+msgid "No reports yet"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -2190,6 +2372,11 @@ msgid "Paylox Campaigns"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__paylox_description
+msgid "Paylox Description"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__paylox_journal_ids
 msgid "Paylox Journal"
 msgstr ""
@@ -2226,13 +2413,18 @@ msgid "Paylox Payment Type Credit Bank Code"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_payment_type_transfer_service_name
+msgid "Paylox Payment Type Transfer Service Name"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_payment_type_wallet_id
 msgid "Paylox Payment Type Wallet ID"
 msgstr ""
 
 #. module: payment_jetcheckout
-#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_payment_type_wallet_name
-msgid "Paylox Payment Type Wallet Name"
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_payment_type_wallet_service_name
+msgid "Paylox Payment Type Wallet Service Name"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -2248,6 +2440,31 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model:ir.model,name:payment_jetcheckout.model_payment_acquirer_jetcheckout_refund
 msgid "Paylox Refund"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__paylox_report_ids
+msgid "Paylox Report"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model,name:payment_jetcheckout.model_payment_acquirer_jetcheckout_report
+msgid "Paylox Reports"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_service_code
+msgid "Paylox Service Code"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_service_message
+msgid "Paylox Service Message"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_service_suggestion
+msgid "Paylox Service Suggestion"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -2320,6 +2537,11 @@ msgid "Payment Methods"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_res_company__payment_page_description_ok
+msgid "Payment Page Description"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.api_pos_form
 msgid "Payment Request Default Values"
 msgstr ""
@@ -2332,6 +2554,11 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model:ir.model,name:payment_jetcheckout.model_payment_token
 msgid "Payment Token"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_res_company__payment_page_token_wo_commission
+msgid "Payment Token Page Amount Without Commission"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -2424,6 +2651,11 @@ msgid "Pending"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_receipt
+msgid "Phone:"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_pos__is_physical
 msgid "Physical POS"
 msgstr ""
@@ -2486,12 +2718,14 @@ msgstr ""
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
 #, python-format
 msgid "Please enter a valid card number"
 msgstr ""
 
 #. module: payment_jetcheckout
 #. openerp-web
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
@@ -2508,6 +2742,7 @@ msgstr ""
 #. module: payment_jetcheckout
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
 #, python-format
 msgid "Please fill card expiration date"
 msgstr ""
@@ -2515,6 +2750,7 @@ msgstr ""
 #. module: payment_jetcheckout
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
 #, python-format
 msgid "Please fill card holder name"
 msgstr ""
@@ -2522,6 +2758,7 @@ msgstr ""
 #. module: payment_jetcheckout
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
 #, python-format
 msgid "Please fill card number"
 msgstr ""
@@ -2529,6 +2766,7 @@ msgstr ""
 #. module: payment_jetcheckout
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
 #, python-format
 msgid "Please fill card security code"
 msgstr ""
@@ -2541,8 +2779,16 @@ msgstr ""
 #. module: payment_jetcheckout
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #, python-format
 msgid "Please select a bank"
+msgstr ""
+
+#. module: payment_jetcheckout
+#. openerp-web
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#, python-format
+msgid "Please select a provider"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -2668,6 +2914,11 @@ msgid "Provider"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "Published"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction_product__qty
 msgid "Qty"
 msgstr ""
@@ -2692,6 +2943,7 @@ msgstr ""
 
 #. module: payment_jetcheckout
 #: model:ir.actions.report,name:payment_jetcheckout.report_receipt
+#: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_acquirer_jetcheckout_report__type__receipt
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_result
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_transaction
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_receipt
@@ -2743,6 +2995,12 @@ msgid "Refund amount cannot be higher than total amount"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model:ir.actions.act_window,name:payment_jetcheckout.action_report
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
+msgid "Reports"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_application__res_id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_bank__res_id
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_campaign__res_id
@@ -2775,6 +3033,13 @@ msgid "Save"
 msgstr ""
 
 #. module: payment_jetcheckout
+#. openerp-web
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#, python-format
+msgid "Saved Cards"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_api_application__second_selection
 msgid "Second Selection Criteria"
 msgstr ""
@@ -2789,6 +3054,7 @@ msgid "Secret Key"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_verify
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_form
 msgid "Security Code"
 msgstr ""
@@ -2812,7 +3078,23 @@ msgstr ""
 
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_bank__sequence
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__sequence
 msgid "Sequence"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__service_code
+msgid "Service Code"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__service_message
+msgid "Service Message"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.transaction_form
+msgid "Service Name"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -2890,6 +3172,7 @@ msgstr ""
 
 #. module: payment_jetcheckout
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_transaction__jetcheckout_payment_type__soft_pos
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
 msgid "Soft PoS"
 msgstr ""
 
@@ -3104,6 +3387,7 @@ msgstr ""
 #: code:addons/payment_jetcheckout/controllers/main.py:0
 #: code:addons/payment_jetcheckout/controllers/main.py:0
 #: code:addons/payment_jetcheckout/controllers/main.py:0
+#: code:addons/payment_jetcheckout/controllers/main.py:0
 #: code:addons/payment_jetcheckout/models/acquirer.py:0
 #, python-format
 msgid "Transaction is pending..."
@@ -3161,6 +3445,8 @@ msgid "Tx"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__type
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.transaction_form
 msgid "Type"
 msgstr ""
@@ -3228,6 +3514,18 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_receipt
 msgid "Vat:"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_verify
+msgid "Verify"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__version
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
+msgid "Version"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -3300,11 +3598,6 @@ msgid "Wallet"
 msgstr ""
 
 #. module: payment_jetcheckout
-#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.transaction_form
-msgid "Wallet Name"
-msgstr ""
-
-#. module: payment_jetcheckout
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
@@ -3321,6 +3614,14 @@ msgstr ""
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
 #: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/page.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
+#: code:addons/payment_jetcheckout/static/src/js/token.js:0
 #, python-format
 msgid "Warning"
 msgstr ""
@@ -3366,6 +3667,23 @@ msgid "You have to define a sequence for %s"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_result
+msgid "Your credit card has been successfully verified."
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_result
+msgid ""
+"Your credit card verification has been failed. Please try again. If this "
+"situation occurs anyway, please contact with system administation."
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.page_token_result
+msgid "Your credit card verification status:"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model_terms:payment.acquirer,cancel_msg:payment_jetcheckout.payment_acquirer_jetcheckout
 msgid "Your payment is cancelled."
 msgstr ""
@@ -3391,6 +3709,13 @@ msgid "and more"
 msgstr ""
 
 #. module: payment_jetcheckout
+#. openerp-web
+#: code:addons/payment_jetcheckout/static/src/xml/templates.xml:0
+#, python-format
+msgid "commission)"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.signin_form
 msgid "https://api.jetcheckout.com"
@@ -3404,4 +3729,19 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_acquirer__provider__jetcheckout
 msgid "jetcheckout"
+msgstr ""
+
+#. module: payment_jetcheckout
+#. openerp-web
+#: code:addons/payment_jetcheckout/static/src/xml/templates.xml:0
+#, python-format
+msgid "test"
+msgstr ""
+
+#. module: payment_jetcheckout
+#. openerp-web
+#: code:addons/payment_jetcheckout/static/src/xml/templates.xml:0
+#, python-format
+msgid ""
+"will be charged from this credit card and it will be refunded immediately."
 msgstr ""
