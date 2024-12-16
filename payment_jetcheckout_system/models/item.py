@@ -79,6 +79,7 @@ class PaymentItem(models.Model):
     child_id = fields.Many2one('res.partner', ondelete='restrict')
     parent_id = fields.Many2one('res.partner', ondelete='restrict')
     vat = fields.Char(related='parent_id.vat', string='VAT', store=True)
+    parent_ref = fields.Char(related='parent_id.ref', string='Partner Reference')
     campaign_id = fields.Many2one(related='parent_id.campaign_id', string='Campaign')
 
     amount = fields.Monetary()

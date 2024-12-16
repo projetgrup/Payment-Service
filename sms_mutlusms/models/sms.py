@@ -10,6 +10,7 @@ CREDITURL = 'https://smsgw.mutlucell.com/smsgw-ws/gtcrdtex'
 HEADERS = {'content-type': 'text/xml; charset=utf-8'}
 ERRORS = {
     None: ValidationError('Bir hata meydana geldi'),
+    False: ValidationError('İstek zaman aşımına uğdadı'),
     '20': ValidationError('Post edilen xml eksik veya hatalı'),
     '21': AccessError('Kullanılan originatöre sahip değilsiniz'),
     '22': InsufficientCreditError('Kontörünüz yetersiz'),
@@ -40,27 +41,37 @@ class SmsApi(models.AbstractModel):
         originator = provider.originator
 
         blocks = [f"<mesaj><metin>{message['content']}</metin><nums>{message['number']}</nums></mesaj>" for message in messages]
-
         data = f"""<?xml version="1.0" encoding="UTF-8"?>
             <smspack ka="{username}" pwd="{password}" org="{originator}" charset="turkish">
                 {"".join(blocks)}
             </smspack>"""
 
-        response = requests.post(SENDURL, data=data.encode('utf-8'), headers=HEADERS)
-        code = response.text
-        if code.startswith('$'):
-            return [{'res_id': message['res_id'], 'state': 'success'} for message in messages]
-        else:
-            raise ERRORS.get(code, ERRORS[None])
+        try:
+            response = requests.post(SENDURL, data=data.encode('utf-8'), headers=HEADERS, timeout=10)
+            code = response.text
+            if code.startswith('$'):
+                return [{'res_id': message['res_id'], 'state': 'success'} for message in messages]
+            else:
+                raise ERRORS.get(code, ERRORS[None])
+        except requests.exceptions.ConnectionError:
+            raise ERRORS[False]
+        except Exception as e:
+            raise ValidationError(str(e))
 
     @api.model
     def _get_mutlusms_credit(self, provider):
         username = provider.username
         password = provider.password
         data = f"""<?xml version="1.0" encoding="UTF-8"?><smskredi ka="{username}" pwd="{password}"/>"""
-        response = requests.post(CREDITURL, data=data.encode('utf-8'), headers=HEADERS)
-        code = response.text
-        if code.startswith('$'):
-            return _('%s SMS credit(s) left') % int(float(code[1:]))
-        else:
-            raise ERRORS.get(code, ERRORS[None])
+
+        try:
+            response = requests.post(CREDITURL, data=data.encode('utf-8'), headers=HEADERS, timeout=10)
+            code = response.text
+            if code.startswith('$'):
+                return _('%s SMS credit(s) left') % int(float(code[1:]))
+            else:
+                raise ERRORS.get(code, ERRORS[None])
+        except requests.exceptions.ConnectionError:
+            raise ERRORS[False]
+        except Exception as e:
+            raise ValidationError(str(e))

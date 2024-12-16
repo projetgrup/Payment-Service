@@ -7,6 +7,7 @@
         <tree editable="top" sample="1" js_class="system_item">
             <field name="child_id" required="1" force_save="1" options="{'no_open': True, 'no_create': True}" invisible="context.get('domain',False)" domain="[('parent_id', '!=', False), ('system', '=', context.get('active_system')), ('company_id', '=', company_id)]"/>
             <field name="parent_id" string="Parent" required="1" force_save="1" options="{'no_create': True}" domain="[('parent_id','=',False), ('system', '=', context.get('active_system')),('child_ids','!=',False),('company_id','=',company_id)]"/>
+            <field name="parent_ref" optional="hide"/>
             <field name="campaign_id" optional="show" options="{'no_create': True, 'no_open': True}"/>
             <field name="amount" attrs="{'readonly': [('paid', '=', True), ('amount', '!=', 0)]}"/>
             <field name="date" optional="hide"/>

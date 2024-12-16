@@ -164,6 +164,15 @@
                         </ul>
                     </div>
                 </div>
+                <div t-if="company.payment_page_description_ok and page in ['payment']" class="px-3 py-4 bg-white card my-4 shadow overflow-revert">
+                    <div class="description">
+                        <div class="field-container w-100">
+                            <input id="description" name="description" type="text" class="text-center border-primary" field="description" placeholder="Enter a description..."/>
+                            <span class="bar-container"/>
+                            <label for="description" class="text-primary"><span>Description</span></label>
+                        </div>
+                    </div>
+                </div>
                 <div t-if="page in ['payment', 'transaction', 'ledger'] and not no_partner_info" class="px-3 py-4 bg-white card my-4">
                     <label name="partner" class="text-primary font-weight-bold mb-0 d-block">
                         <t t-if="partner_label" t-raw="partner_label"/>
