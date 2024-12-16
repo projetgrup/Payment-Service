@@ -105,7 +105,7 @@ publicWidget.registry.payloxPaymentCompany = publicWidget.Widget.extend({
 
         const $button = $(ev.currentTarget);
         const cid = $button.data('id');
-        rpc.query({route: '/my/payment/company', params: { cid }}).then(function (result) {
+        rpc.query({ route: '/my/payment/company', params: { cid } }).then((result) => {
             if (result) {
                 framework.showLoading();
                 window.location.reload();
@@ -522,7 +522,7 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
         let $items = $('input.input-switch:checked');
         this.payment.items.checked = !!$items.length;
 
-        if (this.payment.due.days.exist) {
+        if (this.payment.due.payment.exist) {
             let items = $items.map(function() {
                 let $this = $(this);
                 return [[parseInt($this.data('id')), parseFloat($this.data('paid'))]];
