@@ -104,6 +104,7 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
             position: 'after',
             symbol: '',
         };
+        this.description = new fields.string();
         this.amount = new fields.float({
             events: [
                 ['input', this._onInputAmount],
@@ -1113,6 +1114,7 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
                     index: $input.data('index') || 0,
                     rows: this.installment.rows || [],
                 },
+                description: this.description.value || '',
                 campaign: this.campaign.name.value || '',
                 partner: parseInt(this.partner.value || 0),
                 successurl: this.payment.successurl.value,

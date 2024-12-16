@@ -78,6 +78,7 @@ class PaymentSettings(models.TransientModel):
 
     payment_page_ok = fields.Boolean(related='company_id.payment_page_ok', readonly=False)
     payment_page_flow = fields.Selection(related='company_id.payment_page_flow', readonly=False)
+    payment_page_description_ok = fields.Boolean(related='company_id.payment_page_description_ok', readonly=False)
     payment_page_amount_editable = fields.Boolean(related='company_id.payment_page_amount_editable', readonly=False)
     payment_page_saleref_ok = fields.Boolean(related='company_id.payment_page_saleref_ok', readonly=False)
     payment_page_item_priority = fields.Boolean(related='company_id.payment_page_item_priority', readonly=False)

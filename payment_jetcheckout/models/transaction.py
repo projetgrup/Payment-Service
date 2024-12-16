@@ -112,6 +112,7 @@ class PaymentTransaction(models.Model):
     jetcheckout_date_expiration = fields.Datetime('Expiration Date', readonly=True, copy=False)
 
     paylox_product_ids = fields.One2many('payment.transaction.product', 'transaction_id', 'Products')
+    paylox_description = fields.Char()
 
     @api.model
     def _compute_reference(self, provider, prefix=None, separator='-', **kwargs):

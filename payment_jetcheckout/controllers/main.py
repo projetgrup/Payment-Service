@@ -242,6 +242,7 @@ class PayloxController(http.Controller):
 
     def _get_tx_values(self, **kwargs):
         return {
+            'paylox_description': kwargs.get('description', False),
             'jetcheckout_payment_ok': kwargs.get('payment_ok', True),
         }
 

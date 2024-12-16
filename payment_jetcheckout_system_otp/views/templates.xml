@@ -9,9 +9,9 @@
             <div class="o_loading" style="opacity: 0; visibility: hidden">
                 <i class="fa fa-spin fa-circle-o-notch text-primary h1"/>
             </div>
-            <div class="d-flex justify-content-center mt-4">
+            <!--<div class="d-flex justify-content-center mt-4">
                 <t t-call="payment_jetcheckout_system.payment_company"/>
-            </div>
+            </div>-->
             <div class="oe_sign_form oe_otp_form card mx-auto my-5">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <input type="hidden" value="0" field="id"/>

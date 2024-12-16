@@ -139,7 +139,7 @@
                                             <tr>
                                                 <td class="px-2"><span t-field="payment.date"/></td>
                                                 <td t-if="company.payment_page_due_base == 'date_due'" class="px-2"><span t-field="payment.due_date"/></td>
-                                                <td class="px-2"><span t-field="payment.description"/></td>
+                                                <td class="px-2"><span t-if="payment.description" t-field="payment.description"/></td>
                                                 <td class="text-right px-2"><span t-field="payment.amount"/></td>
                                                 <td class="text-right px-2"><span t-field="payment.residual_amount"/></td>
                                                 <td class="text-right px-2"><span t-field="payment.residual_amount" class="payment-amount-paid"/></td>

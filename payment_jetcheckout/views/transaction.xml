@@ -58,6 +58,11 @@
         <xpath expr="//field[@name='state_message']" position="attributes">
             <attribute name="colspan">2</attribute>
         </xpath>
+        <xpath expr="//field[@name='state_message']" position="after">
+            <field name="jetcheckout_service_code" nolabel="1" attrs="{'invisible': [('jetcheckout_service_code', '=', False)]}"/>
+            <field name="jetcheckout_service_message" nolabel="1" attrs="{'invisible': [('jetcheckout_service_message', '=', False)]}"/>
+            <field name="jetcheckout_service_suggestion" nolabel="1" attrs="{'invisible': [('jetcheckout_service_suggestion', '=', False)]}"/>
+        </xpath>
         <xpath expr="//field[@name='acquirer_id']" position="after">
             <field name="jetcheckout_website_id" attrs="{'invisible': [('jetcheckout_website_id', '=', False)]}"/>
         </xpath>
@@ -112,6 +117,7 @@
                         </span>
                     </div>
                     <field name="jetcheckout_ip_address" attrs="{'invisible': [('source_transaction_id', '!=', False)]}"/>
+                    <field name="paylox_description" string="Description" attrs="{'invisible': [('paylox_description', '=', False)]}"/>
                     <field name="jetcheckout_order_id" attrs="{'invisible': [('source_transaction_id', '!=', False)]}"/>
                     <label class="o_settings_left_pane" for="jetcheckout_transaction_id" attrs="{'invisible': [('source_transaction_id', '!=', False)]}"/>
                     <div class="o_row">
