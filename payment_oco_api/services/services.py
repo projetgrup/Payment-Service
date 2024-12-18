@@ -203,24 +203,24 @@ class OrderCheckoutAPIService(Component):
         return hash
 
     def _create_transaction(self, api, hash, params):
-        if hasattr(params.partner, 'country'):
+        if getattr(params.partner, 'country', None):
             country = self.env['res.country'].sudo().search([('code', '=', params.partner.country)], limit=1)
         else:
             country = False
 
-        if country and hasattr(params.partner, 'state'):
+        if country and getattr(params.partner, 'state', None):
             state = self.env['res.country.state'].sudo().search([('country_id', '=', country.id), ('code', '=', params.partner.state)], limit=1)
         else:
             state = False
 
         company = api.company_id
-        if hasattr(params, 'company'):
+        if getattr(params, 'company', None):
             company = self.env['res.company'].sudo().search([('vat', '=', params.company.vat), ('parent_id', '=', company.id)])
             if not company:
                 raise Exception('Company cannot be found')
 
         partner = api.partner_id
-        if hasattr(params, 'partner'):
+        if getattr(params, 'partner', None):
             partner = self.env['res.partner'].sudo().search([('vat', '=', params.partner.vat), ('company_id', '=', company.id)]).with_company(company)
             if not partner:
                 partner = partner.with_context({'no_vat_validation': True, 'active_system': 'oco'}).create({
@@ -235,6 +235,7 @@ class OrderCheckoutAPIService(Component):
                     'street': getattr(params.partner, 'address', '') or '',
                     'zip': getattr(params.partner, 'zip', '') or '',
                     'city': getattr(params.partner, 'city', '') or '',
+                    'paylox_tax_office': getattr(params.partner, 'taxoffice', False) or False,
                 })
 
         acquirer = self._get_acquirer(company=company)
