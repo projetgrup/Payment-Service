@@ -235,6 +235,7 @@ class OrderCheckoutAPIService(Component):
                     'street': getattr(params.partner, 'address', '') or '',
                     'zip': getattr(params.partner, 'zip', '') or '',
                     'city': getattr(params.partner, 'city', '') or '',
+                    'paylox_tax_office': getattr(params.partner, 'taxoffice', False) or False,
                 })
 
         acquirer = self._get_acquirer(company=company)
