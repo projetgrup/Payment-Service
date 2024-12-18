@@ -306,6 +306,7 @@ class OrderCheckoutAPIService(Component):
             'partner_country_id': country and country.id or False,
             'partner_state_id': state and state.id or False,
         })
+        return tx
 
     def _get_acquirer(self, company):
         return self.env['payment.acquirer'].sudo().with_company(company)._get_acquirer(company=company, providers=['jetcheckout'], limit=1, raise_exception=True)
