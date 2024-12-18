@@ -63,7 +63,7 @@ class OrderCheckoutPaymentCreateRequest(Datamodel):
     id = fields.Integer(required=True, allow_none=False, metadata={"title": "ID", "description": _lt("Any unique number related to your specified record in your database for tracking the payment flow"), "example": 12})
     expiration = fields.DateTime(allow_none=False, metadata={"title": _lt("Expiration Date"), "description": _lt("Datetime in ISO format to get transaction expired"), "example": "2023-01-01T00:00:00"})
     campaign = fields.String(metadata={"title": _lt("Campaign Name"), "description": _lt("Name of campaign to be used in getting installment options"), "example": "Standard"})
-    company = NestedModel("oco.payment.company", required=True, metadata={"title": _lt("Company information related to request"), "description": _lt("Company information")})
+    company = NestedModel("oco.payment.company", required=False, allow_none=False, metadata={"title": _lt("Company information related to request"), "description": _lt("Company information")})
     partner = NestedModel("oco.payment.partner", required=True, metadata={"title": _lt("Partner information related to request"), "description": _lt("Partner information")})
     order = NestedModel("oco.payment.order", required=True, metadata={"title": _lt("Order information related to request"), "description": _lt("Order details")})
     url = NestedModel("oco.payment.url", required=True, metadata={"title": _lt("Return URLs by payment method"), "description": _lt("URL addresses")})
