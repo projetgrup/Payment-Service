@@ -23,8 +23,8 @@
                 </group>
             </group>
             <footer>
-                <button name="confirm" context="{'add': True}" type="object" class="btn-primary" string="Add" icon="fa-user-plus"/>
-                <button name="confirm" context="{'remove': True}" type="object" class="btn-danger" string="Remove" icon="fa-user-times"/>
+                <button name="confirm" context="{'add': True}" type="object" class="btn-primary text-uppercase" string="Add" icon="fa-user-plus"/>
+                <button name="confirm" context="{'remove': True}" type="object" class="btn-danger text-uppercase" string="Remove" icon="fa-user-times"/>
                 <button special="cancel" class="btn-secondary text-uppercase" string="Close" icon="fa-times"/>
             </footer>
         </form>
