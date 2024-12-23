@@ -68,7 +68,7 @@ class OrderCheckoutPaymentCreateRequest(Datamodel):
     partner = NestedModel("oco.payment.partner", required=True, metadata={"title": _lt("Partner information related to request"), "description": _lt("Partner information")})
     order = NestedModel("oco.payment.order", required=True, metadata={"title": _lt("Order information related to request"), "description": _lt("Order details")})
     url = NestedModel("oco.payment.url", required=True, metadata={"title": _lt("Return URLs by payment method"), "description": _lt("URL addresses")})
-    preauth = fields.Boolean(metadata={"title": _lt("Preauth"), "description": _lt("Preauth"), "example": True, "default": True})
+    preauth = fields.Boolean(metadata={"title": _lt("Preauth"), "description": _lt("Preauth"), "example": False, "default": False})
     html = fields.String(metadata={"title": _lt("Custom HTML"), "description": _lt("Custom code to be viewed bottom of the page"), "example": "<p>Copyright</p>"})
 
 class OrderCheckoutPaymentCancelRequest(Datamodel):

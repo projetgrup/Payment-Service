@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from datetime import timedelta
+from dateutil.relativedelta import relativedelta
 
 from odoo import models, fields, api
 from odoo.tools.misc import get_lang
@@ -75,6 +76,12 @@ class PaymentItem(models.Model):
         for item in self:
             item.planned_amount = sum(item.plan_ids.mapped('amount'))
 
+    @api.depends('plan_ids.amount')
+    def _compute_date_expired(self):
+        now = fields.Datetime.now()
+        for item in self:
+            item.date_expired = item.date_expire and now > item.date_expire
+
     name = fields.Char(compute='_compute_name')
     child_id = fields.Many2one('res.partner', ondelete='restrict')
     parent_id = fields.Many2one('res.partner', ondelete='restrict')
@@ -85,6 +92,8 @@ class PaymentItem(models.Model):
     amount = fields.Monetary()
     advance = fields.Boolean()
     date = fields.Date()
+    date_expire = fields.Datetime(string='Expiration Date', readonly=True)
+    date_expired = fields.Boolean(string='Expiration Date Passed', compute='_compute_date_expired')
     due_date = fields.Date()
     due_amount = fields.Float(compute='_compute_due_amount')
 
@@ -158,6 +167,8 @@ class PaymentItem(models.Model):
             res.system = res.company_id.system or res.parent_id.system or res.child_id.system
         if not res.currency_id:
             res.currency_id = res.company_id.currency_id.id
+        if res.company_id.payment_page_item_expire_ok:
+            res.date_expire = fields.Datetime.now() + relativedelta(**{res.company_id.payment_page_item_expire_period: res.company_id.payment_page_item_expire_value})
         return res
 
     def write(self, values):

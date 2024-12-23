@@ -191,6 +191,26 @@
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane">
+                                    <field name="payment_page_item_expire_ok"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="payment_page_item_expire_ok" string="Expire Payment Links"/>
+                                    <div class="text-muted">
+                                        Make payments links expired after certain period of time
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('payment_page_item_expire_ok', '=', False)]}">
+                                        <div class="row mt16">
+                                            <label for="payment_page_item_expire_value" string="Duration" class="col-lg-4 o_light_label"/>
+                                            <div>
+                                                <field name="payment_page_item_expire_value" class="oe_inline" attrs="{'required': [('payment_page_item_expire_ok', '=', True)]}"/>
+                                                <field name="payment_page_item_expire_period" class="oe_inline" attrs="{'required': [('payment_page_item_expire_ok', '=', True)]}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
                                     <field name="payment_page_item_add_ok"/>
                                 </div>
                                 <div class="o_setting_right_pane">
