@@ -4,7 +4,7 @@
 
 {
     'name': 'Paylox Payment System',
-    'version': '1.19',
+    'version': '1.20',
     'author': 'Projet',
     'website': 'https://bulutkobi.io',
     'license': 'LGPL-3',

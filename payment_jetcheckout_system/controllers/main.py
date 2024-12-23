@@ -107,6 +107,10 @@ class PayloxSystemController(Controller):
     def _get_tx_values(self, **kwargs):
         vals = super()._get_tx_values(**kwargs)
         ids = kwargs.get('payments', [])
+        items = request.env['payment.item'].sudo().browse(ids)
+        for item in items:
+            if item.date_expired:
+                raise Exception(_('Payment item with date "%s" has been expired. Please refresh the page and continue.') % (item.date.stftime('%d/%m/%Y')))
         if ids:
             vals.update({'jetcheckout_item_ids': [(6, 0, ids)]})
         if request.env.company.system:

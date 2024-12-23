@@ -76,11 +76,11 @@ class PaymentItem(models.Model):
         for item in self:
             item.planned_amount = sum(item.plan_ids.mapped('amount'))
 
-    @api.depends('plan_ids.amount')
+    @api.depends('date_expire')
     def _compute_date_expired(self):
         now = fields.Datetime.now()
         for item in self:
-            item.date_expired = item.date_expire and now > item.date_expire
+            item.date_expired = item.company_id.item.company_id.payment_page_item_expire_ok and item.date_expire and now > item.date_expire
 
     name = fields.Char(compute='_compute_name')
     child_id = fields.Many2one('res.partner', ondelete='restrict')
