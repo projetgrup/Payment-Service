@@ -54,7 +54,7 @@
             <header>
                 <button name="action_send" type="object" string="Send" icon="fa-send"/>
                 <button name="action_grant_access" type="object" string="Grant Access" icon="fa-flag" groups="payment_jetcheckout_system.group_system_grant_partner"/>
-                <button name="action_follower" type="object" string="Add Followers" icon="fa-user-plus"/>
+                <button name="action_follower" type="object" string="Edit Followers" icon="fa-user-plus"/>
                 <button name="action_follow" type="object" string="Follow" icon="fa-check"/>
                 <button name="action_unfollow" type="object" string="Unfollow" class="text-danger" icon="fa-times"/>
             </header>
