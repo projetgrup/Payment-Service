@@ -8,7 +8,7 @@
             <group>
                 <group class="text-center col-md-4">
                     <div colspan="2" class="my-3"><i class="fa fa-user-plus fa-2x text-primary"/></div>
-                    <p colspan="2" class="h3 text-600">Please select partners to follow selected records</p>
+                    <p colspan="2" class="h3 px-4 text-600">Please select partners to follow selected records</p>
                 </group>
                 <group class="col-md-8 w-100">
                     <field name="follower_ids" nolabel="1" colspan="2" domain="[('company_id', '=', company_id), ('is_company', '=', False), ('type', '!=', 'private')]">
@@ -23,7 +23,8 @@
                 </group>
             </group>
             <footer>
-                <button name="confirm" type="object" class="btn-primary" string="Add Follower" icon="fa-user-plus"/>
+                <button name="confirm" context="{'add': True}" type="object" class="btn-primary" string="Add" icon="fa-user-plus"/>
+                <button name="confirm" context="{'remove': True}" type="object" class="btn-danger" string="Remove" icon="fa-user-times"/>
                 <button special="cancel" class="btn-secondary text-uppercase" string="Close" icon="fa-times"/>
             </footer>
         </form>
@@ -31,7 +32,7 @@
     </record>
 
     <record id="action_partner_follower" model="ir.actions.act_window">
-    <field name="name">Add Follower</field>
+    <field name="name">Edit Follower</field>
     <field name="res_model">paylox.partner.follower</field>
     <field name="view_mode">form</field>
     <field name="target">new</field>

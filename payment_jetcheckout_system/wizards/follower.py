@@ -12,5 +12,11 @@ class PayloxPartnerFollower(models.TransientModel):
     def confirm(self):
         pids = self.env.context.get('active_ids')
         partners = self.env['res.partner'].browse(pids)
+        if self.env.context.get('add'):
+            method = 'message_subscribe'
+        elif self.env.context.get('remove'):
+            method = 'message_unsubscribe'
+        else:
+            return
         for partner in partners:
-            partner.message_subscribe(self.follower_ids.ids)
+            getattr(partner, method)(self.follower_ids.ids)
