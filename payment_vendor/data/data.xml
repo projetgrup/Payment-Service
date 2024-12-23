@@ -44,10 +44,11 @@
                     <div>
                         Hello <strong t-out="object.name or ''">Marc Demo</strong>,<br/><br/>
                         Successful transaction information as follows.<br/><br/>
-                        Transaction Owner Company : <t t-out="ctx['partner'] or ''"/><br/>
+                        Transaction Owner Company : <t t-out="ctx['partner'] or ''"/> | <t t-esc="ctx['tx']['partner_ref'] or ''"/><br/>
                         Transaction Date : <t t-out="format_datetime(ctx['tx'].last_state_change, ctx['tz'], 'd.MM.y H:mm:ss')">01.01.2023 00:00:00</t><br/>
                         Transaction Amount : <t t-out="format_amount(ctx['tx'].amount, ctx['tx'].currency_id) or ''"/><br/>
-                        Installment Count : <t t-out="ctx['tx'].with_context(lang=ctx['lang']).jetcheckout_installment_description_long or ''"/><br/><br/>
+                        Installment Count : <t t-out="ctx['tx'].with_context(lang=ctx['lang']).jetcheckout_installment_description_long or ''"/><br/>
+                        Description : <t t-out="ctx['tx']['paylox_description'] or ''"/><br/><br/>
                         <t t-if="ctx['tx'].paylox_agreement_ids">
                             Agreements ;<br/>
                             <ul>

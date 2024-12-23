@@ -103,6 +103,7 @@
                         <field name="group_own_partner"/>
                         <field name="group_own_transaction"/>
                         <field name="group_create_partner"/>
+                        <field name="group_delete_partner"/>
                         <field name="group_grant_partner"/>
                         <field name="group_show_payment_link"/>
                         <field name="group_show_campaign_button"/>

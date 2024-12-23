@@ -19,6 +19,10 @@
             <field name="name">Create Partners</field>
             <field name="category_id" ref="module_category_system_technical"/>
         </record>
+        <record model="res.groups" id="group_system_delete_partner">
+            <field name="name">Delete Partners</field>
+            <field name="category_id" ref="module_category_system_technical"/>
+        </record>
         <record model="res.groups" id="group_system_grant_partner">
             <field name="name">Grant Partners</field>
             <field name="category_id" ref="module_category_system_technical"/>
