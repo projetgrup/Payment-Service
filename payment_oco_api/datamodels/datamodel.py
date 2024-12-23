@@ -110,6 +110,7 @@ class OrderCheckoutPaymentPostauthRequest(Datamodel):
     _inherit = "payment.credential.hash"
 
     id = fields.UUID(required=True, allow_none=False, metadata={"title": "ID", "description": _lt("Any unique number related to your specified record in your database for tracking the payment flow"), "example": "9ee3fd53-42f9-4f16-b454-77e6b714c2e9"})
+    amount = fields.Float(required=True, allow_none=False, metadata={"title": _lt("Amount"), "description": _lt("Amount to be authorized"), "example": 145.3})
 
 
 class OrderCheckoutPaymentCreateResponse(Datamodel):
@@ -166,8 +167,8 @@ class OrderCheckoutPaymentQueryResponse(Datamodel):
     postauth = fields.Boolean(required=False, allow_none=False, metadata={"title": _lt("Post-Authorization"), "description": _lt("Post-Authorization"), "example": True})
     threed = fields.Boolean(required=False, allow_none=False, metadata={"title": _lt("3D Payment"), "description": _lt("3D Payment"), "example": True})
     amount = fields.Float(required=False, allow_none=False, metadata={"title": _lt("Amount"), "description": _lt("Payment Amount"), "example": 25750.00})
-    cost_amount = fields.Float(required=False, allow_none=False, metadata={"title": _lt("Cost Amount"), "description": _lt("Cost Amount"), "example": 257.50})
-    cost_rate = fields.Float(required=False, allow_none=False, metadata={"title": _lt("Cost Rate"), "description": _lt("Cost Rate"), "example": 1})
+    commission_amount = fields.Float(required=False, allow_none=False, metadata={"title": _lt("Cost Amount"), "description": _lt("Cost Amount"), "example": 257.50})
+    commission_rate = fields.Float(required=False, allow_none=False, metadata={"title": _lt("Cost Rate"), "description": _lt("Cost Rate"), "example": 1})
     customer_amount = fields.Float(required=False, allow_none=False, metadata={"title": _lt("Customer Amount"), "description": _lt("Customer Amount"), "example": 257.50})
     customer_rate = fields.Float(required=False, allow_none=False, metadata={"title": _lt("Customer Rate"), "description": _lt("Customer Rate"), "example": 1})
     auth_code = fields.String(required=False, allow_none=False, metadata={"title": _lt("Authorization Code"), "description": _lt("Authorization Code"), "example": "C001"})
@@ -177,3 +178,5 @@ class OrderCheckoutPaymentQueryResponse(Datamodel):
     service_ref_id = fields.String(required=False, allow_none=False, metadata={"title": _lt("Service Reference ID"), "description": _lt("Service Reference ID"), "example": "123456"})
     service_code = fields.String(required=False, allow_none=False, metadata={"title": _lt("Service Code"), "description": _lt("Service Code"), "example": "01"})
     service_message = fields.String(required=False, allow_none=False, metadata={"title": _lt("Service Message"), "description": _lt("Service Message"), "example": "Success"})
+    receipt_url = fields.String(required=False, allow_none=False, metadata={"title": _lt("Receipt URL"), "description": _lt("Receipt URL Address"), "example": "example.com/receipt"})
+    conveyance_url = fields.String(required=False, allow_none=False, metadata={"title": _lt("Conveyance URL"), "description": _lt("Conveyance URL Address"), "example": "example.com/conveyance"})
