@@ -428,6 +428,8 @@ class Partner(models.Model):
             ('campaign_id', '=', False)
         ], limit=1)
         payments = self.payable_ids
+        if company.payment_page_item_expire_ok:
+            payments = payments.filtered(lambda p: not p.date_expired)
         for payment in payments:
             if not payment.tag:
                 if payment_tag:

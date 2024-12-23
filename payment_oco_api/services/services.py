@@ -351,8 +351,10 @@ class OrderCheckoutAPIService(Component):
         
         result = tx._paylox_query()
         del result['currency_id']
-        result.update({
-            'receipt_url': 'https://%s/payment/card/report/receipt/%s' % (request.httprequest.host, tx.jetcheckout_order_id),
-            'conveyance_url': 'https://%s/payment/card/report/conveyance/%s' % (request.httprequest.host, tx.jetcheckout_order_id),
-        })
+
+        if result.get('successful'):
+            result.update({
+                'receipt_url': 'https://%s/payment/card/report/receipt/%s' % (request.httprequest.host, tx.jetcheckout_order_id),
+                'conveyance_url': 'https://%s/payment/card/report/conveyance/%s' % (request.httprequest.host, tx.jetcheckout_order_id),
+            })
         return result
