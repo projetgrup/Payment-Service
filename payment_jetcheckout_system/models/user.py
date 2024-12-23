@@ -161,6 +161,22 @@ class Users(models.Model):
             group = self.env.ref('payment_jetcheckout_system.group_system_create_partner')
             group.sudo().write({'users': [(code, user.id)]})
 
+    def _compute_group_delete_partner(self):
+        for user in self:
+            user.group_delete_partner = user.has_group('payment_jetcheckout_system.group_system_delete_partner')
+
+    def _set_group_delete_partner(self):
+        for user in self:
+            code = user.group_delete_partner and 4 or 3
+            group = self.env.ref('payment_jetcheckout_system.group_system_delete_partner')
+            group.sudo().write({'users': [(code, user.id)]})
+
+            try: # grant admin_tools groups if exists
+                group_admin_show_delete = self.env.ref('admin_tools.group_show_delete')
+                group_admin_show_delete.sudo().write({'users': [(code, user.id)]})
+            except:
+                pass
+
     def _compute_group_grant_partner(self):
         for user in self:
             user.group_grant_partner = user.has_group('payment_jetcheckout_system.group_system_grant_partner')
@@ -206,6 +222,7 @@ class Users(models.Model):
     group_own_partner = fields.Boolean(string='Only Own Partners', compute='_compute_group_own_partner', inverse='_set_group_own_partner')
     group_own_transaction = fields.Boolean(string='Only Own Transactions', compute='_compute_group_own_transaction', inverse='_set_group_own_transaction')
     group_create_partner = fields.Boolean(string='Create Partners', compute='_compute_group_create_partner', inverse='_set_group_create_partner')
+    group_delete_partner = fields.Boolean(string='Delete Partners', compute='_compute_group_delete_partner', inverse='_set_group_delete_partner')
     group_grant_partner = fields.Boolean(string='Grant Partners', compute='_compute_group_grant_partner', inverse='_set_group_grant_partner')
     group_show_payment_link = fields.Boolean(string='Show Payment Link', compute='_compute_group_show_payment_link', inverse='_set_group_show_payment_link')
     group_show_campaign_button = fields.Boolean(string='Show Campaign Button', compute='_compute_group_show_campaign_button', inverse='_set_group_show_campaign_button')
