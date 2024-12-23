@@ -222,7 +222,18 @@ class OrderCheckoutAPIService(Component):
         partner = api.partner_id
         if getattr(params, 'partner', None):
             partner = self.env['res.partner'].sudo().search([('vat', '=', params.partner.vat), ('company_id', '=', company.id)]).with_company(company)
-            if not partner:
+            if partner:
+                partner.write({
+                    'email': params.partner.email,
+                    'mobile': params.partner.phone,
+                    'country_id': country and country.id or False,
+                    'state_id': state and state.id or False,
+                    'street': getattr(params.partner, 'address', '') or '',
+                    'zip': getattr(params.partner, 'zip', '') or '',
+                    'city': getattr(params.partner, 'city', '') or '',
+                    'paylox_tax_office': getattr(params.partner, 'taxoffice', False) or False,
+                })
+            else:
                 partner = partner.with_context({'no_vat_validation': True, 'active_system': 'oco'}).create({
                     'is_company': True,
                     'company_id': company.id,
@@ -258,7 +269,7 @@ class OrderCheckoutAPIService(Component):
             'jetcheckout_date_expiration': getattr(params, 'expiration', False) or False,
             'jetcheckout_campaign_name': getattr(params, 'campaign', False) or False,
             'jetcheckout_ip_address': request.httprequest.remote_addr,
-            'jetcheckout_preauth': getattr(params, 'preauth', True),
+            'jetcheckout_preauth': getattr(params, 'preauth', False) or False,
         }
 
         products = getattr(params.order, 'products', [])
@@ -330,12 +341,18 @@ class OrderCheckoutAPIService(Component):
         tx = self.env['payment.transaction'].sudo().search([('jetcheckout_order_id', '=', params.id)])
         if not tx:
             raise Exception('Transaction cannot be found')
-        
-        tx._send_capture_request()
+
+        tx.with_context(amount=params.amount)._send_capture_request()
 
     def _query_transaction(self, api, params):
         tx = self.env['payment.transaction'].sudo().search([('jetcheckout_order_id', '=', params.id)])
         if not tx:
             raise Exception('Transaction cannot be found')
         
-        return tx._paylox_query()
+        result = tx._paylox_query()
+        del result['currency_id']
+        result.update({
+            'receipt_url': 'https://%s/payment/card/report/receipt/%s' % (request.httprequest.host, tx.jetcheckout_order_id),
+            'conveyance_url': 'https://%s/payment/card/report/conveyance/%s' % (request.httprequest.host, tx.jetcheckout_order_id),
+        })
+        return result

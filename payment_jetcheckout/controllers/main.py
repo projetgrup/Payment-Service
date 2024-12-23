@@ -1210,16 +1210,6 @@ class PayloxController(http.Controller):
             elif token and token.verified:
                 data.update({'card_token': token.jetcheckout_ref})
 
-            if getattr(partner, 'tax_office_id', False):
-                data.update({'billing_tax_office': partner.tax_office_id.name})
-            elif getattr(partner, 'paylox_tax_office', False):
-                data.update({'billing_tax_office': partner.paylox_tax_office})
-
-            if partner.vat:
-                partner_vat = re.sub(r'[^\d]', '', partner.vat)
-                if partner_vat and len(partner_vat) in (10, 11):
-                    data.update({'billing_tax_number': partner_vat})
-
             sale_id = int(kwargs.get('order', 0))
             invoice_id = int(kwargs.get('invoice', 0))
 
@@ -1261,6 +1251,16 @@ class PayloxController(http.Controller):
                     'partner_id': partner.id,
                 })
                 tx = request.env['payment.transaction'].sudo().create(vals)
+
+            if getattr(tx.partner_id, 'tax_office_id', False):
+                data.update({'billing_tax_office': tx.partner_id.tax_office_id.name})
+            elif getattr(tx.partner_id, 'paylox_tax_office', False):
+                data.update({'billing_tax_office': tx.partner_id.paylox_tax_office})
+
+            if tx.partner_id.vat:
+                partner_vat = re.sub(r'[^\d]', '', tx.partner_id.vat)
+                if partner_vat and len(partner_vat) in (10, 11):
+                    data.update({'billing_tax_number': partner_vat})
 
             if sale_id:
                 tx.sale_order_ids = [(4, sale_id)]
