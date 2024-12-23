@@ -269,7 +269,7 @@ class OrderCheckoutAPIService(Component):
             'jetcheckout_date_expiration': getattr(params, 'expiration', False) or False,
             'jetcheckout_campaign_name': getattr(params, 'campaign', False) or False,
             'jetcheckout_ip_address': request.httprequest.remote_addr,
-            'jetcheckout_preauth': getattr(params, 'preauth', True),
+            'jetcheckout_preauth': getattr(params, 'preauth', False) or False,
         }
 
         products = getattr(params.order, 'products', [])
@@ -341,12 +341,18 @@ class OrderCheckoutAPIService(Component):
         tx = self.env['payment.transaction'].sudo().search([('jetcheckout_order_id', '=', params.id)])
         if not tx:
             raise Exception('Transaction cannot be found')
-        
-        tx._send_capture_request()
+
+        tx.with_context(amount=params.amount)._send_capture_request()
 
     def _query_transaction(self, api, params):
         tx = self.env['payment.transaction'].sudo().search([('jetcheckout_order_id', '=', params.id)])
         if not tx:
             raise Exception('Transaction cannot be found')
         
-        return tx._paylox_query()
+        result = tx._paylox_query()
+        del result['currency_id']
+        result.update({
+            'receipt_url': 'https://%s/payment/card/report/receipt/%s' % (request.httprequest.host, tx.jetcheckout_order_id),
+            'conveyance_url': 'https://%s/payment/card/report/conveyance/%s' % (request.httprequest.host, tx.jetcheckout_order_id),
+        })
+        return result
