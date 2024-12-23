@@ -222,7 +222,18 @@ class OrderCheckoutAPIService(Component):
         partner = api.partner_id
         if getattr(params, 'partner', None):
             partner = self.env['res.partner'].sudo().search([('vat', '=', params.partner.vat), ('company_id', '=', company.id)]).with_company(company)
-            if not partner:
+            if partner:
+                partner.write({
+                    'email': params.partner.email,
+                    'mobile': params.partner.phone,
+                    'country_id': country and country.id or False,
+                    'state_id': state and state.id or False,
+                    'street': getattr(params.partner, 'address', '') or '',
+                    'zip': getattr(params.partner, 'zip', '') or '',
+                    'city': getattr(params.partner, 'city', '') or '',
+                    'paylox_tax_office': getattr(params.partner, 'taxoffice', False) or False,
+                })
+            else:
                 partner = partner.with_context({'no_vat_validation': True, 'active_system': 'oco'}).create({
                     'is_company': True,
                     'company_id': company.id,
