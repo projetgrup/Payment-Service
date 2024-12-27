@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import traceback
 import logging
 import pytz
 from datetime import datetime, timedelta
@@ -63,6 +64,7 @@ class PaymentTransaction(models.Model):
                     self.paylox_notif_mail_state = True
 
         except Exception as e:
+            _logger.error(traceback.format_exc())
             _logger.error('Sending email for transaction %s is failed\n%s' % (self.reference, e))
  
     def _paylox_send_done_sms(self):
