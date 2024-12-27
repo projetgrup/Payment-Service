@@ -517,6 +517,13 @@ class PaymentTransaction(models.Model):
                     self._paylox_auth_postprocess()
             else:
                 self._paylox_done_postprocess()
+        if values['pending']:
+            self.write({
+                'state': 'pending',
+                'state_message': values.get('message', '-'),
+                'jetcheckout_service_suggestion': values.get('service_suggestion') or False,
+                'last_state_change': fields.Datetime.now(),
+            })
         else:
             if self.state == 'error' or self.env.context.get('skip_error'):
                 return
@@ -641,6 +648,7 @@ class PaymentTransaction(models.Model):
         domain = [
             ('state', '=', 'pending'),
             ('source_transaction_id', '=', False),
+            ('jetcheckout_payment_type', '=', 'virtual_pos'),
             ('acquirer_id.provider', '=', 'jetcheckout'),
             ('create_date', '<=', date)
         ]
