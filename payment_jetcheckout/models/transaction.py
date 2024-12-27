@@ -517,7 +517,7 @@ class PaymentTransaction(models.Model):
                     self._paylox_auth_postprocess()
             else:
                 self._paylox_done_postprocess()
-        if values.get('pending'):
+        elif values.get('pending'):
             self.write({
                 'state': 'pending',
                 'state_message': values.get('message', '-'),
