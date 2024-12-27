@@ -114,7 +114,7 @@
 
     <template id="payment_state" name="Payment System Page Result">
         <t t-if="tx">
-            <div t-if="tx.state == 'error'" t-attf-class="row alert alert-danger text-center justify-content-center flex-column #{classes}">
+            <div t-if="tx.state == 'error'" t-attf-class="row alert alert-danger text-center justify-content-center flex-column mt-4 #{classes}">
                 <div>Your transaction has been failed. Please try again. If this situation occurs anyway, please contact with system administation.</div>
                 <small class="d-block mt-1" t-esc="tx.state_message"/>
             </div>
@@ -129,7 +129,11 @@
                     <iframe t-attf-src="/payment/card/report/receipt/#{tx.jetcheckout_order_id}" class="border-0 mt-3 rounded w-75 bg-white" style="height: 600px;"/>
                 </div>
             </div>
-            <div t-else="" t-attf-class="row alert alert-danger text-center justify-content-center flex-column #{classes}">
+            <div t-elif="tx.state == 'pending'" t-attf-class="row alert alert-warning text-center justify-content-center mt-4 flex-column #{classes}">
+                <div>Payment is pending for finalizing transaction.</div>
+                <small class="d-block mt-1" t-esc="tx.state_message"/>
+            </div>
+            <div t-else="" t-attf-class="row alert alert-danger text-center justify-content-center flex-column mt-4 #{classes}">
                 <div>Your transaction status: <span t-field="tx.state"/>. Please try again. If this situation occurs anyway, please contact with system administation.</div>
                 <small class="d-block mt-1" t-esc="tx.state_message"/>
             </div>
