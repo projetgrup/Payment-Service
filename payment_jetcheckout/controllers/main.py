@@ -1049,6 +1049,7 @@ class PayloxController(http.Controller):
 
         tx.with_context(domain=request.httprequest.referrer)._paylox_query({
             'successful': kwargs.get('response_code') == '00',
+            'pending': kwargs.get('response_code') == 'OO333',
             'code': kwargs.get('response_code', ''),
             'message': kwargs.get('response_message', ''),
             'service_code': kwargs.get('service_resp_code', ''),
@@ -1160,6 +1161,7 @@ class PayloxController(http.Controller):
         acquirer = self._get_acquirer()
         currency = self._get_currency(kwargs['currency'], acquirer)
         partner = self._get_partner(kwargs['partner'], parent=True)
+        order_id = str(uuid.uuid4())
 
         payment_type = kwargs.get('type', '')
         if payment_type == 'virtual_pos':
@@ -1440,7 +1442,6 @@ class PayloxController(http.Controller):
             amount_integer = round(amount * 100)
             amount_customer = 0
 
-            order_id = str(uuid.uuid4())
             hash = base64.b64encode(hashlib.sha256(''.join([acquirer.jetcheckout_api_key, order_id, str(amount_integer), acquirer.jetcheckout_secret_key]).encode('utf-8')).digest()).decode('utf-8')
             data = {
                 "application_key": acquirer.jetcheckout_api_key,
@@ -1650,6 +1651,7 @@ class PayloxController(http.Controller):
                 'amount': amount,
                 'fees': 0,
                 'operation': 'online_direct',
+                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_type': payment_type,
                 'jetcheckout_payment_type_transfer_service_name': kwargs['name'],
                 'jetcheckout_website_id': request.website.id,
@@ -1822,6 +1824,7 @@ class PayloxController(http.Controller):
                 'amount': amount,
                 'fees': 0,
                 'operation': 'online_direct',
+                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_type': payment_type,
                 'jetcheckout_payment_type_wallet_id': kwargs['id'],
                 'jetcheckout_payment_type_wallet_service_name': kwargs['name'],
@@ -1993,6 +1996,7 @@ class PayloxController(http.Controller):
                 'amount': amount_total,
                 'fees': amount_cost,
                 'operation': 'online_direct',
+                'jetcheckout_order_id': order_id,
                 'jetcheckout_payment_type': payment_type,
                 'jetcheckout_payment_type_credit_bank_code': kwargs['code'],
                 'jetcheckout_website_id': request.website.id,
