@@ -506,7 +506,7 @@ class PaymentTransaction(models.Model):
         if journal_line and not journal_line.name == vpos_name:
             journal_line.write({'name': vpos_name})
 
-        if values['successful']:
+        if values.get('successful'):
             if 'cancelled' in values and values['cancelled']:
                 self._paylox_cancel_postprocess()
             elif 'preauth' in values and values['preauth']:
@@ -517,7 +517,7 @@ class PaymentTransaction(models.Model):
                     self._paylox_auth_postprocess()
             else:
                 self._paylox_done_postprocess()
-        if values['pending']:
+        if values.get('pending'):
             self.write({
                 'state': 'pending',
                 'state_message': values.get('message', '-'),
