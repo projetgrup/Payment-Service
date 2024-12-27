@@ -44,25 +44,65 @@
                     <div>
                         Hello <strong t-out="object.name or ''">Marc Demo</strong>,<br/><br/>
                         Successful transaction information as follows.<br/><br/>
-                        Transaction Owner Company : <t t-out="ctx['partner'] or ''"/> | <t t-esc="ctx['tx']['partner_ref'] or ''"/><br/>
-                        Transaction Date : <t t-out="format_datetime(ctx['tx'].last_state_change, ctx['tz'], 'd.MM.y H:mm:ss')">01.01.2023 00:00:00</t><br/>
-                        Transaction Amount : <t t-out="format_amount(ctx['tx'].amount, ctx['tx'].currency_id) or ''"/><br/>
-                        Installment Count : <t t-out="ctx['tx'].with_context(lang=ctx['lang']).jetcheckout_installment_description_long or ''"/><br/>
-                        Description : <t t-out="ctx['tx']['paylox_description'] or ''"/><br/><br/>
-                        <t t-if="ctx['tx'].paylox_agreement_ids">
+                        Transaction Owner Company : <t t-out="ctx['partner'] or ''"/><t t-if="ctx['tx']['partner_ref']"> | <t t-out="ctx['tx']['partner_ref'] or ''"/></t><br/>
+                        <t t-if="ctx['tx']['jetcheckout_payment_type']">
+                            Payment Type :
+                            <t t-if="ctx['tx']['jetcheckout_payment_type'] == 'virtual_pos'">Virtual PoS</t>
+                            <t t-elif="ctx['tx']['jetcheckout_payment_type'] == 'physical_pos'">Physical PoS</t>
+                            <t t-elif="ctx['tx']['jetcheckout_payment_type'] == 'soft_pos'">Soft PoS</t>
+                            <t t-elif="ctx['tx']['jetcheckout_payment_type'] == 'transfer'">Bank Transfer</t>
+                            <t t-elif="ctx['tx']['jetcheckout_payment_type'] == 'wallet'">Wallet</t>
+                            <t t-elif="ctx['tx']['jetcheckout_payment_type'] == 'credit'">Shopping Credit</t>
+                            <br/>
+                        </t>
+                        Transaction Date : <t t-out="format_datetime(ctx['tx']['last_state_change'], ctx['tz'], 'd.MM.y H:mm:ss')">01.01.2023 00:00:00</t><br/>
+                        Transaction Amount : <t t-out="format_amount(ctx['tx']['amount'], ctx['tx']['currency_id']) or ''"/><br/>
+                        Installment Count : <t t-out="ctx['tx']['jetcheckout_installment_description_long'] or ''"/><br/>
+                        <t t-if="ctx['tx']['paylox_description']">
+                            Payment Page Description : <t t-out="ctx['tx']['paylox_description'] or ''"/>
+                            <br/>
+                        </t>
+                        <t t-if="ctx['tx']['paylox_transaction_item_ids']">
+                            <br/>
+                            <table style="width: 100%">
+                                <thead>
+                                    <tr>
+                                    <th colspan="4" style="text-align: center;">Payment Link Description</th>
+                                    </tr>
+                                    <tr>
+                                    <th style="text-align: center;">Date</th>
+                                    <th style="text-align: center;">Reference</th>
+                                    <th style="text-align: center;">Description</th>
+                                    <th style="text-align: right; padding-right: 5px;">Paid</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="ctx['tx']['paylox_transaction_item_ids']" t-as="line">
+                                        <tr>
+                                            <td style="text-align: center;"><t t-out="line.date and line.date.strftime('%d.%m.%Y') or ''"/></td>
+                                            <td style="text-align: center;"><t t-out="line.ref or ''"/></td>
+                                            <td style="text-align: center;"><t t-out="line.desc or ''"/></td>
+                                            <td style="text-align: right;"><t t-out="format_amount(line.amount or 0, line.currency_id) or ''"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <br/>
+                        </t>
+                        <t t-if="ctx['tx']['paylox_agreement_ids']">
                             Agreements ;<br/>
                             <ul>
-                                <t t-foreach="ctx['tx'].paylox_agreement_ids" t-as="agreement">
+                                <t t-foreach="ctx['tx']['paylox_agreement_ids']" t-as="agreement">
                                     <li><a t-att-href="'%s/my/agreement/%s' % (ctx['url'], agreement.uuid)" t-esc="agreement.agreement_id.name"/></li>
                                 </t>
                             </ul>
                             <br/><br/>
                         </t>
                         <div style="margin: 16px 0px 16px 0px; text-align: center;">
-                            <a t-att-href="'%s/payment/card/report/receipt/%s' % (ctx['url'], ctx['tx'].jetcheckout_order_id)" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">
+                            <a t-att-href="'%s/payment/card/report/receipt/%s' % (ctx['url'], ctx['tx']['jetcheckout_order_id'])" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px; margin-right: 5px;">
                                 <strong>Receipt</strong>
                             </a>
-                            <a t-att-href="'%s/payment/card/report/conveyance/%s' % (ctx['url'], ctx['tx'].jetcheckout_order_id)" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">
+                            <a t-att-href="'%s/payment/card/report/conveyance/%s' % (ctx['url'], ctx['tx']['jetcheckout_order_id'])" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">
                                 <strong>Conveyance</strong>
                             </a>
                         </div>
@@ -78,15 +118,15 @@
         <td align="center" style="min-width: 590px;">
             <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
                 <tr><td valign="middle" align="left">
-                    <t t-out="ctx['company'].name or ''">YourCompany</t>
+                    <t t-out="ctx['company']['name'] or ''">YourCompany</t>
                 </td></tr>
                 <tr><td valign="middle" align="left" style="opacity: 0.7;">
-                    <t t-out="ctx['company'].phone or ''">+1 650-123-4567</t>
-                    <t t-if="ctx['company'].email">
-                        | <a t-attf-href="mailto:{{ ctx['company'].email }}" style="text-decoration:none; color: #454748;" t-out="ctx['company'].email or ''">info@yourcompany.com</a>
+                    <t t-out="ctx['company']['phone'] or ''">+1 650-123-4567</t>
+                    <t t-if="ctx['company']['email']">
+                        | <a t-attf-href="mailto:{{ ctx['company']['email'] }}" style="text-decoration:none; color: #454748;" t-out="ctx['company']['email'] or ''">info@yourcompany.com</a>
                     </t>
-                    <t t-if="ctx['company'].website">
-                        | <a t-attf-href="{{ ctx['company'].website }}" style="text-decoration:none; color: #454748;" t-out="ctx['company'].website or ''">http://www.example.com</a>
+                    <t t-if="ctx['company']['website']">
+                        | <a t-attf-href="{{ ctx['company']['website'] }}" style="text-decoration:none; color: #454748;" t-out="ctx['company']['website'] or ''">http://www.example.com</a>
                     </t>
                 </td></tr>
             </table>

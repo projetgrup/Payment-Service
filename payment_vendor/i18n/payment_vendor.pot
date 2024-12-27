@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-18 00:20+0000\n"
-"PO-Revision-Date: 2024-07-18 00:20+0000\n"
+"POT-Creation-Date: 2024-12-27 11:15+0000\n"
+"PO-Revision-Date: 2024-12-27 11:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -109,6 +109,11 @@ msgid "<span>Individual</span>"
 msgstr ""
 
 #. module: payment_vendor
+#: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment
+msgid "<span>Sale Reference</span>"
+msgstr ""
+
+#. module: payment_vendor
 #: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment_system
 #: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment_system_product
 msgid "<span>State</span>"
@@ -152,15 +157,65 @@ msgid ""
 "                    <div>\n"
 "                        Hello <strong t-out=\"object.name or ''\">Marc Demo</strong>,<br/><br/>\n"
 "                        Successful transaction information as follows.<br/><br/>\n"
-"                        Transaction Owner Company : <t t-out=\"ctx['partner'].name or ''\"/><br/>\n"
-"                        Transaction Date : <t t-out=\"format_datetime(ctx['tx'].last_state_change, ctx['tz'], 'd.MM.y H:mm:ss')\">01.01.2023 00:00:00</t><br/>\n"
-"                        Transaction Amount : <t t-out=\"format_amount(ctx['tx'].jetcheckout_payment_amount, ctx['tx'].currency_id) or ''\"/><br/>\n"
-"                        Installment Count : <t t-out=\"ctx['tx'].jetcheckout_installment_description_long or ''\"/><br/><br/>\n"
+"                        Transaction Owner Company : <t t-out=\"ctx['partner'] or ''\"/><t t-if=\"ctx['tx']['partner_ref']\"> | <t t-out=\"ctx['tx']['partner_ref'] or ''\"/></t><br/>\n"
+"                        <t t-if=\"ctx['tx']['jetcheckout_payment_type']\">\n"
+"                            Payment Type :\n"
+"                            <t t-if=\"ctx['tx']['jetcheckout_payment_type'] == 'virtual_pos'\">Virtual PoS</t>\n"
+"                            <t t-elif=\"ctx['tx']['jetcheckout_payment_type'] == 'physical_pos'\">Physical PoS</t>\n"
+"                            <t t-elif=\"ctx['tx']['jetcheckout_payment_type'] == 'soft_pos'\">Soft PoS</t>\n"
+"                            <t t-elif=\"ctx['tx']['jetcheckout_payment_type'] == 'transfer'\">Bank Transfer</t>\n"
+"                            <t t-elif=\"ctx['tx']['jetcheckout_payment_type'] == 'wallet'\">Wallet</t>\n"
+"                            <t t-elif=\"ctx['tx']['jetcheckout_payment_type'] == 'credit'\">Shopping Credit</t>\n"
+"                            <br/>\n"
+"                        </t>\n"
+"                        Transaction Date : <t t-out=\"format_datetime(ctx['tx']['last_state_change'], ctx['tz'], 'd.MM.y H:mm:ss')\">01.01.2023 00:00:00</t><br/>\n"
+"                        Transaction Amount : <t t-out=\"format_amount(ctx['tx']['amount'], ctx['tx']['currency_id']) or ''\"/><br/>\n"
+"                        Installment Count : <t t-out=\"ctx['tx']['jetcheckout_installment_description_long'] or ''\"/><br/>\n"
+"                        <t t-if=\"ctx['tx']['paylox_description']\">\n"
+"                            Payment Page Description : <t t-out=\"ctx['tx']['paylox_description'] or ''\"/>\n"
+"                            <br/>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx['tx']['paylox_transaction_item_ids']\">\n"
+"                            <br/>\n"
+"                            <table style=\"width: 100%\">\n"
+"                                <thead>\n"
+"                                    <tr>\n"
+"                                    <th colspan=\"4\" style=\"text-align: center;\">Payment Link Description</th>\n"
+"                                    </tr>\n"
+"                                    <tr>\n"
+"                                    <th style=\"text-align: center;\">Date</th>\n"
+"                                    <th style=\"text-align: center;\">Reference</th>\n"
+"                                    <th style=\"text-align: center;\">Description</th>\n"
+"                                    <th style=\"text-align: right; padding-right: 5px;\">Paid</th>\n"
+"                                    </tr>\n"
+"                                </thead>\n"
+"                                <tbody>\n"
+"                                    <t t-foreach=\"ctx['tx']['paylox_transaction_item_ids']\" t-as=\"line\">\n"
+"                                        <tr>\n"
+"                                            <td style=\"text-align: center;\"><t t-out=\"line.date and line.date.strftime('%d.%m.%Y') or ''\"/></td>\n"
+"                                            <td style=\"text-align: center;\"><t t-out=\"line.ref or ''\"/></td>\n"
+"                                            <td style=\"text-align: center;\"><t t-out=\"line.desc or ''\"/></td>\n"
+"                                            <td style=\"text-align: right;\"><t t-out=\"format_amount(line.amount or 0, line.currency_id) or ''\"/></td>\n"
+"                                        </tr>\n"
+"                                    </t>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                            <br/>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx['tx']['paylox_agreement_ids']\">\n"
+"                            Agreements ;<br/>\n"
+"                            <ul>\n"
+"                                <t t-foreach=\"ctx['tx']['paylox_agreement_ids']\" t-as=\"agreement\">\n"
+"                                    <li><a t-att-href=\"'%s/my/agreement/%s' % (ctx['url'], agreement.uuid)\" t-esc=\"agreement.agreement_id.name\"/></li>\n"
+"                                </t>\n"
+"                            </ul>\n"
+"                            <br/><br/>\n"
+"                        </t>\n"
 "                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
-"                            <a t-att-href=\"'%s/report/html/payment_jetcheckout.payment_receipt/%s' % (ctx['url'], ctx['tx'].id)\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
+"                            <a t-att-href=\"'%s/payment/card/report/receipt/%s' % (ctx['url'], ctx['tx']['jetcheckout_order_id'])\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px; margin-right: 5px;\">\n"
 "                                <strong>Receipt</strong>\n"
 "                            </a>\n"
-"                            <a t-att-href=\"'%s/report/html/payment_jetcheckout.payment_conveyance/%s' % (ctx['url'], ctx['tx'].id)\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
+"                            <a t-att-href=\"'%s/payment/card/report/conveyance/%s' % (ctx['url'], ctx['tx']['jetcheckout_order_id'])\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
 "                                <strong>Conveyance</strong>\n"
 "                            </a>\n"
 "                        </div>\n"
@@ -176,15 +231,15 @@ msgid ""
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
-"                    <t t-out=\"ctx['company'].name or ''\">YourCompany</t>\n"
+"                    <t t-out=\"ctx['company']['name'] or ''\">YourCompany</t>\n"
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
-"                    <t t-out=\"ctx['company'].phone or ''\">+1 650-123-4567</t>\n"
-"                    <t t-if=\"ctx['company'].email\">\n"
-"                        | <a t-attf-href=\"mailto:{{ ctx['company'].email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company'].email or ''\">info@yourcompany.com</a>\n"
+"                    <t t-out=\"ctx['company']['phone'] or ''\">+1 650-123-4567</t>\n"
+"                    <t t-if=\"ctx['company']['email']\">\n"
+"                        | <a t-attf-href=\"mailto:{{ ctx['company']['email'] }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company']['email'] or ''\">info@yourcompany.com</a>\n"
 "                    </t>\n"
-"                    <t t-if=\"ctx['company'].website\">\n"
-"                        | <a t-attf-href=\"{{ ctx['company'].website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company'].website or ''\">http://www.example.com</a>\n"
+"                    <t t-if=\"ctx['company']['website']\">\n"
+"                        | <a t-attf-href=\"{{ ctx['company']['website'] }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company']['website'] or ''\">http://www.example.com</a>\n"
 "                    </t>\n"
 "                </td></tr>\n"
 "            </table>\n"
@@ -290,6 +345,11 @@ msgstr ""
 #. module: payment_vendor
 #: model_terms:ir.ui.view,arch_db:payment_vendor.settings_form
 msgid "Access All Transactions"
+msgstr ""
+
+#. module: payment_vendor
+#: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment
+msgid "Add new payment item"
 msgstr ""
 
 #. module: payment_vendor
@@ -561,6 +621,11 @@ msgid "Paid"
 msgstr ""
 
 #. module: payment_vendor
+#: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment
+msgid "Pay with payment items"
+msgstr ""
+
+#. module: payment_vendor
 #: model:ir.model.fields,field_description:payment_vendor.field_payment_transaction__paylox_notif_mail_state
 msgid "Paylox Email Notification State"
 msgstr ""
@@ -593,6 +658,11 @@ msgstr ""
 #. module: payment_vendor
 #: model_terms:ir.ui.view,arch_db:payment_vendor.parent_tree
 msgid "Payment Page"
+msgstr ""
+
+#. module: payment_vendor
+#: model:ir.ui.menu,name:payment_vendor.menu_report
+msgid "Payment Reports"
 msgstr ""
 
 #. module: payment_vendor
@@ -657,6 +727,11 @@ msgstr ""
 #. module: payment_vendor
 #: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment
 msgid "Remove Advance"
+msgstr ""
+
+#. module: payment_vendor
+#: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment
+msgid "Remove Item"
 msgstr ""
 
 #. module: payment_vendor
@@ -804,13 +879,18 @@ msgid "Templates"
 msgstr ""
 
 #. module: payment_vendor
+#: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment
+msgid "Total"
+msgstr ""
+
+#. module: payment_vendor
 #: model:mail.template,name:payment_vendor.mail_transaction_daily
 msgid "Transaction: Daily Report"
 msgstr ""
 
 #. module: payment_vendor
 #: model:mail.template,name:payment_vendor.mail_transaction_successful
-msgid "Transaction: Successful Email"
+msgid "Transaction: Successful Payment Email"
 msgstr ""
 
 #. module: payment_vendor
