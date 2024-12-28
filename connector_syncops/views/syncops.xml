@@ -47,7 +47,7 @@
                     <group>
                         <div colspan="2" attrs="{'invisible': [('connected', '=', False)]}">
                             <field name="line_ids" nolabel="1" attrs="{'invisible': [('connected','=',False)]}">
-                                <tree>
+                                <tree create="0" edit="0" delete="0">
                                     <field name="category" decoration-bf="1"/>
                                     <field name="name"/>
                                     <field name="input_ids"/>
@@ -90,6 +90,10 @@
                                             </group>
                                         </group>
                                     </sheet>
+                                    <!--<footer>
+                                        <button name="copy" type="object" class="btn-secondary" string="Copy" icon="fa-clone"/>
+                                        <button special="cancel" class="btn-secondary" string="Close" icon="fa-times"/>
+                                    </footer>-->
                                 </form>
                             </field>
                         </div>
