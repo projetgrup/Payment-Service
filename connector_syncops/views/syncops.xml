@@ -217,6 +217,8 @@
                     <field name="type" widget="radio" options="{'horizontal': True}" class="justify-content-between mb-3" nolabel="1" colspan="2"/>
                     <field name="const" attrs="{'invisible': [('type', '!=', 'const')]}" class="text-center font-weight-bold d-block" placeholder="Enter a constant value..." nolabel="1" colspan="2"/>
                     <field name="code" attrs="{'invisible': [('type', '!=', 'code')]}" placeholder="Enter python code..." nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
+                    <field name="input_id" invisible="1"/>
+                    <field name="output_id" invisible="1"/>
                 </group>
             </sheet>
         </form>

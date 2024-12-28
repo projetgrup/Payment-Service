@@ -107,7 +107,6 @@ class SyncopsConnector(models.Model):
         if not url:
             self.write({
                 'connected': False,
-                'line_ids': [(5, 0, 0)],
             })
             if not no_commit:
                 self.env.cr.commit()
@@ -127,9 +126,9 @@ class SyncopsConnector(models.Model):
                 if response.status_code == 200:
                     result = response.json()
                     if result['status'] == 0:
-                        ids = connector.line_ids.ids
+                        ids = connector.line_ids.mapped('res_id')
                         for line in connector.line_ids:
-                            method = next(filter(lambda m: m['id'] == line.id, result['methods']), None)
+                            method = next(filter(lambda m: m['id'] == line.res_id, result['methods']), None)
                             if method:
                                 line.write({
                                     'res_id': method['id'],
@@ -154,6 +153,38 @@ class SyncopsConnector(models.Model):
                                         'name': o['name'],
                                     }) for o in method['outputs']],
                                 })
+
+                                for io in ('input', 'output'):
+                                    ios = getattr(line, '%s_ids' % io)
+                                    iods = ios.mapped('res_id')
+                                    for i in ios:
+                                        l = next(filter(lambda m: m['id'] == i.res_id, method['%ss' % io]), None)
+                                        if l:
+                                            ios.write({
+                                                'res_id': l['id'],
+                                                'input': l['input'],
+                                                'input_type': l['input_type'],
+                                                'output': l['output'],
+                                                'output_type': l['output_type'],
+                                                'name': l['name'],
+                                            })
+                                        else:
+                                            ios.unlink()
+
+                                    for i in method['%ss' % io]:
+                                        if i['id'] in iods:
+                                            continue
+
+                                        line.write({
+                                            '%s_ids' % io: [(0, 0, {
+                                                'res_id': i['id'],
+                                                'input': i['input'],
+                                                'input_type': i['input_type'],
+                                                'output': i['output'],
+                                                'output_type': i['output_type'],
+                                                'name': i['name'],
+                                            })]
+                                        })
                             else:
                                 line.unlink()
 
@@ -186,6 +217,10 @@ class SyncopsConnector(models.Model):
                                     }) for o in method['outputs']],
                                 })]
                             })
+
+                        connector.write({
+                            'connected': True,
+                        })
 
                         result[connector.id] = {
                             'type': 'info',
@@ -318,10 +353,15 @@ class SyncopsConnectorLineIO(models.AbstractModel):
             method = line.line_id.code
             default = self.env['syncops.connector.line.default'].search([
                 ('connector_id', '=', connector.id),
-                ('name', '=', name),
-                ('method', '=', method),
-                ('io', '=', io),
+                ('%s_id' % io, '=', line.id),
             ], limit=1)
+            if not default:
+                default = self.env['syncops.connector.line.default'].search([
+                    ('connector_id', '=', connector.id),
+                    ('name', '=', name),
+                    ('method', '=', method),
+                    ('io', '=', io),
+                ], limit=1)
             if default:
                 line.default_ok = default.type in ('const', 'code')
                 line.default_type = default.type
@@ -357,13 +397,19 @@ class SyncopsConnectorLineIO(models.AbstractModel):
         method = self.line_id.code
         default = self.env['syncops.connector.line.default'].search([
             ('connector_id', '=', connector.id),
-            ('name', '=', name),
-            ('method', '=', method),
-            ('io', '=', io),
+            ('%s_id' % io, '=', self.id),
         ], limit=1)
+        if not default:
+            default = self.env['syncops.connector.line.default'].search([
+                ('connector_id', '=', connector.id),
+                ('name', '=', name),
+                ('method', '=', method),
+                ('io', '=', io),
+            ], limit=1)
         if not default:
             default = self.env['syncops.connector.line.default'].create({
                 'connector_id': connector.id,
+                '%s_id' % io: self.id,
                 'name': name,
                 'method': method,
                 'io': io,
@@ -373,7 +419,10 @@ class SyncopsConnectorLineIO(models.AbstractModel):
             'name': _('Set Default'),
             'res_id': default.id,
             'res_model': 'syncops.connector.line.default',
-            'context': {'dialog_size': 'small'},
+            'context': {
+                'dialog_size': 'small',
+                'default_%s_id' % io: self.id,
+            },
             'view_mode': 'form',
             'target': 'new',
         }
@@ -396,6 +445,8 @@ class SyncopsConnectorLineDefault(models.Model):
     _description = 'syncOPS Connector Line Defaults'
 
     connector_id = fields.Many2one('syncops.connector', ondelete='cascade')
+    input_id = fields.Many2one('syncops.connector.line.input', ondelete='cascade')
+    output_id = fields.Many2one('syncops.connector.line.output', ondelete='cascade')
     name = fields.Char()
     method = fields.Char()
     io = fields.Selection([
