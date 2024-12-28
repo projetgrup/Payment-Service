@@ -955,7 +955,7 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
         let checked = true;
         const type = this.type.selected;
         if (type === 'virtual_pos') {
-            if (!this.amount.value) {
+            if (!(this.amount.value > 0)) {
                 this.displayNotification({
                     type: 'warning',
                     title: _t('Warning'),

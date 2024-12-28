@@ -21,7 +21,7 @@ class SyncopsConnector(models.Model):
     token = fields.Char(string='Token', required=True)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company, ondelete='cascade', required=True, readonly=True)
     company_ids = fields.Many2many('res.company', 'syncops_company_rel', 'connector_id', 'company_id', string='Related Companies')
-    line_ids = fields.One2many('syncops.connector.line', 'connector_id', string='Lines', readonly=True)
+    line_ids = fields.One2many('syncops.connector.line', 'connector_id', string='Lines')
     active = fields.Boolean(default=True)
     connected = fields.Boolean(readonly=True)
     environment = fields.Boolean(default=False)
@@ -42,20 +42,15 @@ class SyncopsConnector(models.Model):
         if method:
             domain += [('line_ids.code', '=', method)]
 
-        return self.search(domain, limit=1)
+        return self.search(domain)
 
     @api.model
     def _defaults(self, connector, method, io, values):
+        defaults = {}
         lines = connector.line_ids.filtered(lambda x: x.code == method)
-        names = getattr(lines, '%s_ids' % io).mapped('input')
-        defaults = self.env['syncops.connector.line.default'].sudo().search([
-            ('connector_id', '=', connector.id),
-            ('name', 'in', names),
-            ('method', '=', method),
-            ('io', '=', io),
-            ('type', 'in', ('const', 'code')),
-        ])
-        return {default.name: default._value(values) for default in defaults}
+        for line in lines:
+            defaults.update(line._defaults(io, values))
+        return defaults
 
     @api.model
     def _execute(self, method, reference='', params={}, company=None, message=None):
@@ -64,8 +59,8 @@ class SyncopsConnector(models.Model):
             if not company:
                 company = self.env.company
 
-            connector = self._find(method, company)
-            if not connector:
+            connectors = self._find(method, company)
+            if not connectors:
                 info = _('No connector found for %s') % company.name
                 _logger.info(info)
                 return (None, info) if message else None
@@ -74,27 +69,32 @@ class SyncopsConnector(models.Model):
             if not url:
                 raise ValidationError(_('No syncOPS endpoint URL found'))
 
-            defaults = self._defaults(connector, method, 'input', params)
-            params.update(defaults)
+            for connector in connectors:
+                lines = connector.line_ids.filtered(lambda l: l.code == method)
+                for line in lines:
+                    defaults = line._defaults('input', params)
+                    params.update(defaults)
 
-            url += '/api/v1/execute'
-            response = requests.post(url, json={
-                'username': connector.username,
-                'token': connector.token,
-                'method': method,
-                'params': params,
-                'reference': reference,
-                'environment': connector.environment and 'P' or 'T',
-            })
-            if response.status_code == 200:
-                results = response.json()
-                if not results['status'] == 0:
-                    _logger.error('An error occured when executing method %s for %s: %s' % (method, company and company.name or '', results['message']))
-                    return (None, results['message']) if message else None
-                result = results.get('result', [])
-            else:
-                _logger.error('An error occured when executing method %s for %s: %s' % (method, company and company.name or '', response.text or response.reason))
-                return (None, response.text or response.reason) if message else None
+                    url += '/api/v1/execute'
+                    response = requests.post(url, json={
+                        'username': connector.username,
+                        'token': connector.token,
+                        'method': method,
+                        'params': params,
+                        'line': line.res_id,
+                        'reference': reference,
+                        'environment': connector.environment and 'P' or 'T',
+                    })
+                    if response.status_code == 200:
+                        results = response.json()
+                        if not results['status'] == 0:
+                            _logger.error('An error occured when executing method %s for %s: %s' % (method, company and company.name or '', results['message']))
+                            return (None, results['message']) if message else None
+                        result += results.get('result', [])
+                    else:
+                        _logger.error('An error occured when executing method %s for %s: %s' % (method, company and company.name or '', response.text or response.reason))
+                        return (None, response.text or response.reason) if message else None
+
         except Exception as e:
             _logger.error('An error occured when executing method %s for %s: %s' % (method, company and company.name or '', e))
             _logger.error(traceback.format_exc())
@@ -127,32 +127,66 @@ class SyncopsConnector(models.Model):
                 if response.status_code == 200:
                     result = response.json()
                     if result['status'] == 0:
-                        connector.write({
-                            'connected': True,
-                            'line_ids': [(5, 0, 0)] + [(0, 0, {
-                                'res_id': method['id'],
-                                'name': method['name'],
-                                'code': method['code'],
-                                'method': method['method'],
-                                'category': method['category'],
-                                'input_ids': [(0, 0, {
-                                    'res_id': line['id'],
-                                    'input': line['input'],
-                                    'input_type': line['input_type'],
-                                    'output': line['output'],
-                                    'output_type': line['output_type'],
-                                    'name': line['name'],
-                                }) for line in method['inputs']],
-                                'output_ids': [(0, 0, {
-                                    'res_id': line['id'],
-                                    'input': line['input'],
-                                    'input_type': line['input_type'],
-                                    'output': line['output'],
-                                    'output_type': line['output_type'],
-                                    'name': line['name'],
-                                }) for line in method['outputs']],
-                            }) for method in result['methods']],
-                        })
+                        ids = connector.line_ids.ids
+                        for line in connector.line_ids:
+                            method = next(filter(lambda m: m['id'] == line.id, result['methods']), None)
+                            if method:
+                                line.write({
+                                    'res_id': method['id'],
+                                    'name': method['name'],
+                                    'code': method['code'],
+                                    'method': method['method'],
+                                    'category': method['category'],
+                                    'input_ids': [(5, 0, 0)] + [(0, 0, {
+                                        'res_id': i['id'],
+                                        'input': i['input'],
+                                        'input_type': i['input_type'],
+                                        'output': i['output'],
+                                        'output_type': i['output_type'],
+                                        'name': i['name'],
+                                    }) for i in method['inputs']],
+                                    'output_ids': [(5, 0, 0)] + [(0, 0, {
+                                        'res_id': o['id'],
+                                        'input': o['input'],
+                                        'input_type': o['input_type'],
+                                        'output': o['output'],
+                                        'output_type': o['output_type'],
+                                        'name': o['name'],
+                                    }) for o in method['outputs']],
+                                })
+                            else:
+                                line.unlink()
+
+                        for method in result['methods']:
+                            if method['id'] in ids:
+                                continue
+
+                            connector.write({
+                                'line_ids': [(0, 0, {
+                                    'res_id': method['id'],
+                                    'name': method['name'],
+                                    'code': method['code'],
+                                    'method': method['method'],
+                                    'category': method['category'],
+                                    'input_ids': [(0, 0, {
+                                        'res_id': i['id'],
+                                        'input': i['input'],
+                                        'input_type': i['input_type'],
+                                        'output': i['output'],
+                                        'output_type': i['output_type'],
+                                        'name': i['name'],
+                                    }) for i in method['inputs']],
+                                    'output_ids': [(0, 0, {
+                                        'res_id': o['id'],
+                                        'input': o['input'],
+                                        'input_type': o['input_type'],
+                                        'output': o['output'],
+                                        'output_type': o['output_type'],
+                                        'name': o['name'],
+                                    }) for o in method['outputs']],
+                                })]
+                            })
+
                         result[connector.id] = {
                             'type': 'info',
                             'title': _('Success'),
@@ -161,7 +195,6 @@ class SyncopsConnector(models.Model):
                     else:
                         connector.write({
                             'connected': False,
-                            'line_ids': [(5, 0, 0)],
                         })
                         result[connector.id] = {
                             'type': 'danger',
@@ -171,7 +204,6 @@ class SyncopsConnector(models.Model):
                 else:
                     connector.write({
                         'connected': False,
-                        'line_ids': [(5, 0, 0)],
                     })
                     result[connector.id] = {
                         'type': 'danger',
@@ -182,7 +214,6 @@ class SyncopsConnector(models.Model):
                 _logger.error(traceback.format_exc())
                 connector.write({
                     'connected': False,
-                    'line_ids': [(5, 0, 0)],
                 })
                 result[connector.id] = {
                     'type': 'danger',
@@ -256,8 +287,19 @@ class SyncopsConnectorLine(models.Model):
     code = fields.Char(string='Code', readonly=True)
     category = fields.Char(string='Category', readonly=True)
     method = fields.Boolean(string='State', readonly=True)
-    input_ids = fields.One2many('syncops.connector.line.input', 'line_id', 'Inputs', readonly=True)
-    output_ids = fields.One2many('syncops.connector.line.output', 'line_id', 'Outputs', readonly=True)
+    input_ids = fields.One2many('syncops.connector.line.input', 'line_id', 'Inputs', copy=True, readonly=True)
+    output_ids = fields.One2many('syncops.connector.line.output', 'line_id', 'Outputs', copy=True, readonly=True)
+
+    def _defaults(self, io, values):
+        names = getattr(self, '%s_ids' % io).mapped('input')
+        defaults = self.env['syncops.connector.line.default'].sudo().search([
+            ('connector_id', '=', self.connector_id.id),
+            ('io', '=', io),
+            ('name', 'in', names),
+            ('method', '=', self.code),
+            ('type', 'in', ('const', 'code')),
+        ])
+        return {default.name: default._value(values) for default in defaults}
 
 
 class SyncopsConnectorLineIO(models.AbstractModel):

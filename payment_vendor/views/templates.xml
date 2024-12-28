@@ -226,7 +226,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div t-attf-class="justify-content-center mx-0 w-100 #{'d-none' if due_hide_payment else ''}" t-att-field="'payment.due.payment' if company.payment_page_due_hide_payment_ok else None">
+                        <div t-attf-class="justify-content-center mx-0 w-100 #{'d-none' if due_hide_payment else ''}" t-att-field="'payment.due.payment' if company.payment_page_due_ok else None">
                             <t t-call="payment_jetcheckout.s2s">
                                 <t t-set="amount" t-value="amount or 0"/>
                                 <t t-set="no_border" t-value="True"/>
