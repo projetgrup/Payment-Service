@@ -137,5 +137,11 @@
                 vertical-align: middle;
             }
         }
-    }    
+    }
+ 
+    &.o_form_syncops_connector_line_default {
+        button.o_form_button_cancel {
+            display: none;
+        }
+    }
 }

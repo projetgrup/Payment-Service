@@ -69,13 +69,13 @@ class SyncopsConnector(models.Model):
             if not url:
                 raise ValidationError(_('No syncOPS endpoint URL found'))
 
+            url += '/api/v1/execute'
             for connector in connectors:
                 lines = connector.line_ids.filtered(lambda l: l.code == method)
                 for line in lines:
                     defaults = line._defaults('input', params)
                     params.update(defaults)
 
-                    url += '/api/v1/execute'
                     response = requests.post(url, json={
                         'username': connector.username,
                         'token': connector.token,
@@ -160,7 +160,7 @@ class SyncopsConnector(models.Model):
                                     for i in ios:
                                         l = next(filter(lambda m: m['id'] == i.res_id, method['%ss' % io]), None)
                                         if l:
-                                            ios.write({
+                                            i.write({
                                                 'res_id': l['id'],
                                                 'input': l['input'],
                                                 'input_type': l['input_type'],
@@ -169,7 +169,7 @@ class SyncopsConnector(models.Model):
                                                 'name': l['name'],
                                             })
                                         else:
-                                            ios.unlink()
+                                            i.unlink()
 
                                     for i in method['%ss' % io]:
                                         if i['id'] in iods:
@@ -326,15 +326,11 @@ class SyncopsConnectorLine(models.Model):
     output_ids = fields.One2many('syncops.connector.line.output', 'line_id', 'Outputs', copy=True, readonly=True)
 
     def _defaults(self, io, values):
-        names = getattr(self, '%s_ids' % io).mapped('input')
-        defaults = self.env['syncops.connector.line.default'].sudo().search([
-            ('connector_id', '=', self.connector_id.id),
-            ('io', '=', io),
-            ('name', 'in', names),
-            ('method', '=', self.code),
-            ('type', 'in', ('const', 'code')),
-        ])
-        return {default.name: default._value(values) for default in defaults}
+        defaults = {}
+        for io in getattr(self, '%s_ids' % io):
+            if io.default_id:
+                defaults.update({io.default_id.name: io.default_id._value(values)})
+        return defaults
 
 
 class SyncopsConnectorLineIO(models.AbstractModel):
@@ -345,6 +341,13 @@ class SyncopsConnectorLineIO(models.AbstractModel):
         for line in self:
             line.direction = '→'
 
+    @api.depends('input', 'output')
+    def _compute_name(self):
+        io = self._name.rsplit('.', 1)[-1]
+        for line in self:
+            line.name = getattr(line, io, False)
+
+    @api.depends('default_ids')
     def _compute_default(self):
         for line in self:
             connector = line.line_id.connector_id
@@ -358,54 +361,39 @@ class SyncopsConnectorLineIO(models.AbstractModel):
             if not default:
                 default = self.env['syncops.connector.line.default'].search([
                     ('connector_id', '=', connector.id),
+                    ('%s_id' % io, '=', False),
                     ('name', '=', name),
                     ('method', '=', method),
                     ('io', '=', io),
                 ], limit=1)
-            if default:
-                line.default_ok = default.type in ('const', 'code')
-                line.default_type = default.type
-                line.default_const = default.const
-                line.default_code = default.code
-            else:
-                line.default_ok = False
-                line.default_type = 'none'
-                line.default_const = False
-                line.default_code = False
+
+            line.default_id = default.id
 
     line_id = fields.Many2one('syncops.connector.line', ondelete='cascade')
     res_id = fields.Integer(string='Remote ID', readonly=True)
+    name = fields.Char(compute='_compute_name', store=True, readonly=True)
     input = fields.Char('Input', readonly=True)
     input_type = fields.Char('Input Type', readonly=True)
     output = fields.Char('Output', readonly=True)
     output_type = fields.Char('Output Type', readonly=True)
-    name = fields.Char('Description', readonly=True)
+    description = fields.Char('Description', readonly=True)
     direction = fields.Char(compute='_compute_direction', readonly=True)
-    default_ok = fields.Boolean(compute='_compute_default')
-    default_type = fields.Selection([
-        ('none', 'None'),
-        ('const', 'Constant'),
-        ('code', 'Code'),
-    ], compute='_compute_default')
-    default_const = fields.Char(compute='_compute_default')
-    default_code = fields.Text(compute='_compute_default')
+    default_id = fields.Many2one('syncops.connector.line.default', compute='_compute_default', store=True)
+    default_ids = fields.One2many('syncops.connector.line.default', 'io_id')
+    default_type = fields.Selection(related='default_id.type')
+    default_const = fields.Char(related='default_id.const')
+    default_code = fields.Text(related='default_id.code')
+
+    def name_get(self):
+        type = self._name.rsplit('.', 1)[-1]
+        return [(io.id, '%s #%s' % (type.capitalize(), io.id)) for io in self]
 
     def action_default(self):
         connector = self.line_id.connector_id
         io = self._name.rsplit('.', 1)[-1]
-        name = getattr(self, 'input')
+        name = self.name
         method = self.line_id.code
-        default = self.env['syncops.connector.line.default'].search([
-            ('connector_id', '=', connector.id),
-            ('%s_id' % io, '=', self.id),
-        ], limit=1)
-        if not default:
-            default = self.env['syncops.connector.line.default'].search([
-                ('connector_id', '=', connector.id),
-                ('name', '=', name),
-                ('method', '=', method),
-                ('io', '=', io),
-            ], limit=1)
+        default = self.default_id
         if not default:
             default = self.env['syncops.connector.line.default'].create({
                 'connector_id': connector.id,
@@ -421,7 +409,7 @@ class SyncopsConnectorLineIO(models.AbstractModel):
             'res_model': 'syncops.connector.line.default',
             'context': {
                 'dialog_size': 'small',
-                'default_%s_id' % io: self.id,
+                'io': {'type': io, 'id': self.id}
             },
             'view_mode': 'form',
             'target': 'new',
@@ -433,11 +421,14 @@ class SyncopsConnectorLineInput(models.Model):
     _inherit = 'syncops.connector.line.io'
     _description = 'syncOPS Connector Line Input'
 
+    default_ids = fields.One2many(inverse_name='input_id')
 
 class SyncopsConnectorLineOutput(models.Model):
     _name = 'syncops.connector.line.output'
     _inherit = 'syncops.connector.line.io'
     _description = 'syncOPS Connector Line Output'
+
+    default_ids = fields.One2many(inverse_name='output_id')
 
 
 class SyncopsConnectorLineDefault(models.Model):
@@ -445,6 +436,7 @@ class SyncopsConnectorLineDefault(models.Model):
     _description = 'syncOPS Connector Line Defaults'
 
     connector_id = fields.Many2one('syncops.connector', ondelete='cascade')
+    io_id = fields.Many2one('syncops.connector.line.io', ondelete='cascade')
     input_id = fields.Many2one('syncops.connector.line.input', ondelete='cascade')
     output_id = fields.Many2one('syncops.connector.line.output', ondelete='cascade')
     name = fields.Char()
@@ -481,6 +473,11 @@ class SyncopsConnectorLineDefault(models.Model):
             if msg:
                 raise ValidationError(msg)
 
+    def write(self, values):
+        io = self.env.context.get('io')
+        if io:
+            values.update({'%s_id' % io['type']: io['id']})
+        return super().write(values)
 
 class SyncopsLog(models.TransientModel):
     _name = 'syncops.log'
