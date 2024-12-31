@@ -118,9 +118,9 @@
             <field name="input" decoration-bf="1"/>
             <field name="direction" string="→" decoration-bf="1" attrs="{'column_invisible': [('parent.method', '!=', False)]}"/>
             <field name="output" decoration-bf="1" attrs="{'column_invisible': [('parent.method', '!=', False)]}"/>
-            <button name="action_default" type="object" icon="fa-edit" attrs="{'invisible': [('default_ok', '=', False)]}"/>
-            <button name="action_default" type="object" icon="fa-edit" attrs="{'invisible': [('default_ok', '!=', False)]}" class="text-300"/>
-            <field name="default_ok" invisible="1"/>
+            <button name="action_default" type="object" icon="fa-edit" attrs="{'invisible': [('default_type', 'not in', ('const', 'code'))]}"/>
+            <button name="action_default" type="object" icon="fa-edit" attrs="{'invisible': [('default_type', 'in', ('const', 'code'))]}" class="text-300"/>
+            <field name="default_type" invisible="1"/>
         </tree>
     </field>
     </record>
@@ -167,9 +167,9 @@
             <field name="input" decoration-bf="1" attrs="{'column_invisible': [('parent.method', '!=', False)]}"/>
             <field name="direction" string="→" decoration-bf="1" attrs="{'column_invisible': [('parent.method', '!=', False)]}"/>
             <field name="output" decoration-bf="1"/>
-            <button name="action_default" type="object" icon="fa-edit" attrs="{'invisible': [('default_ok', '=', False)]}"/>
-            <button name="action_default" type="object" icon="fa-edit" attrs="{'invisible': [('default_ok', '!=', False)]}" class="text-300"/>
-            <field name="default_ok" invisible="1"/>
+            <button name="action_default" type="object" icon="fa-edit" attrs="{'invisible': [('default_type', 'not in', ('const', 'code'))]}"/>
+            <button name="action_default" type="object" icon="fa-edit" attrs="{'invisible': [('default_type', 'in', ('const', 'code'))]}" class="text-300"/>
+            <field name="default_type" invisible="1"/>
         </tree>
     </field>
     </record>
@@ -211,12 +211,14 @@
     <field name="name">syncops.connector.line.default.form</field>
     <field name="model">syncops.connector.line.default</field>
     <field name="arch" type="xml">
-        <form create="0">
+        <form create="0" class="o_form_syncops_connector_line_default">
             <sheet>
                 <group>
                     <field name="type" widget="radio" options="{'horizontal': True}" class="justify-content-between mb-3" nolabel="1" colspan="2"/>
                     <field name="const" attrs="{'invisible': [('type', '!=', 'const')]}" class="text-center font-weight-bold d-block" placeholder="Enter a constant value..." nolabel="1" colspan="2"/>
                     <field name="code" attrs="{'invisible': [('type', '!=', 'code')]}" placeholder="Enter python code..." nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
+                    <field name="input_id" invisible="1"/>
+                    <field name="output_id" invisible="1"/>
                 </group>
             </sheet>
         </form>
