@@ -82,6 +82,7 @@ class SyncopsSyncWizard(models.TransientModel):
                 'partner_user_mobile': line.get('user_mobile', False),
                 'partner_balance': line.get('balance', 0),
                 'partner_campaign': line.get('campaign', False),
+                'partner_iban': line.get('iban', False),
                 'partner_tag': line.get('tag', False),
             }) for line in lines]
             res['view_id'] = self.env.ref('payment_syncops.tree_wizard_sync_line_partner').id
@@ -251,7 +252,7 @@ class SyncopsSyncWizard(models.TransientModel):
                             'user_id': user and user.id or partner.user_id.id,
                         })
                     else:
-                        partner = partners_all.create({
+                        values = {
                             'system': wizard.system or company.system,
                             'name': line['name'],
                             'vat': line['partner_vat'],
@@ -264,7 +265,15 @@ class SyncopsSyncWizard(models.TransientModel):
                             'user_id': user and user.id,
                             'company_id': company.id,
                             'is_company': True,
-                        })
+                        }
+                        if line['partner_iban']:
+                            values.update({
+                                'bank_ids': [(0, 0, {
+                                    'acc_number': line['partner_iban'],
+                                    'api_merchant': 'HEDEF_FILO_ODEMESI',
+                                })]
+                            })
+                        partner = partners_all.create(values)
                         if line['partner_vat']:
                             vats.update({line['partner_vat']: partner.id})
                         if line['partner_ref']:
@@ -405,6 +414,7 @@ class SyncopsSyncWizardLine(models.TransientModel):
     partner_phone = fields.Char(readonly=True)
     partner_mobile = fields.Char(readonly=True)
     partner_campaign = fields.Char(readonly=True)
+    partner_iban = fields.Char(readonly=True)
     partner_balance = fields.Monetary(readonly=True)
     partner_user_name = fields.Char(string='Partner Salesperson Name', readonly=True)
     partner_user_email = fields.Char(string='Partner Salesperson Email', readonly=True)
