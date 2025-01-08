@@ -1049,7 +1049,7 @@ class PayloxController(http.Controller):
 
         tx.with_context(domain=request.httprequest.referrer)._paylox_query({
             'successful': kwargs.get('response_code') == '00',
-            'pending': kwargs.get('response_code') == 'OO333',
+            'pending': kwargs.get('response_code') == '00333',
             'code': kwargs.get('response_code', ''),
             'message': kwargs.get('response_message', ''),
             'service_code': kwargs.get('service_resp_code', ''),

@@ -121,6 +121,7 @@ class PaymentTransaction(models.Model):
         if not line or not line.account_code:
             raise UserError(_('There is no account line for this provider'))
 
+        result, message = None, ''
         if self.company_id.syncops_sync_item_split:
             for item in self.paylox_transaction_item_ids:
                  result, message = self.env['syncops.connector'].sudo()._execute('payment_post_partner_payment', reference=str(self.id), params={

@@ -1479,7 +1479,7 @@ class PayloxSystemController(Controller):
                 '869286',
                 'TL',
                 'Peşin Satış - E-Ticaret',
-                tx.jetcheckout_card_number,
+                '%sXXXXXXXX%s' % (tx.jetcheckout_card_number[:4], tx.jetcheckout_card_number[-4:]),
                 'KREDİ KART',
                 'YURT İCİ',
                 tx.jetcheckout_installment_count,
@@ -1496,8 +1496,11 @@ class PayloxSystemController(Controller):
                 ''
             ]
             result.append(';'.join(map(str, values)))
+
+        date = fields.Date.today().strftime('%Y%m%d')
+        filename = '%s_%s_%s_%s.txt' % (date, 'ROYAL_CANIN', 3, date)
         headers = [
             ('Content-Type', 'text/plain'),
-            ('Content-Disposition', content_disposition('Transactions.txt'))
+            ('Content-Disposition', content_disposition(filename))
         ]
         return request.make_response('\n'.join(result), headers=headers)
