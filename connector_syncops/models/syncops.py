@@ -328,7 +328,7 @@ class SyncopsConnectorLine(models.Model):
     def _defaults(self, io, values):
         defaults = {}
         for io in getattr(self, '%s_ids' % io):
-            if io.default_id:
+            if io.default_id and io.default_id.type in ('const', 'code'):
                 defaults.update({io.default_id.name: io.default_id._value(values)})
         return defaults
 

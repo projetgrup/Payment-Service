@@ -14,7 +14,7 @@
     <menuitem id="menu_subscription_report" name="Reports" parent="menu_subscriptions" sequence="2" groups="payment_system_subscription.group_subscription"/>
     <menuitem id="menu_subscription_report_pivot" action="payment_system_subscription.action_report_pivot_subscription" name="Analysis" parent="menu_subscription_report" sequence="0" groups="payment_system_subscription.group_subscription"/>
 
-    <menuitem id="menu_transaction_agreement" action="payment_system_agreement.action_transaction_agreement" name="Agreements" parent="menu_main" sequence="4" groups="payment_system_agreement.group_agreement"/>
+    <menuitem id="menu_transaction_agreement" action="payment_system_agreement.action_transaction_agreement" name="Agreements" parent="menu_main" sequence="4" groups="payment_system_agreement.group_agreement,base.group_system"/>
     <menuitem id="menu_product" name="Products" parent="menu_main" sequence="4" groups="payment_system_product.group_product"/>
     <menuitem id="menu_product_template" action="payment_system_product.action_product_template" name="Products" parent="menu_product" sequence="0" groups="payment_system_product.group_product"/>
     <menuitem id="menu_product_product" action="payment_system_product.action_product_product" name="Variants" parent="menu_product" sequence="1" groups="payment_system_product.group_product"/>
@@ -46,8 +46,8 @@
     <menuitem id="menu_conf_subscription_reason" action="payment_system_subscription.action_subscription_reason" name="Reasons" parent="menu_conf_subscription" sequence="3" groups="payment_system_subscription.group_subscription"/>
 
 
-    <menuitem id="menu_agreements" name="Agreement Settings" parent="menu_conf" sequence="4" groups="payment_system_agreement.group_agreement"/>
-    <menuitem id="menu_agreement" action="payment_system_agreement.action_agreement" name="Agreements" parent="menu_agreements" sequence="1" groups="payment_system_agreement.group_agreement"/>
+    <menuitem id="menu_agreements" name="Agreement Settings" parent="menu_conf" sequence="4" groups="payment_system_agreement.group_agreement,base.group_system"/>
+    <menuitem id="menu_agreement" action="payment_system_agreement.action_agreement" name="Agreements" parent="menu_agreements" sequence="1" groups="payment_system_agreement.group_agreement,base.group_system"/>
 
     <menuitem id="menu_products" name="Product Settings" parent="menu_conf" sequence="4" groups="payment_system_product.group_product"/>
     <menuitem id="menu_product_attribute" action="payment_system_product.action_product_attribute" name="Attributes" parent="menu_products" sequence="1" groups="payment_system_product.group_product"/>
