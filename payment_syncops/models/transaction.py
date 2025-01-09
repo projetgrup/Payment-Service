@@ -50,7 +50,7 @@ class PaymentTransaction(models.Model):
             })
             if response.status_code == 200:
                 results = response.json()
-                if not results['status'] == 0:
+                if not results.get('status') == 0:
                     raise UserError(results['message'])
                 logs = results.get('logs', [])
                 for log in logs:

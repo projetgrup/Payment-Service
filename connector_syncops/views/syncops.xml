@@ -25,11 +25,11 @@
                 <div class="oe_button_box" name="button_box">
                     <button name="action_view_log" type="object" class="oe_stat_button" icon="fa-file-text-o" attrs="{'invisible': [('connected','=',False)]}" string="Logs"/>
                     <button name="action_connect" type="object" class="oe_stat_button text-danger" icon="fa-unlink" attrs="{'invisible': [('connected','!=',False)]}" string="Not Connected"/>
-                    <button name="action_connect" type="object" class="oe_stat_button text-success" icon="fa-chain" attrs="{'invisible': [('connected','=',False)]}" string="Connected"/>
-                    <button name="action_toggle_environment" type="object" class="oe_stat_button text-danger" icon="fa-stop" attrs="{'invisible': [('environment','!=',False)]}" string="Test"/>
-                    <button name="action_toggle_environment" type="object" class="oe_stat_button text-success" icon="fa-play" attrs="{'invisible': [('environment','=',False)]}" string="Production"/>
+                    <button name="action_connect" type="object" class="oe_stat_button text-primary" icon="fa-chain" attrs="{'invisible': [('connected','=',False)]}" string="Connected"/>
+                    <button name="action_toggle_environment" type="object" class="oe_stat_button text-muted" icon="fa-stop" attrs="{'invisible': [('environment','!=',False)]}" string="Test"/>
+                    <button name="action_toggle_environment" type="object" class="oe_stat_button text-primary" icon="fa-play" attrs="{'invisible': [('environment','=',False)]}" string="Production"/>
                     <button name="action_toggle_active" type="object" class="oe_stat_button text-muted" icon="fa-toggle-off" attrs="{'invisible': [('active','!=',False)]}" string="Passive"/>
-                    <button name="action_toggle_active" type="object" class="oe_stat_button text-success" icon="fa-toggle-on" attrs="{'invisible': [('active','=',False)]}" string="Active"/>
+                    <button name="action_toggle_active" type="object" class="oe_stat_button text-primary" icon="fa-toggle-on" attrs="{'invisible': [('active','=',False)]}" string="Active"/>
                 </div>
                 <div class="oe_title">
                     <label for="name"/>
@@ -41,12 +41,18 @@
                     <group>
                         <field name="username"/>
                         <field name="token"/>
-                        <field name="company_id" groups="base.group_multi_company" readonly="1" force_save="1"/>
-                        <field name="company_ids" groups="base.group_multi_company" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
                     </group>
                     <group>
+                        <field name="company_id" groups="base.group_multi_company" readonly="1" force_save="1"/>
+                        <field name="active" invisible="1"/>
+                        <field name="environment" invisible="1"/>
+                        <field name="connected" invisible="1" force_save="1"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Methods">
                         <div colspan="2" attrs="{'invisible': [('connected', '=', False)]}">
-                            <field name="line_ids" nolabel="1" attrs="{'invisible': [('connected','=',False)]}">
+                            <field name="line_ids" nolabel="1">
                                 <tree create="0" edit="0" delete="0">
                                     <field name="category" decoration-bf="1"/>
                                     <field name="name"/>
@@ -75,35 +81,139 @@
                                                     <div class="o_config_type o_config_method">Method</div>
                                                 </div>
                                                 <div class="o_row">
-                                                    <field name="name" nolabel="1" class="border-0" placeholder="Please select a method..."/>
+                                                    <field name="name" nolabel="1" class="border-0 text-center" placeholder="Please select a method..."/>
                                                 </div>
                                                 <div name="config" colspan="2"/>
                                                 <field name="method" invisible="1"/>
                                             </group>
                                         </group>
-                                        <group>
-                                            <group string="Inputs">
-                                                <field name="input_ids" nolabel="1" colspan="2"/>
-                                            </group>
-                                            <group string="Outputs">
-                                                <field name="output_ids" nolabel="1" colspan="2"/>
-                                            </group>
-                                        </group>
+                                        <notebook>
+                                            <page string="Inputs">
+                                                <group class="d-flex">
+                                                    <group class="h-25">
+                                                        <separator string="Route"/>
+                                                        <field name="input_route" nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
+                                                        <separator string="Value"/>
+                                                        <field name="input_value" nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
+                                                    </group>
+                                                    <group>
+                                                        <separator string="Match"/>
+                                                        <field name="input_ids" nolabel="1" colspan="2"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                        </notebook>
+                                        <notebook>
+                                            <page string="Outputs">
+                                                <group class="d-flex">
+                                                    <group class="h-25">
+                                                        <separator string="Route"/>
+                                                        <field name="output_route" nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
+                                                        <separator string="Value"/>
+                                                        <field name="output_value" nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
+                                                    </group>
+                                                    <group>
+                                                        <separator string="Match"/>
+                                                        <field name="output_ids" nolabel="1" colspan="2"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                        </notebook>
                                     </sheet>
-                                    <!--<footer>
-                                        <button name="copy" type="object" class="btn-secondary" string="Copy" icon="fa-clone"/>
-                                        <button special="cancel" class="btn-secondary" string="Close" icon="fa-times"/>
-                                    </footer>-->
                                 </form>
                             </field>
                         </div>
                         <label for="line_ids" attrs="{'invisible': [('connected', '!=', False)]}"/>
                         <span class="text-muted" attrs="{'invisible': [('connected', '!=', False)]}">Methods will be available after connection is successful</span>
-                        <field name="active" invisible="1"/>
-                        <field name="environment" invisible="1"/>
-                        <field name="connected" invisible="1" force_save="1"/>
-                    </group>
-                </group>
+                    </page>
+                    <page string="Options" attrs="{'invisible': [('connected', '=', False)]}">
+                        <group>
+                            <group>
+                                <field name="company_ids" groups="base.group_multi_company" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Hooks" attrs="{'invisible': [('connected', '=', False)]}">
+                        <field name="hook_ids" nolabel="1">
+                            <tree decoration-muted="active == False">
+                                <field name="name" decoration-bf="1"/>
+                                <field name="type" widget="badge"/>
+                                <field name="hook" widget="badge"/>
+                                <field name="active" invisible="1"/>
+                                <field name="method" invisible="1"/>
+                                <field name="method_id" invisible="1"/>
+                                <field name="method_ids" invisible="1"/>
+                                <field name="method_compute" invisible="1"/>
+                            </tree>
+                            <form class="o_form_syncops_connector">
+                                <sheet>
+                                    <group>
+                                        <group>
+                                            <div class="text-600 d-flex" colspan="2">
+                                                <div class="text-center px-4">
+                                                    <i class="fa fa-info text-primary h1"/>
+                                                </div>
+                                                <div class="d-flex flex-column">
+                                                    <div style="font-size: 0.9rem">
+                                                        <p>You can define hooks to run after or before synchronization.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </group>
+                                        <group class="o_config_connector">
+                                            <div class="o_td_label">
+                                                <div class="o_config_type o_config_method">Method</div>
+                                            </div>
+                                            <div class="o_row">
+                                                <field name="method_id" nolabel="1" class="border-0 text-center" placeholder="Please select a method..." options="{'no_create': True, 'no_open': True}"/>
+                                                <field name="name" invisible="1"/>
+                                                <field name="method" invisible="1"/>
+                                                <field name="method_ids" invisible="1"/>
+                                                <field name="method_compute" invisible="1"/>
+                                            </div>
+                                            <div name="config" colspan="2">
+                                                <div>
+                                                    <table class="table table-sm o_config_connector_table">
+                                                        <tr class="o_config_connector_table_header">
+                                                            <td class="text-center font-weight-bold" colspan="3">Configuration</td>
+                                                        </tr>
+                                                        <tr class="o_config_connector_table_option">
+                                                            <td class="text-right pr-2"><i class="fa fa-toggle-on"/></td>
+                                                            <td class="text-left font-weight-bold">Active</td>
+                                                            <td class="text-center text-nowrap"><field name="active" nolabel="1" widget="boolean_toggle"/></td>
+                                                        </tr>
+                                                        <tr class="o_config_connector_table_option">
+                                                            <td class="text-right pr-2"><i class="fa fa-magic"/></td>
+                                                            <td class="text-left font-weight-bold">Hook</td>
+                                                            <td class="text-center text-nowrap"><field name="hook" nolabel="1" required="1" widget="radio" options="{'horizontal': True}"/></td>
+                                                        </tr>
+                                                        <tr class="o_config_connector_table_option">
+                                                            <td class="text-right pr-2"><i class="fa fa-wrench"/></td>
+                                                            <td class="text-left font-weight-bold">Type</td>
+                                                            <td class="text-center text-nowrap"><field name="type" nolabel="1" required="1" widget="radio" options="{'horizontal': True}"/></td>
+                                                        </tr>
+                                                        <tr class="o_config_connector_table_option" attrs="{'invisible': [('type', '=', False)]}">
+                                                            <td class="text-right pr-2"><i class="fa fa-filter"/></td>
+                                                            <td class="text-left font-weight-bold">Subtype</td>
+                                                            <td class="text-center text-nowrap"><field name="subtype" nolabel="1" placeholder="No Subtype"/></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="Code">
+                                            <field name="code" nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
+                                        </page>
+                                    </notebook>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
             </sheet>
         </form>
     </field>

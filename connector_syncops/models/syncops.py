@@ -21,7 +21,8 @@ class SyncopsConnector(models.Model):
     token = fields.Char(string='Token', required=True)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company, ondelete='cascade', required=True, readonly=True)
     company_ids = fields.Many2many('res.company', 'syncops_company_rel', 'connector_id', 'company_id', string='Related Companies')
-    line_ids = fields.One2many('syncops.connector.line', 'connector_id', string='Lines')
+    line_ids = fields.One2many('syncops.connector.line', 'connector_id', string='Methods')
+    hook_ids = fields.One2many('syncops.connector.hook', 'connector_id', string='Hooks', context={'active_test': False})
     active = fields.Boolean(default=True)
     connected = fields.Boolean(readonly=True)
     environment = fields.Boolean(default=False)
@@ -280,6 +281,20 @@ class SyncopsConnector(models.Model):
             ('line_ids.code', '=', method)
         ])
 
+    @api.model
+    def get_hook(self, method, hook=False, type=False, subtype=False, company=None):
+        if not company:
+            company = self.env.company
+
+        return self.env['syncops.connector.hook'].search([
+            ('method', '=', method),
+            ('hook', '=', hook),
+            ('type', '=', type),
+            ('subtype', '=', subtype),
+            ('connector_id.company_id', '=', company.id),
+            ('connector_id.connected', '=', True),
+        ])
+
     def get_company_ids(self):
         return self.company_id.ids + self.company_ids.ids
 
@@ -314,7 +329,7 @@ class SyncopsConnector(models.Model):
 
 class SyncopsConnectorLine(models.Model):
     _name = 'syncops.connector.line'
-    _description = 'syncOPS Connector Line'
+    _description = 'syncOPS Connector Methods'
 
     connector_id = fields.Many2one('syncops.connector', 'Connector', index=True, ondelete='cascade')
     res_id = fields.Integer(string='Remote ID', readonly=True)
@@ -322,6 +337,10 @@ class SyncopsConnectorLine(models.Model):
     code = fields.Char(string='Code', readonly=True)
     category = fields.Char(string='Category', readonly=True)
     method = fields.Boolean(string='State', readonly=True)
+    input_value = fields.Text(string='Input Value')
+    output_value = fields.Text(string='Output Value')
+    input_route = fields.Text(string='Input Route')
+    output_route = fields.Text(string='Output Route')
     input_ids = fields.One2many('syncops.connector.line.input', 'line_id', 'Inputs', copy=True, readonly=True)
     output_ids = fields.One2many('syncops.connector.line.output', 'line_id', 'Outputs', copy=True, readonly=True)
 
@@ -478,6 +497,57 @@ class SyncopsConnectorLineDefault(models.Model):
         if io:
             values.update({'%s_id' % io['type']: io['id']})
         return super().write(values)
+
+
+class SyncopsConnectorHook(models.Model):
+    _name = 'syncops.connector.hook'
+    _description = 'syncOPS Connector Hooks'
+
+    @api.depends('method_compute')
+    def _compute_method_ids(self):
+        for hook in self:
+            codes = []
+            methods = []
+            for line in hook.connector_id.line_ids:
+                if line.code not in codes:
+                    codes.append(line.code)
+                    methods.append(line.id)
+
+            hook.method_ids = [(6, 0, methods)]
+
+    connector_id = fields.Many2one('syncops.connector', 'Connector', index=True, ondelete='cascade')
+    method_id = fields.Many2one('syncops.connector.line', domain='[("id", "=", method_ids)]')
+    method_ids = fields.Many2many('syncops.connector.line', compute='_compute_method_ids')
+    method_compute = fields.Boolean(default=True, store=False)
+    active = fields.Boolean(default=True)
+    code = fields.Text()
+    name = fields.Char()
+    method = fields.Char()
+    type = fields.Selection([])
+    subtype = fields.Selection([])
+    hook = fields.Selection([('pre', 'Pre-hook'), ('post', 'Post-hook')])
+
+    @api.onchange('method_id')
+    def onchange_method_id(self):
+        self.name = self.method_id.name
+        self.method = self.method_id.code
+
+    @api.constrains('code')
+    def _check_code(self):
+        for hook in self.sudo().filtered('code'):
+            msg = test_python_expr(expr=hook.code.strip(), mode='exec')
+            if msg:
+                raise ValidationError(msg)
+
+    def run(self, **values):
+        context = {
+            'env': self.env,
+            'datetime': datetime,
+            **values
+        }
+        for hook in self:
+            safe_eval(hook.code.strip(), context, mode='exec', nocopy=True)
+
 
 class SyncopsLog(models.TransientModel):
     _name = 'syncops.log'

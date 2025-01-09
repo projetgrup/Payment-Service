@@ -199,85 +199,89 @@ class SyncopsSyncWizard(models.TransientModel):
                     refs.update({partner['ref']: partner['id']})
 
             if wizard.type == 'partner':
-                for line in wizard.line_ids.read():
-                    if line['partner_user_email'] in users:
-                        user = users_all.browse(users[line['partner_user_email']])
-                        user.with_context(mail_create_nolog=True).write({
-                            'name': line['partner_user_name'],
-                            'phone': line['partner_user_phone'],
-                            'mobile': line['partner_user_mobile'] or line['partner_user_phone'],
-                            'company_ids': [(4, company.id)],
-                        })
-                    elif line['partner_user_email']:
-                        user = users_all.sudo().search([
-                            ('email', '=', line['partner_user_email']),
-                        ], limit=1)
-                        if user:
+                hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'post', 'partner')
+                if hook:
+                    hook.run()
+                else:
+                    for line in wizard.line_ids.read():
+                        if line['partner_user_email'] in users:
+                            user = users_all.browse(users[line['partner_user_email']])
                             user.with_context(mail_create_nolog=True).write({
-                                'company_ids': [(4, company.id)],
-                            })
-                        else:
-                            user = users_all.with_context(mail_create_nolog=True).create({
-                                'system': wizard.system or company.system,
                                 'name': line['partner_user_name'],
-                                'login': line['partner_user_email'],
-                                'email': line['partner_user_email'],
                                 'phone': line['partner_user_phone'],
                                 'mobile': line['partner_user_mobile'] or line['partner_user_phone'],
+                                'company_ids': [(4, company.id)],
+                            })
+                        elif line['partner_user_email']:
+                            user = users_all.sudo().search([
+                                ('email', '=', line['partner_user_email']),
+                            ], limit=1)
+                            if user:
+                                user.with_context(mail_create_nolog=True).write({
+                                    'company_ids': [(4, company.id)],
+                                })
+                            else:
+                                user = users_all.with_context(mail_create_nolog=True).create({
+                                    'system': wizard.system or company.system,
+                                    'name': line['partner_user_name'],
+                                    'login': line['partner_user_email'],
+                                    'email': line['partner_user_email'],
+                                    'phone': line['partner_user_phone'],
+                                    'mobile': line['partner_user_mobile'] or line['partner_user_phone'],
+                                    'company_id': company.id,
+                                    'privilege': 'user',
+                                })
+                        else:
+                            user = None
+
+                        pid = 0
+                        if line['partner_vat'] in vats and line['partner_ref'] in refs and vats[line['partner_vat']] == refs[line['partner_ref']]:
+                            pid = vats[line['partner_vat']]
+                        elif line['partner_vat'] in vats:
+                            pid = vats[line['partner_vat']]
+                        elif line['partner_ref'] in refs:
+                            pid = refs[line['partner_ref']]
+
+                        if pid:
+                            partner = partners_all.browse(pid)
+                            partner.write({
+                                'name': line['name'],
+                                'vat': line['partner_vat'],
+                                'ref': line['partner_ref'],
+                                'email': line['partner_email'],
+                                'phone': line['partner_phone'],
+                                'mobile': line['partner_mobile'] or line['partner_phone'],
+                                'campaign_id': campaigns.get(line['partner_campaign'], False),
+                                'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
+                                'user_id': user and user.id or partner.user_id.id,
+                            })
+                        else:
+                            values = {
+                                'system': wizard.system or company.system,
+                                'name': line['name'],
+                                'vat': line['partner_vat'],
+                                'ref': line['partner_ref'],
+                                'email': line['partner_email'],
+                                'phone': line['partner_phone'],
+                                'mobile': line['partner_mobile'] or line['partner_phone'],
+                                'campaign_id': campaigns.get(line['partner_campaign'], False),
+                                'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
+                                'user_id': user and user.id,
                                 'company_id': company.id,
-                                'privilege': 'user',
-                            })
-                    else:
-                        user = None
-
-                    pid = 0
-                    if line['partner_vat'] in vats and line['partner_ref'] in refs and vats[line['partner_vat']] == refs[line['partner_ref']]:
-                        pid = vats[line['partner_vat']]
-                    elif line['partner_vat'] in vats:
-                        pid = vats[line['partner_vat']]
-                    elif line['partner_ref'] in refs:
-                        pid = refs[line['partner_ref']]
-
-                    if pid:
-                        partner = partners_all.browse(pid)
-                        partner.write({
-                            'name': line['name'],
-                            'vat': line['partner_vat'],
-                            'ref': line['partner_ref'],
-                            'email': line['partner_email'],
-                            'phone': line['partner_phone'],
-                            'mobile': line['partner_mobile'] or line['partner_phone'],
-                            'campaign_id': campaigns.get(line['partner_campaign'], False),
-                            'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
-                            'user_id': user and user.id or partner.user_id.id,
-                        })
-                    else:
-                        values = {
-                            'system': wizard.system or company.system,
-                            'name': line['name'],
-                            'vat': line['partner_vat'],
-                            'ref': line['partner_ref'],
-                            'email': line['partner_email'],
-                            'phone': line['partner_phone'],
-                            'mobile': line['partner_mobile'] or line['partner_phone'],
-                            'campaign_id': campaigns.get(line['partner_campaign'], False),
-                            'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
-                            'user_id': user and user.id,
-                            'company_id': company.id,
-                            'is_company': True,
-                        }
-                        if line['partner_iban']:
-                            values.update({
-                                'bank_ids': [(0, 0, {
-                                    'acc_number': line['partner_iban'],
-                                    'api_merchant': 'HEDEF_FILO_ODEMESI',
-                                })]
-                            })
-                        partner = partners_all.create(values)
-                        if line['partner_vat']:
-                            vats.update({line['partner_vat']: partner.id})
-                        if line['partner_ref']:
-                            refs.update({line['partner_ref']: partner.id})
+                                'is_company': True,
+                            }
+                            if line['partner_iban']:
+                                values.update({
+                                    'bank_ids': [(0, 0, {
+                                        'acc_number': line['partner_iban'],
+                                        'api_merchant': 'HEDEF_FILO_ODEMESI',
+                                    })]
+                                })
+                            partner = partners_all.create(values)
+                            if line['partner_vat']:
+                                vats.update({line['partner_vat']: partner.id})
+                            if line['partner_ref']:
+                                refs.update({line['partner_ref']: partner.id})
 
             else:
                 items_all = self.env['payment.item']
