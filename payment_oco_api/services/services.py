@@ -222,6 +222,9 @@ class OrderCheckoutAPIService(Component):
         partner = api.partner_id
         if getattr(params, 'partner', None):
             partner = self.env['res.partner'].sudo().search([('vat', '=', params.partner.vat), ('company_id', '=', company.id)]).with_company(company)
+            if len(partner) > 1:
+                raise Exception('There is more than one partner with VAT %s' % params.partner.vat)
+ 
             if partner:
                 partner.write({
                     'email': params.partner.email,

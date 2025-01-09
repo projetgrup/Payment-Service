@@ -28,6 +28,7 @@ class PaymentAcquirerPayloxReport(models.Model):
     def render(self, tx):
         res = self.body \
             .replace('{{amount_paid}}', formatLang(self.env, tx.amount, currency_obj=tx.currency_id)) \
+            .replace('{{amount_commission}}', formatLang(self.env, tx.jetcheckout_customer_amount, currency_obj=tx.currency_id)) \
             .replace('{{partner_name}}', tx.partner_name) \
             .replace('{{payment_date}}', tx.create_date.strftime('%d/%m/%Y')) \
             .replace('{{card_holder}}', tx.jetcheckout_card_name)
