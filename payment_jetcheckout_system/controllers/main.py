@@ -1487,14 +1487,14 @@ class PayloxSystemController(Controller):
                 tx.jetcheckout_installment_count,
                 tx.jetcheckout_installment_count,
                 'A',
-                '%0.2f' % tx.jetcheckout_installment_amount * rate,
-                '%0.2f' % item.amount,
-                '%0.2f' % tx.jetcheckout_customer_amount * rate,
-                '%0.2f' % tx.jetcheckout_commission_amount * rate,
-                '%0.2f' % tx.jetcheckout_fund_amount * rate,
-                '%0.2f' % 0,
-                '%0.2f' % tx.jetcheckout_payment_net * rate,
-                item.desc,
+                '%0.2f' % (tx.jetcheckout_installment_amount * rate,),
+                '%0.2f' % (item.amount,),
+                '%0.2f' % (tx.jetcheckout_customer_amount * rate,),
+                '%0.2f' % (tx.jetcheckout_commission_amount * rate,),
+                '%0.2f' % (tx.jetcheckout_fund_amount * rate,),
+                '%0.2f' % (0,),
+                '%0.2f' % (tx.jetcheckout_payment_net * rate,),
+                item.desc or '',
                 ''
             ]
             result.append(';'.join(map(str, values)))
