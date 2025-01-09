@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import requests
+import json
 import logging
+import requests
 import traceback
 from datetime import datetime
 
@@ -9,6 +10,10 @@ from odoo.tools.safe_eval import safe_eval, test_python_expr
 from odoo.exceptions import RedirectWarning, ValidationError, UserError
 
 _logger = logging.getLogger(__name__)
+
+class _json:
+    loads = json.loads
+    dumps = json.dumps
 
 
 class SyncopsConnector(models.Model):
@@ -543,6 +548,7 @@ class SyncopsConnectorHook(models.Model):
         context = {
             'env': self.env,
             'datetime': datetime,
+            'json': _json,
             **values
         }
         for hook in self:

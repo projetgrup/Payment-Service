@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from odoo import fields, models, api, _
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from odoo.exceptions import UserError, ValidationError
@@ -69,22 +70,28 @@ class SyncopsSyncWizard(models.TransientModel):
             if not lines:
                 lines = []
 
-            self.line_ids = [(0, 0, {
-                'name': line.get('name', False),
-                'partner_vat': line.get('vat', False),
-                'partner_ref': line.get('ref', False),
-                'partner_email': line.get('email', False),
-                'partner_phone': line.get('phone', False),
-                'partner_mobile': line.get('mobile', False),
-                'partner_user_name': line.get('user_name', False),
-                'partner_user_email': line.get('user_email', False),
-                'partner_user_phone': line.get('user_phone', False),
-                'partner_user_mobile': line.get('user_mobile', False),
-                'partner_balance': line.get('balance', 0),
-                'partner_campaign': line.get('campaign', False),
-                'partner_iban': line.get('iban', False),
-                'partner_tag': line.get('tag', False),
-            }) for line in lines]
+            hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'pre', 'partner')
+            if hook:
+                hook.run(wizard=self, lines=lines)
+            else:
+                self.line_ids = [(0, 0, {
+                    'name': line.get('name', False),
+                    'data': json.dumps(line, default=str),
+                    'partner_vat': line.get('vat', False),
+                    'partner_ref': line.get('ref', False),
+                    'partner_email': line.get('email', False),
+                    'partner_phone': line.get('phone', False),
+                    'partner_mobile': line.get('mobile', False),
+                    'partner_user_name': line.get('user_name', False),
+                    'partner_user_email': line.get('user_email', False),
+                    'partner_user_phone': line.get('user_phone', False),
+                    'partner_user_mobile': line.get('user_mobile', False),
+                    'partner_balance': line.get('balance', 0),
+                    'partner_campaign': line.get('campaign', False),
+                    'partner_iban': line.get('iban', False),
+                    'partner_tag': line.get('tag', False),
+                }) for line in lines]
+
             res['view_id'] = self.env.ref('payment_syncops.tree_wizard_sync_line_partner').id
 
         elif self.type == 'item':
@@ -201,7 +208,7 @@ class SyncopsSyncWizard(models.TransientModel):
             if wizard.type == 'partner':
                 hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'post', 'partner')
                 if hook:
-                    hook.run()
+                    hook.run(vats=vats, refs=refs, tags=tags, campaigns=campaigns, company=company, lines=wizard.line_ids)
                 else:
                     for line in wizard.line_ids.read():
                         if line['partner_user_email'] in users:
@@ -253,6 +260,7 @@ class SyncopsSyncWizard(models.TransientModel):
                                 'mobile': line['partner_mobile'] or line['partner_phone'],
                                 'campaign_id': campaigns.get(line['partner_campaign'], False),
                                 'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
+                                'syncops_data': json.dumps(line['data'], default=str),
                                 'user_id': user and user.id or partner.user_id.id,
                             })
                         else:
@@ -266,6 +274,7 @@ class SyncopsSyncWizard(models.TransientModel):
                                 'mobile': line['partner_mobile'] or line['partner_phone'],
                                 'campaign_id': campaigns.get(line['partner_campaign'], False),
                                 'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
+                                'syncops_data': json.dumps(line['data'], default=str),
                                 'user_id': user and user.id,
                                 'company_id': company.id,
                                 'is_company': True,

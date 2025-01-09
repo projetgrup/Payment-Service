@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from pytz import timezone
 from urllib.parse import urlparse
 from datetime import datetime, timedelta
 
@@ -11,12 +12,14 @@ class PaymentItem(models.Model):
 
     syncops_ok = fields.Boolean(readonly=True)
     syncops_notif = fields.Boolean(readonly=True)
+    syncops_data = fields.Text(string='syncOPS Data')
 
     @api.model
     def cron_sync(self):
         self = self.sudo()
-        offset = timedelta(hours=3) # Turkiye Timezone
-        now = datetime.now() + offset
+        now = datetime.now()
+        tz = timezone('Europe/Istanbul')
+        now += tz.utcoffset(now)
         pre = now - timedelta(hours=1)
         companies = self.env['res.company'].search([
             ('system', '!=', False),
@@ -41,8 +44,9 @@ class PaymentItem(models.Model):
     @api.model
     def cron_sync_notif(self):
         self = self.sudo()
-        offset = timedelta(hours=3) # Turkiye Timezone
-        now = datetime.now() + offset
+        now = datetime.now()
+        tz = timezone('Europe/Istanbul')
+        now += tz.utcoffset(now)
         pre = now - timedelta(hours=1)
         companies = self.env['res.company'].search([
             ('system', '!=', False),

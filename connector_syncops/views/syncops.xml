@@ -158,6 +158,7 @@
                                                 <div class="d-flex flex-column">
                                                     <div style="font-size: 0.9rem">
                                                         <p>You can define hooks to run after or before synchronization.</p>
+                                                        <p>If code field is blank, then default code will be executed.</p>
                                                     </div>
                                                 </div>
                                             </div>
