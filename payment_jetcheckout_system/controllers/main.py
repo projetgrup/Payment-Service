@@ -1462,13 +1462,15 @@ class PayloxSystemController(Controller):
         ]
         result.append(';'.join(headers))
 
-        txs = request.env['payment.transaction'].sudo().search([
-            ('id', 'in', list(map(int, data[''].split(',')))),
-            ('jetcheckout_payment_type', '=', 'virtual_pos'),
-            ('company_id', '=', request.env.user.company_ids.ids),
-            ('state', '=', 'done'),
+        items = request.env['payment.transaction.item'].sudo().search([
+            ('transaction_id', 'in', list(map(int, data[''].split(',')))),
+            ('transaction_id.jetcheckout_payment_type', '=', 'virtual_pos'),
+            ('transaction_id.company_id', '=', request.env.user.company_ids.ids),
+            ('transaction_id.state', '=', 'done'),
         ])
-        for tx in txs:
+        for item in items:
+            tx = item.transaction_id
+            rate = item.amount / tx.jetcheckout_payment_amount if tx.jetcheckout_payment_amount != 0 else 0.0
             values = [
                 '000000000480150',
                 'VP692034',
@@ -1485,14 +1487,14 @@ class PayloxSystemController(Controller):
                 tx.jetcheckout_installment_count,
                 tx.jetcheckout_installment_count,
                 'A',
-                '%0.2f' % tx.jetcheckout_installment_amount,
-                '%0.2f' % tx.jetcheckout_payment_amount,
-                '%0.2f' % tx.jetcheckout_customer_amount,
-                '%0.2f' % tx.jetcheckout_commission_amount,
-                '%0.2f' % tx.jetcheckout_fund_amount,
+                '%0.2f' % tx.jetcheckout_installment_amount * rate,
+                '%0.2f' % item.amount,
+                '%0.2f' % tx.jetcheckout_customer_amount * rate,
+                '%0.2f' % tx.jetcheckout_commission_amount * rate,
+                '%0.2f' % tx.jetcheckout_fund_amount * rate,
                 '%0.2f' % 0,
-                '%0.2f' % tx.jetcheckout_payment_net,
-                tx.partner_id.ref,
+                '%0.2f' % tx.jetcheckout_payment_net * rate,
+                item.desc,
                 ''
             ]
             result.append(';'.join(map(str, values)))
@@ -1503,4 +1505,4 @@ class PayloxSystemController(Controller):
             ('Content-Type', 'text/plain'),
             ('Content-Disposition', content_disposition(filename))
         ]
-        return request.make_response('\n'.join(result), headers=headers)
+        return request.make_response('\r\n'.join(result), headers=headers)
