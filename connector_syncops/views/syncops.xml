@@ -123,8 +123,7 @@
                                 </form>
                             </field>
                         </div>
-                        <label for="line_ids" attrs="{'invisible': [('connected', '!=', False)]}"/>
-                        <span class="text-muted" attrs="{'invisible': [('connected', '!=', False)]}">Methods will be available after connection is successful</span>
+                        <em class="text-muted" attrs="{'invisible': [('connected', '!=', False)]}">Methods will be available after connection is successful</em>
                     </page>
                     <page string="Options" attrs="{'invisible': [('connected', '=', False)]}">
                         <group>
