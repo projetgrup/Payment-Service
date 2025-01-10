@@ -32,7 +32,7 @@ class SyncopsConnector(models.Model):
     connected = fields.Boolean(readonly=True)
     environment = fields.Boolean(default=False)
 
-    @api.constrains('token')
+    #@api.constrains('token')
     def _check_token(self):
         for connector in self:
             same_connector = self.sudo().with_context({'active_test': False}).search_count([('id', '!=', connector.id), ('token', '=', connector.token)])
