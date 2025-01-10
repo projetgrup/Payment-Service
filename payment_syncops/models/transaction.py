@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import requests
+from pytz import timezone
 from datetime import timedelta
 from dateutil import parser
 
@@ -50,7 +51,7 @@ class PaymentTransaction(models.Model):
             })
             if response.status_code == 200:
                 results = response.json()
-                if not results['status'] == 0:
+                if not results.get('status') == 0:
                     raise UserError(results['message'])
                 logs = results.get('logs', [])
                 for log in logs:
@@ -116,8 +117,9 @@ class PaymentTransaction(models.Model):
             user = self.partner_id.users_id
 
         line = self.acquirer_id._get_branch_line(name=self.jetcheckout_vpos_name, user=user)
-        offset = timedelta(hours=3) # Türkiye Timezone
-        date = self.create_date + offset
+        tz = timezone('Europe/Istanbul')
+        date = self.create_date
+        date += tz.utcoffset(date)
         if not line or not line.account_code:
             raise UserError(_('There is no account line for this provider'))
 

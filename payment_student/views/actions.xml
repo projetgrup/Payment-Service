@@ -73,6 +73,13 @@
     <field name="domain">['|',('active','=',False),('active','=',True)]</field>
     </record>
 
+    <record id="action_campus" model="ir.actions.act_window">
+    <field name="name">Campuses</field>
+    <field name="res_model">res.student.campus</field>
+    <field name="view_mode">tree</field>
+    <field name="domain">['|',('active','=',False),('active','=',True)]</field>
+    </record>
+
     <record id="action_faculty" model="ir.actions.act_window">
     <field name="name">Faculties</field>
     <field name="res_model">res.student.faculty</field>

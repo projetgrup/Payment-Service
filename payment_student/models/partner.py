@@ -20,6 +20,7 @@ class Partner(models.Model):
     bursary_id = fields.Many2one('res.student.bursary', ondelete='restrict')
     school_ids = fields.Many2many('res.student.school', string='Schools', compute='_compute_schools', store=True, readonly=True)
 
+    system_student_campus_id = fields.Many2one('res.student.campus', string='Campus', ondelete='restrict')
     system_student_faculty_id = fields.Many2one('res.student.faculty', string='Faculty', ondelete='restrict')
     system_student_department_id = fields.Many2one('res.student.department', string='Department', ondelete='restrict')
     system_student_program_id = fields.Many2one('res.student.program', string='Program', ondelete='restrict')

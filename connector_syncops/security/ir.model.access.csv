@@ -1,6 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 syncops_connector_user,syncops_connector_user,model_syncops_connector,base.group_user,1,0,0,0
 syncops_connector_manager,syncops_connector_manager,model_syncops_connector,base.group_system,1,1,1,1
+syncops_connector_hook_user,syncops_connector_hook_user,model_syncops_connector_hook,base.group_user,1,0,0,0
+syncops_connector_hook_manager,syncops_connector_hook_manager,model_syncops_connector_hook,base.group_system,1,1,1,1
 syncops_connector_line_user,syncops_connector_line_user,model_syncops_connector_line,base.group_user,1,0,0,0
 syncops_connector_line_manager,syncops_connector_line_manager,model_syncops_connector_line,base.group_system,1,1,1,1
 syncops_connector_line_input_user,syncops_connector_line_input_user,model_syncops_connector_line_input,base.group_user,1,0,0,0

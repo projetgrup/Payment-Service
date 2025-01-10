@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from odoo import fields, models, api, _
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from odoo.exceptions import UserError, ValidationError
@@ -69,22 +70,30 @@ class SyncopsSyncWizard(models.TransientModel):
             if not lines:
                 lines = []
 
-            self.line_ids = [(0, 0, {
-                'name': line.get('name', False),
-                'partner_vat': line.get('vat', False),
-                'partner_ref': line.get('ref', False),
-                'partner_email': line.get('email', False),
-                'partner_phone': line.get('phone', False),
-                'partner_mobile': line.get('mobile', False),
-                'partner_user_name': line.get('user_name', False),
-                'partner_user_email': line.get('user_email', False),
-                'partner_user_phone': line.get('user_phone', False),
-                'partner_user_mobile': line.get('user_mobile', False),
-                'partner_balance': line.get('balance', 0),
-                'partner_campaign': line.get('campaign', False),
-                'partner_iban': line.get('iban', False),
-                'partner_tag': line.get('tag', False),
-            }) for line in lines]
+            methods = {
+                'value': lambda line: {
+                    'name': line.get('name', False),
+                    'data': json.dumps(line, default=str),
+                    'partner_vat': line.get('vat', False),
+                    'partner_ref': line.get('ref', False),
+                    'partner_email': line.get('email', False),
+                    'partner_phone': line.get('phone', False),
+                    'partner_mobile': line.get('mobile', False),
+                    'partner_user_name': line.get('user_name', False),
+                    'partner_user_email': line.get('user_email', False),
+                    'partner_user_phone': line.get('user_phone', False),
+                    'partner_user_mobile': line.get('user_mobile', False),
+                    'partner_balance': line.get('balance', 0),
+                    'partner_campaign': line.get('campaign', False),
+                    'partner_iban': line.get('iban', False),
+                    'partner_tag': line.get('tag', False),
+                }
+            }
+            hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'pre', 'partner')
+            if hook:
+                hook.run(wizard=self, methods=methods, lines=lines)
+
+            self.line_ids = [(0, 0, methods['value'](line)) for line in lines]
             res['view_id'] = self.env.ref('payment_syncops.tree_wizard_sync_line_partner').id
 
         elif self.type == 'item':
@@ -104,16 +113,25 @@ class SyncopsSyncWizard(models.TransientModel):
                     ]).mapped('ref')
                     lines = list(filter(lambda l: l.get('ref') in refs, lines))
 
-                self.line_ids = [(5, 0, 0)] + [(0, 0, {
-                    'name': line.get('name', False),
-                    'partner_name': line.get('partner', False),
-                    'partner_vat': line.get('vat', False),
-                    'partner_ref': line.get('ref', False),
-                    'partner_email': line.get('email', False),
-                    'partner_phone': line.get('phone', False),
-                    'partner_mobile': line.get('mobile', False),
-                    'partner_balance': line.get('balance', 0),
-                }) for line in lines if float(line.get('balance', 0)) > 0]
+                methods = {
+                    'value': lambda line: {
+                        'name': line.get('name', False),
+                        'data': json.dumps(line, default=str),
+                        'partner_name': line.get('partner', False),
+                        'partner_vat': line.get('vat', False),
+                        'partner_ref': line.get('ref', False),
+                        'partner_email': line.get('email', False),
+                        'partner_phone': line.get('phone', False),
+                        'partner_mobile': line.get('mobile', False),
+                        'partner_balance': line.get('balance', 0),
+                    },
+                    'filter': lambda line: float(line.get('balance', 0)) > 0,
+                }
+                hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'pre', 'item', 'balance')
+                if hook:
+                    hook.run(wizard=self, methods=methods, lines=lines)
+
+                self.line_ids = [(0, 0, methods['value'](line)) for line in lines if methods['filter'](line)]
                 res['view_id'] = self.env.ref('payment_syncops.tree_wizard_sync_line_item_balance').id
 
             elif self.type_item_subtype == 'invoice':
@@ -138,25 +156,284 @@ class SyncopsSyncWizard(models.TransientModel):
 
                 currencies = self.env['res.currency'].with_context(active_test=False).search_read([], ['id', 'name'])
                 currencies = {currency['name']: currency['id'] for currency in currencies}
-                self.line_ids = [(5, 0, 0)] + [(0, 0, {
-                    'name': line.get('partner', False),
-                    'partner_name': line.get('partner', False),
-                    'partner_vat': line.get('vat', False),
-                    'partner_ref': line.get('ref', False),
-                    'partner_email': line.get('email', False),
-                    'partner_phone': line.get('phone', False),
-                    'partner_mobile': line.get('mobile', False),
-                    'invoice_id': line.get('id', False),
-                    'invoice_tag': line.get('tag', False),
-                    'invoice_name': line.get('name', False),
-                    'invoice_date': line.get('date', False),
-                    'invoice_due_date': line.get('due_date', False),
-                    'invoice_amount': line.get('amount', 0),
-                    'invoice_currency': currencies.get(line.get('currency'), False),
-                }) for line in lines]
+
+                methods = {
+                    'lines': lambda line: {
+                        'name': line.get('partner', False),
+                        'data': json.dumps(line, default=str),
+                        'partner_name': line.get('partner', False),
+                        'partner_vat': line.get('vat', False),
+                        'partner_ref': line.get('ref', False),
+                        'partner_email': line.get('email', False),
+                        'partner_phone': line.get('phone', False),
+                        'partner_mobile': line.get('mobile', False),
+                        'invoice_id': line.get('id', False),
+                        'invoice_tag': line.get('tag', False),
+                        'invoice_name': line.get('name', False),
+                        'invoice_date': line.get('date', False),
+                        'invoice_due_date': line.get('due_date', False),
+                        'invoice_amount': line.get('amount', 0),
+                        'invoice_currency': currencies.get(line.get('currency'), False),
+                    }
+                }
+                hook = self.env['syncops.connector'].get_hook('payment_get_unreconciled_list', 'pre', 'item', 'invoice')
+                if hook:
+                    hook.run(wizard=self, methods=methods, currencies=currencies, lines=lines)
+
+                self.line_ids = [(0, 0, methods['lines'](line)) for line in lines]
                 res['view_id'] = self.env.ref('payment_syncops.tree_wizard_sync_line_item_invoice').id
 
         return res
+
+    def _sync_partner(self, **pairs):
+        vats = pairs.get('vats')
+        refs = pairs.get('refs')
+        tags = pairs.get('tags')
+        users = pairs.get('users')
+        models = pairs.get('models')
+        company = pairs.get('company')
+        campaigns = pairs.get('campaigns')
+
+        def method_sync():
+            for line in self.line_ids.read():
+                if line['partner_user_email'] in users:
+                    user = self.env['res.users'].browse(users[line['partner_user_email']])
+                    user.with_context(mail_create_nolog=True).write({
+                        'name': line['partner_user_name'],
+                        'phone': line['partner_user_phone'],
+                        'mobile': line['partner_user_mobile'] or line['partner_user_phone'],
+                        'company_ids': [(4, company.id)],
+                    })
+                elif line['partner_user_email']:
+                    user = models['user'].sudo().search([
+                        ('email', '=', line['partner_user_email']),
+                    ], limit=1)
+                    if user:
+                        user.with_context(mail_create_nolog=True).write({
+                            'company_ids': [(4, company.id)],
+                        })
+                    else:
+                        user = models['user'].with_context(mail_create_nolog=True).create({
+                            'system': self.system or company.system,
+                            'name': line['partner_user_name'],
+                            'login': line['partner_user_email'],
+                            'email': line['partner_user_email'],
+                            'phone': line['partner_user_phone'],
+                            'mobile': line['partner_user_mobile'] or line['partner_user_phone'],
+                            'company_id': company.id,
+                            'privilege': 'user',
+                        })
+                else:
+                    user = None
+
+                pid = 0
+                if line['partner_vat'] in vats and line['partner_ref'] in refs and vats[line['partner_vat']] == refs[line['partner_ref']]:
+                    pid = vats[line['partner_vat']]
+                elif line['partner_vat'] in vats:
+                    pid = vats[line['partner_vat']]
+                elif line['partner_ref'] in refs:
+                    pid = refs[line['partner_ref']]
+
+                if pid:
+                    partner = models['partner'].browse(pid)
+                    partner.write({
+                        'name': line['name'],
+                        'vat': line['partner_vat'],
+                        'ref': line['partner_ref'],
+                        'email': line['partner_email'],
+                        'phone': line['partner_phone'],
+                        'mobile': line['partner_mobile'] or line['partner_phone'],
+                        'campaign_id': campaigns.get(line['partner_campaign'], False),
+                        'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
+                        'syncops_data': json.dumps(line['data'], default=str),
+                        'user_id': user and user.id or partner.user_id.id,
+                    })
+                else:
+                    values = {
+                        'system': self.system or company.system,
+                        'name': line['name'],
+                        'vat': line['partner_vat'],
+                        'ref': line['partner_ref'],
+                        'email': line['partner_email'],
+                        'phone': line['partner_phone'],
+                        'mobile': line['partner_mobile'] or line['partner_phone'],
+                        'campaign_id': campaigns.get(line['partner_campaign'], False),
+                        'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
+                        'syncops_data': json.dumps(line['data'], default=str),
+                        'user_id': user and user.id,
+                        'company_id': company.id,
+                        'is_company': True,
+                    }
+                    if line['partner_iban']:
+                        values.update({
+                            'bank_ids': [(0, 0, {
+                                'acc_number': line['partner_iban'],
+                                'api_merchant': 'HEDEF_FILO_ODEMESI',
+                            })]
+                        })
+                    partner = models['partner'].create(values)
+                    if line['partner_vat']:
+                        vats.update({line['partner_vat']: partner.id})
+                    if line['partner_ref']:
+                        refs.update({line['partner_ref']: partner.id})
+
+        methods = {'sync': method_sync}
+        hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'post', 'partner')
+        if hook:
+            hook.run(wizard=self, methods=methods, **pairs)
+        methods['sync']()
+
+    def _sync_item_balance(self, **pairs):
+        vats = pairs.get('vats')
+        refs = pairs.get('refs')
+        tags = pairs.get('tags')
+        models = pairs.get('models')
+        company = pairs.get('company')
+        campaigns = pairs.get('campaigns')
+
+        items = models['item'].search_read([
+            ('paid', '=', False),
+            ('company_id', '=', company.id),
+            ('vat', 'in', self.line_ids.mapped('partner_vat')),
+            ('system', '=', self.system),
+        ], ['id', 'parent_id'])
+
+        items = {item['parent_id'][0]: item['id'] for item in items}
+
+        def method_sync():
+            for line in self.line_ids.read():
+                pid = 0
+                if line['partner_vat'] in vats and line['partner_ref'] in refs and vats[line['partner_vat']] == refs[line['partner_ref']]:
+                    pid = vats[line['partner_vat']]
+                elif line['partner_vat'] in vats:
+                    pid = vats[line['partner_vat']]
+                elif line['partner_ref'] in refs:
+                    pid = refs[line['partner_ref']]
+
+                if pid and pid in items:
+                    models['item'].browse(items[pid]).write({
+                        'amount': line['partner_balance'],
+                    })
+                else:
+                    if pid:
+                        partner = models['partner'].browse(pid)
+                    else:
+                        partner = models['partner'].create({
+                            'system': self.system or company.system,
+                            'name': line['name'],
+                            'vat': line['partner_vat'],
+                            'ref': line['partner_ref'],
+                            'email': line['partner_email'],
+                            'phone': line['partner_phone'],
+                            'mobile': line['partner_phone'],
+                            'campaign_id': campaigns.get(line['partner_campaign'], False),
+                            'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
+                            'company_id': company.id,
+                            'is_company': True,
+                        })
+                        if line['partner_vat']:
+                            vats.update({line['partner_vat']: partner.id})
+                        if line['partner_ref']:
+                            refs.update({line['partner_ref']: partner.id})
+
+                    models['item'].create({
+                        'syncops_ok': True,
+                        'syncops_data': line['data'],
+                        'syncops_notif': self._set_notif(company, partner),
+                        'syncops_data': json.dumps(line['data'], default=str),
+                        'system': self.system or company.system,
+                        'amount': line['partner_balance'],
+                        'parent_id': partner.id,
+                        'company_id': company.id,
+                        'currency_id': line['currency_id'] and line['currency_id'][0] or company.currency_id.id,
+                    })
+
+        methods = {'sync': method_sync}
+        hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'post', 'item', 'balance')
+        if hook:
+            hook.run(wizard=self, methods=methods, items=items, **pairs)
+        methods['sync']()
+
+    def _sync_item_invoice(self, **pairs):
+        vats = pairs.get('vats')
+        refs = pairs.get('refs')
+        tags = pairs.get('tags')
+        models = pairs.get('models')
+        company = pairs.get('company')
+        campaigns = pairs.get('campaigns')
+
+        def method_sync():
+            domain = [
+                ('company_id', '=', company.id),
+                ('system', '=', self.system),
+                ('ref', '!=', False),
+            ]
+            partner_ctx = self.env.context.get('partner')
+            if partner_ctx:
+                domain.append(('parent_id', '=', partner_ctx.id))
+
+            if company.syncops_sync_item_force:
+                models['item'].search(domain).unlink()
+            else:
+                models['item'].search(domain + [('paid', '=', False), ('ref', 'not in', self.line_ids.mapped('invoice_id'))]).unlink()
+
+            items = models['item'].search_read(domain, ['id', 'ref'])
+            items = {item['ref']: item['id'] for item in items if item['ref']}
+            for line in self.line_ids.read():
+                pid = 0
+                if line['partner_vat'] in vats and line['partner_ref'] in refs and vats[line['partner_vat']] == refs[line['partner_ref']]:
+                    pid = vats[line['partner_vat']]
+                elif line['partner_vat'] in vats:
+                    pid = vats[line['partner_vat']]
+                elif line['partner_ref'] in refs:
+                    pid = refs[line['partner_ref']]
+
+                inv = line['invoice_id'] if pid else None
+                if pid and inv in items:
+                    models['item'].search([('id', '=', items[inv]), ('paid', '=', False)]).write({'amount': line['invoice_amount']})
+                else:
+                    if pid:
+                        partner = models['partner'].browse(pid)
+                    else:
+                        partner = models['partner'].create({
+                            'system': self.system or company.system,
+                            'name': line['partner_name'],
+                            'vat': line['partner_vat'],
+                            'ref': line['partner_ref'],
+                            'email': line['partner_email'],
+                            'phone': line['partner_phone'],
+                            'mobile': line['partner_mobile'] or line['partner_phone'],
+                            'campaign_id': campaigns.get(line['partner_campaign'], False),
+                            'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
+                            'company_id': company.id,
+                            'is_company': True,
+                        })
+                        if line['partner_vat']:
+                            vats.update({line['partner_vat']: partner.id})
+                        if line['partner_ref']:
+                            refs.update({line['partner_ref']: partner.id})
+
+                    models['item'].create({
+                        'syncops_ok': True,
+                        'syncops_data': line['data'],
+                        'syncops_notif': self._set_notif(company, partner),
+                        'system': self.system or company.system,
+                        'amount': line['invoice_amount'],
+                        'description': line['invoice_name'],
+                        'date': line['invoice_date'],
+                        'due_date': line['invoice_due_date'],
+                        'ref': line['invoice_id'],
+                        'tag': line['invoice_tag'],
+                        'parent_id': partner.id,
+                        'company_id': company.id,
+                        'currency_id': line['invoice_currency'] and line['invoice_currency'][0] or company.currency_id.id,
+                    })
+
+        methods = {'sync': method_sync}
+        hook = self.env['syncops.connector'].get_hook('payment_get_unreconciled_list', 'post', 'item', 'invoice')
+        if hook:
+            hook.run(wizard=self, methods=methods, **pairs)
+        methods['sync']()
 
     def sync(self):
         res = super().sync()
@@ -165,14 +442,14 @@ class SyncopsSyncWizard(models.TransientModel):
         if wizard:
             company = self.env.company
 
-            users_all = self.env['res.users']
-            users = users_all.search_read([
+            users_model = self.env['res.users']
+            users = users_model.search_read([
                 ('email', 'in', wizard.line_ids.mapped('partner_user_email'))
             ], ['id', 'email'])
             users = {user['email']: user['id'] for user in users if user['email']}
 
-            partners_all = self.env['res.partner']
-            partners = partners_all.search_read([
+            partners_model = self.env['res.partner']
+            partners = partners_model.search_read([
                 ('company_id', '=', company.id),
                 '|',
                 ('vat', 'in', wizard.line_ids.mapped('partner_vat')),
@@ -189,7 +466,8 @@ class SyncopsSyncWizard(models.TransientModel):
                 for campaign in campaigns_all:
                     campaigns.update({campaign['name']: campaign['id']})
 
-            tags = {tag.code: tag.ids for tag in self.env['res.partner.category'].search([('company_id', '=', company.id)])}
+            tags_model = self.env['res.partner.category']
+            tags = {tag.code: tag.ids for tag in tags_model.search([('company_id', '=', company.id)])}
 
             vats, refs = {}, {}
             for partner in partners:
@@ -198,207 +476,29 @@ class SyncopsSyncWizard(models.TransientModel):
                 if partner['ref']:
                     refs.update({partner['ref']: partner['id']})
 
+            pairs = {
+                'vats': vats,
+                'refs': refs,
+                'tags': tags,
+                'company': company,
+                'campaigns': campaigns,
+                'models': {
+                    'partner': partners_model,
+                    'user': users_model,
+                    'tag': tags_model,
+                }
+            }
+
             if wizard.type == 'partner':
-                for line in wizard.line_ids.read():
-                    if line['partner_user_email'] in users:
-                        user = users_all.browse(users[line['partner_user_email']])
-                        user.with_context(mail_create_nolog=True).write({
-                            'name': line['partner_user_name'],
-                            'phone': line['partner_user_phone'],
-                            'mobile': line['partner_user_mobile'] or line['partner_user_phone'],
-                            'company_ids': [(4, company.id)],
-                        })
-                    elif line['partner_user_email']:
-                        user = users_all.sudo().search([
-                            ('email', '=', line['partner_user_email']),
-                        ], limit=1)
-                        if user:
-                            user.with_context(mail_create_nolog=True).write({
-                                'company_ids': [(4, company.id)],
-                            })
-                        else:
-                            user = users_all.with_context(mail_create_nolog=True).create({
-                                'system': wizard.system or company.system,
-                                'name': line['partner_user_name'],
-                                'login': line['partner_user_email'],
-                                'email': line['partner_user_email'],
-                                'phone': line['partner_user_phone'],
-                                'mobile': line['partner_user_mobile'] or line['partner_user_phone'],
-                                'company_id': company.id,
-                                'privilege': 'user',
-                            })
-                    else:
-                        user = None
+                wizard._sync_partner(**pairs)
 
-                    pid = 0
-                    if line['partner_vat'] in vats and line['partner_ref'] in refs and vats[line['partner_vat']] == refs[line['partner_ref']]:
-                        pid = vats[line['partner_vat']]
-                    elif line['partner_vat'] in vats:
-                        pid = vats[line['partner_vat']]
-                    elif line['partner_ref'] in refs:
-                        pid = refs[line['partner_ref']]
-
-                    if pid:
-                        partner = partners_all.browse(pid)
-                        partner.write({
-                            'name': line['name'],
-                            'vat': line['partner_vat'],
-                            'ref': line['partner_ref'],
-                            'email': line['partner_email'],
-                            'phone': line['partner_phone'],
-                            'mobile': line['partner_mobile'] or line['partner_phone'],
-                            'campaign_id': campaigns.get(line['partner_campaign'], False),
-                            'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
-                            'user_id': user and user.id or partner.user_id.id,
-                        })
-                    else:
-                        values = {
-                            'system': wizard.system or company.system,
-                            'name': line['name'],
-                            'vat': line['partner_vat'],
-                            'ref': line['partner_ref'],
-                            'email': line['partner_email'],
-                            'phone': line['partner_phone'],
-                            'mobile': line['partner_mobile'] or line['partner_phone'],
-                            'campaign_id': campaigns.get(line['partner_campaign'], False),
-                            'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
-                            'user_id': user and user.id,
-                            'company_id': company.id,
-                            'is_company': True,
-                        }
-                        if line['partner_iban']:
-                            values.update({
-                                'bank_ids': [(0, 0, {
-                                    'acc_number': line['partner_iban'],
-                                    'api_merchant': 'HEDEF_FILO_ODEMESI',
-                                })]
-                            })
-                        partner = partners_all.create(values)
-                        if line['partner_vat']:
-                            vats.update({line['partner_vat']: partner.id})
-                        if line['partner_ref']:
-                            refs.update({line['partner_ref']: partner.id})
-
-            else:
-                items_all = self.env['payment.item']
+            elif wizard.type == 'item':
+                pairs['models']['item'] = self.env['payment.item']
                 if wizard.type_item_subtype == 'balance':
-                    items = items_all.search_read([
-                        ('paid', '=', False),
-                        ('company_id', '=', company.id),
-                        ('vat', 'in', wizard.line_ids.mapped('partner_vat')),
-                        ('system', '=', wizard.system),
-                    ], ['id', 'parent_id'])
-
-                    items = {item['parent_id'][0]: item['id'] for item in items}
-                    for line in wizard.line_ids.read():
-                        pid = 0
-                        if line['partner_vat'] in vats and line['partner_ref'] in refs and vats[line['partner_vat']] == refs[line['partner_ref']]:
-                            pid = vats[line['partner_vat']]
-                        elif line['partner_vat'] in vats:
-                            pid = vats[line['partner_vat']]
-                        elif line['partner_ref'] in refs:
-                            pid = refs[line['partner_ref']]
-
-                        if pid and pid in items:
-                            items_all.browse(items[pid]).write({
-                                'amount': line['partner_balance'],
-                            })
-                        else:
-                            if pid:
-                                partner = partners_all.browse(pid)
-                            else:
-                                partner = partners_all.create({
-                                    'system': wizard.system or company.system,
-                                    'name': line['name'],
-                                    'vat': line['partner_vat'],
-                                    'ref': line['partner_ref'],
-                                    'email': line['partner_email'],
-                                    'phone': line['partner_phone'],
-                                    'mobile': line['partner_phone'],
-                                    'campaign_id': campaigns.get(line['partner_campaign'], False),
-                                    'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
-                                    'company_id': company.id,
-                                    'is_company': True,
-                                })
-                                if line['partner_vat']:
-                                    vats.update({line['partner_vat']: partner.id})
-                                if line['partner_ref']:
-                                    refs.update({line['partner_ref']: partner.id})
-
-                            items_all.create({
-                                'syncops_ok': True,
-                                'syncops_notif': self._set_notif(company, partner),
-                                'system': wizard.system or company.system,
-                                'amount': line['partner_balance'],
-                                'parent_id': partner.id,
-                                'company_id': company.id,
-                                'currency_id': line['currency_id'] and line['currency_id'][0] or company.currency_id.id,
-                            })
+                    wizard._sync_item_balance(**pairs)
                 elif wizard.type_item_subtype == 'invoice':
-                    domain = [
-                        ('company_id', '=', company.id),
-                        ('system', '=', wizard.system),
-                        ('ref', '!=', False),
-                    ]
-                    partner_ctx = self.env.context.get('partner')
-                    if partner_ctx:
-                        domain.append(('parent_id', '=', partner_ctx.id))
+                    wizard._sync_item_invoice(**pairs)
 
-                    if company.syncops_sync_item_force:
-                        items_all.search(domain).unlink()
-                    else:
-                        items_all.search(domain + [('paid', '=', False), ('ref', 'not in', wizard.line_ids.mapped('invoice_id'))]).unlink()
-
-                    items = items_all.search_read(domain, ['id', 'ref'])
-                    items = {item['ref']: item['id'] for item in items if item['ref']}
-                    for line in wizard.line_ids.read():
-                        pid = 0
-                        if line['partner_vat'] in vats and line['partner_ref'] in refs and vats[line['partner_vat']] == refs[line['partner_ref']]:
-                            pid = vats[line['partner_vat']]
-                        elif line['partner_vat'] in vats:
-                            pid = vats[line['partner_vat']]
-                        elif line['partner_ref'] in refs:
-                            pid = refs[line['partner_ref']]
-
-                        inv = line['invoice_id'] if pid else None
-                        if pid and inv in items:
-                            items_all.search([('id', '=', items[inv]), ('paid', '=', False)]).write({'amount': line['invoice_amount']})
-                        else:
-                            if pid:
-                                partner = partners_all.browse(pid)
-                            else:
-                                partner = partners_all.create({
-                                    'system': wizard.system or company.system,
-                                    'name': line['partner_name'],
-                                    'vat': line['partner_vat'],
-                                    'ref': line['partner_ref'],
-                                    'email': line['partner_email'],
-                                    'phone': line['partner_phone'],
-                                    'mobile': line['partner_mobile'] or line['partner_phone'],
-                                    'campaign_id': campaigns.get(line['partner_campaign'], False),
-                                    'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
-                                    'company_id': company.id,
-                                    'is_company': True,
-                                })
-                                if line['partner_vat']:
-                                    vats.update({line['partner_vat']: partner.id})
-                                if line['partner_ref']:
-                                    refs.update({line['partner_ref']: partner.id})
-
-                            items_all.create({
-                                'syncops_ok': True,
-                                'syncops_notif': self._set_notif(company, partner),
-                                'system': wizard.system or company.system,
-                                'amount': line['invoice_amount'],
-                                'description': line['invoice_name'],
-                                'date': line['invoice_date'],
-                                'due_date': line['invoice_due_date'],
-                                'ref': line['invoice_id'],
-                                'tag': line['invoice_tag'],
-                                'parent_id': partner.id,
-                                'company_id': company.id,
-                                'currency_id': line['invoice_currency'] and line['invoice_currency'][0] or company.currency_id.id,
-                            })
         return res
 
 

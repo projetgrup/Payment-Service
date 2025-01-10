@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from . import connector
 from . import transaction
 from . import acquirer
 from . import settings

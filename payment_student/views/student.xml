@@ -13,6 +13,19 @@
     </field>
     </record>
 
+    <record id="campus_tree" model="ir.ui.view">
+    <field name="name">res.student.campus.tree</field>
+    <field name="model">res.student.campus</field>
+    <field name="arch" type="xml">
+        <tree editable="top" decoration-muted="active == False" sample="1">
+            <field name="name"/>
+            <field name="code"/>
+            <field name="company_id" groups="base.group_multi_company,base.group_system" options="{'no_create': True, 'no_open': True}"/>
+            <field name="active" widget="boolean_toggle"/>
+        </tree>
+    </field>
+    </record>
+
     <record id="term_tree" model="ir.ui.view">
     <field name="name">res.student.term.tree</field>
     <field name="model">res.student.term</field>
