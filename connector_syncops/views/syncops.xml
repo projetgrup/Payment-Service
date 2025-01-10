@@ -139,8 +139,8 @@
                         <field name="hook_ids" nolabel="1">
                             <tree decoration-muted="active == False">
                                 <field name="name" decoration-bf="1"/>
-                                <field name="type" widget="badge"/>
-                                <field name="hook" widget="badge"/>
+                                <field name="type" widget="badge" decoration-info="active == True"/>
+                                <field name="hook" widget="badge" decoration-warning="hook == 'pre'" decoration-success="hook == 'post'"/>
                                 <field name="active" invisible="1"/>
                                 <field name="method" invisible="1"/>
                                 <field name="method_id" invisible="1"/>

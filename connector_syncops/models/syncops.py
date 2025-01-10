@@ -293,6 +293,7 @@ class SyncopsConnector(models.Model):
 
         return self.env['syncops.connector.hook'].search([
             ('method', '=', method),
+            ('code', '!=', False),
             ('hook', '=', hook),
             ('type', '=', type),
             ('subtype', '=', subtype),
@@ -507,6 +508,7 @@ class SyncopsConnectorLineDefault(models.Model):
 class SyncopsConnectorHook(models.Model):
     _name = 'syncops.connector.hook'
     _description = 'syncOPS Connector Hooks'
+    _order = 'hook desc, type, name'
 
     @api.depends('method_compute')
     def _compute_method_ids(self):
@@ -548,11 +550,18 @@ class SyncopsConnectorHook(models.Model):
         context = {
             'env': self.env,
             'datetime': datetime,
+            'UserError': UserError,
             'json': _json,
             **values
         }
-        for hook in self:
-            safe_eval(hook.code.strip(), context, mode='exec', nocopy=True)
+        try:
+            for hook in self:
+                safe_eval(hook.code.strip(), context, mode='exec', nocopy=True)
+        except UserError:
+            raise
+        except:
+            _logger.error(traceback.format_exc())
+            raise ValidationError(_('An error occured when triggering the hook.'))
 
 
 class SyncopsLog(models.TransientModel):

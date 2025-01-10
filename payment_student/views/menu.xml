@@ -22,6 +22,7 @@
 
     <menuitem id="menu_schools" name="School Settings" parent="menu_conf" sequence="2"/>
     <menuitem id="menu_school" action="action_school" parent="menu_schools" sequence="1" groups="group_subsystem_school,group_student_manager"/>
+    <menuitem id="menu_campus" action="action_campus" parent="menu_schools" sequence="1" groups="group_subsystem_school,group_student_manager"/>
     <menuitem id="menu_faculty" action="action_faculty" parent="menu_schools" sequence="1" groups="group_subsystem_university,group_student_manager"/>
     <menuitem id="menu_department" action="action_department" parent="menu_schools" sequence="1" groups="group_subsystem_university,group_student_manager"/>
     <menuitem id="menu_program" action="action_program" parent="menu_schools" sequence="1" groups="group_subsystem_university,group_student_manager"/>

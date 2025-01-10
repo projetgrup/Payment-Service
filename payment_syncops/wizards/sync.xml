@@ -42,7 +42,7 @@
             <field name="partner_phone" string="Phone" optional="hide"/>
             <field name="partner_mobile" string="Mobile" optional="hide"/>
             <field name="partner_campaign" string="Campaign" optional="hide"/>
-            <field name="partner_tag" string="Tag" optional="hide"/>
+            <field name="partner_tag" string="Tag" widget="badge" optional="hide"/>
             <field name="partner_user_name" string="Salesperson Name" optional="hide"/>
             <field name="partner_user_email" string="Salesperson Email" optional="hide"/>
             <field name="partner_user_phone" string="Salesperson Phone" optional="hide"/>

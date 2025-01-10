@@ -1499,10 +1499,11 @@ class PayloxSystemController(Controller):
             ]
             result.append(';'.join(map(str, values)))
 
+        result = '\r\n'.join(result) + '\r\n'
         date = fields.Date.today().strftime('%Y%m%d')
         filename = '%s_%s_%s_%s.txt' % (date, 'ROYAL_CANIN', 3, date)
         headers = [
             ('Content-Type', 'text/plain'),
             ('Content-Disposition', content_disposition(filename))
         ]
-        return request.make_response('\r\n'.join(result), headers=headers)
+        return request.make_response(result, headers=headers)

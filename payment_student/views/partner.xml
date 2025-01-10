@@ -72,11 +72,11 @@
         <xpath expr='//field[@name="company_id"]' position="before">
             <field name="school_id" options="{'no_open': True}" required="1" domain="[('company_id','=',company_id)]"/>
             <field name="class_id" options="{'no_open': True}" required="1" domain="[('company_id','=',company_id)]"/>
-            <field name="ref"/>
             <field name="bursary_id" options="{'no_open': True}" domain="[('company_id','=',company_id)]"/>
         </xpath>
         <xpath expr='//group[@name="communication"]' position="replace"/>
         <xpath expr='//group[@name="payment"]' position="replace"/>
+        <xpath expr='//notebook' position="replace"/>
     </field>
     </record>
 
@@ -111,6 +111,9 @@
     <field name="inherit_id" ref="payment_jetcheckout_system.partner_form"/>
     <field name="arch" type="xml">
         <xpath expr="//field[@name='parent_id']" position="replace"/>
+        <xpath expr="//field[@name='ref']" position="after">
+            <field name="category_id" widget="many2many_tags" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]" options="{'color_field': 'color', 'no_create': True}" placeholder="Tags..."/>
+        </xpath>
         <xpath expr="//field[@name='email']" position="attributes">
             <attribute name="required">1</attribute>
         </xpath>
