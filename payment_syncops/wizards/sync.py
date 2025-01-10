@@ -176,7 +176,7 @@ class SyncopsSyncWizard(models.TransientModel):
                         'invoice_currency': currencies.get(line.get('currency'), False),
                     }
                 }
-                hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'pre', 'item', 'invoice')
+                hook = self.env['syncops.connector'].get_hook('payment_get_unreconciled_list', 'pre', 'item', 'invoice')
                 if hook:
                     hook.run(wizard=self, methods=methods, currencies=currencies, lines=lines)
 
@@ -430,7 +430,7 @@ class SyncopsSyncWizard(models.TransientModel):
                     })
 
         methods = {'sync': method_sync}
-        hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'post', 'item', 'invoice')
+        hook = self.env['syncops.connector'].get_hook('payment_get_unreconciled_list', 'post', 'item', 'invoice')
         if hook:
             hook.run(wizard=self, methods=methods, **pairs)
         methods['sync']()
