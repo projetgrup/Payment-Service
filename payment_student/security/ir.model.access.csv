@@ -1,6 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 school_user,school_user,model_res_student_school,base.group_user,1,0,0,0
 school_manager,school_manager,model_res_student_school,payment_student.group_student_manager,1,1,1,1
+campus_user,campus_user,model_res_student_campus,base.group_user,1,0,0,0
+campus_manager,campus_manager,model_res_student_campus,payment_student.group_student_manager,1,1,1,1
 term_user,term_user,model_res_student_term,base.group_user,1,0,0,0
 term_manager,term_manager,model_res_student_term,payment_student.group_student_manager,1,1,1,1
 bursary_user,bursary_user,model_res_student_bursary,base.group_user,1,0,0,0

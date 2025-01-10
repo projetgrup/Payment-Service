@@ -49,6 +49,19 @@ class StudentSchool(models.Model):
     active = fields.Boolean(default=True)
     name = fields.Char(required=True)
     code = fields.Char()
+    res_id = fields.Integer()
+    company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, domain=[('system','=','student')])
+
+
+class StudentCampus(models.Model):
+    _name = 'res.student.campus'
+    _description = 'Campuses'
+    _order = 'name'
+
+    active = fields.Boolean(default=True)
+    name = fields.Char(required=True)
+    code = fields.Char()
+    res_id = fields.Integer()
     company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, domain=[('system','=','student')])
 
 
@@ -60,6 +73,7 @@ class StudentClass(models.Model):
     active = fields.Boolean(default=True)
     name = fields.Char(required=True)
     code = fields.Char()
+    res_id = fields.Integer()
     company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, domain=[('system','=','student')])
 
 
@@ -71,6 +85,7 @@ class StudentFaculty(models.Model):
     active = fields.Boolean(default=True)
     name = fields.Char(required=True)
     code = fields.Char()
+    res_id = fields.Integer()
     company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, domain=[('system','=','student')])
 
 
@@ -82,6 +97,7 @@ class StudentDepartment(models.Model):
     active = fields.Boolean(default=True)
     name = fields.Char(required=True)
     code = fields.Char()
+    res_id = fields.Integer()
     company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, domain=[('system','=','student')])
 
 
@@ -93,6 +109,7 @@ class StudentProgram(models.Model):
     active = fields.Boolean(default=True)
     name = fields.Char(required=True)
     code = fields.Char()
+    res_id = fields.Integer()
     company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, domain=[('system','=','student')])
 
 
@@ -104,6 +121,7 @@ class StudentTerm(models.Model):
     active = fields.Boolean(default=True)
     name = fields.Char(required=True)
     code = fields.Char()
+    res_id = fields.Integer()
     company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, domain=[('system','=','student')])
 
 
@@ -116,6 +134,7 @@ class StudentBursary(models.Model):
     name = fields.Char(required=True)
     percentage = fields.Float(string='Discount (%)')
     code = fields.Char()
+    res_id = fields.Integer()
     company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, domain=[('system','=','student')])
 
     def name_get(self):

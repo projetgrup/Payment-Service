@@ -49,6 +49,8 @@ class SyncopsSyncWizardLine(models.TransientModel):
 
     wizard_id = fields.Many2one('syncops.sync.wizard')
     name = fields.Char(readonly=True)
+    data = fields.Text(readonly=True)
+    desc = fields.Html(string='Description', readonly=True, sanitize=False)
     company_id = fields.Many2one('res.company', readonly=True, default=lambda self: self.env.company)
     currency_id = fields.Many2one('res.currency', readonly=True, default=lambda self: self.env.company.currency_id)
 

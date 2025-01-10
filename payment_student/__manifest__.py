@@ -3,12 +3,12 @@
 # Part of Paylox License. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Student Payment System',
-    'version': '1.2',
+    'version': '1.3',
     'author': 'Projet',
     'website': 'https://bulutkobi.io',
     'license': 'LGPL-3',
     'category': 'Accounting/Payment Acquirers',
-    'depends': ['payment_jetcheckout_system'],
+    'depends': ['payment_jetcheckout_system', 'payment_system_agreement'],
     'data': [
         'data/data.xml',
         'security/security.xml',
