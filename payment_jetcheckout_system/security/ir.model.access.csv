@@ -79,5 +79,8 @@ jetcheckout_system_sale_order_line,jetcheckout_system_sale_order_line,sale.model
 jetcheckout_system_sale_order_line_manager,jetcheckout_system_sale_order_line_manager,sale.model_sale_order_line,payment_jetcheckout_system.group_system_manager,1,1,1,1
 jetcheckout_system_crm_team,jetcheckout_system_crm_team,sales_team.model_crm_team,payment_jetcheckout_system.group_system_manager,1,1,1,1
 
-payment_page_user,payment_page_user,payment_jetcheckout_system.model_payment_page,base.group_user,1,0,0,0
-payment_page_admin,payment_page_admin,payment_jetcheckout_system.model_payment_page,base.group_system,1,1,1,1
+payment_page_user,payment_page_user,model_payment_page,base.group_user,1,0,0,0
+payment_page_admin,payment_page_admin,model_payment_page,base.group_system,1,1,1,1
+
+jetcheckout_view_user,jetcheckout_view_user,model_payment_view,base.group_user,1,0,0,0
+jetcheckout_view_manager,jetcheckout_view_manager,model_payment_view,base.group_system,1,1,1,1

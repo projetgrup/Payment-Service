@@ -207,6 +207,13 @@ class PayloxSystemController(Controller):
             'no_terms': not acquirer.provider == 'jetcheckout' or acquirer.jetcheckout_no_terms,
         }
 
+    def _get_template(self, path, company, system):
+        template = request.env['payment.view'].sudo().search([
+            ('page_id.path', '=', path),
+            ('company_id', '=', company.id),
+        ], limit=1)
+        return template and template.view_id.id or 'payment_%s.page_payment' % system
+
     @http.route('/web/system/load', type='json', auth='user')
     def action_load(self, cids=None, action=None, menu_id=None):
         company = request.env['res.company'].sudo().browse(int(cids and str(cids).split(',', 1)[0] or request.env.company.id))
@@ -267,7 +274,9 @@ class PayloxSystemController(Controller):
 
         system = company.system or partner.system or 'jetcheckout_system'
         values = self._prepare_system(company, system, partner, transaction)
-        return request.render('payment_%s.page_payment' % system, values, headers={
+        template = self._get_template('/p/', company, system)
+
+        return request.render(template, values, headers={
             'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
             'Pragma': 'no-cache',
             'Expires': '-1'

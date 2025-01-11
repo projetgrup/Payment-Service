@@ -86,6 +86,22 @@
         </p>
     </field>
     </record>
+
+    <record id="action_view" model="ir.actions.act_window">
+    <field name="name">Payment Views</field>
+    <field name="res_model">payment.view</field>
+    <field name="view_mode">tree,form</field>
+    <field name="search_view_id" ref="search_view"/>
+    <field name="context">{'active_test': False, 'default_type': 'qweb', 'default_mode': 'primary'}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            No views yet
+        </p>
+        <p>
+            Created views are listed here
+        </p>
+    </field>
+    </record>
     
     <record id="action_plan" model="ir.actions.act_window">
     <field name="name">Payment Plans</field>

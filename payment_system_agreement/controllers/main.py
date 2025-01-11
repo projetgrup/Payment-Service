@@ -83,7 +83,7 @@ class PayloxAgreementController(Controller):
         return {
             'id': agreement.id,
             'name': agreement.name,
-            'body': agreement._render_agreement({
+            'body': agreement.render({
                 'partner': partner,
                 'amount': amount,
                 'currency': currency,

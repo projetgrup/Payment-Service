@@ -44,7 +44,7 @@
                         <field name="type" widget="radio" colspan="2" nolabel="1" options="{'horizontal': True}"/>
                         <separator string="Version"/>
                         <field name="version" colspan="2" nolabel="1" placeholder="1.0"/>
-                        <separator string="Help" class="mt16"/>
+                        <!--<separator string="Help" class="mt16"/>
                         <div colspan="2">
                             <p class="mt16 mb4">Available variables;</p>
                             <ul class="list-inline">
@@ -55,7 +55,7 @@
                                 <li><code>{{payment_date}}</code>: Payment Date</li>
                                 <li><code>{{card_holder}}</code>: Credit Card Holder Name</li>
                             </ul>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </sheet>

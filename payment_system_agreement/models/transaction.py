@@ -38,6 +38,6 @@ class PaymentTransaction(models.Model):
                 'partner_id': self.partner_id.id,
                 'ip_address': self.jetcheckout_ip_address,
                 'path': urlparse(self.jetcheckout_url_address).path,
-                'body': agreement._render_agreement(),
+                'body': agreement.render(),
             })
         return res

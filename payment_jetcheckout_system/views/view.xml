@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tree_view" model="ir.ui.view">
+    <field name="name">payment.view.tree</field>
+    <field name="model">payment.view</field>
+    <field name="arch" type="xml">
+        <tree sample="1" decoration-muted="active == False">
+            <field name="priority" string="Sequence" widget="handle"/>
+            <field name="name" decoration-bf="1"/>
+            <field name="page_id" widget="badge"/>
+            <field name="inherit_id"/>
+            <field name="company_id" groups="base.group_multi_company,base.group_system" options="{'no_create': True, 'no_open': True}" optional="hide"/>
+            <field name="active" invisible="1"/>
+            <field name="system" invisible="1"/>
+        </tree>
+    </field>
+    </record>
+
+    <record id="form_view" model="ir.ui.view">
+    <field name="name">payment.view.form</field>
+    <field name="model">payment.view</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <div class="oe_title">
+                    <label for="name"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="page_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="active" widget="boolean_toggle"/>
+                        <field name="priority" invisible="1"/>
+                        <field name="model" invisible="1"/>
+                        <field name="type" invisible="1"/>
+                        <field name="key" invisible="1"/>
+                    </group>
+                    <group groups="base.group_no_one">
+                        <field name="inherit_id" options="{'no_open': True}"/>
+                        <field name="company_id" groups="base.group_multi_company,base.group_system" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="model_data_id" invisible="1"/>
+                        <field name="view_id" invisible="1"/>
+                        <field name="xml_id" invisible="1"/>
+                        <field name="mode" invisible="1"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="HTML" name="architecture">
+                        <field name="arch_base" widget="ace" options="{'mode': 'xml'}" required="1"/>
+                    </page>
+                    <page string="JS" name="architecture">
+                        <field name="arch_js" widget="ace" options="{'mode': 'xml'}"/>
+                    </page>
+                    <page string="CSS" name="architecture">
+                        <field name="arch_css" widget="ace" options="{'mode': 'xml'}"/>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+    </record>
+
+    <record id="search_view" model="ir.ui.view">
+    <field name="name">payment.view.search</field>
+    <field name="model">payment.view</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+            <group expand="0" string="Groupby">
+                <filter string="Company" name="groupby_company" domain="[]" context="{'group_by':'company_id'}"/>
+                <filter string="System" name="groupby_system" domain="[]" context="{'group_by':'system'}"/>
+            </group>
+        </search>
+    </field>
+    </record>
+</odoo>

@@ -34,6 +34,7 @@
 
     <menuitem id="menu_websites" name="Website Settings" parent="menu_conf" sequence="3"/>
     <menuitem id="menu_website" action="payment_jetcheckout_system.action_website" name="Websites" parent="menu_websites" sequence="1"/>
+    <menuitem id="menu_view" action="payment_jetcheckout_system.action_view" name="Views" parent="menu_websites" sequence="2"/>
 
     <menuitem id="menu_acquirers" name="Payment Settings" parent="menu_conf" sequence="4"/>
     <menuitem id="menu_acquirer" action="payment_jetcheckout_system.action_payment_acquirer" name="Payment Acquirers" parent="menu_acquirers" sequence="1"/>
