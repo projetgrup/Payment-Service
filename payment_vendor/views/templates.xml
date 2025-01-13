@@ -124,7 +124,7 @@
                                         </div>
                                         <div class="payment-kanban-checkbox position-absolute">
                                             <label t-attf-class="checkmark #{'disabled' if prioritize else ''}">
-                                                <input type="checkbox" class="payment-items input-checkmark" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-paid="payment.residual_amount" checked="checked" field="payment.item"/>
+                                                <input type="checkbox" class="payment-items input-checkmark" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-payable="payment.residual_amount" t-att-data-paid="payment.paid_amount" checked="checked" field="payment.item"/>
                                                 <span><i class="fa fa-check"/></span>
                                             </label>
                                         </div>
@@ -182,10 +182,10 @@
                                                 <td class="px-2"><span t-field="payment.date"/></td>
                                                 <td t-if="company.payment_page_due_base == 'date_due'" class="px-2"><span t-field="payment.due_date"/></td>
                                                 <td class="px-2 text-wrap"><span t-if="payment.description" t-field="payment.description"/></td>
-                                                <td class="text-right px-2"><span t-field="payment.amount"/></td>
-                                                <td class="text-right px-2"><span t-field="payment.paid_amount"/></td>
-                                                <td class="text-right px-2"><span t-field="payment.residual_amount" class="payment-amount-paid"/></td>
-                                                <td class="text-right px-2"><span t-esc="total_amount" class="payment-amount-total" t-options="{'widget': 'monetary', 'display_currency': currency}"/></td>
+                                                <td class="text-right px-2"><span t-field="payment.amount" class="item-amount-payment"/></td>
+                                                <td class="text-right px-2"><span t-field="payment.paid_amount" class="item-amount-paid"/></td>
+                                                <td class="text-right px-2"><span t-field="payment.residual_amount" class="item-amount-payable"/></td>
+                                                <td class="text-right px-2"><span t-esc="total_amount" t-options="{'widget': 'monetary', 'display_currency': currency}" class="item-amount-total"/></td>
                                                 <td class="text-center">
                                                     <form t-if="payment.file" t-att-action="'/p/%s/%s' % (token, payment.id)" method="POST">
                                                         <button type="submit" class="btn btn-outline-danger bg-100 text-danger px-2 py-0 fa fa-file-pdf-o"/>

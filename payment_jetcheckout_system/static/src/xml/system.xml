@@ -76,7 +76,7 @@
                     </div>
                     <div class="payment-kanban-checkbox position-absolute">
                         <label t-attf-class="checkmark #{ prioritize ? 'disabled' : '' }">
-                            <input type="checkbox" class="payment-items input-checkmark" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-paid="format.currency(payment.residual_amount, curr.position, curr.symbol, curr.decimal)" checked="checked" field="payment.item"/>
+                            <input type="checkbox" class="payment-items input-checkmark" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-payable="payment.residual_amount" t-att-data-paid="payment.paid_amount" checked="checked" field="payment.item"/>
                             <span><i class="fa fa-check"/></span>
                         </label>
                     </div>
@@ -108,8 +108,8 @@
                         <th t-if="company.due_base === 'date_due'" class="px-2">Due Date</th>
                         <th class="px-2">Description</th>
                         <th class="text-right px-2">Amount</th>
-                        <th class="text-right px-2">Residual</th>
                         <th class="text-right px-2">Paid</th>
+                        <th class="text-right px-2">Residual</th>
                         <th class="text-right px-2">Total</th>
                         <th class="text-center px-2">Document</th>
                         <th/>
@@ -124,10 +124,10 @@
                             <td class="px-2"><span t-esc="format.date(payment.date)"/></td>
                             <td t-if="company.due_base === 'date_due'" class="px-2"><span t-esc="format.date(payment.due_date)"/></td>
                             <td class="px-2"><span t-esc="payment.description"/></td>
-                            <td class="text-right px-2"><span t-esc="format.currency(payment.amount, curr.position, curr.symbol, curr.decimal)"/></td>
-                            <td class="text-right px-2"><span t-esc="format.currency(payment.paid_amount, curr.position, curr.symbol, curr.decimal)"/></td>
-                            <td class="text-right px-2"><span t-esc="format.currency(payment.residual_amount, curr.position, curr.symbol, curr.decimal)" class="payment-amount-paid"/></td>
-                            <td class="text-right px-2"><span t-esc="format.currency(total_amount, curr.position, curr.symbol, curr.decimal)" class="payment-amount-total"/></td>
+                            <td class="text-right px-2"><span t-esc="format.currency(payment.amount, curr.position, curr.symbol, curr.decimal)" class="item-amount-payment"/></td>
+                            <td class="text-right px-2"><span t-esc="format.currency(payment.paid_amount, curr.position, curr.symbol, curr.decimal)" class="item-amount-paid"/></td>
+                            <td class="text-right px-2"><span t-esc="format.currency(payment.residual_amount, curr.position, curr.symbol, curr.decimal)" class="item-amount-payable"/></td>
+                            <td class="text-right px-2"><span t-esc="format.currency(total_amount, curr.position, curr.symbol, curr.decimal)" class="item-amount-total"/></td>
                             <td class="text-center">
                                 <form t-if="payment.file" t-att-action="'/p/' + payment.token + '/' + payment.id" method="POST">
                                     <button type="submit" class="btn btn-outline-danger bg-100 text-danger px-2 py-0 fa fa-file-pdf-o"/>
@@ -141,7 +141,7 @@
                             </td>
                             <td class="text-center">
                                 <label t-attf-class="switch mb-0 #{ prioritize ? 'disabled' : '' }">
-                                    <input type="checkbox" class="payment-items input-switch" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-paid="payment.residual_amount" checked="checked" field="payment.item"/>
+                                    <input type="checkbox" class="payment-items input-switch" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-payable="payment.residual_amount" t-att-data-paid="payment.paid_amount" checked="checked" field="payment.item"/>
                                     <span class="slider round fa"/>
                                 </label>
                             </td>

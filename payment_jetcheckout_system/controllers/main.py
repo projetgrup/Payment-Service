@@ -8,7 +8,7 @@ from datetime import datetime
 from urllib.parse import urlparse, urlencode
 
 from odoo import fields, http, _, SUPERUSER_ID
-from odoo.http import content_disposition, request
+from odoo.http import content_disposition, request, Response
 from odoo.tools import html_escape
 from odoo.tools.misc import xlsxwriter
 from odoo.exceptions import AccessError, UserError, MissingError
@@ -103,6 +103,22 @@ class PayloxSystemController(Controller):
             return user.partner_id
         else:
             return request.website.sudo().user_id.partner_id 
+
+    def _get_template(self, path, values):
+        template = request.env['payment.view'].sudo().search([
+            ('page_id.path', '=', path),
+            ('company_id', '=', values['company']['id']),
+        ], limit=1)
+        if template:
+            values.update({
+                'template': {
+                    'id': template.uid,
+                    'js': bool(template.arch_js),
+                    'css': bool(template.arch_css),
+                }
+            })
+            return template.view_id.id
+        return 'payment_%s.page_payment' % values['system']
 
     def _get_tx_values(self, **kwargs):
         vals = super()._get_tx_values(**kwargs)
@@ -207,12 +223,22 @@ class PayloxSystemController(Controller):
             'no_terms': not acquirer.provider == 'jetcheckout' or acquirer.jetcheckout_no_terms,
         }
 
-    def _get_template(self, path, company, system):
-        template = request.env['payment.view'].sudo().search([
-            ('page_id.path', '=', path),
-            ('company_id', '=', company.id),
-        ], limit=1)
-        return template and template.view_id.id or 'payment_%s.page_payment' % system
+    @http.route('/payment/view/<uid>.js', type='http', auth='public', methods=['GET'], sitemap=False, csrf=False, website=True)
+    def page_view_js(self, uid, **kwargs):
+        view = request.env['payment.view'].sudo().search([('uid', '=', uid)], limit=1)
+        if view and view.arch_js:
+            return request.make_response(
+                "odoo.define('@payment/view/%s', async function (require) {\n%s\n});" % (uid, view.arch_js),
+                headers=[('Content-Type', 'text/javascript')],
+            )
+        return Response('', 404)
+
+    @http.route('/payment/view/<uid>.css', type='http', auth='public', methods=['GET'], sitemap=False, csrf=False, website=True)
+    def page_view_css(self, uid, **kwargs):
+        view = request.env['payment.view'].sudo().search([('uid', '=', uid)], limit=1)
+        if view and view.arch_css:
+            return request.make_response(view.arch_css, headers=[('Content-Type', 'text/css')])
+        return Response('', 404)
 
     @http.route('/web/system/load', type='json', auth='user')
     def action_load(self, cids=None, action=None, menu_id=None):
@@ -274,7 +300,7 @@ class PayloxSystemController(Controller):
 
         system = company.system or partner.system or 'jetcheckout_system'
         values = self._prepare_system(company, system, partner, transaction)
-        template = self._get_template('/p/', company, system)
+        template = self._get_template('/p/', values)
 
         return request.render(template, values, headers={
             'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',

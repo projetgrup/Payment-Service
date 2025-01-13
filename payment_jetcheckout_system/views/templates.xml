@@ -164,6 +164,27 @@
         </div>
     </template>
 
+    <template id="frontend_layout" name="Frontend Layout" inherit_id="web.frontend_layout" primary="True">
+        <xpath expr="//html" position="before">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            <t t-set="class" t-value="True"/>
+            <t t-set="title" t-value="website.name"/>
+            <t t-set="x_icon" t-value="'/web/image?model=website&amp;id=%s&amp;field=favicon' % website.id"/>
+        </xpath>
+        <xpath expr="//head/link[last()]" position="after">
+            <t t-if="template and template['css']">
+                <link type="text/css" rel="stylesheet" t-att-href="'/payment/view/%s.css' % template['id']"/>
+            </t>
+        </xpath>
+        <xpath expr="//head" position="inside">
+            <t t-if="template and template['js']">
+                <script defer="defer" type="text/javascript" t-att-data-src="'/payment/view/%s.js' % template['id']"/>
+            </t>
+        </xpath>
+        <xpath expr="." position="attributes"><attribute name="t-name">payment_jetcheckout_system.frontend_layout</attribute></xpath>
+    </template>
+
     <template id="page_payment_preview" name="Payment Preview System Page">
         <t t-call="web.frontend_layout">
             <t t-set="no_header" t-value="True"/>
