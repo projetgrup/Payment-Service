@@ -31,7 +31,7 @@ class PaymentHook(models.Model):
     type = fields.Selection([('transaction', 'Transaction')])
     subtype = fields.Selection([
         ('create', 'Creation'),
-        ('process', 'Process'),
+        ('finalize', 'Finalization'),
     ])
 
     @api.constrains('code')

@@ -50,14 +50,15 @@ class PaymentTransaction(models.Model):
 
     @api.model
     def create(self, values):
-        self.run_hook('create', values=values)
         if values.get('paylox_item_tag_id'):
             tag = self.env['payment.settings.campaign.tag'].sudo().browse(values['paylox_item_tag_id'])
             values['paylox_item_tag_name'] = tag.name
         if values.get('jetcheckout_item_ids'):
             item = self.env['payment.item'].sudo().browse(values['jetcheckout_item_ids'][0][2])
             values['paylox_item_tag_code'] = '/'.join(set([i.tag or '-' for i in item]))
-        return super().create(values)
+        transaction = super().create(values)
+        self.run_hook('create', transaction=transaction)
+        return transaction
 
     def action_items(self):
         self.ensure_one()
@@ -147,6 +148,7 @@ class PaymentTransaction(models.Model):
 
     def _paylox_done_postprocess(self):
         res = super()._paylox_done_postprocess()
+        self.run_hook('finalize', transaction=self)
         webhooks = self.company_id.notif_webhook_ids
         if webhooks:
             self.write({
