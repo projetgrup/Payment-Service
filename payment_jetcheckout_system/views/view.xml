@@ -37,7 +37,7 @@
                         <field name="type" invisible="1"/>
                         <field name="key" invisible="1"/>
                     </group>
-                    <group groups="base.group_no_one">
+                    <group>
                         <field name="inherit_id" options="{'no_open': True}"/>
                         <field name="company_id" groups="base.group_multi_company,base.group_system" options="{'no_create': True, 'no_open': True}"/>
                         <field name="uid" class="text-primary font-weight-bold" force_save="1"/>

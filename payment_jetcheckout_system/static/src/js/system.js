@@ -402,7 +402,7 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
         inputs.each(function () {
             const input = $(this);
             const payable = input.closest('tr').find('.item-amount-payable');
-            const residual = parseFloat(input.data('amount'));
+            const residual = parseFloat(input.data('payable') || 0.0);
             if (amount < 0) {
                 amount = 0;
             }

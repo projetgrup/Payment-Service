@@ -12,7 +12,7 @@ from . import rule
 from . import partner
 from . import page
 from . import item
-from . import item
+from . import hook
 from . import view
 from . import plan
 from . import website

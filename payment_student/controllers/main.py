@@ -19,15 +19,25 @@ class PayloxSystemStudentController(Controller):
         res = super()._get_tx_values(**kwargs)
         system = kwargs.get('system', request.env.company.system)
         if system == 'student':
-
             items = kwargs.get('items', [])
             if items:
-                items = request.env['payment.item'].sudo().browse([i for i, null in items])
+                ids = [i for i, null in items]
+                item = {
+                    item.id: {
+                        'ref': item.ref,
+                        'date': item.date,
+                        'desc': item.description,
+                        'advance': item.advance,
+                    } for item in request.env['payment.item'].sudo().browse(ids)
+                }
                 res['paylox_transaction_item_ids'] = [(0, 0, {
-                    'item_id': item.id,
-                    'ref': item.ref,
-                    'amount': item.amount,
-                }) for item in items]
+                    'item_id': id,
+                    'amount': amount,
+                    'ref': item[id]['ref'],
+                    'date': item[id]['date'],
+                    'desc': item[id]['desc'],
+                    'advance': item[id]['advance'],
+                }) for id, amount in items]
 
             else:
                 ids = 'jetcheckout_item_ids' in res and res['jetcheckout_item_ids'][0][2] or False

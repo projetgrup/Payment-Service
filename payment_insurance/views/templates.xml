@@ -47,7 +47,7 @@
                                         <t t-set="language" t-value="request.env['res.lang']._lang_get(request.env.lang)"/>
                                         <div>
                                             <span t-if="currency.position == 'before'" t-esc="currency.symbol"/>
-                                            <input type="text" name="amount" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" field="payment.amount"/>
+                                            <input type="text" name="amount" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" autocomplete="off" field="payment.amount"/>
                                             <span t-if="currency.position == 'after'" t-esc="currency.symbol"/>
                                         </div>
                                     </t>

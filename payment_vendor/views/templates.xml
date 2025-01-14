@@ -55,7 +55,7 @@
                                     <t t-if="company.payment_page_amount_editable">
                                         <div>
                                             <span t-if="currency.position == 'before'" t-esc="currency.symbol"/>
-                                            <input name="amount" type="text" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" field="payment.amount"/>
+                                            <input name="amount" type="text" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" autocomplete="off" field="payment.amount"/>
                                             <span t-if="currency.position == 'after'" t-esc="currency.symbol"/>
                                         </div>
                                     </t>
@@ -65,7 +65,7 @@
                                         </span>
                                         <div t-if="company.payment_page_saleref_ok" class="payment-amount-total-editonly d-none">
                                             <span t-if="currency.position == 'before'" t-esc="currency.symbol"/>
-                                            <input name="amount" type="text" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" field="payment.amount"/>
+                                            <input name="amount" type="text" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" autocomplete="off" field="payment.amount"/>
                                             <span t-if="currency.position == 'after'" t-esc="currency.symbol"/>
                                         </div>
                                     </t>
@@ -136,7 +136,7 @@
                                     </div>
                                     <div class="payment-kanban-checkbox position-absolute border-0">
                                         <label class="checkmark">
-                                            <input type="checkbox" class="payment-all-items" checked="checked" field="payment.items"/>
+                                            <input type="checkbox" class="payment-all-items" checked="checked" autocomplete="off" field="payment.items"/>
                                             <span><i class="fa fa-check"/></span>
                                         </label>
                                     </div>
@@ -199,7 +199,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <label t-attf-class="switch mb-0 #{'disabled' if prioritize else ''}">
-                                                        <input type="checkbox" class="payment-items input-switch" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-paid="payment.residual_amount" checked="checked" field="payment.item"/>
+                                                        <input type="checkbox" class="payment-items input-switch" autocomplete="off" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-paid="payment.residual_amount" checked="checked" field="payment.item"/>
                                                         <span class="slider round fa"/>
                                                     </label>
                                                 </td>
@@ -217,7 +217,7 @@
                                             <td class="text-right align-middle" t-att-colspan="company.payment_page_due_base == 'date_due' and '2' or '1'"><em>Select All</em></td>
                                             <td class="text-center align-middle">
                                                 <label class="switch mb-0">
-                                                    <input type="checkbox" class="payment-all-items" checked="checked" field="payment.items"/>
+                                                    <input type="checkbox" class="payment-all-items" checked="checked" autocomplete="off" field="payment.items"/>
                                                     <span class="slider round fa"/>
                                                 </label>
                                             </td>

@@ -39,7 +39,18 @@ class PaymentTransaction(models.Model):
     jetcheckout_partner_categ_ids = fields.Many2many('res.partner.category', 'transaction_partner_category_rel', 'transaction_id', 'category_id', 'Tags', related='partner_id.category_id', store=True, readonly=True, ondelete='set null')
 
     @api.model
+    def run_hook(self, subtype, **kwargs):
+        hook = self.env['payment.hook'].sudo().search([
+            ('type', '=', 'transaction'),
+            ('subtype', '=', subtype),
+            ('company_id', '=', self.env.company.id),
+        ], limit=1)
+        if hook:
+            hook.run(**kwargs)
+
+    @api.model
     def create(self, values):
+        self.run_hook('create', values=values)
         if values.get('paylox_item_tag_id'):
             tag = self.env['payment.settings.campaign.tag'].sudo().browse(values['paylox_item_tag_id'])
             values['paylox_item_tag_name'] = tag.name

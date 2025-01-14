@@ -84,3 +84,6 @@ payment_page_admin,payment_page_admin,model_payment_page,base.group_system,1,1,1
 
 jetcheckout_view_user,jetcheckout_view_user,model_payment_view,base.group_user,1,0,0,0
 jetcheckout_view_manager,jetcheckout_view_manager,model_payment_view,base.group_system,1,1,1,1
+
+jetcheckout_hook_user,jetcheckout_hook_user,model_payment_hook,base.group_user,1,0,0,0
+jetcheckout_hook_manager,jetcheckout_hook_manager,model_payment_hook,base.group_system,1,1,1,1

@@ -121,25 +121,26 @@ class PayloxSystemController(Controller):
         return 'payment_%s.page_payment' % values['system']
 
     def _get_tx_values(self, **kwargs):
-        vals = super()._get_tx_values(**kwargs)
+        values = super()._get_tx_values(**kwargs)
         ids = kwargs.get('payments', [])
         items = request.env['payment.item'].sudo().browse(ids)
         for item in items:
             if item.date_expired:
                 raise Exception(_('Payment item with date "%s" has been expired. Please refresh the page and continue.') % (item.date.stftime('%d/%m/%Y')))
         if ids:
-            vals.update({'jetcheckout_item_ids': [(6, 0, ids)]})
+            values.update({'jetcheckout_item_ids': [(6, 0, ids)]})
         if request.env.company.system:
-            vals.update({'jetcheckout_payment_ok': False})
+            values.update({'jetcheckout_payment_ok': False})
 
         tag = kwargs.get('payment_tag', False)
         if tag:
-            vals.update({'paylox_item_tag_id': tag})
+            values.update({'paylox_item_tag_id': tag})
 
         sale_ref = kwargs.get('sale_ref', False)
         if sale_ref:
-            vals.update({'paylox_sale_ref': sale_ref})
-        return vals
+            values.update({'paylox_sale_ref': sale_ref})
+
+        return values
 
     def _process(self, **kwargs):
         url, tx, status = super()._process(**kwargs)
