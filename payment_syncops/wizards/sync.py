@@ -158,7 +158,7 @@ class SyncopsSyncWizard(models.TransientModel):
                 currencies = {currency['name']: currency['id'] for currency in currencies}
 
                 methods = {
-                    'lines': lambda line: {
+                    'value': lambda line: {
                         'name': line.get('partner', False),
                         'data': json.dumps(line, default=str),
                         'partner_name': line.get('partner', False),
@@ -174,13 +174,14 @@ class SyncopsSyncWizard(models.TransientModel):
                         'invoice_due_date': line.get('due_date', False),
                         'invoice_amount': line.get('amount', 0),
                         'invoice_currency': currencies.get(line.get('currency'), False),
-                    }
+                    },
+                    'filter': lambda line: True,
                 }
                 hook = self.env['syncops.connector'].get_hook('payment_get_unreconciled_list', 'pre', 'item', 'invoice')
                 if hook:
                     hook.run(wizard=self, methods=methods, currencies=currencies, lines=lines)
 
-                self.line_ids = [(0, 0, methods['lines'](line)) for line in lines]
+                self.line_ids = [(0, 0, methods['value'](line)) for line in lines if methods['filter'](line)]
                 res['view_id'] = self.env.ref('payment_syncops.tree_wizard_sync_line_item_invoice').id
 
         return res

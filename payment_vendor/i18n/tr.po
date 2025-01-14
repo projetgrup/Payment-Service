@@ -1027,7 +1027,7 @@ msgstr "Diğer"
 #. module: payment_vendor
 #: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment
 msgid "Paid"
-msgstr "Ödenecek"
+msgstr "Ödenen"
 
 #. module: payment_vendor
 #: model_terms:ir.ui.view,arch_db:payment_vendor.page_payment
