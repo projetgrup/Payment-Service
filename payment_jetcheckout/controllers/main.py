@@ -1223,6 +1223,7 @@ class PayloxController(http.Controller):
                 'fees': amount_cost,
                 'operation': 'online_direct',
                 'token_id': token and token.id or False,
+                'jetcheckout_data': json.dumps({**kwargs}, default=str),
                 'jetcheckout_payment_type': payment_type,
                 'jetcheckout_website_id': request.website.id,
                 'jetcheckout_ip_address': tx and tx.jetcheckout_ip_address or request.httprequest.remote_addr,
