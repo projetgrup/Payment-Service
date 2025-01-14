@@ -23,7 +23,7 @@ class PaymentAgreement(models.Model):
     product_ids = fields.Many2many('product.template', 'payment_agreement_product_rel', 'agreement_id', 'product_id', string='Products')
     type_ids = fields.Many2many('ir.model.fields.selection', 'payment_agreement_type_rel', 'agreement_id', 'type_id', string='Types', domain=[('field_id.name', '=', 'jetcheckout_payment_type')])
 
-    def _render_agreement(self, values={}):
+    def render(self, values={}):
         partner = values.get('partner', None)
         partner_name = partner and partner.name or ''
         partner_vat = partner and partner.vat or ''
@@ -37,16 +37,16 @@ class PaymentAgreement(models.Model):
         payment_currency = values.get('currency', self.company_id.currency_id)
         payment_amount = formatLang(self.env, values.get('amount', 0), monetary=True, currency_obj=payment_currency)
         agreement = self.body \
-            .replace('${partner_name}', partner_name) \
-            .replace('${partner_vat}', partner_vat) \
-            .replace('${partner_tax_office}', partner_tax_office) \
-            .replace('${partner_company_name}', partner_company_name) \
-            .replace('${partner_address}', partner_address) \
-            .replace('${partner_phone}', partner_phone) \
-            .replace('${partner_mobile}', partner_mobile) \
-            .replace('${partner_email}', partner_email) \
-            .replace('${partner_website}', partner_website) \
-            .replace('${payment_amount}', payment_amount)
+            .replace('{{ partner_name }}', partner_name) \
+            .replace('{{ partner_vat }}', partner_vat) \
+            .replace('{{ partner_tax_office }}', partner_tax_office) \
+            .replace('{{ partner_company_name }}', partner_company_name) \
+            .replace('{{ partner_address }}', partner_address) \
+            .replace('{{ partner_phone }}', partner_phone) \
+            .replace('{{ partner_mobile }}', partner_mobile) \
+            .replace('{{ partner_email }}', partner_email) \
+            .replace('{{ partner_website }}', partner_website) \
+            .replace('{{ payment_amount }}', payment_amount)
         return agreement
 
     def action_toggle_active(self):
@@ -75,9 +75,9 @@ class PaymentTransactionAgreement(models.Model):
     partner_id = fields.Many2one('res.partner', readonly=True)
     company_id = fields.Many2one('res.company', readonly=True, default=lambda self: self.env.company)
 
-    def _render_agreement(self):
+    def render(self):
         tx = self.transaction_id
-        return self.agreement_id.with_context(lang=tx.partner_lang)._render_agreement({
+        return self.agreement_id.with_context(lang=tx.partner_lang).render({
             'partner': tx.partner_id,
             'amount': tx.amount,
             'currency': tx.currency_id,

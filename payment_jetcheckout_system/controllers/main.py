@@ -8,7 +8,7 @@ from datetime import datetime
 from urllib.parse import urlparse, urlencode
 
 from odoo import fields, http, _, SUPERUSER_ID
-from odoo.http import content_disposition, request
+from odoo.http import content_disposition, request, Response
 from odoo.tools import html_escape
 from odoo.tools.misc import xlsxwriter
 from odoo.exceptions import AccessError, UserError, MissingError
@@ -104,26 +104,43 @@ class PayloxSystemController(Controller):
         else:
             return request.website.sudo().user_id.partner_id 
 
+    def _get_template(self, path, values):
+        template = request.env['payment.view'].sudo().search([
+            ('page_id.path', '=', path),
+            ('company_id', '=', values['company']['id']),
+        ], limit=1)
+        if template:
+            values.update({
+                'template': {
+                    'id': template.uid,
+                    'js': bool(template.arch_js),
+                    'css': bool(template.arch_css),
+                }
+            })
+            return template.view_id.id
+        return 'payment_%s.page_payment' % values['system']
+
     def _get_tx_values(self, **kwargs):
-        vals = super()._get_tx_values(**kwargs)
+        values = super()._get_tx_values(**kwargs)
         ids = kwargs.get('payments', [])
         items = request.env['payment.item'].sudo().browse(ids)
         for item in items:
             if item.date_expired:
                 raise Exception(_('Payment item with date "%s" has been expired. Please refresh the page and continue.') % (item.date.stftime('%d/%m/%Y')))
         if ids:
-            vals.update({'jetcheckout_item_ids': [(6, 0, ids)]})
+            values.update({'jetcheckout_item_ids': [(6, 0, ids)]})
         if request.env.company.system:
-            vals.update({'jetcheckout_payment_ok': False})
+            values.update({'jetcheckout_payment_ok': False})
 
         tag = kwargs.get('payment_tag', False)
         if tag:
-            vals.update({'paylox_item_tag_id': tag})
+            values.update({'paylox_item_tag_id': tag})
 
         sale_ref = kwargs.get('sale_ref', False)
         if sale_ref:
-            vals.update({'paylox_sale_ref': sale_ref})
-        return vals
+            values.update({'paylox_sale_ref': sale_ref})
+
+        return values
 
     def _process(self, **kwargs):
         url, tx, status = super()._process(**kwargs)
@@ -207,6 +224,23 @@ class PayloxSystemController(Controller):
             'no_terms': not acquirer.provider == 'jetcheckout' or acquirer.jetcheckout_no_terms,
         }
 
+    @http.route('/payment/view/<uid>.js', type='http', auth='public', methods=['GET'], sitemap=False, csrf=False, website=True)
+    def page_view_js(self, uid, **kwargs):
+        view = request.env['payment.view'].sudo().search([('uid', '=', uid)], limit=1)
+        if view and view.arch_js:
+            return request.make_response(
+                "odoo.define('@payment/view/%s', async function (require) {\n%s\n});" % (uid, view.arch_js),
+                headers=[('Content-Type', 'text/javascript')],
+            )
+        return Response('', 404)
+
+    @http.route('/payment/view/<uid>.css', type='http', auth='public', methods=['GET'], sitemap=False, csrf=False, website=True)
+    def page_view_css(self, uid, **kwargs):
+        view = request.env['payment.view'].sudo().search([('uid', '=', uid)], limit=1)
+        if view and view.arch_css:
+            return request.make_response(view.arch_css, headers=[('Content-Type', 'text/css')])
+        return Response('', 404)
+
     @http.route('/web/system/load', type='json', auth='user')
     def action_load(self, cids=None, action=None, menu_id=None):
         company = request.env['res.company'].sudo().browse(int(cids and str(cids).split(',', 1)[0] or request.env.company.id))
@@ -267,7 +301,9 @@ class PayloxSystemController(Controller):
 
         system = company.system or partner.system or 'jetcheckout_system'
         values = self._prepare_system(company, system, partner, transaction)
-        return request.render('payment_%s.page_payment' % system, values, headers={
+        template = self._get_template('/p/', values)
+
+        return request.render(template, values, headers={
             'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
             'Pragma': 'no-cache',
             'Expires': '-1'

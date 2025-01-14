@@ -45,7 +45,7 @@
                                                 <!--<td class="text-center"><t t-esc="payment.amount" t-options="{'widget': 'monetary', 'display_currency': payment.currency_id}"/></td>-->
                                                 <td class="border text-center">
                                                     <label class="switch" style="margin-bottom: 0;">
-                                                        <input type="checkbox" class="payment-items input-switch" t-att-data-id="payment.id" t-att-data-student-id="payment.child_id.id" t-att-data-student-name="payment.child_id.name" t-att-data-term-id="payment.term_id.id" t-att-data-term-name="payment.term_id.name" t-att-data-amount="payment.residual_amount" t-att-data-paid="payment.residual_amount" t-att-data-type-id="payment.payment_type_id.id" t-att-data-type-name="payment.payment_type_id.name" t-att-data-bursary-id="payment.bursary_id.id" t-att-data-bursary-name="payment.bursary_id.name" t-att-data-bursary-amount="payment.bursary_id.percentage / -100" t-att-data-sibling-paid="payment._is_student_sibling_paid()" checked="checked" field="payment.item"/>
+                                                        <input type="checkbox" class="payment-items input-switch" autocomplete="off" t-att-data-id="payment.id" t-att-data-student-id="payment.child_id.id" t-att-data-student-name="payment.child_id.name" t-att-data-term-id="payment.term_id.id" t-att-data-term-name="payment.term_id.name" t-att-data-amount="payment.residual_amount" t-att-data-payable="payment.residual_amount" t-att-data-paid="payment.paid_amount" t-att-data-type-id="payment.payment_type_id.id" t-att-data-type-name="payment.payment_type_id.name" t-att-data-bursary-id="payment.bursary_id.id" t-att-data-bursary-name="payment.bursary_id.name" t-att-data-bursary-amount="payment.bursary_id.percentage / -100" t-att-data-sibling-paid="payment._is_student_sibling_paid()" checked="checked" field="payment.item"/>
                                                         <span class="slider round fa"/>
                                                     </label>
                                                 </td>
@@ -58,7 +58,7 @@
                                             <td class="text-right"><em>Select All</em></td>
                                             <td class="text-center">
                                                 <label class="switch" style="margin-bottom: 0;">
-                                                    <input type="checkbox" class="payment-all-items" checked="checked" field="payment.items"/>
+                                                    <input type="checkbox" class="payment-all-items" checked="checked" autocomplete="off" field="payment.items"/>
                                                     <span class="slider round fa"/>
                                                 </label>
                                             </td>

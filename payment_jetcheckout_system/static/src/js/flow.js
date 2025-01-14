@@ -194,7 +194,7 @@ publicWidget.registry.payloxSystemPageDynamic = publicWidget.Widget.extend({
                 let amountInput = $('#payment_card input[name=amount]');
                 for (const [id, amount] of partner.items) {
                     amountTotal += amount;
-                    amountInput.after(`<input type="checkbox" class="input-switch d-none" data-id="${id}" data-paid="${amount}" disabled="disabled" checked="checked"/>`);
+                    amountInput.after(`<input type="checkbox" class="input-switch d-none" data-id="${id}" data-amount="${amount}" disabled="disabled" checked="checked"/>`);
                 }                    
                 this.wizard.amount.$.val(format.float(amountTotal)).change().trigger('update');
             }

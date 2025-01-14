@@ -30,6 +30,8 @@
         'views/item.xml',
         'views/plan.xml',
         'views/token.xml',
+        'views/view.xml',
+        'views/hook.xml',
         'views/partner.xml',
         'views/website.xml',
         'views/settings.xml',

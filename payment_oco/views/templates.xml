@@ -55,7 +55,7 @@
                                         <t t-set="language" t-value="request.env['res.lang']._lang_get(request.env.lang)"/>
                                         <div>
                                             <span t-if="currency.position == 'before'" t-esc="currency.symbol"/>
-                                            <input type="text" name="amount" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" field="payment.amount"/>
+                                            <input type="text" name="amount" t-att-value="language.format('%.{0}f'.format(currency.decimal_places), currency.round(amount), grouping=True, monetary=True)" autocomplete="off" field="payment.amount"/>
                                             <span t-if="currency.position == 'after'" t-esc="currency.symbol"/>
                                         </div>
                                     </t>
@@ -108,7 +108,7 @@
                                     </div>
                                     <div class="payment-kanban-checkbox position-absolute border-0">
                                         <label class="checkmark">
-                                            <input type="checkbox" class="payment-all-items" checked="checked" field="payment.items"/>
+                                            <input type="checkbox" class="payment-all-items" checked="checked" autocomplete="off" field="payment.items"/>
                                             <span><i class="fa fa-check"/></span>
                                         </label>
                                     </div>
@@ -128,8 +128,8 @@
                                             <th t-if="company.payment_page_due_base == 'date_due'" class="px-2">Due Date</th>
                                             <th class="px-2">Description</th>
                                             <th class="text-right px-2">Amount</th>
-                                            <th class="text-right px-2">Residual</th>
                                             <th class="text-right px-2">Paid</th>
+                                            <th class="text-right px-2">Residual</th>
                                             <th class="text-center px-2">Document</th>
                                             <th/>
                                         </tr>
@@ -140,9 +140,9 @@
                                                 <td class="px-2"><span t-field="payment.date"/></td>
                                                 <td t-if="company.payment_page_due_base == 'date_due'" class="px-2"><span t-field="payment.due_date"/></td>
                                                 <td class="px-2"><span t-if="payment.description" t-field="payment.description"/></td>
-                                                <td class="text-right px-2"><span t-field="payment.amount"/></td>
-                                                <td class="text-right px-2"><span t-field="payment.residual_amount"/></td>
-                                                <td class="text-right px-2"><span t-field="payment.residual_amount" class="payment-amount-paid"/></td>
+                                                <td class="text-right px-2"><span t-field="payment.amount" class="item-amount-payment"/></td>
+                                                <td class="text-right px-2"><span t-field="payment.paid_amount" class="item-amount-paid"/></td>
+                                                <td class="text-right px-2"><span t-field="payment.residual_amount" class="item-amount-payable"/></td>
                                                 <td class="text-center">
                                                     <form t-if="payment.file" t-att-action="'/p/%s/%s' % (token, payment.id)" method="POST">
                                                         <button type="submit" class="btn btn-outline-danger bg-100 text-danger px-2 py-0 fa fa-file-pdf-o"/>
@@ -153,7 +153,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <label t-attf-class="switch mb-0 #{'disabled' if prioritize else ''}">
-                                                        <input type="checkbox" class="payment-items input-switch" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-paid="payment.residual_amount" checked="checked" field="payment.item"/>
+                                                        <input type="checkbox" class="payment-items input-switch" autocomplete="off" t-att-data-id="payment.id" t-att-data-amount="payment.residual_amount" t-att-data-payable="payment.residual_amount" t-att-data-paid="payment.paid_amount" checked="checked" field="payment.item"/>
                                                         <span class="slider round fa"/>
                                                     </label>
                                                 </td>
@@ -171,7 +171,7 @@
                                             <td class="text-right align-middle" t-att-colspan="company.payment_page_due_base == 'date_due' and '2' or '1'"><em>Select All</em></td>
                                             <td class="text-center align-middle">
                                                 <label class="switch mb-0">
-                                                    <input type="checkbox" class="payment-all-items" checked="checked" field="payment.items"/>
+                                                    <input type="checkbox" class="payment-all-items" checked="checked" autocomplete="off" field="payment.items"/>
                                                     <span class="slider round fa"/>
                                                 </label>
                                             </td>

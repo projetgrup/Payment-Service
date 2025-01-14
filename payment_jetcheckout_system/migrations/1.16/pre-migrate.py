@@ -10,3 +10,6 @@ def migrate(cr, version):
 
     if not column_exists(cr, 'res_users', 'payment_contactless_ok'):
         cr.execute('ALTER TABLE res_users ADD COLUMN payment_contactless_ok boolean')
+
+    if not column_exists(cr, 'res_users', 'payment_contactless_ok'):
+        cr.execute('ALTER TABLE res_users ADD COLUMN payment_contactless_ok boolean')
