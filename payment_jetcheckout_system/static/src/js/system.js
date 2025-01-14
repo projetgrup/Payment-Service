@@ -505,7 +505,7 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
             $switches.each(function () {
                 let $this = $(this);
                 $this.data('amount', $this.is(':checked') ? parseFloat($this.data('payable')) : 0);
-                let $payable = input.closest('tr').find('.item-amount-payable');
+                let $payable = $this.closest('tr').find('.item-amount-payable');
                 $payable.html(format.currency(parseFloat($this.data('amount')), currency.position, currency.symbol, currency.decimal));
             });
         } else if (ev && ev.allTarget) {
