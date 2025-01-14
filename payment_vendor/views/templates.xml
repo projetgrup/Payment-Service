@@ -167,8 +167,8 @@
                                             <th t-if="company.payment_page_due_base == 'date_due'" class="px-2">Due Date</th>
                                             <th class="px-2">Description</th>
                                             <th class="text-right px-2">Amount</th>
-                                            <th class="text-right px-2">Residual</th>
                                             <th class="text-right px-2">Paid</th>
+                                            <th class="text-right px-2">Residual</th>
                                             <th class="text-right px-2">Total</th>
                                             <th class="text-center px-2">Document</th>
                                             <th/>
