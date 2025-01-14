@@ -230,7 +230,7 @@ class PayloxSystemController(Controller):
         if view and view.arch_js:
             return request.make_response(
                 "odoo.define('@payment/view/%s', async function (require) {\n%s\n});" % (uid, view.arch_js),
-                headers=[('Content-Type', 'text/javascript')],
+                headers=[('Content-Type', 'text/javascript;charset=UTF-8')],
             )
         return Response('', 404)
 
@@ -238,7 +238,7 @@ class PayloxSystemController(Controller):
     def page_view_css(self, uid, **kwargs):
         view = request.env['payment.view'].sudo().search([('uid', '=', uid)], limit=1)
         if view and view.arch_css:
-            return request.make_response(view.arch_css, headers=[('Content-Type', 'text/css')])
+            return request.make_response(view.arch_css, headers=[('Content-Type', 'text/css;charset=UTF-8')])
         return Response('', 404)
 
     @http.route('/web/system/load', type='json', auth='user')
