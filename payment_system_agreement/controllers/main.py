@@ -27,7 +27,7 @@ class PayloxAgreementController(Controller):
             'agreement_id': agreement_id,
         }) for agreement_id in agreement_ids]
 
-    def _get_agreements(self, agreement_id=False, product_id=False):
+    def _get_agreements(self, agreement_id=None, product_id=None):
         if not request.env.company.system_agreement:
             return []
 
