@@ -25,7 +25,7 @@ class PaymentAgreement(models.Model):
     product_ids = fields.Many2many('product.template', 'payment_agreement_product_rel', 'agreement_id', 'product_id', string='Products')
     type_ids = fields.Many2many('ir.model.fields.selection', 'payment_agreement_type_rel', 'agreement_id', 'type_id', string='Types', domain=[('field_id.name', '=', 'jetcheckout_payment_type')])
 
-    def render(self, values={}):
+    def render(self, **values):
         partner = values.get('partner', None)
         partner_name = partner and partner.name or ''
         partner_vat = partner and partner.vat or ''
@@ -52,7 +52,7 @@ class PaymentAgreement(models.Model):
         return self.env['mail.render.mixin'].with_context(datetime=datetime, json=json, **values)._render_template(agreement, self._name, self.ids, engine='qweb')[self.id]
         return agreement
 
-    def render_pdf(self, values={}):
+    def render_pdf(self, **values):
         body = self.render(**values)
         icp = self.env['ir.config_parameter'].sudo()
         base_url = icp.get_param('report.url') or icp.get_param('web.base.url')
