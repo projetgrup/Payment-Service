@@ -16,7 +16,7 @@
                 </div>
                 <div class="row ml4 mr4">
                     <div class="col-md-8">
-                        <field name="body" colspan="2" nolabel="1"/>
+                        <field name="body" colspan="2" nolabel="1" options="{'codeview': true}"/>
                     </div>
                     <div class="col-md-4 shadow-sm table-bordered" style="position: sticky; top: 20px; border-radius: 10px;">
                         <separator string="Name"/>
@@ -42,16 +42,16 @@
                         <div colspan="2">
                             <p class="mt16 mb4">Available variables;</p>
                             <ul class="list-inline">
-                                <li><code>${partner_name}</code>: Name of payer</li>
-                                <li><code>${partner_vat}</code>: VAT of payer</li>
-                                <li><code>${partner_tax_office}</code>: Tax office of payer</li>
-                                <li><code>${partner_company_name}</code>: Company name of payer</li>
-                                <li><code>${partner_address}</code>: Address of payer</li>
-                                <li><code>${partner_phone}</code>: Phone number of payer</li>
-                                <li><code>${partner_mobile}</code>: Mobile Number of payer</li>
-                                <li><code>${partner_email}</code>: Email of payer</li>
-                                <li><code>${partner_website}</code>: Website address of payer</li>
-                                <li><code>${payment_amount}</code>: Amount of payment</li>
+                                <li><code>{{ partner_name }}</code>: Name of payer</li>
+                                <li><code>{{ partner_vat }}</code>: VAT of payer</li>
+                                <li><code>{{ partner_tax_office }}</code>: Tax office of payer</li>
+                                <li><code>{{ partner_company_name }}</code>: Company name of payer</li>
+                                <li><code>{{ partner_address }}</code>: Address of payer</li>
+                                <li><code>{{ partner_phone }}</code>: Phone number of payer</li>
+                                <li><code>{{ partner_mobile }}</code>: Mobile Number of payer</li>
+                                <li><code>{{ partner_email }}</code>: Email of payer</li>
+                                <li><code>{{ partner_website }}</code>: Website address of payer</li>
+                                <li><code>{{ payment_amount }}</code>: Amount of payment</li>
                             </ul>
                         </div>
                     </div>

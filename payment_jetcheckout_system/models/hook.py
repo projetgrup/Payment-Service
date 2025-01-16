@@ -28,7 +28,10 @@ class PaymentHook(models.Model):
     name = fields.Char(compute='_compute_name')
     system = fields.Selection([])
     code = fields.Text()
-    type = fields.Selection([('transaction', 'Transaction')])
+    type = fields.Selection([
+        ('transaction', 'Transaction'),
+        ('route', 'Route'),
+    ])
     subtype = fields.Selection([
         ('create', 'Creation'),
         ('finalize', 'Finalization'),
