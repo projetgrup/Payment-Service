@@ -38,15 +38,14 @@ class PaymentTransaction(models.Model):
     jetcheckout_partner_team_id = fields.Many2one('crm.team', 'Sales Team', related='partner_id.team_id', store=True, readonly=True, ondelete='set null')
     jetcheckout_partner_categ_ids = fields.Many2many('res.partner.category', 'transaction_partner_category_rel', 'transaction_id', 'category_id', 'Tags', related='partner_id.category_id', store=True, readonly=True, ondelete='set null')
 
-    @api.model
     def run_hook(self, subtype, **kwargs):
         hook = self.env['payment.hook'].sudo().search([
             ('type', '=', 'transaction'),
             ('subtype', '=', subtype),
-            ('company_id', '=', self.env.company.id),
+            ('company_id', '=', self.company_id.id),
         ], limit=1)
         if hook:
-            hook.run(**kwargs)
+            hook.run(transaction=self, **kwargs)
 
     @api.model
     def create(self, values):
@@ -57,7 +56,7 @@ class PaymentTransaction(models.Model):
             item = self.env['payment.item'].sudo().browse(values['jetcheckout_item_ids'][0][2])
             values['paylox_item_tag_code'] = '/'.join(set([i.tag or '-' for i in item]))
         transaction = super().create(values)
-        self.run_hook('create', transaction=transaction)
+        transaction.run_hook('create')
         return transaction
 
     def action_items(self):
@@ -148,7 +147,7 @@ class PaymentTransaction(models.Model):
 
     def _paylox_done_postprocess(self):
         res = super()._paylox_done_postprocess()
-        self.run_hook('finalize', transaction=self)
+        self.run_hook('finalize')
         webhooks = self.company_id.notif_webhook_ids
         if webhooks:
             self.write({

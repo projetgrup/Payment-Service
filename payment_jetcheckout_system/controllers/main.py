@@ -788,7 +788,7 @@ class PayloxSystemController(Controller):
     @http.route(['/my/hook/<int:id>'], type='json', auth='public', website=True, csrf=False)
     def page_system_hook(self, id, **kwargs):
         hook = request.env['payment.hook'].sudo().search([
-            ('id', '=', id)
+            ('id', '=', id),
             ('type', '=', 'route'),
             ('company_id', '=', request.env.company.id),
         ])
