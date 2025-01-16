@@ -95,11 +95,12 @@ class PaymentTransactionAgreement(models.Model):
 
     def render(self):
         tx = self.transaction_id
-        return self.agreement_id.with_context(lang=tx.partner_lang).render({
-            'partner': tx.partner_id,
-            'amount': tx.amount,
-            'currency': tx.currency_id,
-        })
+        return self.agreement_id.with_context(lang=tx.partner_lang).render(
+            amount=tx.amount,
+            partner=tx.partner_id,
+            currency=tx.currency_id,
+            transaction=tx,
+        )
 
     def action_pdf(self):
         if not self.pdf:
