@@ -785,6 +785,19 @@ class PayloxSystemController(Controller):
         }
         return payments, company
 
+    @http.route(['/my/hook/<int:id>'], type='json', auth='public', website=True, csrf=False)
+    def page_system_hook(self, id, **kwargs):
+        hook = request.env['payment.hook'].sudo().search([
+            ('id', '=', id)
+            ('type', '=', 'route'),
+            ('company_id', '=', request.env.company.id),
+        ])
+        if not hook:
+            return False
+
+        hook.run(**kwargs)
+        return True
+
     @http.route('/my/advance', type='http', auth='public', methods=['GET', 'POST'], sitemap=False, csrf=False, website=True)
     def page_system_advance(self, **kwargs):
         params = kwargs.get('', {})

@@ -112,6 +112,7 @@ class PaymentItem(models.Model):
     is_admin = fields.Boolean(compute='_compute_is_admin')
 
     plan_ids = fields.One2many('payment.plan', 'item_id', string='Payment Plans')
+    transaction_item_ids = fields.One2many('payment.transaction.item', 'item_id', string='Transaction Items')
     transaction_ids = fields.Many2many('payment.transaction', 'transaction_item_rel', 'item_id', 'transaction_id', string='Transactions')
     system = fields.Selection(selection=[], readonly=True)
     company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, readonly=True)

@@ -265,13 +265,6 @@ class SyncopsSyncWizard(models.TransientModel):
                         'company_id': company.id,
                         'is_company': True,
                     }
-                    if line['partner_iban']:
-                        values.update({
-                            'bank_ids': [(0, 0, {
-                                'acc_number': line['partner_iban'],
-                                'api_merchant': 'HEDEF_FILO_ODEMESI',
-                            })]
-                        })
                     partner = models['partner'].create(values)
                     if line['partner_vat']:
                         vats.update({line['partner_vat']: partner.id})

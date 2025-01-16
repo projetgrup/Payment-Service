@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import json
 import base64
+from datetime import datetime
 from odoo import models, fields, _
 from odoo.tools.misc import formatLang
 
@@ -47,7 +49,23 @@ class PaymentAgreement(models.Model):
             .replace('{{ partner_email }}', partner_email) \
             .replace('{{ partner_website }}', partner_website) \
             .replace('{{ payment_amount }}', payment_amount)
+        return self.env['mail.render.mixin'].with_context(datetime=datetime, json=json, **values)._render_template(agreement, self._name, self.ids, engine='qweb')[self.id]
         return agreement
+
+    def render_pdf(self, values={}):
+        body = self.render(**values)
+        icp = self.env['ir.config_parameter'].sudo()
+        base_url = icp.get_param('report.url') or icp.get_param('web.base.url')
+        layout = self.env.ref('payment_jetcheckout.report_layout')
+        html = layout._render({'body': body, 'base_url': base_url})
+        pdf = self.env['ir.actions.report']._run_wkhtmltopdf(
+            [html],
+            specific_paperformat_args={
+                'data-report-margin-top': 10,
+                'data-report-header-spacing': 10,
+            }
+        )
+        return base64.b64encode(pdf)
 
     def action_toggle_active(self):
         self.active = not self.active
