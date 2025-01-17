@@ -87,16 +87,16 @@
             </div>
             <div t-attf-class="row mx-0 table-responsive bg-white border card overflow-auto #{classes} d-print-none">
                 <table class="table table-sm small mb-0">
-                    <tr>
+                    <tr t-if="show_privacy_policy">
                         <td><a href="#" class="d-block w-100" field="payment.privacy">Privacy Policy</a></td>
                     </tr>
-                    <tr>
+                    <tr t-if="show_sale_agreement">
                         <td><a href="#" class="d-block w-100" field="payment.agreement">Distant Sale Agreement</a></td>
                     </tr>
-                    <tr>
+                    <tr t-if="show_membership_agreement">
                         <td><a href="#" class="d-block w-100" field="payment.membership">Membership Agreement</a></td>
                     </tr>
-                    <tr>
+                    <tr t-if="show_contact_page">
                         <td><a href="#" class="d-block w-100" field="payment.contact">Contact Page</a></td>
                     </tr>
                 </table>
@@ -104,10 +104,10 @@
         </t>
         <t t-else="">
             <div class="row mx-5 my-3 justify-content-around d-print-none">
-                <button class="btn btn-secondary bg-white text-primary m-2 w-md-auto" style="width: 100%" field="payment.privacy">Privacy Policy</button>
-                <button class="btn btn-secondary bg-white text-primary m-2 w-md-auto" style="width: 100%" field="payment.agreement">Distant Sale Agreement</button>
-                <button class="btn btn-secondary bg-white text-primary m-2 w-md-auto" style="width: 100%" field="payment.membership">Membership Agreement</button>
-                <button class="btn btn-secondary bg-white text-primary m-2 w-md-auto" style="width: 100%" field="payment.contact">Contact Page</button>
+                <button t-if="show_privacy_policy" class="btn btn-secondary bg-white text-primary m-2 w-md-auto" style="width: 100%" field="payment.privacy">Privacy Policy</button>
+                <button t-if="show_sale_agreement" class="btn btn-secondary bg-white text-primary m-2 w-md-auto" style="width: 100%" field="payment.agreement">Distant Sale Agreement</button>
+                <button t-if="show_membership_agreement" class="btn btn-secondary bg-white text-primary m-2 w-md-auto" style="width: 100%" field="payment.membership">Membership Agreement</button>
+                <button t-if="show_contact_page" class="btn btn-secondary bg-white text-primary m-2 w-md-auto" style="width: 100%" field="payment.contact">Contact Page</button>
             </div>
         </t>
     </template>

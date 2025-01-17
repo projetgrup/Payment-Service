@@ -222,6 +222,10 @@ class PayloxSystemController(Controller):
             'currencies': currency,
             'installment_type': installment_type,
             'no_terms': not acquirer.provider == 'jetcheckout' or acquirer.jetcheckout_no_terms,
+            'show_privacy_policy': request.website.show_privacy_policy,
+            'show_sale_agreement': request.website.show_sale_agreement,
+            'show_membership_agreement': request.website.show_membership_agreement,
+            'show_contact_page': request.website.show_contact_page,
         }
 
     @http.route('/payment/view/<uid>.js', type='http', auth='public', methods=['GET'], sitemap=False, csrf=False, website=True)

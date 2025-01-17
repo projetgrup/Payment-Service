@@ -411,11 +411,11 @@
                             <div t-if="user and (not installment_type or installment_type == 'i')" class="row font-weight-bold justify-content-center small">Campaign: <span id="campaign" class="ml-2" t-esc="campaign or '-'" field="campaign.text"/></div>
                             <div t-if="not no_button" class="row font-weight-bold text-uppercase">
                                 <div class="col-xl-6 p-2">
-                                    <div field="installment.table">
+                                    <div t-if="not hide_installment_options_button" field="installment.table">
                                         <button class="installment-container lg btn btn-primary shadow w-100 text-nowrap overflow-hidden h-100 align-items-center justify-content-center text-overflow-ellipsis"><i class="fa fa-th mr-2" t-translation="off"></i>Installment Options</button>
                                         <button class="installment-container sm btn btn-primary shadow w-100 text-nowrap overflow-hidden h-100 align-items-center justify-content-center text-overflow-ellipsis"><i class="fa fa-th mr-2" t-translation="off"></i>Installments</button>
                                     </div>
-                                    <div t-if="user and (not installment_type or installment_type == 'i')" class="mt-2" field="campaign.table">
+                                    <div t-if="user and (not installment_type or installment_type == 'i') and not hide_campaign_options_button" class="mt-2" field="campaign.table">
                                         <button class="campaign-container lg btn btn-primary shadow w-100 text-nowrap overflow-hidden h-100 align-items-center justify-content-center text-overflow-ellipsis"><i class="fa fa-gift mr-2" t-translation="off"></i>Campaign Options</button>
                                         <button class="campaign-container sm btn btn-primary shadow w-100 text-nowrap overflow-hidden h-100 align-items-center justify-content-center text-overflow-ellipsis"><i class="fa fa-gift mr-2" t-translation="off"></i>Campaigns</button>
                                     </div>
@@ -427,7 +427,7 @@
                                 </div>
                             </div>
                             <div t-else="" class="row font-weight-bold text-uppercase">
-                                <div class="col-12 p-2" field="installment.table">
+                                <div t-if="not hide_installment_options_button" class="col-12 p-2" field="installment.table">
                                     <button class="installment-container btn btn-primary shadow w-100 text-nowrap overflow-hidden text-overflow-ellipsis"><i class="fa fa-th mr-2" t-translation="off"/>Installment Options</button>
                                 </div>
                                 <div class="d-none">

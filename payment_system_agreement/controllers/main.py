@@ -16,7 +16,7 @@ class PayloxAgreementController(Controller):
             address = urlparse(request.httprequest.referrer).path
         else:
             address = urlparse(request.httprequest.url).path
-        return re.sub(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}-[0-9a-f]+', '', address)
+        return re.sub(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}-[0-9a-f]+', '', address.replace('/en', ''))
 
     def _prepare_agreements(self, agreement_ids):
         path = self._get_agreement_path()
@@ -83,11 +83,7 @@ class PayloxAgreementController(Controller):
         return {
             'id': agreement.id,
             'name': agreement.name,
-            'body': agreement.render({
-                **values,
-                'partner': partner,
-                'currency': currency,
-            })
+            'body': agreement.render(partner=partner, currency=currency, **values),
         }
 
     @route(['/my/agreement/<uuid>'], type='http', methods=['GET'], auth='public', website=True, csrf=False)
