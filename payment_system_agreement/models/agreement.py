@@ -23,7 +23,7 @@ class PaymentAgreement(models.Model):
     active = fields.Boolean(default=True)
     name = fields.Char(translate=True)
     text = fields.Char(translate=True)
-    body = fields.Html(translate=True, sanitize=False, compute='_compute_body')
+    body = fields.Html(sanitize=False, compute='_compute_body')
     arch = fields.Text(translate=xml_translate)
     date_start = fields.Date('Start Date')
     date_end = fields.Date('End Date')
