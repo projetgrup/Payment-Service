@@ -7,19 +7,59 @@
     <field name="arch" type="xml">
         <xpath expr="//page" position="before">
             <page string="Page Footer">
-                <field name="payment_footer" widget="html" options="{'style-inline': true, 'codeview': true }"/>
+                <field name="payment_footer" widget="html" options="{'codeview': true}"/>
             </page>
             <page string="Privacy Policy">
-                <field name="payment_privacy_policy" widget="html" options="{'style-inline': true, 'codeview': true }"/>
+                <div class="row ml4 mr4">
+                    <div class="col-md-9">
+                        <field name="payment_privacy_policy" colspan="2" nolabel="1" options="{'codeview': true}"/>
+                    </div>
+                    <div class="col-md-3 shadow-sm table-bordered p-4 bg-100" style="position: sticky; top: 20px; border-radius: 10px;">
+                        <separator string="Options"/>
+                        <div class="d-flex align-items-center">
+                            <span class="text-muted d-block ml-2 mr-4 font-weight-bold">Show Privacy Policy</span> <field name="show_privacy_policy" widget="boolean_toggle" nolabel="1"/>
+                        </div>
+                    </div>
+                </div>
             </page>
             <page string="Sale Agreement">
-                <field name="payment_sale_agreement" widget="html" options="{'style-inline': true, 'codeview': true }"/>
+                <div class="row ml4 mr4">
+                    <div class="col-md-9">
+                        <field name="payment_sale_agreement" colspan="2" nolabel="1" options="{'codeview': true}"/>
+                    </div>
+                    <div class="col-md-3 shadow-sm table-bordered p-4 bg-100" style="position: sticky; top: 20px; border-radius: 10px;">
+                        <separator string="Options"/>
+                        <div class="d-flex align-items-center">
+                            <span class="text-muted d-block ml-2 mr-4 font-weight-bold">Show Sale Agreement</span> <field name="show_sale_agreement" widget="boolean_toggle" nolabel="1"/>
+                        </div>
+                    </div>
+                </div>
             </page>
             <page string="Membership Agreement">
-                <field name="payment_membership_agreement" widget="html" options="{'style-inline': true, 'codeview': true }"/>
+                <div class="row ml4 mr4">
+                    <div class="col-md-9">
+                        <field name="payment_membership_agreement" colspan="2" nolabel="1" options="{'codeview': true}"/>
+                    </div>
+                    <div class="col-md-3 shadow-sm table-bordered p-4 bg-100" style="position: sticky; top: 20px; border-radius: 10px;">
+                        <separator string="Options"/>
+                        <div class="d-flex align-items-center">
+                            <span class="text-muted d-block ml-2 mr-4 font-weight-bold">Show Membership Agreement</span> <field name="show_membership_agreement" widget="boolean_toggle" nolabel="1"/>
+                        </div>
+                    </div>
+                </div>
             </page>
             <page string="Contact Page">
-                <field name="payment_contact_page" widget="html" options="{'style-inline': true, 'codeview': true }"/>
+                <div class="row ml4 mr4">
+                    <div class="col-md-9">
+                        <field name="payment_contact_page" colspan="2" nolabel="1" options="{'codeview': true}"/>
+                    </div>
+                    <div class="col-md-3 shadow-sm table-bordered p-4 bg-100" style="position: sticky; top: 20px; border-radius: 10px;">
+                        <separator string="Options"/>
+                        <div class="d-flex align-items-center">
+                            <span class="text-muted d-block ml-2 mr-4 font-weight-bold">Show Contact Page</span> <field name="show_contact_page" widget="boolean_toggle" nolabel="1"/>
+                        </div>
+                    </div>
+                </div>
             </page>
         </xpath>
     </field>
