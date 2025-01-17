@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="payment_jetcheckout_system.partner_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//button[@name='action_transaction_done']" position="before">
+            <button
+                type="object"
+                name="action_agreement"
+                class="oe_stat_button"
+                icon="fa-file-text-o"
+                groups="base.group_user"
+                attrs="{'invisible': [('paylox_agreement_count', '=', 0)]}">
+                <div class="o_form_field o_stat_info mr3">
+                    <span class="o_stat_value"><field name="paylox_agreement_count"/></span>
+                    <span class="o_stat_text font-weight-bold">Agreements</span>
+                </div>
+            </button>
+        </xpath>
+    </field>
+    </record>
+</odoo>

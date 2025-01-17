@@ -799,7 +799,7 @@ class PayloxSystemController(Controller):
         if not hook:
             return False
 
-        hook.run(**kwargs)
+        hook.run(request=request, **kwargs)
         return True
 
     @http.route('/my/advance', type='http', auth='public', methods=['GET', 'POST'], sitemap=False, csrf=False, website=True)

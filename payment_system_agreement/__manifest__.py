@@ -16,6 +16,7 @@
     ],
     'data': [
         #'views/settings.xml',
+        'views/partner.xml',
         'views/agreement.xml',
         'views/transaction.xml',
         'views/templates.xml',
