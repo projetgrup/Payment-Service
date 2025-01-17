@@ -61,7 +61,6 @@ class PaymentAgreement(models.Model):
             .replace('{{ partner_website }}', partner_website) \
             .replace('{{ payment_amount }}', payment_amount)
         return self.env['mail.render.mixin'].with_context(datetime=datetime, json=json, **values)._render_template(agreement, self._name, self.ids, engine='qweb')[self.id]
-        return agreement
 
     def render_pdf(self, **values):
         body = self.render(**values)
