@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import uuid
 import json
 import base64
 from datetime import datetime
 from odoo import models, fields, _
 from odoo.tools.misc import formatLang
+from odoo.tools.translate import xml_translate
 
 
 class PaymentAgreement(models.Model):
@@ -12,11 +14,17 @@ class PaymentAgreement(models.Model):
     _description = 'Payment System Agreement'
     _order = 'sequence, id'
 
+    def _compute_body(self):
+        for agreement in self:
+            tr = self._fields['arch'].get_trans_func(agreement)
+            agreement.body = tr(agreement.id, agreement.arch)
+
     sequence = fields.Integer(default=10)
     active = fields.Boolean(default=True)
     name = fields.Char(translate=True)
     text = fields.Char(translate=True)
-    body = fields.Html(translate=True, sanitize=False)
+    body = fields.Html(translate=True, sanitize=False, compute='_compute_body')
+    arch = fields.Text(translate=xml_translate)
     date_start = fields.Date('Start Date')
     date_end = fields.Date('End Date')
     version = fields.Char()
@@ -24,6 +32,9 @@ class PaymentAgreement(models.Model):
     page_ids = fields.Many2many('payment.page', 'payment_agreement_page_rel', 'agreement_id', 'page_id', string='Pages')
     product_ids = fields.Many2many('product.template', 'payment_agreement_product_rel', 'agreement_id', 'product_id', string='Products')
     type_ids = fields.Many2many('ir.model.fields.selection', 'payment_agreement_type_rel', 'agreement_id', 'type_id', string='Types', domain=[('field_id.name', '=', 'jetcheckout_payment_type')])
+
+    def open_translations(self):
+        return self.env['ir.translation'].translate_fields(self._name, self.id, 'arch')
 
     def render(self, **values):
         partner = values.get('partner', None)
@@ -83,9 +94,9 @@ class PaymentTransactionAgreement(models.Model):
     path = fields.Char(readonly=True)
     pdf = fields.Binary(readonly=True)
     active = fields.Boolean(readonly=True)
-    uuid = fields.Char('UUID', readonly=True)
     name = fields.Char(compute='_compute_name')
     body = fields.Html(sanitize=False, readonly=True)
+    uuid = fields.Char('UUID', readonly=True, copy=False, default=lambda self: str(uuid.uuid4()))
     ip_address = fields.Char('IP Address', readonly=True)
     page_id = fields.Many2one('payment.page', readonly=True)
     agreement_id = fields.Many2one('payment.agreement', readonly=True)
@@ -115,9 +126,7 @@ class PaymentTransactionAgreement(models.Model):
                     'data-report-header-spacing': 10,
                 }
             )
-            self.sudo().write({
-                'pdf': base64.b64encode(pdf)
-            })
+            self.sudo().write({'pdf': base64.b64encode(pdf)})
         return {
             'type': 'ir.actions.act_url',
             'target': 'new',
