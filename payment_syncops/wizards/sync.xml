@@ -38,9 +38,9 @@
         <xpath expr="//tree/field[@name='name']" position="after">
             <field name="partner_ref" string="Reference" optional="hide"/>
             <field name="partner_email" string="Email"/>
-            <field name="partner_iban" string="IBAN" optional="hide"/>
             <field name="partner_phone" string="Phone" optional="hide"/>
             <field name="partner_mobile" string="Mobile" optional="hide"/>
+            <field name="partner_address" string="Address" optional="hide"/>
             <field name="partner_campaign" string="Campaign" optional="hide"/>
             <field name="partner_tag" string="Tag" widget="badge" optional="hide"/>
             <field name="partner_user_name" string="Salesperson Name" optional="hide"/>

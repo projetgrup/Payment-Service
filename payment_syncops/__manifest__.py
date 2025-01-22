@@ -21,6 +21,7 @@
         'views/templates.xml',
         'views/settings.xml',
         'views/user.xml',
+        'views/item.xml',
         'wizards/sync.xml',
         'report/company.xml',
         'security/security.xml',
