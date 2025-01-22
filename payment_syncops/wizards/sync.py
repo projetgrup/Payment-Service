@@ -85,7 +85,7 @@ class SyncopsSyncWizard(models.TransientModel):
                     'partner_user_mobile': line.get('user_mobile', False),
                     'partner_balance': line.get('balance', 0),
                     'partner_campaign': line.get('campaign', False),
-                    'partner_iban': line.get('iban', False),
+                    'partner_address': line.get('address', False),
                     'partner_tag': line.get('tag', False),
                 }
             }
@@ -123,6 +123,7 @@ class SyncopsSyncWizard(models.TransientModel):
                         'partner_email': line.get('email', False),
                         'partner_phone': line.get('phone', False),
                         'partner_mobile': line.get('mobile', False),
+                        'partner_address': line.get('address', False),
                         'partner_balance': line.get('balance', 0),
                     },
                     'filter': lambda line: float(line.get('balance', 0)) > 0,
@@ -167,6 +168,7 @@ class SyncopsSyncWizard(models.TransientModel):
                         'partner_email': line.get('email', False),
                         'partner_phone': line.get('phone', False),
                         'partner_mobile': line.get('mobile', False),
+                        'partner_address': line.get('address', False),
                         'invoice_id': line.get('id', False),
                         'invoice_tag': line.get('tag', False),
                         'invoice_name': line.get('name', False),
@@ -243,6 +245,7 @@ class SyncopsSyncWizard(models.TransientModel):
                         'ref': line['partner_ref'],
                         'email': line['partner_email'],
                         'phone': line['partner_phone'],
+                        'street': line['partner_address'],
                         'mobile': line['partner_mobile'] or line['partner_phone'],
                         'campaign_id': campaigns.get(line['partner_campaign'], False),
                         'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
@@ -257,6 +260,7 @@ class SyncopsSyncWizard(models.TransientModel):
                         'ref': line['partner_ref'],
                         'email': line['partner_email'],
                         'phone': line['partner_phone'],
+                        'street': line['partner_address'],
                         'mobile': line['partner_mobile'] or line['partner_phone'],
                         'campaign_id': campaigns.get(line['partner_campaign'], False),
                         'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
@@ -320,6 +324,7 @@ class SyncopsSyncWizard(models.TransientModel):
                             'email': line['partner_email'],
                             'phone': line['partner_phone'],
                             'mobile': line['partner_phone'],
+                            'street': line['partner_address'],
                             'campaign_id': campaigns.get(line['partner_campaign'], False),
                             'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
                             'company_id': company.id,
@@ -396,6 +401,7 @@ class SyncopsSyncWizard(models.TransientModel):
                             'ref': line['partner_ref'],
                             'email': line['partner_email'],
                             'phone': line['partner_phone'],
+                            'street': line['partner_address'],
                             'mobile': line['partner_mobile'] or line['partner_phone'],
                             'campaign_id': campaigns.get(line['partner_campaign'], False),
                             'category_id': [(6, 0, tags.get(line['partner_tag'], []))],
@@ -508,7 +514,7 @@ class SyncopsSyncWizardLine(models.TransientModel):
     partner_phone = fields.Char(readonly=True)
     partner_mobile = fields.Char(readonly=True)
     partner_campaign = fields.Char(readonly=True)
-    partner_iban = fields.Char(readonly=True)
+    partner_address = fields.Char(readonly=True)
     partner_balance = fields.Monetary(readonly=True)
     partner_user_name = fields.Char(string='Partner Salesperson Name', readonly=True)
     partner_user_email = fields.Char(string='Partner Salesperson Email', readonly=True)

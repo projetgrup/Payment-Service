@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="item_tree" model="ir.ui.view">
+    <field name="model">payment.item</field>
+    <field name="inherit_id" ref="payment_jetcheckout_system.item_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//tree" position="inside">
+            <field name="jetcheckout_connector_ok" invisible="1"/>
+            <field name="jetcheckout_connector_state" invisible="1"/>
+            <field name="jetcheckout_connector_sent" invisible="1"/>
+            <field name="jetcheckout_connector_result" string=" "/>
+            <field name="jetcheckout_connector_payment_ref" string="Connector Reference" attrs="{'invisible': [('jetcheckout_connector_ok', '=', False)]}" optional="hide"/>
+            <field name="jetcheckout_connector_state_message" string="Connector Message" attrs="{'invisible': [('jetcheckout_connector_ok', '=', False)]}" optional="hide"/>
+            <button
+                name="action_check_connector"
+                type="object"
+                icon="fa-chain"
+                attrs="{'invisible': ['|', '|', ('paid', '=', False), ('jetcheckout_connector_ok', '=', False), ('jetcheckout_connector_state', '!=', False)]}"
+                string="Succeeded"
+            />
+            <button
+                name="action_check_connector"
+                type="object"
+                icon="fa-unlink"
+                attrs="{'invisible': ['|', '|', ('paid', '=', False), ('jetcheckout_connector_ok', '=', False), ('jetcheckout_connector_state', '=', False)]}"
+                string="Failed"
+            />
+            <button
+                name="action_process_connector"
+                type="object"
+                icon="fa-exchange"
+                attrs="{'invisible': ['|', '|', ('paid', '=', False), ('jetcheckout_connector_ok', '=', False), ('jetcheckout_connector_state', '=', False)]}"
+                string="Process"
+            />
+        </xpath>
+    </field>
+    </record>
+
+    <record id="item_search" model="ir.ui.view">
+    <field name="model">payment.item</field>
+    <field name="inherit_id" ref="payment_jetcheckout_system.item_search"/>
+    <field name="priority" eval="15"/>
+    <field name="arch" type="xml">
+        <xpath expr="//group" position="before">
+            <separator/>
+            <filter string="Connector Payments" name="connector_ok" domain="[('jetcheckout_connector_ok', '=', True)]"/>
+            <separator/>
+            <filter string="Failed Connector Payments" name="connector_state" domain="[('jetcheckout_connector_ok', '=', True), ('jetcheckout_connector_state', '=', True)]"/>
+            <separator/>
+        </xpath>
+    </field>
+    </record>
+</odoo>

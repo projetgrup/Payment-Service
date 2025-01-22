@@ -30,6 +30,7 @@ class PaymentHook(models.Model):
     code = fields.Text()
     type = fields.Selection([
         ('transaction', 'Transaction'),
+        ('item', 'Item'),
         ('route', 'Route'),
     ])
     subtype = fields.Selection([
