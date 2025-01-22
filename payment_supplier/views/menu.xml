@@ -27,6 +27,7 @@
     <menuitem id="menu_acquirers" name="Payment Settings" parent="menu_conf" sequence="4"/>
     <menuitem id="menu_acquirer" action="payment_jetcheckout_system.action_payment_acquirer" name="Payment Acquirers" parent="menu_acquirers" sequence="1"/>
     <menuitem id="menu_token" action="action_token" name="Credit Cards" parent="menu_acquirers" sequence="2"/>
+    <menuitem id="menu_hook" action="payment_jetcheckout_system.action_hook" name="Hooks" parent="menu_acquirers" sequence="3"/>
 
     <menuitem id="menu_mail" name="Email Settings" parent="menu_conf" sequence="5"/>
     <menuitem id="menu_mail_template" action="payment_jetcheckout_system.action_mail_template" parent="menu_mail" sequence="1"/>

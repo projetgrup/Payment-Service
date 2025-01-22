@@ -35,16 +35,16 @@ class PaymentItem(models.Model):
     def _compute_paid(self):
         for item in self:
             transactions = item.transaction_ids.filtered(lambda x: x.state == 'done')
-            if item.residual_amount or not transactions:
+            if item.residual_amount:
                 item.paid = False
                 item.paid_date = False
                 item.installment_count = False
             else:
                 item.paid = True
-                transaction = transactions[0]
-                item.paid_date = transaction.last_state_change
-                item.installment_count = transaction.jetcheckout_installment_count
-                item.send_done_mail()
+                #transaction = transactions[0]
+                item.paid_date = fields.Datetime.now() #transaction.last_state_change
+                item.installment_count = 1 #transaction.jetcheckout_installment_count
+                #item.send_done_mail()
 
     @api.depends('transaction_ids.state')
     def _compute_paid_amount(self):
@@ -124,6 +124,15 @@ class PaymentItem(models.Model):
     def onchange(self, values, field_name, field_onchange):
         return super(PaymentItem, self.with_context(recursive_onchanges=False)).onchange(values, field_name, field_onchange)
 
+    def run_hook(self, subtype, **kwargs):
+        hook = self.env['payment.hook'].sudo().search([
+            ('type', '=', 'item'),
+            ('subtype', '=', subtype),
+            ('company_id', '=', self.company_id.id),
+        ], limit=1)
+        if hook:
+            hook.run(item=self, **kwargs)
+
     def action_plan(self):
         action = self.env.ref('payment_jetcheckout_system.action_plan').sudo().read()[0]
         action['domain'] = [('id', 'in', self.plan_ids.ids)]
@@ -179,6 +188,13 @@ class PaymentItem(models.Model):
                 item.system = item.company_id.system or item.parent_id.system or item.child_id.system
             if not item.currency_id:
                 item.currency_id = item.company_id.currency_id.id
+        return res
+
+    def _write(self, values):
+        res = super()._write(values)
+        if values.get('paid'):
+            for item in self:
+                item.run_hook('finalize')
         return res
 
     def get_due(self):
