@@ -179,6 +179,7 @@ class PaymentItem(models.Model):
             res.currency_id = res.company_id.currency_id.id
         if res.company_id.payment_page_item_expire_ok:
             res.date_expire = fields.Datetime.now() + relativedelta(**{res.company_id.payment_page_item_expire_period: res.company_id.payment_page_item_expire_value})
+        res.run_hook('create')
         return res
 
     def write(self, values):
