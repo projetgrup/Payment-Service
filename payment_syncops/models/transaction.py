@@ -131,6 +131,8 @@ class PaymentTransaction(models.Model):
                     'ref': ref or '',
                     'vat': vat or '',
                     'name': name or '',
+                    'child_ref': item.item_id.child_id.ref or '',
+                    'child_vat': item.item_id.child_id.vat or '',
                     'tag': self.paylox_item_tag_name or '',
                     'date': date.strftime('%Y-%m-%d %H:%M:%S'),
                     'amount': abs(item.amount),
