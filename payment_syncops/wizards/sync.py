@@ -87,13 +87,14 @@ class SyncopsSyncWizard(models.TransientModel):
                     'partner_campaign': line.get('campaign', False),
                     'partner_address': line.get('address', False),
                     'partner_tag': line.get('tag', False),
-                }
+                },
+                'filter': lambda line: True,
             }
             hook = self.env['syncops.connector'].get_hook('payment_get_partner_list', 'pre', 'partner')
             if hook:
                 hook.run(wizard=self, methods=methods, lines=lines)
 
-            self.line_ids = [(0, 0, methods['value'](line)) for line in lines]
+            self.line_ids = [(0, 0, methods['value'](line)) for line in lines if methods['filter'](line)]
             res['view_id'] = self.env.ref('payment_syncops.tree_wizard_sync_line_partner').id
 
         elif self.type == 'item':
