@@ -98,7 +98,7 @@ class PaymentTransaction(models.Model):
         if not self.source_transaction_id and self.state not in ('done', 'cancel'):
             return
 
-        if self.state in self.sudo().acquirer_id.syncops_exclude_state_ids.mapped('value'):
+        if self.state in self.acquirer_id.sudo().syncops_exclude_state_ids.mapped('value'):
             if self.jetcheckout_connector_sent:
                 self.write({'jetcheckout_connector_state': False})
             return
