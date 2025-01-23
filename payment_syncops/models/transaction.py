@@ -126,6 +126,7 @@ class PaymentTransaction(models.Model):
         result, message = None, ''
         if self.company_id.syncops_sync_item_split:
             for item in self.paylox_transaction_item_ids:
+
                 #TODO
                 child_vat = item.item_id.child_id.ref or ''
                 child_ref = item.item_id.child_id.ref or ''
@@ -133,15 +134,13 @@ class PaymentTransaction(models.Model):
                     child_ref += '-1'
                 elif item.item_id.payment_type_id.code == 'MATERIAL':
                     child_ref += '-2'
-
                 #ODOT
+
                 result, message = self.env['syncops.connector'].sudo()._execute('payment_post_partner_payment', reference=str(self.id), params={
                     'id': item.item_id.id,
-                    'ref': ref or '',
-                    'vat': vat or '',
+                    'ref': child_ref or ref or '', #TODO
+                    'vat': child_vat or vat or '', #TODO
                     'name': name or '',
-                    'child_ref': child_ref,
-                    'child_vat': child_vat,
                     'tag': self.paylox_item_tag_name or '',
                     'date': date.strftime('%Y-%m-%d %H:%M:%S'),
                     'amount': abs(item.amount),
