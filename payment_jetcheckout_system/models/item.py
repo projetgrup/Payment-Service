@@ -99,6 +99,7 @@ class PaymentItem(models.Model):
             else:
                 item.plan_error = False
 
+    @api.depends('plan_ids.approval_state')
     def _compute_planned(self):
         for item in self:
             item.planned = all(plan.approval_state == '+' for plan in item.plan_ids)
