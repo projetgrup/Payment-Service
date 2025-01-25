@@ -785,4 +785,10 @@
             <t t-call="payment_jetcheckout_system.payment_footer"/>
         </t>
     </template>
+
+    <template id="language_selector" name="Language Selector" inherit_id="portal.language_selector">
+        <xpath expr="//a" position="attributes">
+            <attribute name="t-att-href">url_for('//' + request.httprequest.host + request.httprequest.path + '?' + keep_query(), lang_code=lg[0])</attribute>
+        </xpath>
+    </template>
 </odoo>
