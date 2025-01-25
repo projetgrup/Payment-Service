@@ -141,6 +141,13 @@
     <field name="target">new</field>
     </record>
 
+    <record id="action_plan_error_wizard" model="ir.actions.act_window">
+    <field name="name">Payment Plan Error Wizard</field>
+    <field name="res_model">payment.plan.error.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    </record>
+
     <record id="action_dashboard" model="ir.actions.act_window">
     <field name="name">Dashboard</field>
     <field name="res_model">payment.dashboard</field>

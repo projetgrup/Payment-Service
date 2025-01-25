@@ -31,6 +31,8 @@
             <field name="company_id" groups="base.group_multi_company,base.group_system" options="{'no_create': True, 'no_open': True}" optional="hide" force_save="1"/>
             <field name="system" invisible="1" force_save="1"/>
             <field name="plan_ids" invisible="1"/>
+            <field name="plan_exist" invisible="1"/>
+            <field name="plan_iban_exist" invisible="1"/>
             <field name="is_admin" invisible="1"/>
         </tree>
     </field>

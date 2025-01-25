@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-06 13:51+0000\n"
-"PO-Revision-Date: 2023-12-06 13:51+0000\n"
+"POT-Creation-Date: 2025-01-25 17:42+0000\n"
+"PO-Revision-Date: 2025-01-25 17:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -55,6 +55,85 @@ msgid ""
 msgstr ""
 
 #. module: payment_syncops
+#: model:mail.template,body_html:payment_syncops.mail_template_item_notif
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td valign=\"middle\">\n"
+"                        <span style=\"font-size: 10px;\">Payment Notification</span>\n"
+"                    </td>\n"
+"                    <td valign=\"middle\" align=\"right\">\n"
+"                        <img t-attf-src=\"/logo.png?company={{ ctx['company']['id'] }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"ctx['company']['name']\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"                <tr>\n"
+"                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                        <div>\n"
+"                            Hello, <strong t-out=\"ctx['partner']['name']\"/><br/><br/>\n"
+"                            Click on the button below to get payment page.\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx['link']\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
+"                                    <strong>Go to link</strong>\n"
+"                                </a>\n"
+"                            </div>\n"
+"                        </div>\n"
+"                    </td>\n"
+"                </tr>\n"
+"                <tr>\n"
+"                    <td style=\"text-align:center;\">\n"
+"                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    <t t-out=\"ctx['company']['name'] or ''\">YourCompany</t>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    <t t-out=\"ctx['company']['phone'] or ''\">+1 650-123-4567</t>\n"
+"                    <t t-if=\"ctx['company']['email']\">\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ ctx['company']['email'] }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company']['email'] or ''\">info@yourcompany.com</a>\n"
+"                    </t>\n"
+"                    <t t-if=\"ctx['company']['website']\">\n"
+"                        | <a t-attf-href=\"'%s' % {{ ctx['company']['website'] }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company']['website'] or ''\">http://www.example.com</a>\n"
+"                    </t>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.tree_wizard_sync_line_partner
+msgid "Address"
+msgstr ""
+
+#. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.page_ledger
 #: model_terms:ir.ui.view,arch_db:payment_syncops.tree_wizard_sync_line_item_invoice
 msgid "Amount"
@@ -90,6 +169,37 @@ msgid "Balance"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model,name:payment_syncops.model_res_partner_bank
+msgid "Bank Accounts"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.tree_wizard_sync_line_partner
+msgid "Campaign"
+msgstr ""
+
+#. module: payment_syncops
+#: model:res.groups,name:payment_syncops.group_check_card
+msgid "Check Credit Card Number"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Check Credit Card Numbers"
+msgstr ""
+
+#. module: payment_syncops
+#: model:res.groups,name:payment_syncops.group_check_iban
+#: model_terms:ir.ui.view,arch_db:payment_syncops.user_form
+msgid "Check Partner IBAN"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Check Partners IBAN"
+msgstr ""
+
+#. module: payment_syncops
 #. openerp-web
 #: code:addons/payment_syncops/static/src/xml/connector.xml:0
 #, python-format
@@ -109,6 +219,21 @@ msgid "Company"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__jetcheckout_connector_ok
+msgid "Connector"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__jetcheckout_connector_done
+msgid "Connector Done"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.item_tree
+msgid "Connector Message"
+msgstr ""
+
+#. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_transaction__jetcheckout_connector_partner_name
 msgid "Connector Partner Name"
 msgstr ""
@@ -124,16 +249,40 @@ msgid "Connector Partner VAT"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__jetcheckout_connector_payment_ref
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_transaction__jetcheckout_connector_payment_ref
 msgid "Connector Payment Reference"
 msgstr ""
 
 #. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.item_search
+msgid "Connector Payments"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.item_tree
+msgid "Connector Reference"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__jetcheckout_connector_result
+msgid "Connector Result"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__jetcheckout_connector_sent
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_transaction__jetcheckout_connector_sent
+msgid "Connector Sent"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__jetcheckout_connector_state
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_transaction__jetcheckout_connector_state
 msgid "Connector State"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__jetcheckout_connector_state_message
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_transaction__jetcheckout_connector_state_message
 msgid "Connector State Message"
 msgstr ""
@@ -154,12 +303,23 @@ msgid "Contact"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_partner_iban__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_partner_iban__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.tree_wizard_sync_line_item_invoice
 msgid "Currency"
 msgstr ""
 
 #. module: payment_syncops
 #: model:ir.model.fields.selection,name:payment_syncops.selection__res_company__syncops_cron_sync_item_subtype__balance
+#: model:ir.model.fields.selection,name:payment_syncops.selection__syncops_connector_hook__subtype__balance
 #: model:ir.model.fields.selection,name:payment_syncops.selection__syncops_sync_wizard__type_item_subtype__balance
 msgid "Current Balances"
 msgstr ""
@@ -179,6 +339,11 @@ msgstr ""
 #. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.page_ledger
 msgid "Description"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_partner_iban__display_name
+msgid "Display Name"
 msgstr ""
 
 #. module: payment_syncops
@@ -231,6 +396,26 @@ msgid "Excel"
 msgstr ""
 
 #. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.acquirer_form
+msgid "Exclude Refunds"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.acquirer_form
+msgid "Excluded States"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.item_tree
+msgid "Failed"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.item_search
+msgid "Failed Connector Payments"
+msgstr ""
+
+#. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.transaction_search
 msgid "Failed Connector Transactions"
 msgstr ""
@@ -238,6 +423,18 @@ msgstr ""
 #. module: payment_syncops
 #: model:ir.model,name:payment_syncops.model_ir_http
 msgid "HTTP Routing"
+msgstr ""
+
+#. module: payment_syncops
+#: model:sms.template,body:payment_syncops.sms_template_item_notif
+msgid ""
+"Hello, you can get payment page on {{ ctx['domain'] }} by clicking the "
+"following link.\\n{{ ctx['link'] }}"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_partner_iban__id
+msgid "ID"
 msgstr ""
 
 #. module: payment_syncops
@@ -271,6 +468,26 @@ msgid "Invoice Name"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_sync_wizard_line__invoice_tag
+msgid "Invoice Tag"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_partner_iban____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_partner_iban__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_partner_iban__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
 msgid "Make partner choice required on payment page for the company"
 msgstr ""
@@ -284,11 +501,13 @@ msgid "Mobile"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_partner_iban__name
 #: model_terms:ir.ui.view,arch_db:payment_syncops.page_ledger
 msgid "Name"
 msgstr ""
 
 #. module: payment_syncops
+#: code:addons/payment_syncops/models/item.py:0
 #: code:addons/payment_syncops/models/transaction.py:0
 #, python-format
 msgid "No log found"
@@ -309,25 +528,58 @@ msgid "No records found"
 msgstr ""
 
 #. module: payment_syncops
+#: code:addons/payment_syncops/models/item.py:0
 #: code:addons/payment_syncops/models/transaction.py:0
 #, python-format
 msgid "No syncOPS connector found"
 msgstr ""
 
 #. module: payment_syncops
+#: code:addons/payment_syncops/models/item.py:0
 #: code:addons/payment_syncops/models/transaction.py:0
 #, python-format
 msgid "No syncOPS endpoint URL found"
 msgstr ""
 
 #. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Notification Time"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Notification Type"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Notify Partners"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Only"
+msgstr ""
+
+#. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_syncops_sync_wizard_line__partner_id
+#: model:ir.model.fields.selection,name:payment_syncops.selection__syncops_connector_hook__type__partner
 msgid "Partner"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_sync_wizard_line__partner_address
+msgid "Partner Address"
 msgstr ""
 
 #. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_syncops_sync_wizard_line__partner_balance
 msgid "Partner Balance"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_sync_wizard_line__partner_campaign
+msgid "Partner Campaign"
 msgstr ""
 
 #. module: payment_syncops
@@ -381,6 +633,16 @@ msgid "Partner Selection Required"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_sync_wizard_line__partner_tag
+msgid "Partner Tag"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Partner Tags..."
+msgstr ""
+
+#. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_syncops_sync_wizard_line__partner_vat
 msgid "Partner Vat"
 msgstr ""
@@ -399,8 +661,14 @@ msgid "Partners: Sync"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields.selection,name:payment_syncops.selection__syncops_connector_hook__type__item
 #: model_terms:ir.ui.view,arch_db:payment_syncops.page_ledger
 msgid "Payment"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model,name:payment_syncops.model_payment_acquirer
+msgid "Payment Acquirer"
 msgstr ""
 
 #. module: payment_syncops
@@ -416,6 +684,18 @@ msgid "Payment Items: Sync"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.actions.server,name:payment_syncops.cron_sync_item_notif_ir_actions_server
+#: model:ir.cron,cron_name:payment_syncops.cron_sync_item_notif
+#: model:ir.cron,name:payment_syncops.cron_sync_item_notif
+msgid "Payment Items: Sync Notify Partners"
+msgstr ""
+
+#. module: payment_syncops
+#: model:mail.template,subject:payment_syncops.mail_template_item_notif
+msgid "Payment Notification | {{ ctx['company']['name'] }}"
+msgstr ""
+
+#. module: payment_syncops
 #: model:ir.model,name:payment_syncops.model_payment_settings
 msgid "Payment Settings"
 msgstr ""
@@ -426,11 +706,18 @@ msgid "Payment Transaction"
 msgstr ""
 
 #. module: payment_syncops
+#: model:mail.template,name:payment_syncops.mail_template_item_notif
+#: model:sms.template,name:payment_syncops.sms_template_item_notif
+msgid "Payment: syncOPS Item Notification"
+msgstr ""
+
+#. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.tree_wizard_sync_line_partner
 msgid "Phone"
 msgstr ""
 
 #. module: payment_syncops
+#: code:addons/payment_syncops/models/item.py:0
 #: code:addons/payment_syncops/models/transaction.py:0
 #, python-format
 msgid "Please save transaction before checking connector logs"
@@ -443,8 +730,19 @@ msgid "Please select a partner"
 msgstr ""
 
 #. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.item_tree
+msgid "Process"
+msgstr ""
+
+#. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.transaction_form
 msgid "Process Connector"
+msgstr ""
+
+#. module: payment_syncops
+#: code:addons/payment_syncops/models/item.py:0
+#, python-format
+msgid "Processing..."
 msgstr ""
 
 #. module: payment_syncops
@@ -541,6 +839,16 @@ msgid "Select a partner"
 msgstr ""
 
 #. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.user_form
+msgid "Show Sync Button"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Split Done Payment Items"
+msgstr ""
+
+#. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.form_wizard_sync
 #: model_terms:ir.ui.view,arch_db:payment_syncops.page_ledger
 msgid "Start Date"
@@ -559,16 +867,28 @@ msgid "Start date cannot be later than end date"
 msgstr ""
 
 #. module: payment_syncops
-#. openerp-web
-#: code:addons/payment_syncops/static/src/xml/item.xml:0
-#: code:addons/payment_syncops/static/src/xml/partner.xml:0
-#, python-format
-msgid "Sync"
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_connector_hook__subtype
+msgid "Subtype"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.item_tree
+msgid "Succeeded"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Sync Day"
 msgstr ""
 
 #. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
 msgid "Sync Partners Automatically"
+msgstr ""
+
+#. module: payment_syncops
+#: model:res.groups,name:payment_syncops.group_sync
+msgid "Sync Partners and Payments"
 msgstr ""
 
 #. module: payment_syncops
@@ -583,12 +903,27 @@ msgstr ""
 
 #. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Sync Payment Items Without New Partners"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
 msgid "Sync Time"
 msgstr ""
 
 #. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
 msgid "Sync Type"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Sync done payment items one by one"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Sync payment items without syncing new partners"
 msgstr ""
 
 #. module: payment_syncops
@@ -602,15 +937,63 @@ msgid "Synchronization Type"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_check_card
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_check_card
+msgid "Syncops Check Card"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_check_iban
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_check_iban
+msgid "Syncops Check Iban"
+msgstr ""
+
+#. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_item
 #: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_item
 msgid "Syncops Cron Sync Item"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_item_day_ids
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_item_day_ids
+msgid "Syncops Cron Sync Item Day"
+msgstr ""
+
+#. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_item_hour
 #: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_item_hour
 msgid "Syncops Cron Sync Item Hour"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_item_notif_hour
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_item_notif_hour
+msgid "Syncops Cron Sync Item Notif Hour"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_item_notif_ok
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_item_notif_ok
+msgid "Syncops Cron Sync Item Notif Ok"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_item_notif_tag_ids
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_item_notif_tag_ids
+msgid "Syncops Cron Sync Item Notif Tag"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_item_notif_tag_ok
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_item_notif_tag_ok
+msgid "Syncops Cron Sync Item Notif Tag Ok"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_item_notif_type_ids
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_item_notif_type_ids
+msgid "Syncops Cron Sync Item Notif Type"
 msgstr ""
 
 #. module: payment_syncops
@@ -626,6 +1009,38 @@ msgid "Syncops Cron Sync Partner"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_partner_day_ids
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_partner_day_ids
+msgid "Syncops Cron Sync Partner Day"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_partner_hour
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_cron_sync_partner_hour
+msgid "Syncops Cron Sync Partner Hour"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_acquirer__syncops_exclude_refund
+msgid "Syncops Exclude Refund"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_acquirer__syncops_exclude_state_ids
+msgid "Syncops Exclude State"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__syncops_notif
+msgid "Syncops Notif"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__syncops_ok
+msgid "Syncops Ok"
+msgstr ""
+
+#. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_payment_page_partner_required
 #: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_payment_page_partner_required
 msgid "Syncops Payment Page Partner Required"
@@ -635,6 +1050,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_sync_item_force
 #: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_sync_item_force
 msgid "Syncops Sync Item Force"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_sync_item_no_partner
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_sync_item_no_partner
+msgid "Syncops Sync Item No Partner"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_sync_item_split
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_sync_item_split
+msgid "Syncops Sync Item Split"
 msgstr ""
 
 #. module: payment_syncops
@@ -648,18 +1075,26 @@ msgid "System"
 msgstr ""
 
 #. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.tree_wizard_sync_line_item_invoice
+#: model_terms:ir.ui.view,arch_db:payment_syncops.tree_wizard_sync_line_partner
+msgid "Tag"
+msgstr ""
+
+#. module: payment_syncops
 #: code:addons/payment_syncops/models/transaction.py:0
 #, python-format
 msgid "There is no account line for this provider"
 msgstr ""
 
 #. module: payment_syncops
+#: code:addons/payment_syncops/models/item.py:0
 #: code:addons/payment_syncops/models/transaction.py:0
 #, python-format
 msgid "This transaction has been successfully posted to connector."
 msgstr ""
 
 #. module: payment_syncops
+#: code:addons/payment_syncops/models/item.py:0
 #: code:addons/payment_syncops/models/transaction.py:0
 #, python-format
 msgid ""
@@ -680,6 +1115,7 @@ msgid "Total Debit &amp; Credit"
 msgstr ""
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_connector_hook__type
 #: model_terms:ir.ui.view,arch_db:payment_syncops.page_ledger
 msgid "Type"
 msgstr ""
@@ -706,8 +1142,14 @@ msgstr ""
 
 #. module: payment_syncops
 #: model:ir.model.fields.selection,name:payment_syncops.selection__res_company__syncops_cron_sync_item_subtype__invoice
+#: model:ir.model.fields.selection,name:payment_syncops.selection__syncops_connector_hook__subtype__invoice
 #: model:ir.model.fields.selection,name:payment_syncops.selection__syncops_sync_wizard__type_item_subtype__invoice
 msgid "Unpaid Invoices"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model,name:payment_syncops.model_res_users
+msgid "Users"
 msgstr ""
 
 #. module: payment_syncops
@@ -721,12 +1163,75 @@ msgstr ""
 
 #. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Verify whether payment credit card numbers are correct"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Verify whether your partners' bank IBAN numbers are correct"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields.selection,name:payment_syncops.selection__payment_settings__syncops_cron_sync_item_notif_tag_opt__exclude
+msgid "exclude"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "following partner tags<br/><br/>"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields.selection,name:payment_syncops.selection__payment_settings__syncops_cron_sync_item_notif_tag_opt__include
+msgid "include"
+msgstr ""
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.acquirer_form
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
 msgid "syncOPS"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_res_users__group_syncops_check_card
+msgid "syncOPS Check Credit Card Number"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_res_users__group_syncops_check_iban
+msgid "syncOPS Check IBAN"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model,name:payment_syncops.model_syncops_connector_hook
+msgid "syncOPS Connector Hooks"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_cron_sync_item_notif_tag_opt
+msgid "syncOPS Cron Sync Item Notification Tag Option"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__syncops_data
+#: model:ir.model.fields,field_description:payment_syncops.field_res_partner__syncops_data
+#: model:ir.model.fields,field_description:payment_syncops.field_res_users__syncops_data
+msgid "syncOPS Data"
 msgstr ""
 
 #. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.company_hierarchy_line
 msgid "syncOPS Integration"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model,name:payment_syncops.model_syncops_partner_iban
+msgid "syncOPS Partner Bank IBAN"
+msgstr ""
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_res_users__group_syncops_sync
+msgid "syncOPS Sync"
 msgstr ""
 
 #. module: payment_syncops

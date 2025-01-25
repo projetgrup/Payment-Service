@@ -6,7 +6,9 @@ from odoo.exceptions import UserError
 
 class PaymentToken(models.Model):
     _inherit = 'payment.token'
+    _order = 'sequence, id'
 
+    sequence = fields.Integer(default=10)
     jetcheckout_ref = fields.Char('Credit Card Token')
     jetcheckout_type = fields.Char('Credit Card Type')
     jetcheckout_holder = fields.Char('Credit Card Holder')

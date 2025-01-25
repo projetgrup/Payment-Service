@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-17 12:12+0000\n"
-"PO-Revision-Date: 2024-07-17 12:12+0000\n"
+"POT-Creation-Date: 2025-01-25 17:43+0000\n"
+"PO-Revision-Date: 2025-01-25 17:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,18 +22,6 @@ msgid "%s must have at least one bank account which is verified."
 msgstr ""
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid ""
-". Please try again. If this situation occurs anyway, please contact with "
-"system administation."
-msgstr ""
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid "<em class=\"d-block mt-1 text-600\">Redirecting...</em>"
-msgstr ""
-
-#. module: payment_supplier
 #: model_terms:ir.ui.view,arch_db:payment_supplier.parent_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
@@ -42,18 +30,76 @@ msgid ""
 msgstr ""
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "<span>Card Number</span>"
-msgstr ""
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "<span>Expiration</span>"
-msgstr ""
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "<span>Name</span>"
+#: model:mail.template,body_html:payment_supplier.mail_item_done
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td valign=\"middle\">\n"
+"                        <span style=\"font-size: 10px;\">Payment Notification</span>\n"
+"                    </td>\n"
+"                    <td valign=\"middle\" align=\"right\">\n"
+"                        <img t-attf-src=\"/logo.png?company={{ ctx['company']['id'] }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"ctx['company']['name']\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"                <tr>\n"
+"                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                        <div>\n"
+"                            Hello,<br/><br/>\n"
+"                            Your payment information is as follows:<br/><br/>\n"
+"                            Your payment will be sent you via IYZICO accounts.<br/><br/>\n"
+"                            Payment Amount: <strong t-out=\"format_amount(object.paid_amount, object.currency_id) or ''\"/><br/>\n"
+"                            Payer Company: <strong t-out=\"ctx['company']['name']\"/><br/>\n"
+"                            Payee IBAN Account: <strong t-out=\"ctx['iban']\"/><br/>\n"
+"                        </div>\n"
+"                    </td>\n"
+"                </tr>\n"
+"                <tr>\n"
+"                    <td style=\"text-align:center;\">\n"
+"                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    <t t-out=\"ctx['company']['name'] or ''\">YourCompany</t>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    <t t-out=\"ctx['company']['phone'] or ''\">+1 650-123-4567</t>\n"
+"                    <t t-if=\"ctx['company']['email']\">\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ ctx['company']['email'] }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company']['email'] or ''\">info@yourcompany.com</a>\n"
+"                    </t>\n"
+"                    <t t-if=\"ctx['company']['website']\">\n"
+"                        | <a t-attf-href=\"'%s' % {{ ctx['company']['website'] }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company']['website'] or ''\">http://www.example.com</a>\n"
+"                    </t>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
 msgstr ""
 
 #. module: payment_supplier
@@ -119,8 +165,8 @@ msgid "Branch"
 msgstr ""
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "CVC"
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_tree
+msgid "CC Paid"
 msgstr ""
 
 #. module: payment_supplier
@@ -221,13 +267,6 @@ msgid "Credit Cards"
 msgstr ""
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid ""
-"Credit card verification status could not be retrieved. Please close the "
-"dialog and check the verification again."
-msgstr ""
-
-#. module: payment_supplier
 #: model:ir.ui.menu,name:payment_supplier.menu_dashboard
 msgid "Dashboard"
 msgstr ""
@@ -243,6 +282,16 @@ msgid "Display Name"
 msgstr ""
 
 #. module: payment_supplier
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_tree
+msgid "ERP Recorded"
+msgstr ""
+
+#. module: payment_supplier
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_tree
+msgid "Edit IBAN"
+msgstr ""
+
+#. module: payment_supplier
 #: model:ir.ui.menu,name:payment_supplier.menu_mail
 msgid "Email Settings"
 msgstr ""
@@ -255,6 +304,11 @@ msgstr ""
 #. module: payment_supplier
 #: model:ir.model,name:payment_supplier.model_ir_http
 msgid "HTTP Routing"
+msgstr ""
+
+#. module: payment_supplier
+#: model:ir.ui.menu,name:payment_supplier.menu_hook
+msgid "Hooks"
 msgstr ""
 
 #. module: payment_supplier
@@ -280,11 +334,6 @@ msgstr ""
 #. module: payment_supplier
 #: model:ir.model.fields,field_description:payment_supplier.field_payment_token_verify__write_date
 msgid "Last Updated on"
-msgstr ""
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "MM/YY"
 msgstr ""
 
 #. module: payment_supplier
@@ -335,6 +384,11 @@ msgid "Payment Items"
 msgstr ""
 
 #. module: payment_supplier
+#: model:mail.template,subject:payment_supplier.mail_item_done
+msgid "Payment Notification | {{ ctx['company']['name'] }}"
+msgstr ""
+
+#. module: payment_supplier
 #: model:ir.model,name:payment_supplier.model_payment_plan
 #: model:ir.ui.menu,name:payment_supplier.menu_plan
 msgid "Payment Plans"
@@ -358,6 +412,11 @@ msgstr ""
 #. module: payment_supplier
 #: model:mail.template,subject:payment_supplier.mail_item_approved
 msgid "Payment has been approved from {{ ctx['company']['name'] }}"
+msgstr ""
+
+#. module: payment_supplier
+#: model:mail.template,name:payment_supplier.mail_item_done
+msgid "Payment: Item Done"
 msgstr ""
 
 #. module: payment_supplier
@@ -451,11 +510,6 @@ msgid "Sales Teams"
 msgstr ""
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "Security Code"
-msgstr ""
-
-#. module: payment_supplier
 #: model:ir.actions.act_window,name:payment_supplier.action_settings
 #: model:ir.ui.menu,name:payment_supplier.menu_settings
 msgid "Settings"
@@ -507,11 +561,6 @@ msgid "System"
 msgstr ""
 
 #. module: payment_supplier
-#: model:ir.model.fields,field_description:payment_supplier.field_payment_item__system_supplier_bank_verified
-msgid "System Supplier Bank Verified"
-msgstr ""
-
-#. module: payment_supplier
 #: model:ir.model.fields,field_description:payment_supplier.field_payment_item__system_supplier_plan_mail_sent
 msgid "System Supplier Plan Mail Sent"
 msgstr ""
@@ -534,6 +583,16 @@ msgstr ""
 #. module: payment_supplier
 #: model:ir.ui.menu,name:payment_supplier.menu_transaction
 msgid "Transactions"
+msgstr ""
+
+#. module: payment_supplier
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_tree
+msgid "Transfer Confirmed"
+msgstr ""
+
+#. module: payment_supplier
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_search
+msgid "Unplanable Items"
 msgstr ""
 
 #. module: payment_supplier
@@ -566,17 +625,6 @@ msgid "Vat"
 msgstr ""
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.tree_token
-msgid "Verified"
-msgstr ""
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-#: model_terms:ir.ui.view,arch_db:payment_supplier.tree_token
-msgid "Verify"
-msgstr ""
-
-#. module: payment_supplier
 #: model_terms:ir.ui.view,arch_db:payment_supplier.parent_form
 msgid "View accounts detail"
 msgstr ""
@@ -601,23 +649,6 @@ msgstr ""
 #. module: payment_supplier
 #: model:ir.ui.menu,name:payment_supplier.menu_website
 msgid "Websites"
-msgstr ""
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid "Your credit card has been successfully verified."
-msgstr ""
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid ""
-"Your credit card verification has been failed. Please try again. If this "
-"situation occurs anyway, please contact with system administation."
-msgstr ""
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid "Your credit card verification status:"
 msgstr ""
 
 #. module: payment_supplier
