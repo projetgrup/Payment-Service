@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 15.0-20220110\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-25 15:41+0000\n"
-"PO-Revision-Date: 2025-01-25 20:01+0300\n"
+"PO-Revision-Date: 2025-01-25 20:41+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -43,8 +43,8 @@ msgstr ""
 #: code:addons/payment_jetcheckout_system/models/partner.py:0
 #, python-format
 msgid ""
-"%s partners have been successfully granted. But some error occured for "
-"following records:\n"
+"%s partners have been successfully granted. But some error occured for following "
+"records:\n"
 "%s"
 msgstr ""
 "%s iş ortağı başarıyla yetkilendirildi. Fakat aşağıdaki kayıtlar için bazı "
@@ -114,23 +114,23 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.page_result
 msgid ""
 "<span class=\"font-italic font-weight-light btn-sm\">A technical error occured "
-"and we couldn't record your payment. Please contact with us for more "
-"information.</span>"
+"and we couldn't record your payment. Please contact with us for more information."
+"</span>"
 msgstr ""
 "<span class=\"font-italic font-weight-light btn-sm\">Teknik bir hata meydana "
-"geldi ve ödemenizi kaydedemedik. Daha fazla bilgi için lütfen bizim ile "
-"iletişime geçiniz.</span>"
+"geldi ve ödemenizi kaydedemedik. Daha fazla bilgi için lütfen bizim ile iletişime "
+"geçiniz.</span>"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.page_result
 msgid ""
 "<span class=\"font-italic font-weight-light btn-sm\">Transaction is done, but a "
-"technical error occured and we couldn't record your payment. Please contact "
-"with us for more information.</span>"
+"technical error occured and we couldn't record your payment. Please contact with "
+"us for more information.</span>"
 msgstr ""
-"<span class=\"font-italic font-weight-light btn-sm\">Ödeme başarılı, fakat "
-"teknik bir hata meydana geldi ve ödemenizi kaydedemedik. Daha fazla bilgi için "
-"lütfen bizim ile iletişime geçiniz.</span>"
+"<span class=\"font-italic font-weight-light btn-sm\">Ödeme başarılı, fakat teknik "
+"bir hata meydana geldi ve ödemenizi kaydedemedik. Daha fazla bilgi için lütfen "
+"bizim ile iletişime geçiniz.</span>"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.page_transaction_list
@@ -154,8 +154,7 @@ msgstr "<span class=\"o_stat_text\" style=\"font-weight: bold;\">Ödendi</span>"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.partner_form
-msgid ""
-"<span class=\"o_stat_text\" style=\"font-weight: bold;\">Items To Pay</span>"
+msgid "<span class=\"o_stat_text\" style=\"font-weight: bold;\">Items To Pay</span>"
 msgstr "<span class=\"o_stat_text\" style=\"font-weight: bold;\">Ödenecek</span>"
 
 #. module: payment_jetcheckout_system
@@ -168,8 +167,7 @@ msgstr ""
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.partner_form
 msgid ""
-"<span class=\"o_stat_text\" style=\"font-weight: bold;\">Transaction Failed</"
-"span>"
+"<span class=\"o_stat_text\" style=\"font-weight: bold;\">Transaction Failed</span>"
 msgstr ""
 "<span class=\"o_stat_text\" style=\"font-weight: bold;\">Başarısız İşlem</span>"
 
@@ -190,11 +188,11 @@ msgstr ""
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.website_form
 msgid ""
-"<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">Show Contact "
-"Page</span>"
+"<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">Show Contact Page</"
+"span>"
 msgstr ""
-"<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">İletişim "
-"Sayfasını Göster</span>"
+"<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">İletişim Sayfasını "
+"Göster</span>"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.website_form
@@ -202,8 +200,8 @@ msgid ""
 "<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">Show Membership "
 "Agreement</span>"
 msgstr ""
-"<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">Üyelik "
-"Sözleşmesini Göster</span>"
+"<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">Üyelik Sözleşmesini "
+"Göster</span>"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.website_form
@@ -220,8 +218,8 @@ msgid ""
 "<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">Show Sale "
 "Agreement</span>"
 msgstr ""
-"<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">Satış "
-"Sözleşmesini Göster</span>"
+"<span class=\"text-muted d-block ml-2 mr-4 font-weight-bold\">Satış Sözleşmesini "
+"Göster</span>"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.page_contactless_payment
@@ -298,14 +296,14 @@ msgid ""
 "16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: "
 "#454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
-"style=\"padding: 16px; background-color: white; color: #454748; border-"
-"collapse:separate;\">\n"
+"style=\"padding: 16px; background-color: white; color: #454748; border-collapse:"
+"separate;\">\n"
 "<tbody>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"middle\">\n"
 "                        <span style=\"font-size: 10px;\">Payment Notification</"
@@ -313,15 +311,15 @@ msgid ""
 "                    </td>\n"
 "                    <td valign=\"middle\" align=\"right\">\n"
 "                        <img t-attf-src=\"/logo.png?company={{ ctx['company']"
-"['id'] }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-"
-"att-alt=\"ctx['company']['name']\"/>\n"
+"['id'] }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-"
+"alt=\"ctx['company']['name']\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "                <tr>\n"
 "                    <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -329,18 +327,18 @@ msgid ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                        <div>\n"
 "                            Hello,<br/><br/>\n"
 "                            Your payment information is as follows:<br/><br/>\n"
-"                            Your payment will be sent you via IYZICO accounts."
-"<br/><br/>\n"
-"                            Payment Amount: <strong t-"
-"out=\"format_amount(object.paid_amount, object.currency_id) or ''\"/><br/>\n"
+"                            Your payment will be sent you via IYZICO accounts.<br/"
+"><br/>\n"
+"                            Payment Amount: <strong t-out=\"format_amount(object."
+"paid_amount, object.currency_id) or ''\"/><br/>\n"
 "                            Payer Company: <strong t-out=\"ctx['company']"
 "['name']\"/><br/>\n"
 "                            Payee IBAN Account: <strong t-out=\"ctx['iban']\"/"
@@ -350,9 +348,9 @@ msgid ""
 "                </tr>\n"
 "                <tr>\n"
 "                    <td style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -360,14 +358,14 @@ msgid ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
-"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px "
+"8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
 "                    <t t-out=\"ctx['company']['name'] or ''\">YourCompany</t>\n"
 "                </td></tr>\n"
-"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
-"0.7;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;"
+"\">\n"
 "                    <t t-out=\"ctx['company']['phone'] or ''\">+1 650-123-4567</"
 "t>\n"
 "                    <t t-if=\"ctx['company']['email']\">\n"
@@ -394,14 +392,14 @@ msgstr ""
 "16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: "
 "#454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
-"style=\"padding: 16px; background-color: white; color: #454748; border-"
-"collapse:separate;\">\n"
+"style=\"padding: 16px; background-color: white; color: #454748; border-collapse:"
+"separate;\">\n"
 "<tbody>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"middle\">\n"
 "                        <span style=\"font-size: 10px;\">Ödeme Bilgilendirmesi</"
@@ -409,15 +407,15 @@ msgstr ""
 "                    </td>\n"
 "                    <td valign=\"middle\" align=\"right\">\n"
 "                        <img t-attf-src=\"/logo.png?company={{ ctx['company']"
-"['id'] }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-"
-"att-alt=\"ctx['company']['name']\"/>\n"
+"['id'] }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-"
+"alt=\"ctx['company']['name']\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "                <tr>\n"
 "                    <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -425,9 +423,9 @@ msgstr ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                        <div>\n"
@@ -435,8 +433,8 @@ msgstr ""
 "                            Ödeme bilginiz aşağıdaki gibidir:<br/><br/>\n"
 "                            Ödemeniz IYZICO hesapları üzerinden gönderilecektir."
 "<br/><br/>\n"
-"                            Ödeme Tutarı: <strong t-"
-"out=\"format_amount(object.paid_amount, object.currency_id) or ''\"/><br/>\n"
+"                            Ödeme Tutarı: <strong t-out=\"format_amount(object."
+"paid_amount, object.currency_id) or ''\"/><br/>\n"
 "                            Ödeme Yapan Şirket: <strong t-out=\"ctx['company']"
 "['name']\"/><br/>\n"
 "                            Ödeme Alacak IBAN Hesabı: <strong t-"
@@ -446,9 +444,9 @@ msgstr ""
 "                </tr>\n"
 "                <tr>\n"
 "                    <td style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -456,14 +454,14 @@ msgstr ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
-"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px "
+"8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
 "                    <t t-out=\"ctx['company']['name'] or ''\">YourCompany</t>\n"
 "                </td></tr>\n"
-"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
-"0.7;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;"
+"\">\n"
 "                    <t t-out=\"ctx['company']['phone'] or ''\">+1 650-123-4567</"
 "t>\n"
 "                    <t t-if=\"ctx['company']['email']\">\n"
@@ -493,30 +491,30 @@ msgid ""
 "16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: "
 "#454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
-"style=\"padding: 16px; background-color: white; color: #454748; border-"
-"collapse:separate;\">\n"
+"style=\"padding: 16px; background-color: white; color: #454748; border-collapse:"
+"separate;\">\n"
 "<tbody>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"middle\">\n"
-"                        <span style=\"font-size: 10px;\">Your Mobile "
-"Application</span>\n"
+"                        <span style=\"font-size: 10px;\">Your Mobile Application</"
+"span>\n"
 "                    </td>\n"
 "                    <td valign=\"middle\" align=\"right\">\n"
-"                        <img t-attf-src=\"/logo.png?"
-"company={{ object.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: "
-"auto; width: 80px;\" t-att-alt=\"object.company_id.name\"/>\n"
+"                        <img t-attf-src=\"/logo.png?company={{ object.company_id."
+"id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-"
+"alt=\"object.company_id.name\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "                <tr>\n"
 "                    <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -524,9 +522,9 @@ msgid ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                        <div>\n"
@@ -537,8 +535,8 @@ msgid ""
 "center;\">\n"
 "                                <a href=\"https://jetcheckout.com/jet_checkout/"
 "static/app/paylox.apk\" style=\"display: inline-block; padding: 10px; text-"
-"decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; "
-"border-radius: 5px;\">\n"
+"decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-"
+"radius: 5px;\">\n"
 "                                    <strong>Download APK</strong>\n"
 "                                </a>\n"
 "                            </div>\n"
@@ -547,9 +545,9 @@ msgid ""
 "                </tr>\n"
 "                <tr>\n"
 "                    <td style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -557,26 +555,25 @@ msgid ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
-"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px "
+"8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
 "                    <t t-out=\"object.company_id.name or ''\">YourCompany</t>\n"
 "                </td></tr>\n"
-"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
-"0.7;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;"
+"\">\n"
 "                    <t t-out=\"object.company_id.phone or ''\">+1 650-123-4567</"
 "t>\n"
 "                    <t t-if=\"object.company_id.email\">\n"
-"                        | <a t-attf-href=\"'mailto:%s' % "
-"{{ object.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" "
-"t-out=\"object.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id."
+"email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object."
+"company_id.email or ''\">info@yourcompany.com</a>\n"
 "                    </t>\n"
 "                    <t t-if=\"object.company_id.website\">\n"
-"                        | <a t-attf-href=\"'%s' % "
-"{{ object.company_id.website }}\" style=\"text-decoration:none; color: "
-"#454748;\" t-out=\"object.company_id.website or ''\">http://www.example.com</"
-"a>\n"
+"                        | <a t-attf-href=\"'%s' % {{ object.company_id."
+"website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object."
+"company_id.website or ''\">http://www.example.com</a>\n"
 "                    </t>\n"
 "                </td></tr>\n"
 "            </table>\n"
@@ -592,30 +589,30 @@ msgstr ""
 "16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: "
 "#454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
-"style=\"padding: 16px; background-color: white; color: #454748; border-"
-"collapse:separate;\">\n"
+"style=\"padding: 16px; background-color: white; color: #454748; border-collapse:"
+"separate;\">\n"
 "<tbody>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"middle\">\n"
 "                        <span style=\"font-size: 10px;\">Mobil Uygulamanız</"
 "span>\n"
 "                    </td>\n"
 "                    <td valign=\"middle\" align=\"right\">\n"
-"                        <img t-attf-src=\"/logo.png?"
-"company={{ object.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: "
-"auto; width: 80px;\" t-att-alt=\"object.company_id.name\"/>\n"
+"                        <img t-attf-src=\"/logo.png?company={{ object.company_id."
+"id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-"
+"alt=\"object.company_id.name\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "                <tr>\n"
 "                    <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -623,9 +620,9 @@ msgstr ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                        <div>\n"
@@ -636,8 +633,8 @@ msgstr ""
 "center;\">\n"
 "                                <a href=\"https://jetcheckout.com/jet_checkout/"
 "static/app/paylox.apk\" style=\"display: inline-block; padding: 10px; text-"
-"decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; "
-"border-radius: 5px;\">\n"
+"decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-"
+"radius: 5px;\">\n"
 "                                    <strong>APK İndir</strong>\n"
 "                                </a>\n"
 "                            </div>\n"
@@ -646,9 +643,9 @@ msgstr ""
 "                </tr>\n"
 "                <tr>\n"
 "                    <td style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -656,26 +653,25 @@ msgstr ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
-"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px "
+"8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
 "                    <t t-out=\"object.company_id.name or ''\">YourCompany</t>\n"
 "                </td></tr>\n"
-"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
-"0.7;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;"
+"\">\n"
 "                    <t t-out=\"object.company_id.phone or ''\">+1 650-123-4567</"
 "t>\n"
 "                    <t t-if=\"object.company_id.email\">\n"
-"                        | <a t-attf-href=\"'mailto:%s' % "
-"{{ object.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" "
-"t-out=\"object.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id."
+"email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object."
+"company_id.email or ''\">info@yourcompany.com</a>\n"
 "                    </t>\n"
 "                    <t t-if=\"object.company_id.website\">\n"
-"                        | <a t-attf-href=\"'%s' % "
-"{{ object.company_id.website }}\" style=\"text-decoration:none; color: "
-"#454748;\" t-out=\"object.company_id.website or ''\">http://www.example.com</"
-"a>\n"
+"                        | <a t-attf-href=\"'%s' % {{ object.company_id."
+"website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object."
+"company_id.website or ''\">http://www.example.com</a>\n"
 "                    </t>\n"
 "                </td></tr>\n"
 "            </table>\n"
@@ -694,30 +690,30 @@ msgid ""
 "16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: "
 "#454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
-"style=\"padding: 16px; background-color: white; color: #454748; border-"
-"collapse:separate;\">\n"
+"style=\"padding: 16px; background-color: white; color: #454748; border-collapse:"
+"separate;\">\n"
 "<tbody>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"middle\">\n"
 "                        <span style=\"font-size: 10px;\">Your Payment Link</"
 "span>\n"
 "                    </td>\n"
 "                    <td valign=\"middle\" align=\"right\">\n"
-"                        <img t-attf-src=\"/logo.png?"
-"company={{ ctx['company'].id }}\" style=\"padding: 0px; margin: 0px; height: "
-"auto; width: 80px;\" t-att-alt=\"ctx['company'].name\"/>\n"
+"                        <img t-attf-src=\"/logo.png?company={{ ctx['company']."
+"id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-"
+"alt=\"ctx['company'].name\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "                <tr>\n"
 "                    <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -725,9 +721,9 @@ msgid ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                        <div>\n"
@@ -746,9 +742,9 @@ msgid ""
 "                </tr>\n"
 "                <tr>\n"
 "                    <td style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -756,25 +752,24 @@ msgid ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
-"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px "
+"8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
 "                    <t t-out=\"ctx['company'].name or ''\">YourCompany</t>\n"
 "                </td></tr>\n"
-"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
-"0.7;\">\n"
-"                    <t t-out=\"ctx['company'].phone or ''\">+1 650-123-4567</"
-"t>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;"
+"\">\n"
+"                    <t t-out=\"ctx['company'].phone or ''\">+1 650-123-4567</t>\n"
 "                    <t t-if=\"ctx['company'].email\">\n"
-"                        | <a t-attf-href=\"'mailto:%s' % "
-"{{ ctx['company'].email }}\" style=\"text-decoration:none; color: #454748;\" t-"
-"out=\"ctx['company'].email or ''\">info@yourcompany.com</a>\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ ctx['company']."
+"email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company']."
+"email or ''\">info@yourcompany.com</a>\n"
 "                    </t>\n"
 "                    <t t-if=\"ctx['company'].website\">\n"
-"                        | <a t-attf-href=\"'%s' % {{ ctx['company'].website }}"
-"\" style=\"text-decoration:none; color: #454748;\" t-"
-"out=\"ctx['company'].website or ''\">http://www.example.com</a>\n"
+"                        | <a t-attf-href=\"'%s' % {{ ctx['company'].website }}\" "
+"style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company'].website or "
+"''\">http://www.example.com</a>\n"
 "                    </t>\n"
 "                </td></tr>\n"
 "            </table>\n"
@@ -790,30 +785,30 @@ msgstr ""
 "16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: "
 "#454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
-"style=\"padding: 16px; background-color: white; color: #454748; border-"
-"collapse:separate;\">\n"
+"style=\"padding: 16px; background-color: white; color: #454748; border-collapse:"
+"separate;\">\n"
 "<tbody>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"middle\">\n"
 "                        <span style=\"font-size: 10px;\">Your Payment Link</"
 "span>\n"
 "                    </td>\n"
 "                    <td valign=\"middle\" align=\"right\">\n"
-"                        <img t-attf-src=\"/logo.png?"
-"company={{ ctx['company'].id }}\" style=\"padding: 0px; margin: 0px; height: "
-"auto; width: 80px;\" t-att-alt=\"ctx['company'].name\"/>\n"
+"                        <img t-attf-src=\"/logo.png?company={{ ctx['company']."
+"id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-"
+"alt=\"ctx['company'].name\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "                <tr>\n"
 "                    <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -821,9 +816,9 @@ msgstr ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr>\n"
 "                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                        <div>\n"
@@ -843,9 +838,9 @@ msgstr ""
 "                </tr>\n"
 "                <tr>\n"
 "                    <td style=\"text-align:center;\">\n"
-"                        <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-"
+"height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
 "                    </td>\n"
 "                </tr>\n"
 "            </table>\n"
@@ -853,25 +848,24 @@ msgstr ""
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
-"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px "
+"8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
 "                    <t t-out=\"ctx['company'].name or ''\">YourCompany</t>\n"
 "                </td></tr>\n"
-"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
-"0.7;\">\n"
-"                    <t t-out=\"ctx['company'].phone or ''\">+1 650-123-4567</"
-"t>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;"
+"\">\n"
+"                    <t t-out=\"ctx['company'].phone or ''\">+1 650-123-4567</t>\n"
 "                    <t t-if=\"ctx['company'].email\">\n"
-"                        | <a t-attf-href=\"'mailto:%s' % "
-"{{ ctx['company'].email }}\" style=\"text-decoration:none; color: #454748;\" t-"
-"out=\"ctx['company'].email or ''\">info@yourcompany.com</a>\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ ctx['company']."
+"email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company']."
+"email or ''\">info@yourcompany.com</a>\n"
 "                    </t>\n"
 "                    <t t-if=\"ctx['company'].website\">\n"
-"                        | <a t-attf-href=\"'%s' % {{ ctx['company'].website }}"
-"\" style=\"text-decoration:none; color: #454748;\" t-"
-"out=\"ctx['company'].website or ''\">http://www.example.com</a>\n"
+"                        | <a t-attf-href=\"'%s' % {{ ctx['company'].website }}\" "
+"style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company'].website or "
+"''\">http://www.example.com</a>\n"
 "                    </t>\n"
 "                </td></tr>\n"
 "            </table>\n"
@@ -890,46 +884,46 @@ msgid ""
 "16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: "
 "#454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
-"style=\"padding: 16px; background-color: white; color: #454748; border-"
-"collapse:separate;\">\n"
+"style=\"padding: 16px; background-color: white; color: #454748; border-collapse:"
+"separate;\">\n"
 "<tbody>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\">\n"
 "                    <span style=\"font-size: 10px;\">Your Account</span><br/>\n"
 "                    <span style=\"font-size: 20px; font-weight: bold;\" t-"
 "out=\"object.name or ''\">Marc Demo</span>\n"
 "                </td><td valign=\"middle\" align=\"right\">\n"
-"                    <img t-attf-src=\"/logo.png?"
-"company={{ object.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: "
-"auto; width: 80px;\" t-att-alt=\"object.company_id.name\"/>\n"
+"                    <img t-attf-src=\"/logo.png?company={{ object.company_id."
+"id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-"
+"alt=\"object.company_id.name\"/>\n"
 "                </td></tr>\n"
 "                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
-"                  <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                  <hr width=\"100%\" style=\"background-color:rgb(204,204,204);"
+"border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-"
+"height:0; margin:16px 0px 16px 0px;\"/>\n"
 "                </td></tr>\n"
 "            </table>\n"
 "        </td>\n"
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                    <div>\n"
 "                        Dear <t t-out=\"object.name or ''\">Marc Demo</t>,<br/> "
 "<br/>\n"
-"                        Welcome to <t t-"
-"out=\"object.company_id.name\">YourCompany</t>'s Portal!<br/><br/>\n"
+"                        Welcome to <t t-out=\"object.company_id."
+"name\">YourCompany</t>'s Portal!<br/><br/>\n"
 "                        An account has been created for you with the following "
 "login: <t t-out=\"object.users_id.login\">demo</t><br/><br/>\n"
-"                        Click on the button below to pick a password and "
-"activate your account.\n"
+"                        Click on the button below to pick a password and activate "
+"your account.\n"
 "                        <div style=\"margin: 16px 0px 16px 0px; text-align: "
 "center;\">\n"
 "                            <a t-att-href=\"object.users_id.signup_url\" "
@@ -937,9 +931,9 @@ msgid ""
 "12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
 "                                <strong>Activate Account</strong>\n"
 "                            </a>\n"
-"                            <a t-att-"
-"href=\"object.users_id.signup_url.replace('signup','login')\" style=\"display: "
-"inline-block; padding: 10px; text-decoration: none; font-size: 12px;\">\n"
+"                            <a t-att-href=\"object.users_id.signup_url."
+"replace('signup','login')\" style=\"display: inline-block; padding: 10px; text-"
+"decoration: none; font-size: 12px;\">\n"
 "                                <strong>Log in</strong>\n"
 "                            </a>\n"
 "                        </div>\n"
@@ -947,35 +941,34 @@ msgid ""
 "                    </div>\n"
 "                </td></tr>\n"
 "                <tr><td style=\"text-align:center;\">\n"
-"                  <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                  <hr width=\"100%\" style=\"background-color:rgb(204,204,204);"
+"border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-"
+"height:0; margin: 16px 0px 16px 0px;\"/>\n"
 "                </td></tr>\n"
 "            </table>\n"
 "        </td>\n"
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
-"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px "
+"8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
 "                    <t t-out=\"object.company_id.name or ''\">YourCompany</t>\n"
 "                </td></tr>\n"
-"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
-"0.7;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;"
+"\">\n"
 "                    <t t-out=\"object.company_id.phone or ''\">+1 650-123-4567</"
 "t>\n"
 "                    <t t-if=\"object.company_id.email\">\n"
-"                        | <a t-attf-href=\"'mailto:%s' % "
-"{{ object.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" "
-"t-out=\"object.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id."
+"email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object."
+"company_id.email or ''\">info@yourcompany.com</a>\n"
 "                    </t>\n"
 "                    <t t-if=\"object.company_id.website\">\n"
-"                        | <a t-attf-href=\"'%s' % "
-"{{ object.user_id.company_id.website }}\" style=\"text-decoration:none; color: "
-"#454748;\" t-out=\"object.company_id.website or ''\">http://www.example.com</"
-"a>\n"
+"                        | <a t-attf-href=\"'%s' % {{ object.user_id.company_id."
+"website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object."
+"company_id.website or ''\">http://www.example.com</a>\n"
 "                    </t>\n"
 "                </td></tr>\n"
 "            </table>\n"
@@ -991,44 +984,44 @@ msgstr ""
 "16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: "
 "#454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
-"style=\"padding: 16px; background-color: white; color: #454748; border-"
-"collapse:separate;\">\n"
+"style=\"padding: 16px; background-color: white; color: #454748; border-collapse:"
+"separate;\">\n"
 "<tbody>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\">\n"
 "                    <span style=\"font-size: 10px;\">Hesabınız</span><br/>\n"
 "                    <span style=\"font-size: 20px; font-weight: bold;\" t-"
 "out=\"object.name or ''\">Marc Demo</span>\n"
 "                </td><td valign=\"middle\" align=\"right\">\n"
-"                    <img t-attf-src=\"/logo.png?"
-"company={{ object.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: "
-"auto; width: 80px;\" t-att-alt=\"object.company_id.name\"/>\n"
+"                    <img t-attf-src=\"/logo.png?company={{ object.company_id."
+"id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-"
+"alt=\"object.company_id.name\"/>\n"
 "                </td></tr>\n"
 "                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
-"                  <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                  <hr width=\"100%\" style=\"background-color:rgb(204,204,204);"
+"border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-"
+"height:0; margin:16px 0px 16px 0px;\"/>\n"
 "                </td></tr>\n"
 "            </table>\n"
 "        </td>\n"
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px "
-"8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; "
+"border-collapse:separate;\">\n"
 "                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                    <div>\n"
-"                        Sayın <t t-out=\"object.name or ''\">Marc Demo</t>,<br/"
-"> <br/>\n"
+"                        Sayın <t t-out=\"object.name or ''\">Marc Demo</t>,<br/> "
+"<br/>\n"
 "                        <t t-out=\"object.company_id.name\">Şirketimize</t>'e "
 "hoşgeldiniz!<br/><br/>\n"
-"                       Sizin için bir hesap oluşturuldu: <t t-"
-"out=\"object.users_id.login\">hesap</t><br/><br/>\n"
+"                       Sizin için bir hesap oluşturuldu: <t t-out=\"object."
+"users_id.login\">hesap</t><br/><br/>\n"
 "                        Aşağıdaki butona tıklayarak bir parola belirleyin ve "
 "hesabınızı aktif edin.\n"
 "                        <div style=\"margin: 16px 0px 16px 0px; text-align: "
@@ -1038,9 +1031,9 @@ msgstr ""
 "12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
 "                                <strong>Hesabı Aktifleştir</strong>\n"
 "                            </a>\n"
-"                            <a t-att-"
-"href=\"object.users_id.signup_url.replace('signup','login')\" style=\"display: "
-"inline-block; padding: 10px; text-decoration: none; font-size: 12px;\">\n"
+"                            <a t-att-href=\"object.users_id.signup_url."
+"replace('signup','login')\" style=\"display: inline-block; padding: 10px; text-"
+"decoration: none; font-size: 12px;\">\n"
 "                                <strong>Giriş Yap</strong>\n"
 "                            </a>\n"
 "                        </div>\n"
@@ -1048,35 +1041,34 @@ msgstr ""
 "                    </div>\n"
 "                </td></tr>\n"
 "                <tr><td style=\"text-align:center;\">\n"
-"                  <hr width=\"100%\" style=\"background-"
-"color:rgb(204,204,204);border:medium none;clear:both;display:block;font-"
-"size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                  <hr width=\"100%\" style=\"background-color:rgb(204,204,204);"
+"border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-"
+"height:0; margin: 16px 0px 16px 0px;\"/>\n"
 "                </td></tr>\n"
 "            </table>\n"
 "        </td>\n"
 "    </tr>\n"
 "    <tr>\n"
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
-"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
-"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px "
+"8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
 "                    <t t-out=\"object.company_id.name or ''\">YourCompany</t>\n"
 "                </td></tr>\n"
-"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
-"0.7;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;"
+"\">\n"
 "                    <t t-out=\"object.company_id.phone or ''\">+1 650-123-4567</"
 "t>\n"
 "                    <t t-if=\"object.company_id.email\">\n"
-"                        | <a t-attf-href=\"'mailto:%s' % "
-"{{ object.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" "
-"t-out=\"object.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id."
+"email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object."
+"company_id.email or ''\">info@yourcompany.com</a>\n"
 "                    </t>\n"
 "                    <t t-if=\"object.company_id.website\">\n"
-"                        | <a t-attf-href=\"'%s' % "
-"{{ object.user_id.company_id.website }}\" style=\"text-decoration:none; color: "
-"#454748;\" t-out=\"object.company_id.website or ''\">http://www.example.com</"
-"a>\n"
+"                        | <a t-attf-href=\"'%s' % {{ object.user_id.company_id."
+"website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object."
+"company_id.website or ''\">http://www.example.com</a>\n"
 "                    </t>\n"
 "                </td></tr>\n"
 "            </table>\n"
@@ -1101,10 +1093,8 @@ msgstr "Erişim İzni Yok"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__uid
-#, fuzzy
-#| msgid "Access Denied"
 msgid "Access Token"
-msgstr "Erişim İzni Yok"
+msgstr "Erişim Jetonu"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_partner__access_warning
@@ -1149,17 +1139,14 @@ msgstr "Ekle"
 #. module: payment_jetcheckout_system
 #. openerp-web
 #: code:addons/payment_jetcheckout_system/static/src/js/system.js:0
-#, fuzzy, python-format
-#| msgid "Payment Items"
+#, python-format
 msgid "Add Payment Item"
-msgstr "Ödemeler"
+msgstr "Ödeme Kalemi Ekle"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
-#, fuzzy
-#| msgid "Payment: Share Payment Link"
 msgid "Add Payment Items on Payment Link"
-msgstr "Ödeme: Ödeme Bağlantısı Paylaş"
+msgstr "Ödeme Linkinde Ödeme Kalemleri Ekle"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
@@ -1270,10 +1257,9 @@ msgstr "Bir hata meydana geldi"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/models/hook.py:0
-#, fuzzy, python-format
-#| msgid "An error occured. Please try again."
+#, python-format
 msgid "An error occured when triggering the hook."
-msgstr "Bir hata meydana geldi. Lütfen tekrar deneyiniz."
+msgstr "Kanca tetiklenirken bir hata meydana geldi."
 
 #. module: payment_jetcheckout_system
 #. openerp-web
@@ -1439,10 +1425,8 @@ msgstr "Şubeler"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.form_view
-#, fuzzy
-#| msgid "SMS"
 msgid "CSS"
-msgstr "SMS"
+msgstr "CSS"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item__campaign_id
@@ -1558,10 +1542,8 @@ msgstr "Çocuk"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__field_parent
-#, fuzzy
-#| msgid "Children"
 msgid "Child Field"
-msgstr "Çocuklar"
+msgstr "Alt Alan"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.partner_form
@@ -1573,8 +1555,8 @@ msgstr "Çocuklar"
 #: code:addons/payment_jetcheckout_system/static/src/js/system.js:0
 #, python-format
 msgid ""
-"Click here for getting <span class=\"text-primary\">%s</span> campaign by "
-"adding <span class=\"text-primary\">%s</span> advance payment"
+"Click here for getting <span class=\"text-primary\">%s</span> campaign by adding "
+"<span class=\"text-primary\">%s</span> advance payment"
 msgstr ""
 "<span class=\"text-primary\">%s</span> kampanyasından yararlanmak adına <span "
 "class=\"text-primary\">%s</span> avans ödemesi eklemek için tıklayın"
@@ -1726,10 +1708,8 @@ msgstr "Bağlantıyı Kopyala"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_plan__amount_cost
-#, fuzzy
-#| msgid "Net Amount"
 msgid "Cost Amount"
-msgstr "Ele Geçecek Tutar"
+msgstr "Maliyet Tutarı"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.dashboard_kanban
@@ -1780,10 +1760,8 @@ msgstr "Oluşturan"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.actions.act_window,help:payment_jetcheckout_system.action_hook
-#, fuzzy
-#| msgid "Created payments are listed here"
 msgid "Created hooks are listed here"
-msgstr "Oluşturulan ödemeler burada listelenir"
+msgstr "Oluşturulan kancalar burada listelenir"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_paylox_partner_follower__create_date
@@ -1826,17 +1804,13 @@ msgstr "Oluşturulan ödemeler burada listelenir"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.actions.act_window,help:payment_jetcheckout_system.action_view
-#, fuzzy
-#| msgid "Created payments are listed here"
 msgid "Created views are listed here"
-msgstr "Oluşturulan ödemeler burada listelenir"
+msgstr "Oluşturulan görünümler burada listelenir"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields.selection,name:payment_jetcheckout_system.selection__payment_hook__subtype__create
-#, fuzzy
-#| msgid "Created on"
 msgid "Creation"
-msgstr "Oluşturma Tarihi"
+msgstr "Oluşturma"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_plan__token_id
@@ -1907,8 +1881,8 @@ msgstr "Veri"
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
 msgid ""
 "Data is sent by HTTP POST method in JSON format. If you set listeners for "
-"specified addresses, you can get the data immediately and use it for whatever "
-"you want."
+"specified addresses, you can get the data immediately and use it for whatever you "
+"want."
 msgstr ""
 "Veri, HTTP POST metodu ile JSON biçiminde gönderilir. Eğer belirli adreslere "
 "dinleyiciler ayarlayarsanız, veriyi hemen edinebilir ve onu istediğiniz şekilde "
@@ -1929,10 +1903,8 @@ msgstr "Tarih"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
-#, fuzzy
-#| msgid "Amount Readonly"
 msgid "Date Readonly"
-msgstr "Tutar Salt Okunur"
+msgstr "Tarih Salt Okunur"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/controllers/main.py:0
@@ -1995,10 +1967,8 @@ msgstr "Ödeme sayfaları adlarını ve yollarını tanımlayın"
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_users__group_delete_partner
 #: model:res.groups,name:payment_jetcheckout_system.group_system_delete_partner
-#, fuzzy
-#| msgid "Create Partners"
 msgid "Delete Partners"
-msgstr "İş Ortağı Oluştur"
+msgstr "İş Ortağı Sil"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_plan_wizard__desc
@@ -2142,10 +2112,8 @@ msgstr "Vadeler"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
-#, fuzzy
-#| msgid "Documentation"
 msgid "Duration"
-msgstr "Dokümantasyon"
+msgstr "Süre"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields.selection,name:payment_jetcheckout_system.selection__res_company__payment_page_flow__dynamic
@@ -2154,17 +2122,13 @@ msgstr "Dinamik"
 
 #. module: payment_jetcheckout_system
 #: model:ir.actions.act_window,name:payment_jetcheckout_system.action_partner_follower
-#, fuzzy
-#| msgid "Add Follower"
 msgid "Edit Follower"
-msgstr "Takipçi Ekle"
+msgstr "Takipçi Düzenle"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.partner_tree
-#, fuzzy
-#| msgid "Add Followers"
 msgid "Edit Followers"
-msgstr "Takipçi Ekle"
+msgstr "Takipçileri Düzenle"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.res_config_settings_view_form
@@ -2253,17 +2217,13 @@ msgstr "Hata"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.plan_error_wizard
-#, fuzzy
-#| msgid "Error"
 msgid "Errors"
-msgstr "Hata"
+msgstr "Hatalar"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item__date_expire
-#, fuzzy
-#| msgid "Communication Dates"
 msgid "Expiration Date"
-msgstr "İletişim Tarihleri"
+msgstr "Geçerlilik Tarihi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item__date_expired
@@ -2272,17 +2232,13 @@ msgstr "Geçerlilik Tarihi Sona Erdi"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
-#, fuzzy
-#| msgid "Share Payment Link"
 msgid "Expire Payment Links"
-msgstr "Ödeme Linki Paylaş"
+msgstr "Ödeme Linkilerini Sonlandır"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
-#, fuzzy
-#| msgid "Done Transactions"
 msgid "Export Transaction as TXT"
-msgstr "Başarılı İşlemler"
+msgstr "TXT olarak Dışa Aktar"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_partner_bank_submerchant_query__external_id
@@ -2291,10 +2247,8 @@ msgstr "Harici"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__xml_id
-#, fuzzy
-#| msgid "External"
 msgid "External ID"
-msgstr "Harici"
+msgstr "Harici ID"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_transaction__failed_message_ids
@@ -2330,8 +2284,8 @@ msgstr "Dosya"
 #: model:ir.model.fields,help:payment_jetcheckout_system.field_payment_view__arch_fs
 msgid ""
 "File from where the view originates.\n"
-"                                                          Useful to (hard) "
-"reset broken views or to read arch from file in dev-xml mode."
+"                                                          Useful to (hard) reset "
+"broken views or to read arch from file in dev-xml mode."
 msgstr ""
 "Görünümün çıktığı dosya.\n"
 "                                                          Bozuk görünümleri "
@@ -2339,17 +2293,13 @@ msgstr ""
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import__filename
-#, fuzzy
-#| msgid "File"
 msgid "Filename"
-msgstr "Dosya"
+msgstr "Dosyaadı"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields.selection,name:payment_jetcheckout_system.selection__payment_hook__subtype__finalize
-#, fuzzy
-#| msgid "Localization"
 msgid "Finalization"
-msgstr "Yerelleştirme"
+msgstr "Tamamlama"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,help:payment_jetcheckout_system.field_payment_view__first_page_id
@@ -2438,10 +2388,8 @@ msgstr "Grupla"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__groups_id
-#, fuzzy
-#| msgid "Groupby"
 msgid "Groups"
-msgstr "Grupla"
+msgstr "Gruplar"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.form_view
@@ -2476,8 +2424,8 @@ msgstr "Merhaba"
 #. module: payment_jetcheckout_system
 #: model:sms.template,body:payment_jetcheckout_system.sms_template_payment_link_share
 msgid ""
-"Hello, you can get payment page on {{ ctx['domain'] }} by clicking the "
-"following link.\\n{{ ctx['link'] }}"
+"Hello, you can get payment page on {{ ctx['domain'] }} by clicking the following "
+"link.\\n{{ ctx['link'] }}"
 msgstr ""
 "Merhaba, {{ ctx['domain'] }} üzerinden ödeme sayfasına ulaşmak için linki "
 "tıklayınız.\n"
@@ -2634,15 +2582,15 @@ msgstr ""
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
 msgid ""
-"If you want to keep informed about successful payment transactions without "
-"signin in, you can use this service in your information systems. When you enter "
-"an URL addresses in the list above, we send a detailed information of "
-"successful payment transaction for each."
+"If you want to keep informed about successful payment transactions without signin "
+"in, you can use this service in your information systems. When you enter an URL "
+"addresses in the list above, we send a detailed information of successful payment "
+"transaction for each."
 msgstr ""
-"Eğer sisteme giriş yapmadan başarılı işlem olduğunda bildirim almak "
-"istiyorsanız, bu servisi kendi bilgi işlem sistemlerinizde kullanabilirsiniz. "
-"Yukarıdaki tabloya bir URL adresi girdiğinizde, her bir adrese başarılı ödeme "
-"işlemin detaylı bilgisini göndereceğiz."
+"Eğer sisteme giriş yapmadan başarılı işlem olduğunda bildirim almak istiyorsanız, "
+"bu servisi kendi bilgi işlem sistemlerinizde kullanabilirsiniz. Yukarıdaki "
+"tabloya bir URL adresi girdiğinizde, her bir adrese başarılı ödeme işlemin "
+"detaylı bilgisini göndereceğiz."
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.import_form
@@ -2654,18 +2602,16 @@ msgstr "İçe Aktar"
 #: code:addons/payment_jetcheckout_system/static/src/js/item.js:0
 #: code:addons/payment_jetcheckout_system/static/src/xml/item.xml:0
 #: model:ir.actions.act_window,name:payment_jetcheckout_system.action_import
-#, fuzzy, python-format
-#| msgid "Payment Items"
+#, python-format
 msgid "Import Items"
-msgstr "Ödemeler"
+msgstr "Kalemleri İçe Aktar"
 
 #. module: payment_jetcheckout_system
 #. openerp-web
 #: code:addons/payment_jetcheckout_system/static/src/js/transaction.js:0
-#, fuzzy, python-format
-#| msgid "Transaction"
+#, python-format
 msgid "Import Transaction"
-msgstr "İşlem"
+msgstr "İşlemleri İçe Aktar"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.user_form
@@ -2736,10 +2682,8 @@ msgstr "Kalem"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.plan_error_wizard
-#, fuzzy
-#| msgid "No payment plans yet"
 msgid "Item has payment plans already"
-msgstr "Henüz bir ödeme planı yok"
+msgstr "Zaten ödeme planı oluşturulmuş"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_plan_error_wizard__item_ids
@@ -3023,10 +2967,8 @@ msgstr "Yönetici"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item__manual
-#, fuzzy
-#| msgid "January"
 msgid "Manual"
-msgstr "Ocak"
+msgstr "Elle"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/models/dashboard.py:0
@@ -3059,17 +3001,13 @@ msgstr "Menü"
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_account_setup_bank_manual_config__api_merchant
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import_line__bank_merchant
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_partner_bank__api_merchant
-#, fuzzy
-#| msgid "Submerchant"
 msgid "Merchant"
-msgstr "Üye İşyeri"
+msgstr "Satıcı"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_partner_bank_submerchant_query__merchant_name
-#, fuzzy
-#| msgid "Branch Name"
 msgid "Merchant Name"
-msgstr "Şube Adı"
+msgstr "Satıcı Adı"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/controllers/main.py:0
@@ -3188,10 +3126,8 @@ msgstr "Bir şirket bulunamadı"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.actions.act_window,help:payment_jetcheckout_system.action_hook
-#, fuzzy
-#| msgid "No message yet"
 msgid "No hooks yet"
-msgstr "Henüz bir mesaj yok"
+msgstr "Henüz bir kanca yok"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/models/partner.py:0
@@ -3231,10 +3167,8 @@ msgstr "Henüz bir işlem yok"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.actions.act_window,help:payment_jetcheckout_system.action_view
-#, fuzzy
-#| msgid "No message yet"
 msgid "No views yet"
-msgstr "Henüz bir mesaj yok"
+msgstr "Henüz bir görünüm yok"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/models/plan.py:0
@@ -3352,8 +3286,8 @@ msgid ""
 "Only registered users can create partners.<br/>Please contact with your system "
 "administrator."
 msgstr ""
-"Sadece kayıtlı kullanıcılar iş ortağı oluşturabilir<br/>Lütfen sistem "
-"yöneticisi ile iletişime geçiniz."
+"Sadece kayıtlı kullanıcılar iş ortağı oluşturabilir<br/>Lütfen sistem yöneticisi "
+"ile iletişime geçiniz."
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.website_form
@@ -3383,10 +3317,8 @@ msgstr "Sadece Kendi İşlemleri"
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__page_id
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__page_ids
-#, fuzzy
-#| msgid "Page Flow"
 msgid "Page"
-msgstr "Sayfa Akışı"
+msgstr "Sayfa"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.website_form
@@ -3464,10 +3396,8 @@ msgstr "İş Ortağı Adedi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import_line__partner_email
-#, fuzzy
-#| msgid "Partner Tags"
 msgid "Partner Email"
-msgstr "İş Ortakları Etiketleri"
+msgstr "İş Ortağı Epostası"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model,name:payment_jetcheckout_system.model_paylox_partner_follower
@@ -3476,10 +3406,8 @@ msgstr "İş Ortağı Takibi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import_line__partner_name
-#, fuzzy
-#| msgid "Partner Tags"
 msgid "Partner Name"
-msgstr "İş Ortakları Etiketleri"
+msgstr "İş Ortakları Adı"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item__parent_ref
@@ -3489,10 +3417,8 @@ msgstr "İş Ortağı Referansı"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import_line__partner_street
-#, fuzzy
-#| msgid "Partner Reference"
 msgid "Partner Street"
-msgstr "İş Ortağı Referansı"
+msgstr "İş Ortağı Adresi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model,name:payment_jetcheckout_system.model_res_partner_category
@@ -3501,31 +3427,24 @@ msgstr "İş Ortakları Etiketleri"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import_line__partner_tax_office
-#, fuzzy
-#| msgid "Tax Office"
 msgid "Partner Tax Office"
-msgstr "Vergi Dairesi"
+msgstr "İş Ortağı Vergi Dairesi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import_line__partner_vat
-#, fuzzy
-#| msgid "Partner Tags"
 msgid "Partner VAT"
-msgstr "İş Ortakları Etiketleri"
+msgstr "İş Ortakları Vergi No"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/controllers/main.py:0
-#, fuzzy, python-format
-#| msgid "Partner Count"
+#, python-format
 msgid "Partner cannot be found"
-msgstr "İş Ortağı Adedi"
+msgstr "İş Ortağı bulunamadı"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.plan_error_wizard
-#, fuzzy
-#| msgid "Partner must have at least one bank account which is verified."
 msgid "Partner doesn't have any verified bank account"
-msgstr "İş ortağına ait en az bir adet onaylı banka hesabı bulunmalıdır."
+msgstr "İş ortağına ait doğrulanmış bir banka hesabı yok"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/models/plan.py:0
@@ -3582,18 +3501,16 @@ msgstr "Öde"
 #. module: payment_jetcheckout_system
 #. openerp-web
 #: code:addons/payment_jetcheckout_system/static/src/js/system.js:0
-#, fuzzy, python-format
-#| msgid "Payment Items"
+#, python-format
 msgid "Pay with payment items"
-msgstr "Ödemeler"
+msgstr "Ödeme kalemleri ile öde"
 
 #. module: payment_jetcheckout_system
 #. openerp-web
 #: code:addons/payment_jetcheckout_system/static/src/js/system.js:0
-#, fuzzy, python-format
-#| msgid "Partner Reference"
+#, python-format
 msgid "Pay with sale reference"
-msgstr "İş Ortağı Referansı"
+msgstr "Satış referansı ile öde"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.item_search
@@ -3718,32 +3635,24 @@ msgstr "Ödeme Varsayılan SMS Ayarları"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
-#, fuzzy
-#| msgid "Payment Transaction"
 msgid "Payment Description"
-msgstr "Ödeme İşlemleri"
+msgstr "Ödeme Açıklama"
 
 #. module: payment_jetcheckout_system
 #: model:ir.actions.act_window,name:payment_jetcheckout_system.action_hook
 #: model:ir.model,name:payment_jetcheckout_system.model_payment_hook
-#, fuzzy
-#| msgid "Payment Token"
 msgid "Payment Hooks"
-msgstr "Ödeme Jetonu"
+msgstr "Ödeme Kancaları"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model,name:payment_jetcheckout_system.model_payment_item_import
-#, fuzzy
-#| msgid "Payment: Item Done"
 msgid "Payment Item Import"
-msgstr "Ödeme: Tamamlanan Ödeme Kalemi"
+msgstr "Ödeme Kalemi İçe Aktar"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model,name:payment_jetcheckout_system.model_payment_item_import_line
-#, fuzzy
-#| msgid "Payment: Item Done"
 msgid "Payment Item Import Line"
-msgstr "Ödeme: Tamamlanan Ödeme Kalemi"
+msgstr "Ödeme Kalemi İç Aktar Satırı"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_transaction__paylox_item_tag_id
@@ -3815,10 +3724,8 @@ msgstr "Ödeme Sayfası Aktif"
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_item_add_date_readonly
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_company__payment_page_item_add_date_readonly
-#, fuzzy
-#| msgid "Payment Page Due Hide Payment Message"
 msgid "Payment Page Add Payment Item Date Readonly"
-msgstr "Ödeme Sayfası Vade Ödeme Formunu Gizle Mesajı"
+msgstr "Ödeme Sayfası Ödeme Kalemi Ekle Tarih Salt Okunur"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_item_add_desc_maxlength
@@ -3829,10 +3736,8 @@ msgstr "Ödeme Sayfası Ödeme Kalemi Ekle Açıklama Maksimum Uzunluk"
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_item_add_desc_prefix
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_company__payment_page_item_add_desc_prefix
-#, fuzzy
-#| msgid "Payment Page Items Priority"
 msgid "Payment Page Add Payment Item Description Prefix"
-msgstr "Ödeme Sayfası Kalemler Öncelik"
+msgstr "Ödeme Sayfası Ödeme Kalemi Ekle Açıklama Öneki"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_advance_ok
@@ -3849,25 +3754,19 @@ msgstr "Ödeme Sayfası Kampanya Etiketleri"
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_item_add_ok
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_company__payment_page_item_add_ok
-#, fuzzy
-#| msgid "Payment Page Due Hide Payment Form"
 msgid "Payment Page Can Add Payment Item"
-msgstr "Ödeme Sayfası Vade Ödeme Formunu Gizle"
+msgstr "Ödeme Sayfası Ödeme Kalemleri Eklenebilir"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_saleref_ok
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_company__payment_page_saleref_ok
-#, fuzzy
-#| msgid "Payment Page Due Reminder Sales Representatives"
 msgid "Payment Page Can Use Sale Reference"
-msgstr "Ödeme Sayfası Vade Hatırlatma Satış Temsilcileri"
+msgstr "Ödeme Sayfası Satış Referansı Kullanılabilir"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_description_ok
-#, fuzzy
-#| msgid "Payment Page Dues"
 msgid "Payment Page Description"
-msgstr "Ödeme Sayfası Vadeler"
+msgstr "Ödeme Sayfası Açıklama"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_due_ok
@@ -3994,26 +3893,20 @@ msgstr "Ödeme Sayfası Akışı"
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_item_expire_ok
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_company__payment_page_item_expire_ok
-#, fuzzy
-#| msgid "Payment Page Items Priority"
 msgid "Payment Page Items Expiration"
-msgstr "Ödeme Sayfası Kalemler Öncelik"
+msgstr "Ödeme Sayfası Kalemleri Geçerlilik"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_item_expire_period
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_company__payment_page_item_expire_period
-#, fuzzy
-#| msgid "Payment Page Items Priority"
 msgid "Payment Page Items Expiration Period"
-msgstr "Ödeme Sayfası Kalemler Öncelik"
+msgstr "Ödeme Sayfası Kalemleri Geçerlilik Dönemi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_item_expire_value
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_company__payment_page_item_expire_value
-#, fuzzy
-#| msgid "Payment Page Items Priority"
 msgid "Payment Page Items Expiration Value"
-msgstr "Ödeme Sayfası Kalemler Öncelik"
+msgstr "Ödeme Sayfası Kalemleri Geçerlilik Değeri"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_item_priority
@@ -4030,10 +3923,8 @@ msgstr "Ödeme Sayfası Kalemler Öncelik Seçeneği"
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_page_button_access_transaction
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_company__payment_page_button_access_transaction
-#, fuzzy
-#| msgid "Payment Transaction"
 msgid "Payment Page See All Transactions"
-msgstr "Ödeme İşlemleri"
+msgstr "Ödeme Sayfası Tüm İşlemleri Gör"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_partner__payment_page_url
@@ -4053,10 +3944,8 @@ msgstr "Ödeme Sayfaları"
 #. module: payment_jetcheckout_system
 #: model:ir.actions.act_window,name:payment_jetcheckout_system.action_plan_error_wizard
 #: model:ir.model,name:payment_jetcheckout_system.model_payment_plan_error_wizard
-#, fuzzy
-#| msgid "Payment Plan Wizard"
 msgid "Payment Plan Error Wizard"
-msgstr "Ödeme Planı Sihirbazı"
+msgstr "Ödeme Planı Hata Sihirbazı"
 
 #. module: payment_jetcheckout_system
 #: model:ir.actions.act_window,name:payment_jetcheckout_system.action_plan_wizard
@@ -4143,10 +4032,8 @@ msgstr "Ödeme Jeton Sayfası Komisyon Hariç Tutar"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model,name:payment_jetcheckout_system.model_payment_token_verify
-#, fuzzy
-#| msgid "Payment Token"
 msgid "Payment Token Verify"
-msgstr "Ödeme Jetonu"
+msgstr "Ödeme Jetonu Doğrula"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model,name:payment_jetcheckout_system.model_payment_transaction
@@ -4161,18 +4048,14 @@ msgstr "Ödeme İşlemleri Kalemleri"
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_settings__payment_transaction_export_txt
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_company__payment_transaction_export_txt
-#, fuzzy
-#| msgid "Payment Transaction"
 msgid "Payment Trasansaction Export TXT"
-msgstr "Ödeme İşlemleri"
+msgstr "Ödeme İşlemi TXT Dışa Aktar"
 
 #. module: payment_jetcheckout_system
 #: model:ir.actions.act_window,name:payment_jetcheckout_system.action_view
 #: model:ir.model,name:payment_jetcheckout_system.model_payment_view
-#, fuzzy
-#| msgid "Payment Items"
 msgid "Payment Views"
-msgstr "Ödemeler"
+msgstr "Ödeme Görünümleri"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.page_result
@@ -4206,8 +4089,8 @@ msgid ""
 "Payment item with date \"%s\" has been expired. Please refresh the page and "
 "continue."
 msgstr ""
-"\"%s\" tarihli ödeme kaleminin geçerliliği sona erdi. Lütfen sayfayı yenileyin "
-"ve devam edin."
+"\"%s\" tarihli ödeme kaleminin geçerliliği sona erdi. Lütfen sayfayı yenileyin ve "
+"devam edin."
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/controllers/main.py:0
@@ -4287,24 +4170,18 @@ msgstr "Telefon numarası geçerli değil."
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item__plan_error
-#, fuzzy
-#| msgid "Error"
 msgid "Plan Error"
-msgstr "Hata"
+msgstr "Plan Hata"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item__plan_exist
-#, fuzzy
-#| msgid "Plans"
 msgid "Plan Exist"
-msgstr "Planlar"
+msgstr "Plan Mevcut"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item__planned
-#, fuzzy
-#| msgid "Planned Amount"
 msgid "Planned"
-msgstr "Planlanan Tutar"
+msgstr "Planlandı"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item__planned_amount
@@ -4318,10 +4195,9 @@ msgstr "Planlar"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/wizards/item_import.py:0
-#, fuzzy, python-format
-#| msgid "Please enter a phone number"
+#, python-format
 msgid "Please create a \"Amount\" column"
-msgstr "Lütfen bir telefon numarası giriniz"
+msgstr "Lütfen \"Tutar\" sütunu oluşturun"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/wizards/item_import.py:0
@@ -4356,10 +4232,9 @@ msgstr "Lütfen bir telefon numarası giriniz"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/controllers/main.py:0
-#, fuzzy, python-format
-#| msgid "Please enter an email address"
+#, python-format
 msgid "Please enter a tax office"
-msgstr "Lütfen bir eposta adresi giriniz"
+msgstr "Lütfen bir vergi dairesi giriniz"
 
 #. module: payment_jetcheckout_system
 #. openerp-web
@@ -4590,17 +4465,15 @@ msgstr "Avansı Kaldır"
 #. module: payment_jetcheckout_system
 #. openerp-web
 #: code:addons/payment_jetcheckout_system/static/src/xml/system.xml:0
-#, fuzzy, python-format
-#| msgid "Remove"
+#, python-format
 msgid "Remove Item"
-msgstr "Kaldır"
+msgstr "Ödemeyi Kaldır"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/controllers/main.py:0
-#, fuzzy, python-format
-#| msgid "Date format cannot be empty"
+#, python-format
 msgid "Report cannot be found"
-msgstr "Tarih biçimi boş olamaz"
+msgstr "Rapor bulunamadı"
 
 #. module: payment_jetcheckout_system
 #. openerp-web
@@ -4698,10 +4571,8 @@ msgstr "Satış Sözleşmesi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_transaction__paylox_sale_ref
-#, fuzzy
-#| msgid "Reference"
 msgid "Sale Reference"
-msgstr "Referans"
+msgstr "Satış Referansı"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.transaction_search
@@ -4716,24 +4587,18 @@ msgstr "Satış Temsilcisi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import_line__user_email
-#, fuzzy
-#| msgid "Sales Representative"
 msgid "Sales Representative Email"
-msgstr "Satış Temsilcisi"
+msgstr "Satış Temsilcisi Eposta"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import_line__user_mobile
-#, fuzzy
-#| msgid "Sales Representative"
 msgid "Sales Representative Mobile"
-msgstr "Satış Temsilcisi"
+msgstr "Satış Temsilcisi Mobil"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_item_import_line__user_name
-#, fuzzy
-#| msgid "Sales Representative"
 msgid "Sales Representative Name"
-msgstr "Satış Temsilcisi"
+msgstr "Satış Temsilcisi Adı"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model,name:payment_jetcheckout_system.model_crm_team
@@ -4976,17 +4841,13 @@ msgstr "Kampanya Butonunu Göster"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_website__show_contact_page
-#, fuzzy
-#| msgid "Contact Page"
 msgid "Show Contact Page"
-msgstr "İletişim Bilgileri"
+msgstr "İletişim Sayfasını Göster"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_website__show_membership_agreement
-#, fuzzy
-#| msgid "Membership Agreement"
 msgid "Show Membership Agreement"
-msgstr "Üyelik Sözleşmesi"
+msgstr "Üyelik Sözleşmesini Göster"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_users__group_show_payment_link
@@ -4996,17 +4857,13 @@ msgstr "Ödeme Linki Göster"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_website__show_privacy_policy
-#, fuzzy
-#| msgid "Privacy Policy"
 msgid "Show Privacy Policy"
-msgstr "Gizlilik Politikası"
+msgstr "Gizlilik Sözleşmesini Göster"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_website__show_sale_agreement
-#, fuzzy
-#| msgid "Sale Agreement"
 msgid "Show Sale Agreement"
-msgstr "Satış Sözleşmesi"
+msgstr "Satış Sözleşmesini Göster"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_partner__sibling_ids
@@ -5038,10 +4895,8 @@ msgstr "Kaydolma Geçerliliği"
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_partner__signup_token
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_users__signup_token
-#, fuzzy
-#| msgid "Sign In"
 msgid "Signup Token"
-msgstr "Giriş Yap"
+msgstr "Kaydol Jetonu"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_res_partner__signup_type
@@ -5286,18 +5141,15 @@ msgstr "Kişi \"%s\" portal yetkisine sahip değil."
 #: code:addons/payment_jetcheckout_system/models/partner.py:0
 #, python-format
 msgid ""
-"The template \"Portal: new user\" not found for sending email to the portal "
-"user."
+"The template \"Portal: new user\" not found for sending email to the portal user."
 msgstr ""
 "Portal kullanıcısına gönderilecek eposta için şablon \"Portal: Kullanıcı Portal "
 "Davet Şablonu\" bulunamadı."
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__theme_template_id
-#, fuzzy
-#| msgid "Use Template"
 msgid "Theme Template"
-msgstr "Şablon Kullan"
+msgstr "Tema Şablonu"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/controllers/main.py:0
@@ -5374,8 +5226,8 @@ msgid ""
 "in dev-xml mode."
 msgstr ""
 "Bu alan mimariya ulaşmak için kullanılmalıdır..\n"
-"                               Eğer dev-xml modunda ise `arch_db` veya "
-"`arch_fs` alanlarını okuyacağını unutmayın."
+"                               Eğer dev-xml modunda ise `arch_db` veya `arch_fs` "
+"alanlarını okuyacağını unutmayın."
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,help:payment_jetcheckout_system.field_payment_view__arch_db
@@ -5646,10 +5498,8 @@ msgstr "Url"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
-#, fuzzy
-#| msgid "Share Payment Link"
 msgid "Use Sale Reference for Payment Link"
-msgstr "Ödeme Linki Paylaş"
+msgstr "Ödeme Linki için Satış Referansı Kullan"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.settings_form
@@ -5719,10 +5569,8 @@ msgstr "Mimariye Gözat"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__type
-#, fuzzy
-#| msgid "Type"
 msgid "View Type"
-msgstr "Tür"
+msgstr "Görünüm Türü"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__mode
@@ -5746,10 +5594,8 @@ msgstr "Görünürlük"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__visibility_password
-#, fuzzy
-#| msgid "Set Password"
 msgid "Visibility Password"
-msgstr "Parola Ayarla"
+msgstr "Parola Görünürlüğü"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__visibility_password_display
@@ -5803,10 +5649,8 @@ msgstr "Websayfa Mesajları"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__first_page_id
-#, fuzzy
-#| msgid "Website Messages"
 msgid "Website Page"
-msgstr "Websayfa Mesajları"
+msgstr "Websayfa Sayfası"
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.company_hierarchy_line
@@ -5820,31 +5664,23 @@ msgstr "Websayfası iletişim geçmişi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__website_meta_description
-#, fuzzy
-#| msgid "Website Settings"
 msgid "Website meta description"
-msgstr "Website Ayarları"
+msgstr "Website meta açıklaması"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__website_meta_keywords
-#, fuzzy
-#| msgid "Website Messages"
 msgid "Website meta keywords"
-msgstr "Websayfa Mesajları"
+msgstr "Websayfa meta anahtar kelimeleri"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__website_meta_title
-#, fuzzy
-#| msgid "Website Settings"
 msgid "Website meta title"
-msgstr "Website Ayarları"
+msgstr "Website meta başlığı"
 
 #. module: payment_jetcheckout_system
 #: model:ir.model.fields,field_description:payment_jetcheckout_system.field_payment_view__website_meta_og_img
-#, fuzzy
-#| msgid "Website Messages"
 msgid "Website opengraph image"
-msgstr "Websayfa Mesajları"
+msgstr "Websayfa opengraph resmi"
 
 #. module: payment_jetcheckout_system
 #: model:ir.actions.act_window,name:payment_jetcheckout_system.action_website
@@ -5935,12 +5771,13 @@ msgstr "Dün"
 
 #. module: payment_jetcheckout_system
 #: code:addons/payment_jetcheckout_system/models/transaction.py:0
-#, fuzzy, python-format
-#| msgid "An error occured. Please contact with your system administrator."
+#, python-format
 msgid ""
-"You are not allowed to export transactions as TXT file. Please contact with "
-"your administrator."
-msgstr "Bir hata meydana geldi. Lütfen sistem yöneticisi ile iletişime geçiniz."
+"You are not allowed to export transactions as TXT file. Please contact with your "
+"administrator."
+msgstr ""
+"İşlemleri TXT olarak dışa aktarmak için yetkili değilsiniz. Lütfen sistem "
+"yöneticiniz ile iletişime geçiniz."
 
 #. module: payment_jetcheckout_system
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_system.user_form
