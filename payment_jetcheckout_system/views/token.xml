@@ -5,6 +5,7 @@
     <field name="model">payment.token</field>
     <field name="arch" type="xml">
         <tree editable="top" sample="1" decoration-muted="active == False">
+            <field name="sequence" widget="handle"/>
             <field name="name" decoration-bf="1"/>
             <field name="jetcheckout_limit_card"/>
             <field name="jetcheckout_limit_tx"/>

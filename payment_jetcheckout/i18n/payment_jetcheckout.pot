@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-16 10:45+0000\n"
-"PO-Revision-Date: 2024-12-16 10:45+0000\n"
+"POT-Creation-Date: 2025-01-25 18:01+0000\n"
+"PO-Revision-Date: 2025-01-25 18:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -236,26 +236,6 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_receipt
 msgid "<br/>Vat:"
-msgstr ""
-
-#. module: payment_jetcheckout
-#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
-msgid "<code>{{amount_paid}}</code>: Paid Amount"
-msgstr ""
-
-#. module: payment_jetcheckout
-#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
-msgid "<code>{{card_holder}}</code>: Credit Card Holder Name"
-msgstr ""
-
-#. module: payment_jetcheckout
-#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
-msgid "<code>{{partner_name}}</code>: Partner Name"
-msgstr ""
-
-#. module: payment_jetcheckout
-#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
-msgid "<code>{{payment_date}}</code>: Payment Date"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -738,11 +718,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_transaction_import_line__state__authorized
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_sidebar
 msgid "Authorized"
-msgstr ""
-
-#. module: payment_jetcheckout
-#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
-msgid "Available variables;"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -1466,6 +1441,12 @@ msgid "Desc"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_transaction_list
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.transaction_form
+msgid "Description"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__display_icon
 msgid "Display Icon"
 msgstr ""
@@ -1667,11 +1648,6 @@ msgid "HTTP Routing"
 msgstr ""
 
 #. module: payment_jetcheckout
-#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.form_report
-msgid "Help"
-msgstr ""
-
-#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__jetcheckout_no_smart_buttons
 msgid "Hide Smart Buttons"
 msgstr ""
@@ -1867,6 +1843,11 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_product_category__jetcheckout_credit_categ_id
 msgid "Jetcheckout Credit Categ"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_data
+msgid "Jetcheckout Data"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -3079,6 +3060,7 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_bank__sequence
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_report__sequence
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_token__sequence
 msgid "Sequence"
 msgstr ""
 

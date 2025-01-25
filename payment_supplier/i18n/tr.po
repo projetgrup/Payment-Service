@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0-20220110\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-17 12:12+0000\n"
-"PO-Revision-Date: 2024-07-17 15:17+0300\n"
+"POT-Creation-Date: 2025-01-25 17:43+0000\n"
+"PO-Revision-Date: 2025-01-25 20:47+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -15,27 +15,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #. module: payment_supplier
 #: code:addons/payment_supplier/controllers/main.py:0
 #, python-format
 msgid "%s must have at least one bank account which is verified."
 msgstr "%s için en az bir adet onaylı banka hesabı bulunmalıdır."
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid ""
-". Please try again. If this situation occurs anyway, please contact with "
-"system administation."
-msgstr ""
-"Lütfen tekrar deneyiniz. Eğer bu durum ile tekrar karşılaşırsanız, sistem "
-"yönetimi ile iletişime geçiniz."
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid "<em class=\"d-block mt-1 text-600\">Redirecting...</em>"
-msgstr "<em class=\"d-block mt-1 text-600\">Yönlendiriliyor...</em>"
 
 #. module: payment_supplier
 #: model_terms:ir.ui.view,arch_db:payment_supplier.parent_form
@@ -49,19 +35,237 @@ msgstr ""
 "            </span>"
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "<span>Card Number</span>"
-msgstr "<span>Kart Numarası</span>"
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "<span>Expiration</span>"
-msgstr "<span>Son Kullanım Tarihi</span>"
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "<span>Name</span>"
-msgstr "<span>Adı</span>"
+#: model:mail.template,body_html:payment_supplier.mail_item_done
+#, fuzzy
+#| msgid ""
+#| "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-"
+#| "top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-"
+#| "serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td "
+#| "align=\"center\">\n"
+#| "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+#| "style=\"padding: 16px; background-color: white; color: #454748; border-"
+#| "collapse:separate;\">\n"
+#| "<tbody>\n"
+#| "    <tr>\n"
+#| "        <td align=\"center\" style=\"min-width: 590px;\">\n"
+#| "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
+#| "width=\"590\" style=\"min-width: 590px; background-color: white; padding: "
+#| "0px 8px 0px 8px; border-collapse:separate;\">\n"
+#| "                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+#| "                    <div>\n"
+#| "                        Hello <strong t-out=\"object.name or ''\">ABC Inc."
+#| "</strong>,<br/><br/>\n"
+#| "                        <span t-out=\"ctx['company']['name'] or ''\">XYZ "
+#| "Ltd.</span> has confirmed <t t-out=\"format_amount(ctx['amount'], "
+#| "ctx['currency']) or ''\"/> payment order for you.<br/>\n"
+#| "                        The amount is going to be sent on the next day "
+#| "from iyzico.<br/><br/>\n"
+#| "                        Have a nice day...\n"
+#| "                    </div>\n"
+#| "                </td></tr>\n"
+#| "                <tr><td style=\"text-align:center;\">\n"
+#| "                  <hr width=\"100%\" style=\"background-color:"
+#| "rgb(204,204,204);border:medium none;clear:both;display:block;font-"
+#| "size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+#| "                </td></tr>\n"
+#| "            </table>\n"
+#| "        </td>\n"
+#| "    </tr>\n"
+#| "    <tr>\n"
+#| "        <td align=\"center\" style=\"min-width: 590px;\">\n"
+#| "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
+#| "width=\"590\" style=\"min-width: 590px; background-color: white; font-"
+#| "size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+#| "                <tr><td valign=\"middle\" align=\"left\">\n"
+#| "                    <t t-out=\"ctx['company']['name'] or "
+#| "''\">YourCompany</t>\n"
+#| "                </td></tr>\n"
+#| "                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
+#| "0.7;\">\n"
+#| "                    <t t-out=\"ctx['company']['phone']  or ''\">+1 "
+#| "650-123-4567</t>\n"
+#| "                    <t t-if=\"ctx['company']['email'] \">\n"
+#| "                        | <a t-attf-href=\"mailto:{{ ctx['company']"
+#| "['email'] }}\" style=\"text-decoration:none; color: #454748;\" t-"
+#| "out=\"ctx['company']['email'] or ''\">info@yourcompany.com</a>\n"
+#| "                    </t>\n"
+#| "                    <t t-if=\"ctx['company']['website']\">\n"
+#| "                        | <a t-attf-href=\"{{ ctx['company']"
+#| "['website'] }}\" style=\"text-decoration:none; color: #454748;\" t-"
+#| "out=\"ctx['company']['website'] or ''\">http://www.example.com</a>\n"
+#| "                    </t>\n"
+#| "                </td></tr>\n"
+#| "            </table>\n"
+#| "        </td>\n"
+#| "    </tr>\n"
+#| "</tbody>\n"
+#| "</table>\n"
+#| "</td></tr>\n"
+#| "</table>"
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: "
+"16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; "
+"color: #454748; width: 100%; border-collapse:separate;\"><tr><td "
+"align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"padding: 16px; background-color: white; color: #454748; border-"
+"collapse:separate;\">\n"
+"<tbody>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
+"width=\"590\" style=\"min-width: 590px; background-color: white; padding: "
+"0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td valign=\"middle\">\n"
+"                        <span style=\"font-size: 10px;\">Payment "
+"Notification</span>\n"
+"                    </td>\n"
+"                    <td valign=\"middle\" align=\"right\">\n"
+"                        <img t-attf-src=\"/logo.png?company={{ ctx['company']"
+"['id'] }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" "
+"t-att-alt=\"ctx['company']['name']\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"                <tr>\n"
+"                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;"
+"min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
+"width=\"590\" style=\"min-width: 590px; background-color: white; padding: "
+"0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                        <div>\n"
+"                            Hello,<br/><br/>\n"
+"                            Your payment information is as follows:<br/><br/"
+">\n"
+"                            Your payment will be sent you via IYZICO "
+"accounts.<br/><br/>\n"
+"                            Payment Amount: <strong t-"
+"out=\"format_amount(object.paid_amount, object.currency_id) or ''\"/><br/>\n"
+"                            Payer Company: <strong t-out=\"ctx['company']"
+"['name']\"/><br/>\n"
+"                            Payee IBAN Account: <strong t-"
+"out=\"ctx['iban']\"/><br/>\n"
+"                        </div>\n"
+"                    </td>\n"
+"                </tr>\n"
+"                <tr>\n"
+"                    <td style=\"text-align:center;\">\n"
+"                        <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;"
+"min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
+"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
+"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    <t t-out=\"ctx['company']['name'] or ''\">YourCompany</"
+"t>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
+"0.7;\">\n"
+"                    <t t-out=\"ctx['company']['phone'] or ''\">+1 "
+"650-123-4567</t>\n"
+"                    <t t-if=\"ctx['company']['email']\">\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ ctx['company']"
+"['email'] }}\" style=\"text-decoration:none; color: #454748;\" t-"
+"out=\"ctx['company']['email'] or ''\">info@yourcompany.com</a>\n"
+"                    </t>\n"
+"                    <t t-if=\"ctx['company']['website']\">\n"
+"                        | <a t-attf-href=\"'%s' % {{ ctx['company']"
+"['website'] }}\" style=\"text-decoration:none; color: #454748;\" t-"
+"out=\"ctx['company']['website'] or ''\">http://www.example.com</a>\n"
+"                    </t>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
+msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: "
+"16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; "
+"color: #454748; width: 100%; border-collapse:separate;\"><tr><td "
+"align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" "
+"style=\"padding: 16px; background-color: white; color: #454748; border-"
+"collapse:separate;\">\n"
+"<tbody>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
+"width=\"590\" style=\"min-width: 590px; background-color: white; padding: "
+"0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    <div>\n"
+"                        Sayın <strong t-out=\"object.name or ''\">ABC A.Ş..</"
+"strong>,<br/><br/>\n"
+"                        <span t-out=\"ctx['company']['name'] or ''\">XYZ "
+"Ltd. Şti.</span> hesabınıza <t t-out=\"format_amount(ctx['amount'], "
+"ctx['currency']) or ''\"/> tutarındaki ödeme emrini onayladı.<br/>\n"
+"                        Tutar iyzico tarafından bir sonraki gün hesabınıza "
+"gönderilecektir.<br/><br/>\n"
+"                        İyi günler dileriz...\n"
+"                    </div>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                  <hr width=\"100%\" style=\"background-color:"
+"rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;"
+"min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "
+"width=\"590\" style=\"min-width: 590px; background-color: white; font-size: "
+"11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    <t t-out=\"ctx['company']['name'] or ''\">YourCompany</"
+"t>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: "
+"0.7;\">\n"
+"                    <t t-out=\"ctx['company']['phone']  or ''\">+1 "
+"650-123-4567</t>\n"
+"                    <t t-if=\"ctx['company']['email'] \">\n"
+"                        | <a t-attf-href=\"mailto:{{ ctx['company']"
+"['email'] }}\" style=\"text-decoration:none; color: #454748;\" t-"
+"out=\"ctx['company']['email'] or ''\">info@yourcompany.com</a>\n"
+"                    </t>\n"
+"                    <t t-if=\"ctx['company']['website']\">\n"
+"                        | <a t-attf-href=\"{{ ctx['company']['website'] }}\" "
+"style=\"text-decoration:none; color: #454748;\" t-out=\"ctx['company']"
+"['website'] or ''\">http://www.example.com</a>\n"
+"                    </t>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"</table>"
 
 #. module: payment_supplier
 #: model:mail.template,body_html:payment_supplier.mail_item_approved
@@ -212,9 +416,9 @@ msgid "Branch"
 msgstr "Şube"
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "CVC"
-msgstr "Güvenlik Kodu"
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_tree
+msgid "CC Paid"
+msgstr "KK Ödendi"
 
 #. module: payment_supplier
 #. openerp-web
@@ -314,15 +518,6 @@ msgid "Credit Cards"
 msgstr "Kredi Kartları"
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid ""
-"Credit card verification status could not be retrieved. Please close the "
-"dialog and check the verification again."
-msgstr ""
-"Kredi kartı doğrulama durumu alınamadı. Lütfen bu pencereyi kapatın ve "
-"doğrulamayı tekrar control edin."
-
-#. module: payment_supplier
 #: model:ir.ui.menu,name:payment_supplier.menu_dashboard
 msgid "Dashboard"
 msgstr "Panel"
@@ -338,6 +533,16 @@ msgid "Display Name"
 msgstr "Görünen Adı"
 
 #. module: payment_supplier
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_tree
+msgid "ERP Recorded"
+msgstr "ERP Kaydedildi"
+
+#. module: payment_supplier
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_tree
+msgid "Edit IBAN"
+msgstr "IBAN Düzenle"
+
+#. module: payment_supplier
 #: model:ir.ui.menu,name:payment_supplier.menu_mail
 msgid "Email Settings"
 msgstr "Eposta Ayarları"
@@ -351,6 +556,11 @@ msgstr "Eposta Şablonları"
 #: model:ir.model,name:payment_supplier.model_ir_http
 msgid "HTTP Routing"
 msgstr "HTTP Yönlendirme"
+
+#. module: payment_supplier
+#: model:ir.ui.menu,name:payment_supplier.menu_hook
+msgid "Hooks"
+msgstr "Kancalar"
 
 #. module: payment_supplier
 #: model:ir.model.fields,field_description:payment_supplier.field_payment_token_verify__id
@@ -376,11 +586,6 @@ msgstr "Son Güncelleyen"
 #: model:ir.model.fields,field_description:payment_supplier.field_payment_token_verify__write_date
 msgid "Last Updated on"
 msgstr "Son Güncelleme Tarihi"
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "MM/YY"
-msgstr "AA/YY"
 
 #. module: payment_supplier
 #: model:ir.ui.menu,name:payment_supplier.menu_mail_server
@@ -430,6 +635,11 @@ msgid "Payment Items"
 msgstr "Ödeme Kalemleri"
 
 #. module: payment_supplier
+#: model:mail.template,subject:payment_supplier.mail_item_done
+msgid "Payment Notification | {{ ctx['company']['name'] }}"
+msgstr "Ödeme Bildirimi | {{ ctx['company']['name'] }}"
+
+#. module: payment_supplier
 #: model:ir.model,name:payment_supplier.model_payment_plan
 #: model:ir.ui.menu,name:payment_supplier.menu_plan
 msgid "Payment Plans"
@@ -454,6 +664,11 @@ msgstr "Ödeme Jetonu Doğrula"
 #: model:mail.template,subject:payment_supplier.mail_item_approved
 msgid "Payment has been approved from {{ ctx['company']['name'] }}"
 msgstr "{{ ctx['company']['name'] }} tarafından ödemeniz onaylandı"
+
+#. module: payment_supplier
+#: model:mail.template,name:payment_supplier.mail_item_done
+msgid "Payment: Item Done"
+msgstr "Ödeme: Kalem Tamamlandı"
 
 #. module: payment_supplier
 #: model:ir.actions.act_window,name:payment_supplier.action_item
@@ -504,6 +719,8 @@ msgid ""
 "Price lock has been removed.\n"
 "Please start the payment procedure all over."
 msgstr ""
+"Fiyat kilidi kaldırıldı.\n"
+"Lütfen ödeme sürecini baştan başlatın."
 
 #. module: payment_supplier
 #: model_terms:ir.ui.view,arch_db:payment_supplier.parent_form
@@ -544,11 +761,6 @@ msgstr "Satış Ekibi"
 #: model:ir.ui.menu,name:payment_supplier.menu_team
 msgid "Sales Teams"
 msgstr "Satış Ekipleri"
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-msgid "Security Code"
-msgstr "Güvenlik Kodu"
 
 #. module: payment_supplier
 #: model:ir.actions.act_window,name:payment_supplier.action_settings
@@ -602,16 +814,9 @@ msgid "System"
 msgstr "Sistem"
 
 #. module: payment_supplier
-#: model:ir.model.fields,field_description:payment_supplier.field_payment_item__system_supplier_bank_verified
-msgid "System Supplier Bank Verified"
-msgstr "Sistem Tedarikçi Banka Onaylandı"
-
-#. module: payment_supplier
 #: model:ir.model.fields,field_description:payment_supplier.field_payment_item__system_supplier_plan_mail_sent
-#, fuzzy
-#| msgid "System Supplier Bank Verified"
 msgid "System Supplier Plan Mail Sent"
-msgstr "Sistem Tedarikçi Banka Onaylandı"
+msgstr "Sistem Tedarikçi Plan Eposta Gönderildi"
 
 #. module: payment_supplier
 #: model:ir.ui.menu,name:payment_supplier.menu_tags
@@ -625,10 +830,8 @@ msgstr "Etiketler..."
 
 #. module: payment_supplier
 #: model:mail.template,name:payment_supplier.mail_item_approved
-#, fuzzy
-#| msgid "Supplier Payment System"
 msgid "Transaction: Supplier Payment Email"
-msgstr "Tedarikçi Tahsilat Sistemi"
+msgstr "Ödeme İşlemi: Tedarikçi Ödeme Epostası"
 
 #. module: payment_supplier
 #: model:ir.ui.menu,name:payment_supplier.menu_transaction
@@ -636,9 +839,19 @@ msgid "Transactions"
 msgstr "İşlemler"
 
 #. module: payment_supplier
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_tree
+msgid "Transfer Confirmed"
+msgstr "Transfer Onaylandı"
+
+#. module: payment_supplier
+#: model_terms:ir.ui.view,arch_db:payment_supplier.item_search
+msgid "Unplanable Items"
+msgstr "Plan Oluşmayacak Ödemeler"
+
+#. module: payment_supplier
 #: model_terms:ir.ui.view,arch_db:payment_supplier.item_search
 msgid "Unverified Partners"
-msgstr "Onaylanmamış Te"
+msgstr "Onaylanmamış İş Ortakları"
 
 #. module: payment_supplier
 #: model:res.groups,name:payment_supplier.group_supplier_user
@@ -665,17 +878,6 @@ msgid "Vat"
 msgstr "TCKN"
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.tree_token
-msgid "Verified"
-msgstr "Doğrulandı"
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_verify
-#: model_terms:ir.ui.view,arch_db:payment_supplier.tree_token
-msgid "Verify"
-msgstr "Doğrula"
-
-#. module: payment_supplier
 #: model_terms:ir.ui.view,arch_db:payment_supplier.parent_form
 msgid "View accounts detail"
 msgstr "Hesap detaylarını göster"
@@ -699,25 +901,6 @@ msgid "Websites"
 msgstr "Websiteler"
 
 #. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid "Your credit card has been successfully verified."
-msgstr "Kredi kartınız başarılı bir şekilde doğrulandı."
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid ""
-"Your credit card verification has been failed. Please try again. If this "
-"situation occurs anyway, please contact with system administation."
-msgstr ""
-"Kredi kartı doğrulamanız başarısız oldu. Lütfen tekrar deneyiniz. Eğer bu "
-"durum ile tekrar karşılaşırsanız, sistem yönetimi ile iletişime geçiniz."
-
-#. module: payment_supplier
-#: model_terms:ir.ui.view,arch_db:payment_supplier.page_token_result
-msgid "Your credit card verification status:"
-msgstr "Kredi kartı doğrulama durumu:"
-
-#. module: payment_supplier
 #: model_terms:ir.ui.view,arch_db:payment_supplier.parent_form
 msgid "ZIP"
 msgstr "Posta Kodu"
@@ -726,6 +909,63 @@ msgstr "Posta Kodu"
 #: model:ir.ui.menu,name:payment_supplier.menu_syncops_connector
 msgid "syncOPS Integrations"
 msgstr "syncOPS Entegrasyonları"
+
+#~ msgid ""
+#~ ". Please try again. If this situation occurs anyway, please contact with "
+#~ "system administation."
+#~ msgstr ""
+#~ "Lütfen tekrar deneyiniz. Eğer bu durum ile tekrar karşılaşırsanız, sistem "
+#~ "yönetimi ile iletişime geçiniz."
+
+#~ msgid "<em class=\"d-block mt-1 text-600\">Redirecting...</em>"
+#~ msgstr "<em class=\"d-block mt-1 text-600\">Yönlendiriliyor...</em>"
+
+#~ msgid "<span>Card Number</span>"
+#~ msgstr "<span>Kart Numarası</span>"
+
+#~ msgid "<span>Expiration</span>"
+#~ msgstr "<span>Son Kullanım Tarihi</span>"
+
+#~ msgid "<span>Name</span>"
+#~ msgstr "<span>Adı</span>"
+
+#~ msgid "CVC"
+#~ msgstr "Güvenlik Kodu"
+
+#~ msgid ""
+#~ "Credit card verification status could not be retrieved. Please close the "
+#~ "dialog and check the verification again."
+#~ msgstr ""
+#~ "Kredi kartı doğrulama durumu alınamadı. Lütfen bu pencereyi kapatın ve "
+#~ "doğrulamayı tekrar control edin."
+
+#~ msgid "MM/YY"
+#~ msgstr "AA/YY"
+
+#~ msgid "Security Code"
+#~ msgstr "Güvenlik Kodu"
+
+#~ msgid "System Supplier Bank Verified"
+#~ msgstr "Sistem Tedarikçi Banka Onaylandı"
+
+#~ msgid "Verified"
+#~ msgstr "Doğrulandı"
+
+#~ msgid "Verify"
+#~ msgstr "Doğrula"
+
+#~ msgid "Your credit card has been successfully verified."
+#~ msgstr "Kredi kartınız başarılı bir şekilde doğrulandı."
+
+#~ msgid ""
+#~ "Your credit card verification has been failed. Please try again. If this "
+#~ "situation occurs anyway, please contact with system administation."
+#~ msgstr ""
+#~ "Kredi kartı doğrulamanız başarısız oldu. Lütfen tekrar deneyiniz. Eğer bu "
+#~ "durum ile tekrar karşılaşırsanız, sistem yönetimi ile iletişime geçiniz."
+
+#~ msgid "Your credit card verification status:"
+#~ msgstr "Kredi kartı doğrulama durumu:"
 
 #~ msgid "Save"
 #~ msgstr "Kaydet"

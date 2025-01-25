@@ -306,3 +306,10 @@ class PaymentPlanWizardLine(models.TransientModel):
     def onchange_token_id(self):
         self.token_limit_card = self.token_id.jetcheckout_limit_card if self.token_id else 0
         self.token_limit_tx = self.token_id.jetcheckout_limit_tx if self.token_id else 0
+
+
+class PaymentPlanErrorWizard(models.TransientModel):
+    _name = 'payment.plan.error.wizard'
+    _description = 'Payment Plan Error Wizard'
+
+    item_ids = fields.Many2many('payment.item', 'item_plan_error_wizard_rel', 'wizard_id', 'item_id', string='Items', readonly=True)
