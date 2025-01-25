@@ -27,6 +27,11 @@ class PaymentItem(models.Model):
             else:
                 item.jetcheckout_connector_result = False
 
+    @api.depends('jetcheckout_connector_state')
+    def _compute_jetcheckout_connector_done(self):
+        for item in self:
+            item.jetcheckout_connector_done = item.jetcheckout_connector_sent and not item.jetcheckout_connector_state
+
     syncops_ok = fields.Boolean(readonly=True)
     syncops_notif = fields.Boolean(readonly=True)
     syncops_data = fields.Text(string='syncOPS Data')
@@ -35,6 +40,7 @@ class PaymentItem(models.Model):
     jetcheckout_connector_state = fields.Boolean('Connector State', readonly=True)
     jetcheckout_connector_state_message = fields.Text('Connector State Message', readonly=True)
     jetcheckout_connector_payment_ref = fields.Char('Connector Payment Reference', readonly=True)
+    jetcheckout_connector_done = fields.Boolean('Connector Done', readonly=True, compute='_compute_jetcheckout_connector_done')
     jetcheckout_connector_result = fields.Html('Connector Result', sanitize=False, compute='_compute_jetcheckout_connector_result')
 
     def action_check_connector(self):

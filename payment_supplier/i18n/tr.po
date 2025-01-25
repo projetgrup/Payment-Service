@@ -638,7 +638,7 @@ msgstr "İşlemler"
 #. module: payment_supplier
 #: model_terms:ir.ui.view,arch_db:payment_supplier.item_search
 msgid "Unverified Partners"
-msgstr "Onaylanmamış Te"
+msgstr "Onaylanmamış İş Ortakları"
 
 #. module: payment_supplier
 #: model:res.groups,name:payment_supplier.group_supplier_user

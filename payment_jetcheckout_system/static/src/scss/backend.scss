@@ -76,6 +76,14 @@
     }
 }
 
+.o_web_client {
+    .o_form_plan_error_wizard {
+        .o_field_x2many {
+            pointer-events: none;
+        }
+    }
+}
+
 .o_settings_campaign_tag {
     .o_form_sheet {
         padding: 0 !important;

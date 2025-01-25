@@ -3,7 +3,7 @@ import logging
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.tools.misc import get_lang
 
 _logger = logging.getLogger(__name__)
@@ -82,6 +82,27 @@ class PaymentItem(models.Model):
         for item in self:
             item.date_expired = item.company_id.payment_page_item_expire_ok and item.date_expire and now > item.date_expire
 
+    @api.depends('plan_ids')
+    def _compute_plan_exist(self):
+        for item in self:
+            item.plan_exist = item.plan_ids.exists()
+
+    @api.depends('parent_id.bank_ids.api_state')
+    def _compute_plan_iban_exist(self):
+        for item in self:
+            item.plan_iban_exist = item.parent_id.bank_ids.filtered(lambda b: b.api_state).exists()
+
+    def _compute_plan_error(self):
+        for item in self:
+            if not item.paid and not item.plan_iban_exist:
+                item.plan_error = '<i class="fa fa-times text-danger" title="%s"/>' % _('IBAN has not been set')
+            else:
+                item.plan_error = False
+
+    def _compute_planned(self):
+        for item in self:
+            item.planned = all(plan.approval_state == '+' for plan in item.plan_ids)
+
     name = fields.Char(compute='_compute_name')
     child_id = fields.Many2one('res.partner', ondelete='restrict')
     parent_id = fields.Many2one('res.partner', ondelete='restrict')
@@ -111,7 +132,11 @@ class PaymentItem(models.Model):
     paid_date = fields.Datetime(compute='_compute_paid', store=True, readonly=True)
     is_admin = fields.Boolean(compute='_compute_is_admin')
 
+    planned = fields.Boolean(compute='_compute_planned', store=True, readonly=True)
     plan_ids = fields.One2many('payment.plan', 'item_id', string='Payment Plans')
+    plan_error = fields.Html('Plan Error', sanitize=False, compute='_compute_plan_error')
+    plan_exist = fields.Boolean('Plan Exist', compute='_compute_plan_exist', store=True)
+    plan_iban_exist = fields.Boolean('IBAN Exist', compute='_compute_plan_iban_exist', store=True)
     transaction_item_ids = fields.One2many('payment.transaction.item', 'item_id', string='Transaction Items')
     transaction_ids = fields.Many2many('payment.transaction', 'transaction_item_rel', 'item_id', 'transaction_id', string='Transactions')
     system = fields.Selection(selection=[], readonly=True)
@@ -139,9 +164,28 @@ class PaymentItem(models.Model):
         return action
 
     def action_plan_wizard(self):
+        error_ids = []
+        for item in self:
+            if item.plan_exist or not item.plan_iban_exist:
+                error_ids.append(item.id)
+
+        if error_ids:
+            action = self.env.ref('payment_jetcheckout_system.action_plan_error_wizard').sudo().read()[0]
+            action['context'] = {'default_item_ids': [(6, 0, error_ids)]}
+            return action
+
         action = self.env.ref('payment_jetcheckout_system.action_plan_wizard').sudo().read()[0]
-        item_ids = self.filtered(lambda item: any(bank.api_state for bank in item.parent_id.bank_ids))
-        action['context'] = {'default_item_ids': [(6, 0, item_ids.ids)]}
+        context = {'default_item_ids': [(6, 0, self.ids)]}
+        token = self.env['payment.token'].search([('company_id', '=', self.env.company.id), ('verified', '=', True)], limit=1)
+        if token:
+            context.update({
+                'default_line_ids': [(0, 0, {
+                    'token_id': token.id,
+                    'token_limit_card': token.jetcheckout_limit_card,
+                    'token_limit_tx': token.jetcheckout_limit_tx,
+                })],
+            })
+        action['context'] = context
         return action
 
     def action_transaction(self):
@@ -161,6 +205,13 @@ class PaymentItem(models.Model):
         self.ensure_one()
         transaction_ids = self.transaction_ids.filtered(lambda x: x.state == 'done')
         action = self.env.ref('payment_jetcheckout.report_conveyance').report_action(transaction_ids.ids)
+        return action
+
+    def action_partner(self):
+        self.ensure_one()
+        action = self.env.ref('payment_%s.action_parent' % self.system).read()[0]
+        action['res_id'] = self.parent_id.id
+        action['views'] = [(False, 'form')]
         return action
 
     @api.model

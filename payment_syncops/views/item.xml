@@ -11,6 +11,8 @@
             <field name="jetcheckout_connector_result" string=" "/>
             <field name="jetcheckout_connector_payment_ref" string="Connector Reference" attrs="{'invisible': [('jetcheckout_connector_ok', '=', False)]}" optional="hide"/>
             <field name="jetcheckout_connector_state_message" string="Connector Message" attrs="{'invisible': [('jetcheckout_connector_ok', '=', False)]}" optional="hide"/>
+        </xpath>
+        <xpath expr="//button[last()]" position="after">
             <button
                 name="action_check_connector"
                 type="object"

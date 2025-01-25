@@ -66,7 +66,7 @@
     <field name="res_model">payment.token</field>
     <field name="view_mode">tree</field>
     <field name="domain">[('system', '=', 'supplier')]</field>
-    <field name="context">{'active_system': 'supplier', 'active_test': False}</field>
+    <field name="context">{'active_system': 'supplier'}</field>
     <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
             No credit cards yet

@@ -6,17 +6,29 @@
     <field name="mode">primary</field>
     <field name="inherit_id" ref="payment_jetcheckout_system.item_tree"/>
     <field name="arch" type="xml">
-        <xpath expr='//tree' position="inside">
-            <field name="system_supplier_bank_verified" invisible="1"/>
+        <xpath expr='//field[@name="paid"]' position="replace"/>
+        <xpath expr='//field[@name="jetcheckout_connector_result"]' position="replace"/>
+        <xpath expr='//button' position="before">
+            <field name="paid" string="CC Paid"/>
+            <field name="planned" string="Transfer Confirmed"/>
+            <field name="jetcheckout_connector_done" string="ERP Recorded"/>
         </xpath>
         <xpath expr='//tree' position="attributes">
-            <attribute name="decoration-muted">system_supplier_bank_verified == False</attribute>
+            <attribute name="class">o_tree_payment_item_supplier</attribute>
+            <attribute name="decoration-success">paid == True</attribute>
+            <attribute name="decoration-danger">paid == False and plan_iban_exist == False</attribute>
+            <attribute name="decoration-info">paid == False and plan_exist == True</attribute>
+        </xpath>
+        <xpath expr='//tree' position="inside">
+            <field name="plan_error" string=" "/>
+            <button name="action_partner" string="Edit IBAN" class="text-danger" type="object" icon="fa-user" attrs="{'invisible': ['|', ('paid', '=', True), ('plan_iban_exist', '=', True)]}"/>
         </xpath>
         <xpath expr='//field' position="before">
             <header>
                 <button name="action_plan_wizard" type="object" string="Create Payment Plan" icon="fa-calendar-plus-o mr-1" class="ml-1 btn-outline-primary border-primary"/>
             </header>
         </xpath>
+        <xpath expr='//button[@name="action_conveyance"]' position="replace"/>
         <xpath expr='//field[@name="child_id"]' position="replace"/>
         <xpath expr='//field[@name="parent_id"]' position="replace"/>
         <xpath expr='//field[@name="campaign_id"]' position="replace">
@@ -49,7 +61,8 @@
         </xpath>
         <xpath expr='//filter[@name="filterby_paid"]' position="after">
             <separator/>
-            <filter name="filterby_unverified" string="Unverified Partners" domain="[('system_supplier_bank_verified', '=', False)]"/>
+            <filter name="filterby_unverified" string="Unverified Partners" domain="[('plan_iban_exist', '=', False)]"/>
+            <filter name="filterby_unplanable" string="Unplanable Items" domain="['|', ('plan_exist', '=', True), ('plan_iban_exist', '=', False)]"/>
         </xpath>
     </field>
     </record>
