@@ -684,10 +684,8 @@
                                                     <td>Commission Amount</td>
                                                     <td>Installment Count</td>
                                                     <td rowspan="2" class="border-left p-2">
-                                                        <!--<a t-attf-href="/report/pdf/payment_jetcheckout.payment_receipt/#{tx.id}" class="btn btn-secondary btn-block font-weight-bold text-uppercase" target="_blank" title="Receipt"><i class="fa fa-file-text-o mr-2" t-translation="off"/></a>
-                                                        <a t-attf-href="/report/pdf/payment_jetcheckout.payment_conveyance/#{tx.id}" class="btn btn-secondary btn-block font-weight-bold text-uppercase" target="_blank" title="Conveyance"><i class="fa fa-edit mr-2" t-translation="off"/></a>-->
-                                                        <a t-attf-href="/report/html/payment_jetcheckout.payment_receipt/#{tx.id}" class="btn btn-secondary btn-block font-weight-bold text-uppercase" target="_blank" title="Receipt"><i class="fa fa-file-text-o mr-2" t-translation="off"/></a>
-                                                        <a t-attf-href="/report/html/payment_jetcheckout.payment_conveyance/#{tx.id}" class="btn btn-secondary btn-block font-weight-bold text-uppercase" target="_blank" title="Conveyance"><i class="fa fa-edit mr-2" t-translation="off"/></a>
+                                                        <a t-attf-href="/payment/card/report/receipt/#{tx.jetcheckout_order_id}" class="btn btn-secondary btn-block font-weight-bold text-uppercase" target="_blank" title="Receipt"><i class="fa fa-file-text-o mr-2" t-translation="off"/></a>
+                                                        <a t-attf-href="/payment/card/report/conveyance/#{tx.jetcheckout_order_id}" class="btn btn-secondary btn-block font-weight-bold text-uppercase" target="_blank" title="Conveyance"><i class="fa fa-edit mr-2" t-translation="off"/></a>
                                                     </td>
                                                 </tr>
                                                 <tr class="border">
