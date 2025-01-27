@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import inspect
-from odoo import fields, models, api, _
+from odoo import fields, models, api, SUPERUSER_ID, _
 
 
 class PaymentPayloxApiPos(models.TransientModel):
@@ -122,11 +121,8 @@ class PaymentPayloxApiPos(models.TransientModel):
         return res
 
     def unlink(self):
-        try:
-            if inspect.currentframe().f_back.f_code.co_name.startswith('_transient'):
-                return super().unlink()
-        except:
-            pass
+        if self.env.uid == SUPERUSER_ID:
+            return super().unlink()
 
         if not self.env.context.get('no_sync'):
             for pos in self:
