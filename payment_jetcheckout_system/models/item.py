@@ -102,7 +102,7 @@ class PaymentItem(models.Model):
     @api.depends('plan_ids.approval_state')
     def _compute_planned(self):
         for item in self:
-            item.planned = all(plan.approval_state == '+' for plan in item.plan_ids)
+            item.planned = item.plan_ids and all(plan.approval_state == '+' for plan in item.plan_ids) or False
 
     name = fields.Char(compute='_compute_name')
     child_id = fields.Many2one('res.partner', ondelete='restrict')
