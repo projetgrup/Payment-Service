@@ -482,7 +482,7 @@ publicWidget.registry.payloxSystemPage = publicWidget.Widget.extend({
     _getDueTag: function () {
         if (this.payment.due.tag.exist) {
             let tag = this.payment.due.tag.$.filter('.btn-primary');
-            return tag && tag.data('name') || '';
+            return tag && parseInt(tag.data('id')) || 0;
         }
         return false;
     },
