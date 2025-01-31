@@ -264,6 +264,15 @@ class PaymentItem(models.Model):
 
         company = self.env.company
         if company.payment_page_due_ok:
+            tag = self.env.context.get('tag')
+            if tag:
+                tag = company.payment_page_campaign_tag_ids.filtered(lambda t: t.id == tag)
+                if tag.campaign_id:
+                    values.update({
+                        'campaign': tag.campaign_id.name,
+                    })
+                    return values
+
             amount = 0
             advance_amount = 0
             advance_campaign = ''
@@ -280,17 +289,6 @@ class PaymentItem(models.Model):
 
             today = fields.Date.today()
             lang = get_lang(self.env)
-
-            tag = self.env.context.get('tag')
-            if tag:
-                tags = company.payment_page_campaign_tag_ids
-                tag = tags.filtered(lambda t: t.id == tag)
-                if tag.campaign_id:
-                    values.update({
-                        'campaign': tag.campaign_id.name,
-                    })
-                    return values
-
             base = company.payment_page_due_base
             sign = -1 if base == 'date_document' else 1
             for item in self:
