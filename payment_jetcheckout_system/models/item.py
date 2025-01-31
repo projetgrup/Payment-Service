@@ -262,10 +262,6 @@ class PaymentItem(models.Model):
             'hide_payment_message': '',
         }
 
-        tag = self.env.context.get('tag')
-        if tag and tag.campaign_id:
-            return values
-
         company = self.env.company
         if company.payment_page_due_ok:
             amount = 0
@@ -285,6 +281,16 @@ class PaymentItem(models.Model):
             today = fields.Date.today()
             lang = get_lang(self.env)
 
+            tag = self.env.context.get('tag')
+            if tag:
+                tags = company.payment_page_campaign_tag_ids
+                tag = tags.filtered(lambda t: t.id == tag)
+                if tag.campaign_id:
+                    values.update({
+                        'campaign': tag.campaign_id.name,
+                    })
+                    return values
+
             base = company.payment_page_due_base
             sign = -1 if base == 'date_document' else 1
             for item in self:
@@ -300,7 +306,6 @@ class PaymentItem(models.Model):
             days = amount/total if total else 0
             date = (today + timedelta(days=days)).strftime(lang.date_format)
             days, campaign, line, advance, hide_payment = company.payment_page_due_ids.get_campaign(days * sign)
-
 
             if hide_payment:
                 hide_payment_message = company.payment_page_due_hide_payment_message
