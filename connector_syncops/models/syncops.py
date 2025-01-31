@@ -551,6 +551,7 @@ class SyncopsConnectorHook(models.Model):
             'env': self.env,
             'datetime': datetime,
             'UserError': UserError,
+            'logger': _logger,
             'json': _json,
             **values
         }
