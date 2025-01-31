@@ -505,7 +505,7 @@ class PayloxSystemController(Controller):
 
         payment_tagv = kwargs.get('tag', False)
         payment_tags = company.sudo().payment_page_campaign_tag_ids
-        payment_tag = payment_tags.filtered(lambda x: x.name == payment_tagv)
+        payment_tag = payment_tags.filtered(lambda x: x.id == payment_tagv)
         payment_tag_filter = []
 
         if len(payment_tag) == 1 and payment_tag.campaign_id:
@@ -584,7 +584,7 @@ class PayloxSystemController(Controller):
 
         payment_tagv = kwargs.get('tag', False)
         payment_tags = company.sudo().payment_page_campaign_tag_ids
-        payment_tag = payment_tags.filtered(lambda x: x.name == payment_tagv)
+        payment_tag = payment_tags.filtered(lambda x: x.id == payment_tagv)
         payment_tag_filter = []
 
         request.env['payment.item'].sudo().search([
@@ -655,7 +655,7 @@ class PayloxSystemController(Controller):
             raise
 
         payment_tags = company.sudo().payment_page_campaign_tag_ids
-        payment_tag = payment_tags.filtered(lambda x: x.name == tag)
+        payment_tag = payment_tags.filtered(lambda x: x.id == tag)
         payment_tag_filter = []
 
         if len(payment_tag) == 1 and payment_tag.campaign_id:
@@ -739,7 +739,7 @@ class PayloxSystemController(Controller):
             raise
 
         payment_tags = company.sudo().payment_page_campaign_tag_ids
-        payment_tag = payment_tags.filtered(lambda x: x.name == tag)
+        payment_tag = payment_tags.filtered(lambda x: x.id == tag)
         payment_tag_filter = []
 
         request.env['payment.item'].sudo().search([
