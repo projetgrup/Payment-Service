@@ -199,6 +199,22 @@ class PaymentSystemProductController(SystemController):
             path += '?' + query.decode('utf-8')
         return werkzeug.utils.redirect(path)
 
+    def _get_template(self, path, values):
+        template = request.env['payment.view'].sudo().search([
+            ('page_id.path', '=', path),
+            ('company_id', '=', values['company']['id']),
+        ], limit=1)
+        if template:
+            values.update({
+                'template': {
+                    'id': template.uid,
+                    'js': bool(template.arch_js),
+                    'css': bool(template.arch_css),
+                }
+            })
+            return template.view_id.id
+        return 'payment_system_product.page_payment'
+
     def _prepare_system(self,  company, system, partner, transaction, options={}):
         res = super()._prepare_system(company, system, partner, transaction, options=options)
         if company.system_product:
@@ -292,7 +308,8 @@ class PaymentSystemProductController(SystemController):
         if 'values' in kwargs and isinstance(kwargs['values'], dict):
             values.update({**kwargs['values']})
 
-        return request.render('payment_system_product.page_payment', values, headers={
+        template = self._get_template('/my/product/', values)
+        return request.render(template, values, headers={
             'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
             'Pragma': 'no-cache',
             'Expires': '-1'
