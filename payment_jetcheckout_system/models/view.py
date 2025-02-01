@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import uuid
-from odoo import models, fields, api, _
+from odoo import models, fields, _
 
 
 class PaymentView(models.Model):

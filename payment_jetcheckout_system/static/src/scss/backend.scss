@@ -18,6 +18,8 @@
             input {
                 z-index: initial;
                 opacity: initial;
+                appearance: none;
+                -webkit-appearance: none;
 
                 &::before {
                     content: "";
