@@ -40,7 +40,7 @@
                     <group>
                         <field name="inherit_id" options="{'no_open': True}"/>
                         <field name="company_id" groups="base.group_multi_company,base.group_system" options="{'no_create': True, 'no_open': True}"/>
-                        <field name="uid" class="text-primary font-weight-bold" force_save="1"/>
+                        <field name="uid" class="text-600 font-weight-bold" force_save="1"/>
                         <!--field name="uid" force_save="1" widget="CopyClipboardChar" options="{'string': 'Copy'}"/>-->
                         <field name="model_data_id" invisible="1"/>
                         <field name="view_id" invisible="1"/>

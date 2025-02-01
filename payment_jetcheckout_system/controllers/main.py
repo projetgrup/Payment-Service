@@ -428,7 +428,7 @@ class PayloxSystemController(Controller):
         token = urlparse(request.httprequest.referrer).path.rsplit('/', 1).pop()
         id, token = request.env['res.partner'].sudo()._resolve_token(token)
         if not id or not token:
-            raise
+            raise UserError(_('Partner not found.'))
 
         company = request.env.company
         partner = request.env['res.partner'].sudo().search([
@@ -437,7 +437,7 @@ class PayloxSystemController(Controller):
             ('company_id', '=', company.id),
         ], limit=1)
         if not partner:
-            raise
+            raise UserError(_('Partner not found.'))
 
         payment_tags = company.sudo().payment_page_campaign_tag_ids
         payment_tag = payment_tags.filtered(lambda x: x.id == tag)
@@ -492,7 +492,7 @@ class PayloxSystemController(Controller):
         token = urlparse(request.httprequest.referrer).path.rsplit('/', 1).pop()
         id, token = request.env['res.partner'].sudo()._resolve_token(token)
         if not id or not token:
-            raise
+            raise UserError(_('Partner not found.'))
 
         company = request.env.company
         partner = request.env['res.partner'].sudo().search([
@@ -501,7 +501,7 @@ class PayloxSystemController(Controller):
             ('company_id', '=', company.id),
         ], limit=1)
         if not partner:
-            raise
+            raise UserError(_('Partner not found.'))
 
         payment_tagv = kwargs.get('tag', False)
         payment_tags = company.sudo().payment_page_campaign_tag_ids
@@ -571,7 +571,7 @@ class PayloxSystemController(Controller):
         token = urlparse(request.httprequest.referrer).path.rsplit('/', 1).pop()
         id, token = request.env['res.partner'].sudo()._resolve_token(token)
         if not id or not token:
-            raise
+            raise UserError(_('Partner not found.'))
 
         company = request.env.company
         partner = request.env['res.partner'].sudo().search([
@@ -580,7 +580,7 @@ class PayloxSystemController(Controller):
             ('company_id', '=', company.id),
         ], limit=1)
         if not partner:
-            raise
+            raise UserError(_('Partner not found.'))
 
         payment_tagv = kwargs.get('tag', False)
         payment_tags = company.sudo().payment_page_campaign_tag_ids
@@ -638,12 +638,12 @@ class PayloxSystemController(Controller):
     @http.route(['/p/advance/add'], type='json', auth='public', website=True, csrf=False)
     def page_system_link_advance_add(self, amount, tag=False):
         if not request.env.company.payment_page_advance_ok:
-            raise
+            raise UserError(_('This option is not available for this company.'))
 
         token = urlparse(request.httprequest.referrer).path.rsplit('/', 1).pop()
         id, token = request.env['res.partner'].sudo()._resolve_token(token)
         if not id or not token:
-            raise
+            raise UserError(_('Partner not found.'))
 
         company = request.env.company
         partner = request.env['res.partner'].sudo().search([
@@ -652,7 +652,7 @@ class PayloxSystemController(Controller):
             ('company_id', '=', company.id),
         ], limit=1)
         if not partner:
-            raise
+            raise UserError(_('Partner not found.'))
 
         payment_tags = company.sudo().payment_page_campaign_tag_ids
         payment_tag = payment_tags.filtered(lambda x: x.id == tag)
@@ -727,7 +727,7 @@ class PayloxSystemController(Controller):
         token = urlparse(request.httprequest.referrer).path.rsplit('/', 1).pop()
         id, token = request.env['res.partner'].sudo()._resolve_token(token)
         if not id or not token:
-            raise
+            raise UserError(_('Partner not found.'))
 
         company = request.env.company
         partner = request.env['res.partner'].sudo().search([
@@ -736,7 +736,7 @@ class PayloxSystemController(Controller):
             ('company_id', '=', company.id),
         ], limit=1)
         if not partner:
-            raise
+            raise UserError(_('Partner not found.'))
 
         payment_tags = company.sudo().payment_page_campaign_tag_ids
         payment_tag = payment_tags.filtered(lambda x: x.id == tag)
