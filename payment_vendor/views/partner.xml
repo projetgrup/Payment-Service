@@ -64,12 +64,32 @@
                 <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True, 'no_create': True}"/>
             </div>
         </xpath>
+        <xpath expr='//field[@name="parent_id"]' position="replace"/>
         <xpath expr='//field[@name="mobile"]' position="before">
             <field name="phone" widget="phone"/>
         </xpath>
-        <xpath expr='//field[@name="parent_id"]' position="replace"/>
-        <xpath expr='//field[@name="email"]' position="attributes">
-            <attribute name="required">1</attribute>
+        <xpath expr='//field[@name="mobile"]' position="replace">
+            <field name="phone" widget="phone"/>
+            <label for="mobile"/>
+            <div class="position-relative">
+                <field name="mobile" widget="phone" nolabel="1" required="1"/>
+                <div class="position-absolute d-flex justify-content-end align-items-baseline" style="width: 100px; left: -100px; top: 0; transform: scale(0.8); gap: 6px;">
+                    <em class="text-600 small" attrs="{'invisible': [('should_send_sms', '=', False)]}">Active</em>
+                    <em class="text-600 small" attrs="{'invisible': [('should_send_sms', '=', True)]}">Passive</em>
+                    <field name="should_send_sms" widget="boolean_toggle" nolabel="1"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr='//field[@name="email"]' position="replace">
+            <label for="email"/>
+            <div class="position-relative">
+                <field name="email" widget="email" nolabel="1" required="1"/>
+                <div class="position-absolute d-flex justify-content-end align-items-baseline" style="width: 100px; left: -100px; top: 0; transform: scale(0.8); gap: 6px;">
+                    <em class="text-600 small" attrs="{'invisible': [('should_send_email', '=', False)]}">Active</em>
+                    <em class="text-600 small" attrs="{'invisible': [('should_send_email', '=', True)]}">Passive</em>
+                    <field name="should_send_email" widget="boolean_toggle" nolabel="1"/>
+                </div>
+            </div>
         </xpath>
         <xpath expr='//field[@name="campaign_ids"]' position="after">
             <field name="payment_product_categ_ids" domain="[('system', '!=', False), ('company_id', '=', company_id)]" options="{'no_create': True, 'no_open': True}" widget="many2many_tags" groups="payment_system_product.group_product"/>
@@ -111,6 +131,14 @@
             <field name="mobile"/>
             <field name="user_id"/>
             <field name="team_id"/>
+        </xpath>
+        <xpath expr='//group' position="before">
+            <separator/>
+            <filter name="filterby_email_send_ok" string="Sending Email active" domain="[('should_send_email', '=', True)]"/>
+            <filter name="filterby_email_send_no" string="Sending Email passive" domain="[('should_send_email', '=', False)]"/>
+            <separator/>
+            <filter name="filterby_sms_send_ok" string="Sending SMS active" domain="[('should_send_sms', '=', True)]"/>
+            <filter name="filterby_sms_send_no" string="Sending SMS passive" domain="[('should_send_sms', '=', False)]"/>
         </xpath>
         <xpath expr='//group' position="inside">
             <filter string="Sales Person" name="groupby_salesperson" domain="[]" context="{'group_by':'user_id'}"/>

@@ -321,6 +321,8 @@ class Partner(models.Model):
     transaction_failed_count = fields.Integer(string='Transaction Failed', compute='_compute_payment', compute_sudo=True)
     date_email_sent = fields.Datetime('Email Sent Date', readonly=True)
     date_sms_sent = fields.Datetime('Sms Sent Date', readonly=True)
+    should_send_email = fields.Boolean('Should Send Email', default=True)
+    should_send_sms = fields.Boolean('Should Send SMS', default=True)
     is_portal = fields.Boolean(compute='_compute_user_details', search='_search_is_portal', compute_sudo=True, readonly=True)
     is_internal = fields.Boolean(compute='_compute_user_details', search='_search_is_internal', compute_sudo=True, readonly=True)
     is_contactless = fields.Boolean(compute='_compute_is_contactless', compute_sudo=True, readonly=True)

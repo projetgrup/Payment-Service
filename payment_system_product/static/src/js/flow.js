@@ -21,7 +21,7 @@ systemFlow.dynamic.include({
     _queryPartnerPostprocess: function (partner) {
         this._super(partner);
         if (window.location.pathname.startsWith('/my/product')) {
-            if (partner.categ_ids.length) {
+            if (partner.categ_ids?.length) {
                 const $categs = $('.payment-product [field="product.categ"]');
                 if ($categs.length) {
                     $categs.each((i, e) => {

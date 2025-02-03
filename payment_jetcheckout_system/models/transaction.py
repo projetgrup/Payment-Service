@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 from odoo import fields, models, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class PaymentTransaction(models.Model):
@@ -56,6 +56,8 @@ class PaymentTransaction(models.Model):
             item = self.env['payment.item'].sudo().browse(values['jetcheckout_item_ids'][0][2])
             values['paylox_item_tag_code'] = '/'.join(set([i.tag or '-' for i in item]))
         transaction = super().create(values)
+        if transaction.system and transaction.company_id.id != transaction.partner_id.company_id.id:
+            raise ValidationError(_('Payment and partner belong to different companies.'))
         transaction.run_hook('create')
         return transaction
 
