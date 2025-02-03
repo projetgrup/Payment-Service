@@ -589,9 +589,11 @@ class SyncopsLog(models.TransientModel):
     ], string='Request Method', readonly=True, copy=False)
     request_url = fields.Text(string='Request Url', readonly=True, copy=False)
     request_data = fields.Text(string='Request Data', readonly=True, copy=False)
+    request_raw = fields.Text(string='Request Raw', readonly=True, copy=False)
     response_code = fields.Integer(string='Response Code', readonly=True, copy=False)
     response_message = fields.Char(string='Response Message', readonly=True, copy=False)
     response_data = fields.Text(string='Response Data', readonly=True, copy=False)
+    response_raw = fields.Text(string='Response Raw', readonly=True, copy=False)
 
     def name_get(self):
         return [(log.id, 'Log #%s' % log.id) for log in self]
