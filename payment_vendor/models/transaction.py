@@ -28,6 +28,9 @@ class PaymentTransaction(models.Model):
         if self.paylox_notif_mail_state:
             return
 
+        if not self.partner_id.should_send_email:
+            return
+
         try:
             with self.env.cr.savepoint():
                 company = self.company_id or self.env.company
@@ -70,6 +73,9 @@ class PaymentTransaction(models.Model):
     def _paylox_send_done_sms(self):
         self.ensure_one()
         if self.paylox_notif_sms_state:
+            return
+
+        if not self.partner_id.should_send_sms:
             return
 
         try:

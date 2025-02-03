@@ -90,15 +90,15 @@
                                         <notebook>
                                             <page string="Inputs">
                                                 <group class="d-flex">
+                                                    <group>
+                                                        <separator string="Match"/>
+                                                        <field name="input_ids" nolabel="1" colspan="2"/>
+                                                    </group>
                                                     <group class="h-25">
                                                         <separator string="Route"/>
                                                         <field name="input_route" nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
                                                         <separator string="Value"/>
                                                         <field name="input_value" nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
-                                                    </group>
-                                                    <group>
-                                                        <separator string="Match"/>
-                                                        <field name="input_ids" nolabel="1" colspan="2"/>
                                                     </group>
                                                 </group>
                                             </page>
@@ -106,15 +106,15 @@
                                         <notebook>
                                             <page string="Outputs">
                                                 <group class="d-flex">
+                                                    <group>
+                                                        <separator string="Match"/>
+                                                        <field name="output_ids" nolabel="1" colspan="2"/>
+                                                    </group>
                                                     <group class="h-25">
                                                         <separator string="Route"/>
                                                         <field name="output_route" nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
                                                         <separator string="Value"/>
                                                         <field name="output_value" nolabel="1" colspan="2" widget="ace" options="{'mode': 'python'}"/>
-                                                    </group>
-                                                    <group>
-                                                        <separator string="Match"/>
-                                                        <field name="output_ids" nolabel="1" colspan="2"/>
                                                     </group>
                                                 </group>
                                             </page>

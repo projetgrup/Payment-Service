@@ -481,6 +481,7 @@ class SyncopsSyncWizard(models.TransientModel):
                 'vats': vats,
                 'refs': refs,
                 'tags': tags,
+                'users': users,
                 'company': company,
                 'campaigns': campaigns,
                 'models': {
