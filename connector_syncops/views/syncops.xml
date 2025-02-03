@@ -385,6 +385,8 @@
                         </div>
                         <br/>
                         <field name="request_data" nolabel="1" colspan="2"/>
+                        <br/>
+                        <field name="request_raw" nolabel="1" colspan="2" class="text-400"/>
                     </group>
                     <group string="Response">
                         <div colspan="2">
@@ -392,6 +394,8 @@
                         </div>
                         <br/>
                         <field name="response_data" nolabel="1" colspan="2"/>
+                        <br/>
+                        <field name="response_raw" nolabel="1" colspan="2" class="text-400"/>
                     </group>
                 </group>
             </sheet>

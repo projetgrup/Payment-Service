@@ -83,11 +83,13 @@ class PaymentItem(models.Model):
                         'state': log['state'],
                         'message': log['message'],
                         'request_data': log['request_data'],
+                        'request_raw': log['request_raw'],
                         'request_method': log['request_method'],
                         'request_url': log['request_url'],
                         'response_code': log['response_code'],
                         'response_message': log['response_message'],
                         'response_data': log['response_data'],
+                        'response_raw': log['response_raw'],
                     })
             else:
                 raise UserError(response.text or response.reason)
