@@ -73,10 +73,10 @@
             <label for="mobile"/>
             <div class="position-relative">
                 <field name="mobile" widget="phone" nolabel="1" required="1"/>
-                <div class="position-absolute d-flex justify-content-end align-items-baseline" style="width: 100px; left: -100px; top: 0; transform: scale(0.8); gap: 6px;">
+                <div class="position-absolute d-flex justify-content-end align-items-baseline" style="width: 100px; left: -100px; top: 0; gap: 6px;">
                     <em class="text-600 small" attrs="{'invisible': [('should_send_sms', '=', False)]}">Active</em>
                     <em class="text-600 small" attrs="{'invisible': [('should_send_sms', '=', True)]}">Passive</em>
-                    <field name="should_send_sms" widget="boolean_toggle" nolabel="1"/>
+                    <field name="should_send_sms" widget="boolean_toggle" nolabel="1" style="transform: scale(0.7);"/>
                 </div>
             </div>
         </xpath>
@@ -84,10 +84,10 @@
             <label for="email"/>
             <div class="position-relative">
                 <field name="email" widget="email" nolabel="1" required="1"/>
-                <div class="position-absolute d-flex justify-content-end align-items-baseline" style="width: 100px; left: -100px; top: 0; transform: scale(0.8); gap: 6px;">
+                <div class="position-absolute d-flex justify-content-end align-items-baseline" style="width: 100px; left: -100px; top: 0; gap: 6px;">
                     <em class="text-600 small" attrs="{'invisible': [('should_send_email', '=', False)]}">Active</em>
                     <em class="text-600 small" attrs="{'invisible': [('should_send_email', '=', True)]}">Passive</em>
-                    <field name="should_send_email" widget="boolean_toggle" nolabel="1"/>
+                    <field name="should_send_email" widget="boolean_toggle" nolabel="1" style="transform: scale(0.7);"/>
                 </div>
             </div>
         </xpath>
