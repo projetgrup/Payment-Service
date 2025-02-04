@@ -510,7 +510,8 @@ class SyncopsSyncWizard(models.TransientModel):
 class SyncopsSyncWizardLine(models.TransientModel):
     _inherit = 'syncops.sync.wizard.line'
 
-    partner_id = fields.Char(readonly=True)
+    item_id = fields.Many2one('payment.item', readonly=True)
+    partner_id = fields.Many2one('res.partner', readonly=True)
     partner_name = fields.Char(readonly=True)
     partner_vat = fields.Char(readonly=True)
     partner_ref = fields.Char(readonly=True)
@@ -532,4 +533,3 @@ class SyncopsSyncWizardLine(models.TransientModel):
     invoice_due_date = fields.Date(readonly=True)
     invoice_amount = fields.Monetary(readonly=True, currency_field='invoice_currency')
     invoice_currency = fields.Many2one('res.currency', readonly=True)
-    item_id = fields.Many2one('payment.item', readonly=True)

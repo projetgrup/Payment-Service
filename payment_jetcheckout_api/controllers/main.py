@@ -95,6 +95,10 @@ class PayloxApiController(Controller):
         if not tx:
             raise NotFound()
  
+        company_id = tx.company_id.id or request.env.company.id
+        if company_id != request.website.company_id.id:
+            return self._redirect(company_id=company_id)
+
         self._set('company', tx.company_id.id) #TODO Its acquirer bound has been released
 
         if tx.jetcheckout_api_method:

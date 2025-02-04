@@ -62,7 +62,13 @@ class PartnerBank(models.Model):
                 message = _('Success')
             else:
                 state = False
-                message = result['message']
+                message = result.get('message', '')
+                error = result.get('service_error_message', '')
+                if error:
+                    if message:
+                        message = '%s (%s)' % (message, error)
+                    else:
+                        message = error
         else:
             state = False
             message = response.reason
@@ -908,6 +914,7 @@ class PartnerBankToken(models.Model):
     _name = 'res.partner.bank.token'
     _inherit = 'res.partner.bank'
     _description = 'Partner Bank Token'
+    _sql_constraints = []
 
     def _compute_item_ok(self):
         for token in self:
@@ -919,6 +926,7 @@ class PartnerBankToken(models.Model):
     acc_number = fields.Char(related='partner_bank_id.acc_number')
     api_merchant = fields.Char(related='partner_bank_id.api_merchant')
     partner_id = fields.Many2one(related='partner_bank_id.partner_id', store=True)
+    sanitized_acc_number = fields.Char(store=False)
 
 
 class PartnerBankSubmerchantQuery(models.Model):
