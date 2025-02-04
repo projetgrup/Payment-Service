@@ -8,6 +8,19 @@
         <xpath expr="//div[@data-key='general_settings']" position="after">
             <div class="app_settings_block" data-string="Suppliers" string="Suppliers" data-key="payment_supplier" invisible="context.get('active_system') != 'supplier'">
                 <h2>Suppliers</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="payment_item_bank_token_ok"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="payment_item_bank_token_ok"/>
+                            <div class="text-muted">
+                                Link payment items and partner bank tokens
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </xpath>
     </field>
