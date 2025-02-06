@@ -282,6 +282,82 @@
         </search>
     </field>
     </record>
+
+    <record id="tree_bank" model="ir.ui.view">
+    <field name="model">res.partner.bank</field>
+    <field name="inherit_id" ref="base.view_partner_bank_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name'bank_name']" position="attributes">
+            <attribute name="optional">hide</attribute>
+        </xpath>
+        <xpath expr="//field[@name'company_id']" position="attributes">
+            <attribute name="optional">hide</attribute>
+        </xpath>
+        <xpath expr="//field[@name'acc_holder_name']" position="remove"/>
+        <xpath expr="//field[@name'acc_number']" position="after">
+            <field name="acc_holder_name"/>
+        </xpath>
+        <xpath expr="//tree" position="inside">
+            <field name="api_merchant"/>
+            <field name="api_result" string=" " width="0.1"/>
+            <field name="api_message" optional="hide"/>
+            <field name="api_state" invisible="1"/>
+            <button name="action_api_save" string="" type="object" class="btn btn-link text-primary" icon="fa-save mr-1" attrs="{'invisible': [('api_state', '=', True)]}"/>
+            <button name="action_api_query" string="" type="object" class="btn btn-link text-primary" icon="fa-search mr-1" attrs="{'invisible': [('acc_number', '=', False)]}"/>
+        </xpath>
+    </field>
+    </record>
+
+    <record id="form_bank" model="ir.ui.view">
+    <field name="model">res.partner.bank</field>
+    <field name="inherit_id" ref="base.view_partner_bank_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name'acc_holder_name']" position="remove"/>
+        <xpath expr="//field[@name'acc_number']" position="remove"/>
+        <xpath expr="//field[@name'currency_id']" position="remove"/>
+        <xpath expr="//group" position="before">
+            <div class="oe_title">
+                <label for="acc_number" string="IBAN"/>
+                <h1><field name="acc_number"/></h1>
+            </div>
+        </xpath>
+        <xpath expr="//field[@name'bank_id']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name'company_id']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name'acc_number']" position="after">
+            <field name="acc_holder_name"/>
+            <field name="api_merchant" required="1"/>
+            <label for="api_message" attrs="{'invisible': [('api_message', '=', False)]}"/>
+            <div class="o_row" attrs="{'invisible': [('api_message', '=', False)]}">
+                <field name="api_result" nolabel="1" style="max-width: 10px;"/>
+                <field name="api_message" nolabel="1" readonly="1"/>
+                <field name="api_state" invisible="1"/>
+            </div>
+            <field name="currency_id" groups="base.group_multi_currency" options="{'no_create': True}"/>
+        </xpath>
+        <xpath expr="//field[@name'bank_id']" position="before">
+            <field name="api_token_ids" nolabel="1" attrs="{'invisible': [('payment_item_bank_token_ok', '=', False)]}">
+                <tree editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="api_ref" readonly="1" force_save="1"/>
+                    <field name="item_ok" string="Linked"/>
+                    <field name="item_ids" invisible="1"/>
+                    <field name="acc_number" invisible="1"/>
+                    <field name="api_merchant" invisible="1"/>
+                    <field name="api_result" string=" " width="0.1"/>
+                    <field name="api_message" optional="hide"/>
+                    <field name="api_state" invisible="1"/>
+                    <button name="action_api_save" string="" type="object" class="btn btn-link text-primary" icon="fa-save mr-1" attrs="{'invisible': [('api_state', '=', True)]}"/>
+                    <button name="action_api_query" string="" type="object" class="btn btn-link text-primary" icon="fa-search mr-1" attrs="{'invisible': [('acc_number', '=', False)]}"/>
+                </tree>
+            </field>
+            <field name="payment_item_bank_token_ok" invisible="1"/>
+        </xpath>
+    </field>
+    </record>
  
     <record id="form_partner_bank_submerchant_query" model="ir.ui.view">
     <field name="name">res.partner.bank.submerchant.query.form</field>
