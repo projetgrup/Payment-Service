@@ -329,7 +329,7 @@
         </xpath>
         <xpath expr="//field[@name='acc_type']" position="after">
             <field name="acc_holder_name"/>
-            <field name="api_merchant" attrs="{'invisible': [('payment_item_bank_token_ok', '=', False)], 'required': [('payment_item_bank_token_ok', '!=', False)]}"/>
+            <field name="api_merchant" attrs="{'invisible': [('payment_item_bank_token_ok', '!=', False)], 'required': [('payment_item_bank_token_ok', '=', False)]}"/>
             <label for="api_message" attrs="{'invisible': [('api_message', '=', False)]}"/>
             <div class="d-flex" attrs="{'invisible': [('api_message', '=', False)]}">
                 <field name="api_result" nolabel="1" style="max-width: 16px;"/>

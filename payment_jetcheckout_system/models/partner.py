@@ -61,6 +61,10 @@ class PartnerBank(models.Model):
             if result['response_code'] == "00":
                 state = True
                 message = _('Success')
+            elif result['response_code'] == "00183":
+                if 'type' in data:
+                    del['type']
+                return self._paylox_api_save(acquirer, 'put', data)
             else:
                 state = False
                 message = result.get('message', '')
