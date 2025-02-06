@@ -51,6 +51,7 @@ class PartnerBank(models.Model):
     api_message = fields.Char('Message')
     api_token_ids = fields.One2many('res.partner.bank.token', 'partner_bank_id', 'Tokens')
     api_result = fields.Html('Result', sanitize=False, compute='_compute_api_result')
+    payment_item_bank_token_ok = fields.Boolean(related='company_id.payment_item_bank_token_ok')
 
     def _paylox_api_save(self, acquirer, method, data):
         url = '%s/api/v1/submerchant' % acquirer._get_paylox_api_url()

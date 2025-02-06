@@ -157,6 +157,7 @@
                             </div>
                             <group class="d-flex">
                                 <group class="h-25">
+                                    <field name="acc_holder_name"/>
                                     <field name="api_merchant" required="1"/>
                                     <label for="api_message" attrs="{'invisible': [('api_message', '=', False)]}"/>
                                     <div class="o_row" attrs="{'invisible': [('api_message', '=', False)]}">
