@@ -136,13 +136,15 @@ class PartnerBank(models.Model):
                 else:
                     if self.partner_id.is_company:
                         partner_type = "Company"
-                        if self.partner_id.child_ids:
-                            contact_names = self.partner_id.child_ids[0].name.split(' ')
-                            contact_surname = contact_names.pop()
-                            contact_name = ' '.join(contact_names)
-                        else:
-                            contact_name = ""
-                            contact_surname = ""
+                        contact_name = self.acc_holder_name
+                        contact_surname = ""
+                        #if self.partner_id.child_ids:
+                        #    contact_names = self.partner_id.child_ids[0].name.split(' ')
+                        #    contact_surname = contact_names.pop()
+                        #    contact_name = ' '.join(contact_names)
+                        #else:
+                        #    contact_name = ""
+                        #    contact_surname = ""
                     else:
                         partner_type = "Individual"
                         contact_names = self.partner_id.name.split(' ')
@@ -926,6 +928,7 @@ class PartnerBankToken(models.Model):
     item_ok = fields.Boolean('Linked to Item', compute='_compute_item_ok')
     partner_bank_id = fields.Many2one('res.partner.bank')
     acc_number = fields.Char(related='partner_bank_id.acc_number')
+    acc_holder_name = fields.Char(related='partner_bank_id.acc_holder_name')
     partner_id = fields.Many2one(related='partner_bank_id.partner_id', store=True)
     sanitized_acc_number = fields.Char(store=False)
 
