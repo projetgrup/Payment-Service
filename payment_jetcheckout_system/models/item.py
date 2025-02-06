@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import models, fields, api, _
 from odoo.tools.misc import get_lang
+from odoo.tools.float_utils import float_compare
 
 _logger = logging.getLogger(__name__)
 
@@ -34,7 +35,7 @@ class PaymentItem(models.Model):
     @api.depends('residual_amount')
     def _compute_paid(self):
         for item in self:
-            transactions = item.transaction_ids.filtered(lambda x: x.state == 'done')
+            #transactions = item.transaction_ids.filtered(lambda x: x.state == 'done')
             if item.residual_amount:
                 item.paid = False
                 item.paid_date = False
@@ -85,7 +86,7 @@ class PaymentItem(models.Model):
     @api.depends('plan_ids')
     def _compute_plan_exist(self):
         for item in self:
-            item.plan_exist = item.plan_ids.exists()
+            item.plan_exist = float_compare(item.amount, item.planned_amount, precision_rounding=item.currency_id.rounding) <= 0
 
     @api.depends('parent_id.bank_ids.api_state')
     def _compute_plan_iban_exist(self):
