@@ -374,12 +374,12 @@ class SyncopsSyncWizard(models.TransientModel):
 
             if company.syncops_sync_item_force:
                 models['item'].search(domain).unlink()
-            else:
+            elif not company.syncops_sync_item_soft:
                 models['item'].search(domain + [('paid', '=', False), ('ref', 'not in', self.line_ids.mapped('invoice_id'))]).unlink()
 
             items = models['item'].search_read(domain, ['id', 'ref'])
             items = {item['ref']: item['id'] for item in items if item['ref']}
-            for line in self.line_ids.read():
+            for line in self.line_ids:
                 pid = 0
                 if line['partner_vat'] in vats and line['partner_ref'] in refs and vats[line['partner_vat']] == refs[line['partner_ref']]:
                     pid = vats[line['partner_vat']]
@@ -390,7 +390,8 @@ class SyncopsSyncWizard(models.TransientModel):
 
                 inv = line['invoice_id'] if pid else None
                 if pid and inv in items:
-                    models['item'].search([('id', '=', items[inv]), ('paid', '=', False)]).write({'amount': line['invoice_amount']})
+                    item = models['item'].search([('id', '=', items[inv]), ('paid', '=', False)])
+                    item.write({'amount': line['invoice_amount']})
                 else:
                     if pid:
                         partner = models['partner'].browse(pid)
@@ -414,7 +415,7 @@ class SyncopsSyncWizard(models.TransientModel):
                         if line['partner_ref']:
                             refs.update({line['partner_ref']: partner.id})
 
-                    models['item'].create({
+                    item = models['item'].create({
                         'syncops_ok': True,
                         'syncops_data': line['data'],
                         'syncops_notif': self._set_notif(company, partner),
@@ -427,8 +428,10 @@ class SyncopsSyncWizard(models.TransientModel):
                         'tag': line['invoice_tag'],
                         'parent_id': partner.id,
                         'company_id': company.id,
-                        'currency_id': line['invoice_currency'] and line['invoice_currency'][0] or company.currency_id.id,
+                        'currency_id': line['invoice_currency']['id'] or company.currency_id.id,
                     })
+
+                line.item_id = item.id
 
         methods = {'sync': method_sync}
         hook = self.env['syncops.connector'].get_hook('payment_get_unreconciled_list', 'post', 'item', 'invoice')
@@ -507,7 +510,8 @@ class SyncopsSyncWizard(models.TransientModel):
 class SyncopsSyncWizardLine(models.TransientModel):
     _inherit = 'syncops.sync.wizard.line'
 
-    partner_id = fields.Char(readonly=True)
+    item_id = fields.Many2one('payment.item', readonly=True)
+    partner_id = fields.Many2one('res.partner', readonly=True)
     partner_name = fields.Char(readonly=True)
     partner_vat = fields.Char(readonly=True)
     partner_ref = fields.Char(readonly=True)

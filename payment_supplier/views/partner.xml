@@ -126,7 +126,7 @@
         </xpath>
         <xpath expr="//group[@name='payment']" position="replace">
             <group string="Bank Accounts" name="banks">
-                <field name="bank_ids" nolabel="1">
+                <field name="bank_ids" nolabel="1" colspan="2" attrs="{'invisible': [('payment_item_bank_token_ok', '!=', False)]}">
                     <tree editable="bottom">
                         <field name="sequence" widget="handle"/>
                         <field name="acc_number"/>
@@ -138,7 +138,56 @@
                         <button name="action_api_query" string="" type="object" class="btn btn-link text-primary" icon="fa-search mr-1" attrs="{'invisible': [('acc_number', '=', False)]}"/>
                     </tree>
                 </field>
-                <button type="action" class="btn-link" name="64" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'form_view_ref': 'account.view_company_partner_bank_form'}" string="View accounts detail" colspan="2"/>
+                <field name="bank_ids_with_form" nolabel="1" colspan="2" string="Banks" attrs="{'invisible': [('payment_item_bank_token_ok', '=', False)]}">
+                    <tree>
+                        <field name="sequence" widget="handle"/>
+                        <field name="acc_number"/>
+                        <field name="acc_holder_name"/>
+                        <field name="api_result" string=" " width="0.1"/>
+                        <field name="api_message" optional="hide"/>
+                        <field name="api_state" invisible="1"/>
+                        <button name="action_api_save" string="" type="object" class="btn btn-link text-primary" icon="fa-save mr-1" attrs="{'invisible': [('api_state', '=', True)]}"/>
+                        <button name="action_api_query" string="" type="object" class="btn btn-link text-primary" icon="fa-search mr-1" attrs="{'invisible': [('acc_number', '=', False)]}"/>
+                    </tree>
+                    <form>
+                        <sheet>
+                            <div class="oe_title">
+                                <label for="acc_number" string="IBAN"/>
+                                <h1><field name="acc_number"/></h1>
+                            </div>
+                            <group class="d-flex">
+                                <group class="h-25">
+                                    <field name="acc_holder_name"/>
+                                    <label for="api_message" attrs="{'invisible': [('api_message', '=', False)]}"/>
+                                    <div class="o_row" attrs="{'invisible': [('api_message', '=', False)]}">
+                                        <field name="api_result" nolabel="1" style="max-width: 10px;"/>
+                                        <field name="api_message" nolabel="1" readonly="1"/>
+                                        <field name="api_state" invisible="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field name="api_token_ids" nolabel="1">
+                                        <tree editable="bottom">
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="api_ref" readonly="1" force_save="1"/>
+                                            <field name="item_ids" invisible="1"/>
+                                            <field name="acc_number" invisible="1"/>
+                                            <field name="api_merchant" required="1"/>
+                                            <field name="item_ok" string="Linked"/>
+                                            <field name="api_result" string=" " width="0.1"/>
+                                            <field name="api_message" optional="hide"/>
+                                            <field name="api_state" invisible="1"/>
+                                            <button name="action_api_save" string="" type="object" class="btn btn-link text-primary" icon="fa-save mr-1" attrs="{'invisible': [('api_state', '=', True)]}"/>
+                                            <button name="action_api_query" string="" type="object" class="btn btn-link text-primary" icon="fa-search mr-1" attrs="{'invisible': [('acc_number', '=', False)]}"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+                <button type="action" class="btn-link" name="%(base.action_res_partner_bank_account_form)d" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'form_view_ref': 'account.view_company_partner_bank_form'}" string="View accounts detail" colspan="2"/>
+                <field name="payment_item_bank_token_ok" invisible="1"/>
             </group>
         </xpath>
         <xpath expr="//notebook" position="inside">

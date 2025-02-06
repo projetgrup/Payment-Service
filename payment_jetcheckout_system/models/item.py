@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import models, fields, api, _
 from odoo.tools.misc import get_lang
+from odoo.tools.float_utils import float_compare
 
 _logger = logging.getLogger(__name__)
 
@@ -34,7 +35,7 @@ class PaymentItem(models.Model):
     @api.depends('residual_amount')
     def _compute_paid(self):
         for item in self:
-            transactions = item.transaction_ids.filtered(lambda x: x.state == 'done')
+            #transactions = item.transaction_ids.filtered(lambda x: x.state == 'done')
             if item.residual_amount:
                 item.paid = False
                 item.paid_date = False
@@ -82,15 +83,15 @@ class PaymentItem(models.Model):
         for item in self:
             item.date_expired = item.company_id.payment_page_item_expire_ok and item.date_expire and now > item.date_expire
 
-    @api.depends('plan_ids')
+    @api.depends('amount', 'planned_amount')
     def _compute_plan_exist(self):
         for item in self:
-            item.plan_exist = item.plan_ids.exists()
+            item.plan_exist = float_compare(item.amount, item.planned_amount, precision_rounding=item.currency_id.rounding) <= 0
 
     @api.depends('parent_id.bank_ids.api_state')
     def _compute_plan_iban_exist(self):
         for item in self:
-            item.plan_iban_exist = item.parent_id.bank_ids.filtered(lambda b: b.api_state).exists()
+            item.plan_iban_exist = bool(item.bank_ref)
 
     def _compute_plan_error(self):
         for item in self:
@@ -103,6 +104,14 @@ class PaymentItem(models.Model):
     def _compute_planned(self):
         for item in self:
             item.planned = item.plan_ids and all(plan.approval_state == '+' for plan in item.plan_ids) or False
+
+    def _compute_bank_ref(self):
+        for item in self:
+            if item.company_id.payment_item_bank_token_ok:
+                item.bank_ref = item.bank_token_id.api_state and item.bank_token_id.api_ref
+            else:
+                bank = item.parent_id.bank_ids and item.parent_id.bank_ids[0]
+                item.bank_ref = bank and bank.api_state and bank.api_ref
 
     name = fields.Char(compute='_compute_name')
     child_id = fields.Many2one('res.partner', ondelete='restrict')
@@ -141,6 +150,9 @@ class PaymentItem(models.Model):
     transaction_item_ids = fields.One2many('payment.transaction.item', 'item_id', string='Transaction Items')
     transaction_ids = fields.Many2many('payment.transaction', 'transaction_item_rel', 'item_id', 'transaction_id', string='Transactions')
     system = fields.Selection(selection=[], readonly=True)
+    bank_id = fields.Many2one('res.partner.bank')
+    bank_ref = fields.Char('Bank Reference', compute='_compute_bank_ref')
+    bank_token_id = fields.Many2one('res.partner.bank.token')
     company_id = fields.Many2one('res.company', required=True, ondelete='restrict', default=lambda self: self.env.company, readonly=True)
     currency_id = fields.Many2one('res.currency', required=True, ondelete='restrict', default=lambda self: self.env.company.currency_id)
 
@@ -224,6 +236,9 @@ class PaymentItem(models.Model):
 
     @api.model
     def create(self, values):
+        if 'bank_token_id' in values and 'bank_id' not in values:
+            token = self.bank_token_id.browse(values['bank_token_id'])
+            values.update({'bank_id': token.partner_bank_id.id})
         res = super().create(values)
         if not res.system:
             res.system = res.company_id.system or res.parent_id.system or res.child_id.system
@@ -235,6 +250,9 @@ class PaymentItem(models.Model):
         return res
 
     def write(self, values):
+        if 'bank_token_id' in values and 'bank_id' not in values:
+            token = self.bank_token_id.browse(values['bank_token_id'])
+            values.update({'bank_id': token.partner_bank_id.id})
         res = super().write(values)
         for item in self:
             if not item.system:

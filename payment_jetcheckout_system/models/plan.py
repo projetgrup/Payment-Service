@@ -61,10 +61,7 @@ class PaymentPlan(models.Model):
     system = fields.Selection(related='item_id.system', readonly=True, store=True)
     company_id = fields.Many2one(related='item_id.company_id', readonly=True, store=True)
     currency_id = fields.Many2one(related='item_id.currency_id', readonly=True, store=True)
-    approval_state = fields.Selection([
-        ('+', 'Approved'),
-        ('-', 'Disapproved'),
-    ], readonly=True)
+    approval_state = fields.Selection([('+', 'Approved'), ('-', 'Disapproved')], readonly=True)
     approval_result = fields.Char(readonly=True)
 
     def payment(self):
@@ -82,7 +79,7 @@ class PaymentPlan(models.Model):
             self.message = _('No website found')
             return
 
-        reference = self.partner_id.bank_ids and self.partner_id.bank_ids[0]['api_ref']
+        reference = self.item_id.bank_ref
         if not reference:
             self.message = _('Partner must have at least one bank account which is verified.' % self.partner_id.name)
             return

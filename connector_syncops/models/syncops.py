@@ -523,7 +523,7 @@ class SyncopsConnectorHook(models.Model):
             hook.method_ids = [(6, 0, methods)]
 
     connector_id = fields.Many2one('syncops.connector', 'Connector', index=True, ondelete='cascade')
-    method_id = fields.Many2one('syncops.connector.line', domain='[("id", "=", method_ids)]')
+    method_id = fields.Many2one('syncops.connector.line', domain='[("id", "=", method_ids)]', required=True)
     method_ids = fields.Many2many('syncops.connector.line', compute='_compute_method_ids')
     method_compute = fields.Boolean(default=True, store=False)
     active = fields.Boolean(default=True)

@@ -24,6 +24,7 @@ class Company(models.Model):
     notif_sms_success_ok = fields.Boolean('Send Successful Payment Transaction SMS')
     notif_webhook_ids = fields.One2many('payment.settings.notification.webhook', 'company_id', 'Webhook URLs')
 
+    payment_item_bank_token_ok = fields.Boolean('Link Bank Token and Payment Item')
     payment_dashboard_button_ok = fields.Boolean(string='Dashboard Payment Button', default=True)
     payment_dashboard_button_url = fields.Char(string='Dashboard Payment Button URL')
     payment_dashboard_button_contactless_ok = fields.Boolean(string='Dashboard Contactless Payment Button', default=True)

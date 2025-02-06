@@ -45,11 +45,13 @@ class PartnerBank(models.Model):
             else:
                 bank.api_result = '<i class="fa fa-minus text-muted" title="%s"/>' % _('No message yet')
 
-    api_ref = fields.Char('Reference')
+    api_ref = fields.Char('Reference', default=lambda self: str(uuid.uuid4()))
     api_merchant = fields.Char('Merchant')
     api_state = fields.Boolean('State')
     api_message = fields.Char('Message')
+    api_token_ids = fields.One2many('res.partner.bank.token', 'partner_bank_id', 'Tokens')
     api_result = fields.Html('Result', sanitize=False, compute='_compute_api_result')
+    payment_item_bank_token_ok = fields.Boolean(related='company_id.payment_item_bank_token_ok')
 
     def _paylox_api_save(self, acquirer, method, data):
         url = '%s/api/v1/submerchant' % acquirer._get_paylox_api_url()
@@ -59,9 +61,17 @@ class PartnerBank(models.Model):
             if result['response_code'] == "00":
                 state = True
                 message = _('Success')
+            elif method == 'post' and result['response_code'] == "00183":
+                return self._paylox_api_save(acquirer, 'put', data)
             else:
                 state = False
-                message = result['message']
+                message = result.get('message', '')
+                error = result.get('service_error_message', '')
+                if error:
+                    if message:
+                        message = '%s (%s)' % (message, error)
+                    else:
+                        message = error
         else:
             state = False
             message = response.reason
@@ -70,7 +80,6 @@ class PartnerBank(models.Model):
 
     @api.model
     def create(self, values):
-        values['api_ref'] = str(uuid.uuid4())
         res = super().create(values)
         res.action_api_save(mode='create')
         return res
@@ -92,6 +101,8 @@ class PartnerBank(models.Model):
 
             if not acquirer:
                 self.api_message = _('No acquirer found')
+                if hasattr(self, 'partner_bank_id'):
+                    self.partner_bank_id.api_message = _('No acquirer found')
             else:
                 if not mode:
                     if self.api_state:
@@ -125,13 +136,15 @@ class PartnerBank(models.Model):
                 else:
                     if self.partner_id.is_company:
                         partner_type = "Company"
-                        if self.partner_id.child_ids:
-                            contact_names = self.partner_id.child_ids[0].name.split(' ')
-                            contact_surname = contact_names.pop()
-                            contact_name = ' '.join(contact_names)
-                        else:
-                            contact_name = ""
-                            contact_surname = ""
+                        contact_name = self.acc_holder_name
+                        contact_surname = ""
+                        #if self.partner_id.child_ids:
+                        #    contact_names = self.partner_id.child_ids[0].name.split(' ')
+                        #    contact_surname = contact_names.pop()
+                        #    contact_name = ' '.join(contact_names)
+                        #else:
+                        #    contact_name = ""
+                        #    contact_surname = ""
                     else:
                         partner_type = "Individual"
                         contact_names = self.partner_id.name.split(' ')
@@ -142,6 +155,7 @@ class PartnerBank(models.Model):
                 data = {
                     "application_key": acquirer.jetcheckout_api_key,
                     "external_id": self.api_ref,
+                    "type": partner_type,
                     "iban": self.acc_number.replace(' ', ''),
                     "name": self.partner_id.name,
                     "title": self.partner_id.name,
@@ -156,14 +170,17 @@ class PartnerBank(models.Model):
                     "currency": "TRY",
                     "language": "tr",
                 }
-                if mode == 'create':
-                    data.update({"type": partner_type})
 
                 result = self._paylox_api_save(acquirer, method, data)
                 self.write({
                     'api_state': result['state'],
                     'api_message': result['message'],
                 })
+                if hasattr(self, 'partner_bank_id'):
+                    self.partner_bank_id.write({
+                        'api_state': result['state'],
+                        'api_message': result['message'],
+                    })
 
     def action_api_query(self):
         if self.partner_id.system:
@@ -328,6 +345,8 @@ class Partner(models.Model):
     is_contactless = fields.Boolean(compute='_compute_is_contactless', compute_sudo=True, readonly=True)
     acquirer_branch_id = fields.Many2one('payment.acquirer.jetcheckout.branch', string='Payment Acquirer Branch')
     users_id = fields.Many2one('res.users', compute='_compute_user_details', compute_sudo=True, readonly=True)
+    bank_ids_with_form = fields.One2many('res.partner.bank', 'partner_id', string='Banks with Form')
+    payment_item_bank_token_ok = fields.Boolean(related='company_id.payment_item_bank_token_ok')
     payment_link_url = fields.Char('Payment Link URL', compute='_compute_payment_link_url', compute_sudo=True, readonly=True)
     payment_page_url = fields.Char('Payment Page URL', compute='_compute_payment_page_url', compute_sudo=True, readonly=True)
     paylox_tax_office = fields.Char('Tax Office')
@@ -893,6 +912,25 @@ class Partner(models.Model):
                 return {'error': _('SMS could not be sent.')}
 
         return {'error': _('Unknown sending method')}
+
+
+class PartnerBankToken(models.Model):
+    _name = 'res.partner.bank.token'
+    _inherit = 'res.partner.bank'
+    _description = 'Partner Bank Token'
+    _sql_constraints = []
+
+    def _compute_item_ok(self):
+        for token in self:
+            token.item_ok = token.item_ids.exists()
+
+    item_ids = fields.One2many('payment.item', 'bank_token_id', 'Items')
+    item_ok = fields.Boolean('Linked to Item', compute='_compute_item_ok')
+    partner_bank_id = fields.Many2one('res.partner.bank')
+    acc_number = fields.Char(related='partner_bank_id.acc_number')
+    acc_holder_name = fields.Char(related='partner_bank_id.acc_holder_name')
+    partner_id = fields.Many2one(related='partner_bank_id.partner_id', store=True)
+    sanitized_acc_number = fields.Char(store=False)
 
 
 class PartnerBankSubmerchantQuery(models.Model):
