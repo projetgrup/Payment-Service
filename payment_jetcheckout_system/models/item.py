@@ -83,7 +83,7 @@ class PaymentItem(models.Model):
         for item in self:
             item.date_expired = item.company_id.payment_page_item_expire_ok and item.date_expire and now > item.date_expire
 
-    @api.depends('plan_ids')
+    @api.depends('amount', 'planned_amount')
     def _compute_plan_exist(self):
         for item in self:
             item.plan_exist = float_compare(item.amount, item.planned_amount, precision_rounding=item.currency_id.rounding) <= 0
