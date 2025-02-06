@@ -61,9 +61,7 @@ class PartnerBank(models.Model):
             if result['response_code'] == "00":
                 state = True
                 message = _('Success')
-            elif result['response_code'] == "00183":
-                if 'type' in data:
-                    del['type']
+            elif method == 'post' and result['response_code'] == "00183":
                 return self._paylox_api_save(acquirer, 'put', data)
             else:
                 state = False
@@ -155,6 +153,7 @@ class PartnerBank(models.Model):
                 data = {
                     "application_key": acquirer.jetcheckout_api_key,
                     "external_id": self.api_ref,
+                    "type": partner_type,
                     "iban": self.acc_number.replace(' ', ''),
                     "name": self.partner_id.name,
                     "title": self.partner_id.name,
@@ -169,8 +168,6 @@ class PartnerBank(models.Model):
                     "currency": "TRY",
                     "language": "tr",
                 }
-                if mode == 'create':
-                    data.update({"type": partner_type})
 
                 result = self._paylox_api_save(acquirer, method, data)
                 self.write({
