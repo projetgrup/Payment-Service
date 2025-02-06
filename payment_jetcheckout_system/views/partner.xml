@@ -287,14 +287,14 @@
     <field name="model">res.partner.bank</field>
     <field name="inherit_id" ref="base.view_partner_bank_tree"/>
     <field name="arch" type="xml">
-        <xpath expr="//field[@name'bank_name']" position="attributes">
+        <xpath expr="//field[@name='bank_name']" position="attributes">
             <attribute name="optional">hide</attribute>
         </xpath>
-        <xpath expr="//field[@name'company_id']" position="attributes">
+        <xpath expr="//field[@name='company_id']" position="attributes">
             <attribute name="optional">hide</attribute>
         </xpath>
-        <xpath expr="//field[@name'acc_holder_name']" position="remove"/>
-        <xpath expr="//field[@name'acc_number']" position="after">
+        <xpath expr="//field[@name='acc_holder_name']" position="replace"/>
+        <xpath expr="//field[@name='acc_number']" position="after">
             <field name="acc_holder_name"/>
         </xpath>
         <xpath expr="//tree" position="inside">
@@ -312,22 +312,22 @@
     <field name="model">res.partner.bank</field>
     <field name="inherit_id" ref="base.view_partner_bank_form"/>
     <field name="arch" type="xml">
-        <xpath expr="//field[@name'acc_holder_name']" position="remove"/>
-        <xpath expr="//field[@name'acc_number']" position="remove"/>
-        <xpath expr="//field[@name'currency_id']" position="remove"/>
+        <xpath expr="//field[@name='acc_holder_name']" position="replace"/>
+        <xpath expr="//field[@name='acc_number']" position="replace"/>
+        <xpath expr="//field[@name='currency_id']" position="replace"/>
         <xpath expr="//group" position="before">
             <div class="oe_title">
                 <label for="acc_number" string="IBAN"/>
                 <h1><field name="acc_number"/></h1>
             </div>
         </xpath>
-        <xpath expr="//field[@name'bank_id']" position="attributes">
+        <xpath expr="//field[@name='bank_id']" position="attributes">
             <attribute name="invisible">1</attribute>
         </xpath>
-        <xpath expr="//field[@name'company_id']" position="attributes">
+        <xpath expr="//field[@name='company_id']" position="attributes">
             <attribute name="invisible">1</attribute>
         </xpath>
-        <xpath expr="//field[@name'acc_number']" position="after">
+        <xpath expr="//field[@name='acc_number']" position="after">
             <field name="acc_holder_name"/>
             <field name="api_merchant" required="1"/>
             <label for="api_message" attrs="{'invisible': [('api_message', '=', False)]}"/>
@@ -338,7 +338,7 @@
             </div>
             <field name="currency_id" groups="base.group_multi_currency" options="{'no_create': True}"/>
         </xpath>
-        <xpath expr="//field[@name'bank_id']" position="before">
+        <xpath expr="//field[@name='bank_id']" position="before">
             <field name="api_token_ids" nolabel="1" attrs="{'invisible': [('payment_item_bank_token_ok', '=', False)]}">
                 <tree editable="bottom">
                     <field name="sequence" widget="handle"/>
