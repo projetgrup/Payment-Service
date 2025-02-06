@@ -925,7 +925,6 @@ class PartnerBankToken(models.Model):
     item_ok = fields.Boolean('Linked to Item', compute='_compute_item_ok')
     partner_bank_id = fields.Many2one('res.partner.bank')
     acc_number = fields.Char(related='partner_bank_id.acc_number')
-    api_merchant = fields.Char(related='partner_bank_id.api_merchant')
     partner_id = fields.Many2one(related='partner_bank_id.partner_id', store=True)
     sanitized_acc_number = fields.Char(store=False)
 
