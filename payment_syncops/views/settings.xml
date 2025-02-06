@@ -79,6 +79,17 @@
                     </div>
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane">
+                            <field name="syncops_sync_item_soft"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="syncops_sync_item_soft" string="Sync Payment Items Without Unlink"/>
+                            <div class="text-muted">
+                                Do not unlink any payment items while syncing
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
                             <field name="syncops_sync_item_no_partner"/>
                         </div>
                         <div class="o_setting_right_pane">

@@ -374,7 +374,7 @@ class SyncopsSyncWizard(models.TransientModel):
 
             if company.syncops_sync_item_force:
                 models['item'].search(domain).unlink()
-            else:
+            elif not company.syncops_sync_item_soft:
                 models['item'].search(domain + [('paid', '=', False), ('ref', 'not in', self.line_ids.mapped('invoice_id'))]).unlink()
 
             items = models['item'].search_read(domain, ['id', 'ref'])
