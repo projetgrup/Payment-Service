@@ -10,7 +10,7 @@ class PaymentTransaction(models.Model):
     jetcheckout_api_order = fields.Char('API Order', readonly=True)
     jetcheckout_api_product = fields.Char('API Product', readonly=True)
     jetcheckout_api_hash = fields.Char('API Hash', readonly=True)
-    jetcheckout_api_id = fields.Integer('API TransactionID', readonly=True)
+    jetcheckout_api_id = fields.Char('API TransactionID', readonly=True)
     jetcheckout_api_method = fields.Selection([
         ('card', 'Credit Card'),
         ('bank', 'Bank Transfer'),
