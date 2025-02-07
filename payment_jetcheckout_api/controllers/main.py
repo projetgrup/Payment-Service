@@ -82,6 +82,9 @@ class PayloxApiController(Controller):
 
         return url, tx, status
 
+    def _get_template(self, path, values):
+        return 'payment_jetcheckout_api.payment_page'
+
     @http.route(['/payment'], type='http', methods=['GET', 'POST'], auth='public', csrf=False, sitemap=False, website=True)
     def page_api(self, **kwargs):
         self._del()
@@ -116,7 +119,8 @@ class PayloxApiController(Controller):
             'tx': tx,
             'order': order,
         }
-        return request.render('payment_jetcheckout_api.payment_page', values, headers={
+        template = self._get_template('/payment', values)
+        return request.render(template, values, headers={
             'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
             'Pragma': 'no-cache',
             'Expires': '-1'
