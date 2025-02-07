@@ -83,6 +83,8 @@ class PayloxApiController(Controller):
         return url, tx, status
 
     def _get_template(self, path, values):
+        if path == '/payment/card':
+            return 'payment_jetcheckout_api.page_card'
         return 'payment_jetcheckout_api.payment_page'
 
     @http.route(['/payment'], type='http', methods=['GET', 'POST'], auth='public', csrf=False, sitemap=False, website=True)
@@ -152,7 +154,8 @@ class PayloxApiController(Controller):
         )
         values = self._prepare(acquirer=acquirer, company=tx.company_id, transaction=tx, balance=False, filters={'type': ['virtual_pos']})
         values.update({'tx': tx})
-        return request.render('payment_jetcheckout_api.page_card', values, headers={
+        template = self._get_template('/payment/card', values)
+        return request.render(template, values, headers={
             'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
             'Pragma': 'no-cache',
             'Expires': '-1'

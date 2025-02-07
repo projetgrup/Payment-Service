@@ -107,8 +107,10 @@ class PayloxSystemController(Controller):
     def _get_template(self, path, values):
         template = request.env['payment.view'].sudo().search([
             ('page_id.path', '=', path),
-            ('company_id', '=', values['company']['id']),
-        ], limit=1)
+            '|',
+            ('company_id', '=', values['company']['id'] or 0),
+            ('company_id', '=', values['company']['parent_id']['id'] or 0),
+        ], order='id desc', limit=1)
         if template:
             values.update({
                 'template': {
