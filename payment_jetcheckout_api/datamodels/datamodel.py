@@ -225,7 +225,7 @@ class PaymentPrepareInput(Datamodel):
     _name = "payment.prepare.input"
     _inherit = "payment.credential.hash"
 
-    id = fields.Integer(required=True, allow_none=False, metadata={"title": "ID", "description": _lt("Any unique number related to your specified record in your database for tracking the payment flow"), "example": 12})
+    id = fields.String(required=True, allow_none=False, metadata={"title": "ID", "description": _lt("Any unique identifier related to your specified record in your database for tracking the payment flow"), "example": '12aaff56a'})
     expiration = fields.DateTime(allow_none=False, metadata={"title": _lt("Expiration Date"), "description": _lt("Datetime in ISO format to get transaction expired"), "example": "2023-01-01T00:00:00"})
     campaign = fields.String(metadata={"title": _lt("Campaign Name"), "description": _lt("Name of campaign to be used in getting installment options"), "example": "Standard"})
     partner = NestedModel("payment.partner", required=True, metadata={"title": _lt("Partner information related to request"), "description": _lt("Partner information")})

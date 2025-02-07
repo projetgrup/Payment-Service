@@ -21,7 +21,7 @@ class PaymentAgreement(models.Model):
 
     sequence = fields.Integer(default=10)
     active = fields.Boolean(default=True)
-    name = fields.Char(translate=True)
+    name = fields.Char(translate=True, required=True)
     text = fields.Char(translate=True)
     body = fields.Html(sanitize=False, compute='_compute_body')
     arch = fields.Text(translate=xml_translate)

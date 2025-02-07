@@ -232,8 +232,9 @@ class OrderCheckoutAPIService(Component):
                     'country_id': country and country.id or False,
                     'state_id': state and state.id or False,
                     'street': getattr(params.partner, 'address', '') or '',
-                    'zip': getattr(params.partner, 'zip', '') or '',
                     'city': getattr(params.partner, 'city', '') or '',
+                    'zip': getattr(params.partner, 'zip', '') or '',
+                    'ref': getattr(params.partner, 'ref', '') or '',
                     'paylox_tax_office': getattr(params.partner, 'taxoffice', False) or False,
                 })
             else:
@@ -247,8 +248,9 @@ class OrderCheckoutAPIService(Component):
                     'country_id': country and country.id or False,
                     'state_id': state and state.id or False,
                     'street': getattr(params.partner, 'address', '') or '',
-                    'zip': getattr(params.partner, 'zip', '') or '',
                     'city': getattr(params.partner, 'city', '') or '',
+                    'zip': getattr(params.partner, 'zip', '') or '',
+                    'ref': getattr(params.partner, 'ref', '') or '',
                     'paylox_tax_office': getattr(params.partner, 'taxoffice', False) or False,
                 })
 
