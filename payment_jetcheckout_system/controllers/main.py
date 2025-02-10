@@ -120,7 +120,7 @@ class PayloxSystemController(Controller):
                 }
             })
             return template.view_id.id
-        return 'payment_%s.page_payment' % values['company']['system']
+        return 'payment_%s.page_payment' % values['system']
 
     def _get_tx_values(self, **kwargs):
         values = super()._get_tx_values(**kwargs)
