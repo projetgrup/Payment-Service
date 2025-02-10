@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 15.0-20240903\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-11 09:40+0000\n"
-"PO-Revision-Date: 2024-05-11 09:40+0000\n"
+"POT-Creation-Date: 2025-02-10 21:05+0000\n"
+"PO-Revision-Date: 2025-02-10 21:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,52 +17,52 @@ msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_address}</code>: Address of payer"
+msgid "<code>{{ partner_address }}</code>: Address of payer"
 msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_company_name}</code>: Company name of payer"
+msgid "<code>{{ partner_company_name }}</code>: Company name of payer"
 msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_email}</code>: Email of payer"
+msgid "<code>{{ partner_email }}</code>: Email of payer"
 msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_mobile}</code>: Mobile Number of payer"
+msgid "<code>{{ partner_mobile }}</code>: Mobile Number of payer"
 msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_name}</code>: Name of payer"
+msgid "<code>{{ partner_name }}</code>: Name of payer"
 msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_phone}</code>: Phone number of payer"
+msgid "<code>{{ partner_phone }}</code>: Phone number of payer"
 msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_tax_office}</code>: Tax office of payer"
+msgid "<code>{{ partner_tax_office }}</code>: Tax office of payer"
 msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_vat}</code>: VAT of payer"
+msgid "<code>{{ partner_vat }}</code>: VAT of payer"
 msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_website}</code>: Website address of payer"
+msgid "<code>{{ partner_website }}</code>: Website address of payer"
 msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${payment_amount}</code>: Amount of payment"
+msgid "<code>{{ payment_amount }}</code>: Amount of payment"
 msgstr ""
 
 #. module: payment_system_agreement
@@ -76,10 +76,21 @@ msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
+msgid "<em class=\"text-muted\">Checked</em>"
+msgstr ""
+
+#. module: payment_system_agreement
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
+msgid "<em class=\"text-muted\">Unchecked</em>"
+msgstr ""
+
+#. module: payment_system_agreement
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
 msgid "<span class=\"o_stat_text font-weight-bold\">Active</span>"
 msgstr ""
 
 #. module: payment_system_agreement
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.partner_form
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.transaction_form
 msgid "<span class=\"o_stat_text font-weight-bold\">Agreements</span>"
 msgstr ""
@@ -122,6 +133,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_settings__system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_transaction__paylox_agreement_ids
 #: model:ir.model.fields,field_description:payment_system_agreement.field_res_company__system_agreement
+#: model:ir.model.fields,field_description:payment_system_agreement.field_res_partner__paylox_agreement_ids
+#: model:ir.model.fields,field_description:payment_system_agreement.field_res_users__paylox_agreement_ids
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.search_transaction_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.tree_transaction_agreement
 msgid "Agreements"
@@ -130,16 +143,6 @@ msgstr ""
 #. module: payment_system_agreement
 #: model_terms:ir.actions.act_window,help:payment_system_agreement.action_transaction_agreement
 msgid "All agreements linked to any transaction will be listed here."
-msgstr ""
-
-#. module: payment_system_agreement
-#. openerp-web
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
-#, python-format
-msgid "An error occured."
 msgstr ""
 
 #. module: payment_system_agreement
@@ -158,6 +161,11 @@ msgid "An error occured. Please try again."
 msgstr ""
 
 #. module: payment_system_agreement
+#: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__arch
+msgid "Arch"
+msgstr ""
+
+#. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
 msgid "Available variables;"
 msgstr ""
@@ -166,6 +174,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__body
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_transaction_agreement__body
 msgid "Body"
+msgstr ""
+
+#. module: payment_system_agreement
+#: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__checked
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
+msgid "Checked"
 msgstr ""
 
 #. module: payment_system_agreement
@@ -180,6 +194,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.search_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.search_transaction_agreement
 msgid "Company"
+msgstr ""
+
+#. module: payment_system_agreement
+#: model:ir.model,name:payment_system_agreement.model_res_partner
+msgid "Contact"
 msgstr ""
 
 #. module: payment_system_agreement
@@ -213,6 +232,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: payment_system_agreement
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
+msgid "Edit Translations"
+msgstr ""
+
+#. module: payment_system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__date_end
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
 msgid "End Date"
@@ -221,11 +245,7 @@ msgstr ""
 #. module: payment_system_agreement
 #. openerp-web
 #: code:addons/payment_system_agreement/static/src/js/flow.js:0
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
 #: code:addons/payment_system_agreement/static/src/js/page.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
 #, python-format
 msgid "Error"
 msgstr ""
@@ -295,6 +315,7 @@ msgid "Name"
 msgstr ""
 
 #. module: payment_system_agreement
+#: code:addons/payment_system_agreement/models/partner.py:0
 #: code:addons/payment_system_agreement/models/transaction.py:0
 #: model_terms:ir.actions.act_window,help:payment_system_agreement.action_transaction_agreement
 #, python-format
@@ -326,6 +347,8 @@ msgstr ""
 
 #. module: payment_system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_transaction__paylox_agreement_count
+#: model:ir.model.fields,field_description:payment_system_agreement.field_res_partner__paylox_agreement_count
+#: model:ir.model.fields,field_description:payment_system_agreement.field_res_users__paylox_agreement_count
 msgid "Paylox Agreement Count"
 msgstr ""
 
@@ -369,14 +392,6 @@ msgid "Please read the whole agreement content entirely."
 msgstr ""
 
 #. module: payment_system_agreement
-#. openerp-web
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
-#, python-format
-msgid "Prices have been updated."
-msgstr ""
-
-#. module: payment_system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__product_ids
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
 msgid "Products"
@@ -399,14 +414,6 @@ msgid "Submit Text"
 msgstr ""
 
 #. module: payment_system_agreement
-#. openerp-web
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
-#, python-format
-msgid "Success"
-msgstr ""
-
-#. module: payment_system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__text
 msgid "Text"
 msgstr ""
@@ -425,13 +432,6 @@ msgstr ""
 #. module: payment_system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_transaction_agreement__uuid
 msgid "UUID"
-msgstr ""
-
-#. module: payment_system_agreement
-#. openerp-web
-#: code:addons/payment_system_agreement/static/src/xml/product.xml:0
-#, python-format
-msgid "Update Prices"
 msgstr ""
 
 #. module: payment_system_agreement

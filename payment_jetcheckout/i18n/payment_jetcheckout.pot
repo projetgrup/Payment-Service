@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 15.0-20240903\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-25 18:01+0000\n"
-"PO-Revision-Date: 2025-01-25 18:01+0000\n"
+"POT-Creation-Date: 2025-02-10 20:44+0000\n"
+"PO-Revision-Date: 2025-02-10 20:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -929,6 +929,11 @@ msgid "Cancelled"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_transaction_list
+msgid "Capture Transaction"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_acquirer_jetcheckout_api_application__first_selection__cardbank
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_acquirer_jetcheckout_api_application__second_selection__cardbank
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_acquirer_jetcheckout_api_application__third_selection__cardbank
@@ -975,6 +980,7 @@ msgstr ""
 
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__card_program
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_card_program
 msgid "Card Program"
 msgstr ""
 
@@ -1126,6 +1132,11 @@ msgid "Create"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_transaction_list
+msgid "Create Payment"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
 msgid "Create a new account"
 msgstr ""
@@ -1249,6 +1260,11 @@ msgstr ""
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_token__jetcheckout_number
 msgid "Credit Card Number"
+msgstr ""
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_token__jetcheckout_program
+msgid "Credit Card Program"
 msgstr ""
 
 #. module: payment_jetcheckout
@@ -1825,12 +1841,6 @@ msgid "JCB"
 msgstr ""
 
 #. module: payment_jetcheckout
-#: model:account.payment.method,name:payment_jetcheckout.payment_method_jetcheckout
-#: model:payment.acquirer,name:payment_jetcheckout.payment_acquirer_jetcheckout
-msgid "Jetcheckout"
-msgstr ""
-
-#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__jetcheckout_api_key
 msgid "Jetcheckout Api Key"
 msgstr ""
@@ -2277,6 +2287,12 @@ msgid "Payer:"
 msgstr ""
 
 #. module: payment_jetcheckout
+#: model:account.payment.method,name:payment_jetcheckout.payment_method_jetcheckout
+#: model:payment.acquirer,name:payment_jetcheckout.payment_acquirer_jetcheckout
+msgid "Paylox"
+msgstr ""
+
+#. module: payment_jetcheckout
 #: model:ir.model,name:payment_jetcheckout.model_payment_acquirer_jetcheckout_api_application
 msgid "Paylox API Application"
 msgstr ""
@@ -2484,7 +2500,6 @@ msgstr ""
 #. module: payment_jetcheckout
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/xml/page.xml:0
-#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_transaction_list
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.portal_button
 #, python-format
 msgid "Payment"
@@ -2569,13 +2584,6 @@ msgstr ""
 #: model:ir.cron,cron_name:payment_jetcheckout.cron_expire_transaction
 #: model:ir.cron,name:payment_jetcheckout.cron_expire_transaction
 msgid "Payment Transaction: Expire outdated transactions"
-msgstr ""
-
-#. module: payment_jetcheckout
-#: model:ir.actions.server,name:payment_jetcheckout.cron_fix_transaction_ir_actions_server
-#: model:ir.cron,cron_name:payment_jetcheckout.cron_fix_transaction
-#: model:ir.cron,name:payment_jetcheckout.cron_fix_transaction
-msgid "Payment Transaction: Fix corrupted transactions"
 msgstr ""
 
 #. module: payment_jetcheckout
