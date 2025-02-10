@@ -28,14 +28,17 @@ class PayloxAgreementController(Controller):
         }) for agreement_id in agreement_ids]
 
     def _get_agreements(self, agreement_id=None, product_id=None):
-        if not request.env.company.system_agreement:
+        company = request.env.company
+        if company.parent_id:
+            company = company.parent_id
+        if not company.system_agreement:
             return []
 
         path = self._get_agreement_path()
         domain = [
             ('active', '=', True),
             ('page_ids.path', 'like', '%s%%' % path),
-            ('company_id', '=', request.env.company.id),
+            ('company_id', '=', company.id),
         ]
         if agreement_id:
             domain += [('id', '=', agreement_id)]

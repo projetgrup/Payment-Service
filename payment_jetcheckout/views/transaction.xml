@@ -165,8 +165,8 @@
         </xpath>
         <xpath expr="//tree//field" position="before">
             <header>
-                <button name="action_payment" type="object" string="Payment"/>
-                <button name="action_capture" type="object" string="Capture"/>
+                <button name="action_payment" type="object" string="Create Payment"/>
+                <button name="action_capture" type="object" string="Capture Transaction"/>
             </header>
         </xpath>
         <xpath expr='//field[@name="partner_name"]' position="replace">
