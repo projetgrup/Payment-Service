@@ -34,7 +34,10 @@
     <menuitem id="menu_acquirers" name="Payment Settings" parent="menu_conf" sequence="4"/>
     <menuitem id="menu_acquirer" action="payment_jetcheckout_system.action_payment_acquirer" name="Payment Acquirers" parent="menu_acquirers" sequence="1"/>
 
+    <menuitem id="menu_agreements" name="Agreement Settings" parent="menu_conf" sequence="4" groups="payment_system_agreement.group_agreement,base.group_system"/>
+    <menuitem id="menu_agreement" action="payment_system_agreement.action_agreement" name="Agreements" parent="menu_agreements" sequence="1" groups="payment_system_agreement.group_agreement,base.group_system"/>
     <menuitem id="menu_products" name="Product Settings" parent="menu_conf" sequence="4" groups="payment_system_product.group_product"/>
+
     <menuitem id="menu_product_attribute" action="payment_system_product.action_product_attribute" name="Attributes" parent="menu_products" sequence="1" groups="payment_system_product.group_product"/>
     <menuitem id="menu_product_category" action="payment_system_product.action_product_category" name="Categories" parent="menu_products" sequence="2" groups="payment_system_product.group_product"/>
 
