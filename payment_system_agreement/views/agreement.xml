@@ -28,7 +28,7 @@
                         <separator string="Checked"/>
                         <div colspan="2" class="d-flex align-items-middle">
                             <em class="text-muted">Unchecked</em>
-                            <field name="checked" widget="boolean_toggle" colspan="2" nolabel="1"/>
+                            <field name="checked" widget="boolean_toggle" class="mx-2" colspan="2" nolabel="1"/>
                             <em class="text-muted">Checked</em>
                         </div>
                         <separator string="Pages" class="mt16"/>

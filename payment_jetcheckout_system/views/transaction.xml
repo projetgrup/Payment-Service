@@ -79,7 +79,7 @@
             <field name="jetcheckout_can_export_txt" invisible="1"/>
         </xpath>
         <xpath expr='//header' position="inside">
-            <button name="action_export_txt" type="object" string="TXT"/>
+            <button name="action_export_txt" type="object" string="Export TXT"/>
         </xpath>
     </field>
     </record>
