@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-04 16:05+0000\n"
-"PO-Revision-Date: 2024-07-11 12:53+0300\n"
+"POT-Creation-Date: 2025-02-10 20:43+0000\n"
+"PO-Revision-Date: 2025-02-10 23:59+0300\n"
 "Last-Translator: \n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: tr\n"
@@ -16,9 +16,554 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "3D Payment"
+msgstr "3D Ödeme"
 
 #. module: payment_oco_api
 #: model:ir.ui.menu,name:payment_oco_api.menu_api
 msgid "API Keys"
 msgstr "API Anahtarları"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Amount"
+msgstr "Tutar"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Amount to be authorized"
+msgstr "Ön provizyon tutarı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Amount to be refunded"
+msgstr "İade edilecek tutar"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid ""
+"Amount to pay. If it is not sent, sum of total prices of products will be "
+"used."
+msgstr ""
+"Ödenecek tutar. Eğer gönderilmesze, ürünlerin toplam fiyatı gönderilecektir."
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid ""
+"Any unique identifier related to your specified record in your database for "
+"tracking the payment flow"
+msgstr ""
+"Ödeme akışını takip etmek için veritabanında belirtmiş olduğunuz kaydın "
+"herhangi bir eşsiz tanımlayıcısı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid ""
+"Any unique number related to your specified record in your database for "
+"tracking the payment flow"
+msgstr ""
+"Ödeme akışını takip etmek için veritabanında belirtmiş olduğunuz kaydın "
+"herhangi bir eşsiz numarası"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Authorization Code"
+msgstr "Yetkilendirme Kodu"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Campaign Name"
+msgstr "Kampanya Adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/services/services.py:0
+#, python-format
+msgid "Cancel Payment"
+msgstr "Ödemeyi İptal Et"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Cancelled"
+msgstr "İptal Edildi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "City/Town Name"
+msgstr "Şehir/İlçe Adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "City/Town name"
+msgstr "Şehir/İlçe adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Company VAT"
+msgstr "Şirket Vergi No"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Company VAT number"
+msgstr "Şirket vergi numarası"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Company information"
+msgstr "Şirket bilgisi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Company information related to request"
+msgstr "İstek ile ilgili şirket bilgisi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Completed"
+msgstr "Tamamlandı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Contact Name"
+msgstr "Yetkili Adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Contact name"
+msgstr "Yetkili adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Conveyance URL"
+msgstr "Temlikname URL"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Conveyance URL Address"
+msgstr "Temlikname URL Adresi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Cost Amount"
+msgstr "Maliyet Tutarı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Cost Rate"
+msgstr "Maliyet Oranı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Country Code"
+msgstr "Ülke Kodu"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Country code"
+msgstr "Ülke kodu"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Credit Card BIN Code"
+msgstr "Kredi Kartı BIN Kodu"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Credit Card Family"
+msgstr "Kredi Kartı Ailesi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Credit Card Program"
+msgstr "Kredi Kartı Programı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Custom HTML"
+msgstr "Özel HTML"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Custom code to be viewed bottom of the page"
+msgstr "Sayfa altına yerleştirilecek özel kod"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Customer Amount"
+msgstr "Müşteri Komisyon Tutarı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Customer Rate"
+msgstr "Müşteri Komisyon Oranı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Date"
+msgstr "Tarih"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Datetime in ISO format to get transaction expired"
+msgstr "ISO biçiminde işlemi geçerlilik süresini belirten tarih-saat"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Email Address"
+msgstr "Eposta Adresi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Email address"
+msgstr "Eposta adresi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Expiration Date"
+msgstr "Geçerlilik Tarihi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "ID"
+msgstr "ID"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "IP Address"
+msgstr "IP Adresi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "List of related products"
+msgstr "İlişkili ürünler"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Name of campaign to be used in getting installment options"
+msgstr "Taksit seçeneklerini edinmek için kullanılan kampanya adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Order Name"
+msgstr "Sipariş Adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Order details"
+msgstr "Sipariş detayları"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Order information related to request"
+msgstr "İstek ile ilgili sipariş bilgisi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Order name"
+msgstr "Sipariş adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner Address"
+msgstr "İş Ortağı Adresi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner Name"
+msgstr "İş Ortağı Adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner Tax Office"
+msgstr "İş Ortağı Vergi Dairesi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner VAT"
+msgstr "İş Ortağı Vergi No"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner VAT number"
+msgstr "İş ortağı vergi numarası"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner address"
+msgstr "İş ortağı adresi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner information"
+msgstr "İş ortağı bilgisi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner information related to request"
+msgstr "İstek ile ilgili iş ortağı bilgisi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner name"
+msgstr "İş ortağı adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Partner tax office"
+msgstr "İş ortağı vergi dairesi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Payment Amount"
+msgstr "Ödeme Tutarı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Payment Date"
+msgstr "Ödeme Tarihi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Payment ID"
+msgstr "Ödeme ID"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Payment URL which redirects to payment page"
+msgstr "Ödeme sayfasına yönlendirecek ödeme URL adresi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Phone Number"
+msgstr "Telefon Numarası"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Phone number"
+msgstr "Telefon numarası"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Post-Authorization"
+msgstr "Provizyon"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/services/services.py:0
+#, python-format
+msgid "Postauth Payment"
+msgstr "Provizyon"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Pre-Authorization"
+msgstr "Ön Provizyon"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Preauth"
+msgstr "Ön provizyon"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/services/services.py:0
+#, python-format
+msgid "Prepare Payment"
+msgstr "Ödeme Hazırla"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Products List"
+msgstr "Ürünler Listesi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/services/services.py:0
+#, python-format
+msgid "Query Payment"
+msgstr "Ödeme Sorgula"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Receipt URL"
+msgstr "Makbuz URL"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Receipt URL Address"
+msgstr "Makbuz URL Adresi"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Redirect URL"
+msgstr "Yönlendirme URL"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Reference"
+msgstr "Referans"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/services/services.py:0
+#, python-format
+msgid "Refund Payment"
+msgstr "Ödeme İade Al"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Return URLs by payment method"
+msgstr "Ödeme metoduna göre URL döndür"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Service Code"
+msgstr "Hizmet Kodu"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Service Message"
+msgstr "Hizmet Mesajı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Service Reference ID"
+msgstr "Hizmet Referans ID"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "State Code"
+msgstr "Durum Kodu"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "State code"
+msgstr "Durum kodu"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Successful"
+msgstr "Başarılı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "URL"
+msgstr "URL"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "URL addresses"
+msgstr "URL adresleri"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "URL to redirect after payment operation"
+msgstr "Ödeme işleminden sonra yönlendirilecek URL"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Virtual PoS Code"
+msgstr "Sanal PoS Kodu"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Virtual PoS ID"
+msgstr "Sanal PoS ID"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Virtual PoS Name"
+msgstr "Sanal PoS Adı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Virtual PoS Reference"
+msgstr "Sanal PoS Referansı"
+
+#. module: payment_oco_api
+#: code:addons/payment_oco_api/datamodels/datamodel.py:0
+#, python-format
+msgid "ZIP Code"
+msgstr "Posta Kodu"

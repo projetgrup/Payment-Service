@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-11 09:40+0000\n"
-"PO-Revision-Date: 2024-05-11 12:41+0300\n"
+"POT-Creation-Date: 2025-02-10 21:05+0000\n"
+"PO-Revision-Date: 2025-02-11 00:18+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -15,57 +15,57 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_address}</code>: Address of payer"
-msgstr "<code>${partner_address}</code>: Ödeyen Adresi"
+msgid "<code>{{ partner_address }}</code>: Address of payer"
+msgstr "<code>{{ partner_address }}</code>: Ödeyen Adresi"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_company_name}</code>: Company name of payer"
-msgstr "<code>${partner_company_name}</code>: Ödeyen Şirket Unvanı"
+msgid "<code>{{ partner_company_name }}</code>: Company name of payer"
+msgstr "<code>{{ partner_company_name }}</code>: Ödeyen Şirket Unvanı"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_email}</code>: Email of payer"
-msgstr "<code>${partner_email}</code>: Ödeyen eposta adresi"
+msgid "<code>{{ partner_email }}</code>: Email of payer"
+msgstr "<code>{{ partner_email }}</code>: Ödeyen eposta adresi"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_mobile}</code>: Mobile Number of payer"
-msgstr "<code>${partner_mobile}</code>: Ödeyen cep telefonu numarası"
+msgid "<code>{{ partner_mobile }}</code>: Mobile Number of payer"
+msgstr "<code>{{ partner_mobile }}</code>: Ödeyen cep telefonu numarası"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_name}</code>: Name of payer"
-msgstr "<code>${partner_name}</code>: Ödeyen Unvanı"
+msgid "<code>{{ partner_name }}</code>: Name of payer"
+msgstr "<code>{{ partner_name }}</code>: Ödeyen Unvanı"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_phone}</code>: Phone number of payer"
-msgstr "<code>${partner_phone}</code>: Ödeyen telefon numarası"
+msgid "<code>{{ partner_phone }}</code>: Phone number of payer"
+msgstr "<code>{{ partner_phone }}</code>: Ödeyen telefon numarası"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_tax_office}</code>: Tax office of payer"
-msgstr "<code>${partner_tax_office}</code>: Ödeyen vergi dairesi"
+msgid "<code>{{ partner_tax_office }}</code>: Tax office of payer"
+msgstr "<code>{{ partner_tax_office }}</code>: Ödeyen vergi dairesi"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_vat}</code>: VAT of payer"
-msgstr "<code>${partner_vat}</code>: Ödeyen VKN/TCKN numarası"
+msgid "<code>{{ partner_vat }}</code>: VAT of payer"
+msgstr "<code>{{ partner_vat }}</code>: Ödeyen VKN/TCKN numarası"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${partner_website}</code>: Website address of payer"
-msgstr "<code>${partner_website}</code>: Ödeyen website adresi"
+msgid "<code>{{ partner_website }}</code>: Website address of payer"
+msgstr "<code>{{ partner_website }}</code>: Ödeyen website adresi"
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
-msgid "<code>${payment_amount}</code>: Amount of payment"
-msgstr "<code>${payment_amount}</code>: Ödeme tutarı"
+msgid "<code>{{ payment_amount }}</code>: Amount of payment"
+msgstr "<code>{{ payment_amount }}</code>: Ödeme tutarı"
 
 #. module: payment_system_agreement
 #. openerp-web
@@ -80,10 +80,21 @@ msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
+msgid "<em class=\"text-muted\">Checked</em>"
+msgstr "<em class=\"text-muted\">İşaretlendi</em>"
+
+#. module: payment_system_agreement
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
+msgid "<em class=\"text-muted\">Unchecked</em>"
+msgstr "<em class=\"text-muted\">İşaretlenmedi</em>"
+
+#. module: payment_system_agreement
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
 msgid "<span class=\"o_stat_text font-weight-bold\">Active</span>"
 msgstr "<span class=\"o_stat_text font-weight-bold\">Aktif</span>"
 
 #. module: payment_system_agreement
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.partner_form
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.transaction_form
 msgid "<span class=\"o_stat_text font-weight-bold\">Agreements</span>"
 msgstr "<span class=\"o_stat_text font-weight-bold\">Sözleşmeler</span>"
@@ -126,6 +137,8 @@ msgstr "Sözleşme"
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_settings__system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_transaction__paylox_agreement_ids
 #: model:ir.model.fields,field_description:payment_system_agreement.field_res_company__system_agreement
+#: model:ir.model.fields,field_description:payment_system_agreement.field_res_partner__paylox_agreement_ids
+#: model:ir.model.fields,field_description:payment_system_agreement.field_res_users__paylox_agreement_ids
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.search_transaction_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.tree_transaction_agreement
 msgid "Agreements"
@@ -135,14 +148,6 @@ msgstr "Sözleşmeler"
 #: model_terms:ir.actions.act_window,help:payment_system_agreement.action_transaction_agreement
 msgid "All agreements linked to any transaction will be listed here."
 msgstr "Herhangi bir ödeme işlemine bağlı tüm sözleşmeler burada listelenir."
-
-#. module: payment_system_agreement
-#. openerp-web
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
-#, python-format
-msgid "An error occured."
-msgstr "Bir hata meydana geldi."
 
 #. module: payment_system_agreement
 #. openerp-web
@@ -159,6 +164,11 @@ msgid "An error occured. Please try again."
 msgstr "Bir hata meydana geldi. Lütfen tekrar deneyiniz."
 
 #. module: payment_system_agreement
+#: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__arch
+msgid "Arch"
+msgstr "Mimari"
+
+#. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
 msgid "Available variables;"
 msgstr "Mevcut değişkenler;"
@@ -168,6 +178,12 @@ msgstr "Mevcut değişkenler;"
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_transaction_agreement__body
 msgid "Body"
 msgstr "Metin"
+
+#. module: payment_system_agreement
+#: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__checked
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
+msgid "Checked"
+msgstr "İşaretle"
 
 #. module: payment_system_agreement
 #: model:ir.model,name:payment_system_agreement.model_res_company
@@ -182,6 +198,11 @@ msgstr "Şirketler"
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.search_transaction_agreement
 msgid "Company"
 msgstr "Şirket"
+
+#. module: payment_system_agreement
+#: model:ir.model,name:payment_system_agreement.model_res_partner
+msgid "Contact"
+msgstr "Yetkili"
 
 #. module: payment_system_agreement
 #: model_terms:ir.actions.act_window,help:payment_system_agreement.action_agreement
@@ -214,6 +235,11 @@ msgid "Display Name"
 msgstr "Görünen Ad"
 
 #. module: payment_system_agreement
+#: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
+msgid "Edit Translations"
+msgstr "Çevirileri Düzenle"
+
+#. module: payment_system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__date_end
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
 msgid "End Date"
@@ -222,9 +248,7 @@ msgstr "Bitiş Tarihi"
 #. module: payment_system_agreement
 #. openerp-web
 #: code:addons/payment_system_agreement/static/src/js/flow.js:0
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
 #: code:addons/payment_system_agreement/static/src/js/page.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
 #, python-format
 msgid "Error"
 msgstr "Hata"
@@ -294,6 +318,7 @@ msgid "Name"
 msgstr "Adı"
 
 #. module: payment_system_agreement
+#: code:addons/payment_system_agreement/models/partner.py:0
 #: code:addons/payment_system_agreement/models/transaction.py:0
 #: model_terms:ir.actions.act_window,help:payment_system_agreement.action_transaction_agreement
 #, python-format
@@ -325,6 +350,8 @@ msgstr "Yol"
 
 #. module: payment_system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_transaction__paylox_agreement_count
+#: model:ir.model.fields,field_description:payment_system_agreement.field_res_partner__paylox_agreement_count
+#: model:ir.model.fields,field_description:payment_system_agreement.field_res_users__paylox_agreement_count
 msgid "Paylox Agreement Count"
 msgstr "Paylox Sözleşme Adedi"
 
@@ -368,14 +395,6 @@ msgid "Please read the whole agreement content entirely."
 msgstr "Lütfen tüm sözleşme metnini baştan sona okuyun."
 
 #. module: payment_system_agreement
-#. openerp-web
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
-#, python-format
-msgid "Prices have been updated."
-msgstr ""
-
-#. module: payment_system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__product_ids
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_agreement
 msgid "Products"
@@ -398,14 +417,6 @@ msgid "Submit Text"
 msgstr "Onay Metni"
 
 #. module: payment_system_agreement
-#. openerp-web
-#: code:addons/payment_system_agreement/static/src/js/frontend.js:0
-#: code:addons/payment_system_agreement/static/src/js/product.js:0
-#, python-format
-msgid "Success"
-msgstr "Başarılı"
-
-#. module: payment_system_agreement
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_agreement__text
 msgid "Text"
 msgstr "Metin"
@@ -425,13 +436,6 @@ msgstr "Türler"
 #: model:ir.model.fields,field_description:payment_system_agreement.field_payment_transaction_agreement__uuid
 msgid "UUID"
 msgstr "UUID"
-
-#. module: payment_system_agreement
-#. openerp-web
-#: code:addons/payment_system_agreement/static/src/xml/product.xml:0
-#, python-format
-msgid "Update Prices"
-msgstr ""
 
 #. module: payment_system_agreement
 #: model_terms:ir.ui.view,arch_db:payment_system_agreement.form_transaction_agreement
@@ -456,6 +460,14 @@ msgstr "Uyarı"
 #: model_terms:ir.actions.act_window,help:payment_system_agreement.action_agreement
 msgid "You can establish agreements to facilitate receiving payments."
 msgstr "Ödeme alırken onaylanacak sözleşmeler tanımlayabilirsiniz."
+
+#, python-format
+#~ msgid "An error occured."
+#~ msgstr "Bir hata meydana geldi."
+
+#, python-format
+#~ msgid "Success"
+#~ msgstr "Başarılı"
 
 #~ msgid "Define agreements to facilitate receiving payments"
 #~ msgstr "Ödeme alırken onaylanacak sözleşmeleri tanımlayın"

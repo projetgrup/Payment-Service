@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 15.0-20240903\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-16 23:00+0000\n"
-"PO-Revision-Date: 2024-07-16 23:00+0000\n"
+"POT-Creation-Date: 2025-02-10 20:41+0000\n"
+"PO-Revision-Date: 2025-02-10 20:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -104,6 +104,16 @@ msgid "API Contact"
 msgstr ""
 
 #. module: payment_jetcheckout_api
+#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_transaction__jetcheckout_api_credit_result_url
+msgid "API Credit Result URL"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_transaction__jetcheckout_api_credit_return_url
+msgid "API Credit Return URL"
+msgstr ""
+
+#. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_transaction__jetcheckout_api_html
 msgid "API HTML"
 msgstr ""
@@ -143,11 +153,6 @@ msgstr ""
 #. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_transaction__jetcheckout_api_product
 msgid "API Product"
-msgstr ""
-
-#. module: payment_jetcheckout_api
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_transaction__jetcheckout_api_product_ids
-msgid "API Products"
 msgstr ""
 
 #. module: payment_jetcheckout_api
@@ -248,7 +253,7 @@ msgstr ""
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
 msgid ""
-"Any unique number related to your specified record in your database for "
+"Any unique identifier related to your specified record in your database for "
 "tracking the payment flow"
 msgstr ""
 
@@ -289,8 +294,20 @@ msgid "Bank Accounts"
 msgstr ""
 
 #. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Bank Code"
+msgstr ""
+
+#. module: payment_jetcheckout_api
 #: model:ir.model.fields.selection,name:payment_jetcheckout_api.selection__payment_transaction__jetcheckout_api_method__bank
 msgid "Bank Transfer"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Bank code"
 msgstr ""
 
 #. module: payment_jetcheckout_api
@@ -398,7 +415,6 @@ msgid ""
 msgstr ""
 
 #. module: payment_jetcheckout_api
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__code
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.layout
 msgid "Code"
 msgstr ""
@@ -519,13 +535,11 @@ msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_acquirer_jetcheckout_api__create_uid
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_acquirer_jetcheckout_api__create_date
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__create_date
 msgid "Created on"
 msgstr ""
 
@@ -659,7 +673,6 @@ msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_acquirer_jetcheckout_api__display_name
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -764,7 +777,6 @@ msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_acquirer_jetcheckout_api__id
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__id
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.api_form
 msgid "ID"
 msgstr ""
@@ -878,19 +890,16 @@ msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_acquirer_jetcheckout_api____last_update
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_acquirer_jetcheckout_api__write_uid
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_acquirer_jetcheckout_api__write_date
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -907,6 +916,7 @@ msgid "List of codes of methods. Possible values are 'card' and 'bank'."
 msgstr ""
 
 #. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
 msgid "List of related products"
@@ -985,7 +995,6 @@ msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_acquirer_jetcheckout_api__name
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__name
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.layout
 msgid "Name"
 msgstr ""
@@ -1122,11 +1131,6 @@ msgstr ""
 #. module: payment_jetcheckout_api
 #: model:ir.model,name:payment_jetcheckout_api.model_payment_acquirer_jetcheckout_api
 msgid "Paylox API"
-msgstr ""
-
-#. module: payment_jetcheckout_api
-#: model:ir.model,name:payment_jetcheckout_api.model_payment_jetcheckout_api_product
-msgid "Paylox API Products"
 msgstr ""
 
 #. module: payment_jetcheckout_api
@@ -1344,15 +1348,25 @@ msgid "Prepare Payment"
 msgstr ""
 
 #. module: payment_jetcheckout_api
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__price
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.layout
 msgid "Price"
 msgstr ""
 
 #. module: payment_jetcheckout_api
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__product_id
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.transaction_form
 msgid "Product"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Product Brand"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Product Category"
 msgstr ""
 
 #. module: payment_jetcheckout_api
@@ -1376,6 +1390,18 @@ msgstr ""
 #. module: payment_jetcheckout_api
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
+msgid "Product brand"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Product category"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
 msgid "Product code"
 msgstr ""
 
@@ -1393,6 +1419,7 @@ msgstr ""
 
 #. module: payment_jetcheckout_api
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
 msgid "Products List"
 msgstr ""
@@ -1401,11 +1428,6 @@ msgstr ""
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
 msgid "Provider Code"
-msgstr ""
-
-#. module: payment_jetcheckout_api
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__qty
-msgid "Qty"
 msgstr ""
 
 #. module: payment_jetcheckout_api
@@ -1458,7 +1480,7 @@ msgstr ""
 #. module: payment_jetcheckout_api
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
-msgid "Return URL when user picks card payment method"
+msgid "Return URL when user picks suitable payment method"
 msgstr ""
 
 #. module: payment_jetcheckout_api
@@ -1477,6 +1499,12 @@ msgstr ""
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
 msgid "Return URLs by payment method"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Return URLs by shopping credit method"
 msgstr ""
 
 #. module: payment_jetcheckout_api
@@ -1516,9 +1544,26 @@ msgid "Service ReferenceID"
 msgstr ""
 
 #. module: payment_jetcheckout_api
+#: model:ir.model.fields.selection,name:payment_jetcheckout_api.selection__payment_transaction__jetcheckout_api_method__credit
+msgid "Shopping Credit"
+msgstr ""
+
+#. module: payment_jetcheckout_api
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
-msgid "Special value which is generated especially for credit card payments"
+msgid "Shopping credit details"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Shopping credit information related to transaction"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
+msgid "Special value which is generated especially for payments"
 msgstr ""
 
 #. module: payment_jetcheckout_api
@@ -1570,11 +1615,17 @@ msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.page_card
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.page_credit
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.page_transfer
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.page_wallet
 msgid "This payment transaction is cancelled"
 msgstr ""
 
 #. module: payment_jetcheckout_api
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.page_card
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.page_credit
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.page_transfer
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout_api.page_wallet
 msgid "This payment transaction is expired"
 msgstr ""
 
@@ -1600,11 +1651,6 @@ msgstr ""
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
 msgid "Total applied installment count if exist"
-msgstr ""
-
-#. module: payment_jetcheckout_api
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__transaction_id
-msgid "Transaction"
 msgstr ""
 
 #. module: payment_jetcheckout_api
@@ -1688,6 +1734,12 @@ msgstr ""
 
 #. module: payment_jetcheckout_api
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
+#, python-format
+msgid "URL addresses when shopping credit is selected"
+msgstr ""
+
+#. module: payment_jetcheckout_api
+#: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
@@ -1698,11 +1750,6 @@ msgstr ""
 #: code:addons/payment_jetcheckout_api/datamodels/datamodel.py:0
 #, python-format
 msgid "Unit Price"
-msgstr ""
-
-#. module: payment_jetcheckout_api
-#: model:ir.model.fields,field_description:payment_jetcheckout_api.field_payment_jetcheckout_api_product__uom
-msgid "Unit of Measure"
 msgstr ""
 
 #. module: payment_jetcheckout_api

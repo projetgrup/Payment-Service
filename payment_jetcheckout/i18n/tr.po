@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-25 18:01+0000\n"
-"PO-Revision-Date: 2025-01-25 21:02+0300\n"
+"POT-Creation-Date: 2025-02-10 20:44+0000\n"
+"PO-Revision-Date: 2025-02-10 23:45+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -979,6 +979,11 @@ msgid "Cancelled"
 msgstr "İptal Edildi"
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_transaction_list
+msgid "Capture Transaction"
+msgstr "İşlem Yakala"
+
+#. module: payment_jetcheckout
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_acquirer_jetcheckout_api_application__first_selection__cardbank
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_acquirer_jetcheckout_api_application__second_selection__cardbank
 #: model:ir.model.fields.selection,name:payment_jetcheckout.selection__payment_acquirer_jetcheckout_api_application__third_selection__cardbank
@@ -1025,6 +1030,7 @@ msgstr "Kart Numarası"
 
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer_jetcheckout_status__card_program
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_transaction__jetcheckout_card_program
 msgid "Card Program"
 msgstr "Kart Programı"
 
@@ -1177,6 +1183,11 @@ msgid "Create"
 msgstr "Oluştur"
 
 #. module: payment_jetcheckout
+#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_transaction_list
+msgid "Create Payment"
+msgstr "Ödeme Oluştur"
+
+#. module: payment_jetcheckout
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.acquirer_form
 msgid "Create a new account"
 msgstr "Yeni bir hesap oluşturun"
@@ -1300,6 +1311,11 @@ msgstr "Kredi Kartı Limiti"
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_token__jetcheckout_number
 msgid "Credit Card Number"
 msgstr "Kredi Kartı Numarası"
+
+#. module: payment_jetcheckout
+#: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_token__jetcheckout_program
+msgid "Credit Card Program"
+msgstr "Kredi Kart Programı"
 
 #. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_token__jetcheckout_security
@@ -1867,12 +1883,6 @@ msgid "JCB"
 msgstr "JCB"
 
 #. module: payment_jetcheckout
-#: model:account.payment.method,name:payment_jetcheckout.payment_method_jetcheckout
-#: model:payment.acquirer,name:payment_jetcheckout.payment_acquirer_jetcheckout
-msgid "Jetcheckout"
-msgstr "Jetcheckout"
-
-#. module: payment_jetcheckout
 #: model:ir.model.fields,field_description:payment_jetcheckout.field_payment_acquirer__jetcheckout_api_key
 msgid "Jetcheckout Api Key"
 msgstr "Jetcheckout Api Anahtarı"
@@ -2322,6 +2332,12 @@ msgid "Payer:"
 msgstr "Ödeyen:"
 
 #. module: payment_jetcheckout
+#: model:account.payment.method,name:payment_jetcheckout.payment_method_jetcheckout
+#: model:payment.acquirer,name:payment_jetcheckout.payment_acquirer_jetcheckout
+msgid "Paylox"
+msgstr "Paylox"
+
+#. module: payment_jetcheckout
 #: model:ir.model,name:payment_jetcheckout.model_payment_acquirer_jetcheckout_api_application
 msgid "Paylox API Application"
 msgstr "Paylox API  Uygulama"
@@ -2531,7 +2547,6 @@ msgstr ""
 #. module: payment_jetcheckout
 #. openerp-web
 #: code:addons/payment_jetcheckout/static/src/xml/page.xml:0
-#: model_terms:ir.ui.view,arch_db:payment_jetcheckout.payment_transaction_list
 #: model_terms:ir.ui.view,arch_db:payment_jetcheckout.portal_button
 #, python-format
 msgid "Payment"
@@ -2617,13 +2632,6 @@ msgstr "Ödeme İşlemi Ürünü"
 #: model:ir.cron,name:payment_jetcheckout.cron_expire_transaction
 msgid "Payment Transaction: Expire outdated transactions"
 msgstr "Ödeme İşlemi: Süresi geçmiş işlemleri sonlandır"
-
-#. module: payment_jetcheckout
-#: model:ir.actions.server,name:payment_jetcheckout.cron_fix_transaction_ir_actions_server
-#: model:ir.cron,cron_name:payment_jetcheckout.cron_fix_transaction
-#: model:ir.cron,name:payment_jetcheckout.cron_fix_transaction
-msgid "Payment Transaction: Fix corrupted transactions"
-msgstr "Ödeme İşlemi: Bozuk işlemleri onar"
 
 #. module: payment_jetcheckout
 #: model:ir.actions.server,name:payment_jetcheckout.cron_resync_pending_transaction_ir_actions_server
@@ -3750,6 +3758,12 @@ msgid ""
 "will be charged from this credit card and it will be refunded immediately."
 msgstr "bu kredi kartından çekilecektir ve anında iade edilecektir."
 
+#~ msgid "Jetcheckout"
+#~ msgstr "Jetcheckout"
+
+#~ msgid "Payment Transaction: Fix corrupted transactions"
+#~ msgstr "Ödeme İşlemi: Bozuk işlemleri onar"
+
 #~ msgid "<code>{{amount_paid}}</code>: Paid Amount"
 #~ msgstr "<code>{{amount_paid}}</code>: Ödenen Tutar"
 
@@ -3795,9 +3809,6 @@ msgstr "bu kredi kartından çekilecektir ve anında iade edilecektir."
 #, python-format
 #~ msgid "An error occured. Please restart your payment transaction."
 #~ msgstr "Bir hata meydana geldi. Lütfen ödeme işlemini tekrar başlatınız."
-
-#~ msgid "Paylox"
-#~ msgstr "Paylox"
 
 #~ msgid "Paylox API Campaign"
 #~ msgstr "Paylox API Kampanya"
