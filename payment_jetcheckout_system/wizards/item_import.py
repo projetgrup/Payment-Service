@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import base64
 import xlrd
+import base64
 from datetime import datetime
 
 from odoo import fields, models, api, _
@@ -36,6 +36,7 @@ class PaymentItemImport(models.TransientModel):
             'ref': value.get('Reference', False),
             'tag': value.get('Tag', False),
             'bank_iban': value.get('Bank IBAN', False),
+            'bank_holder': value.get('Bank Holder Name', False),
             'bank_merchant': value.get('Bank Merchant Name', False),
             'description': value.get('Description', False),
             'user_name': value.get('Sales Representative Name', False),
@@ -77,12 +78,41 @@ class PaymentItemImport(models.TransientModel):
                 user.partner_id.write(user_values)
             partner.user_id = user.id
         
+        bank = False
+        bank_token = False
+        bank_token_ok = self.env.company.payment_item_bank_token_ok
         if line.bank_iban:
             bank = partner.bank_ids.filtered(lambda b: b.acc_number == line.bank_iban)
             if bank:
-                bank.api_merchant = line.bank_merchant
+                if bank_token_ok:
+                    bank.write({
+                        'acc_holder_name': line.bank_holder,
+                    })
+                    bank_token = bank.api_token_ids.create({
+                        'partner_bank_id': bank.id,
+                        'api_merchant': line.bank_merchant,
+                    })
+                else:
+                    bank.write({
+                        'acc_holder_name': line.bank_holder,
+                        'api_merchant': line.bank_merchant,
+                    })
             else:
-                partner.bank_ids = [(0, 0, {'acc_number': line.bank_iban, 'api_merchant': line.bank_merchant})]
+                if bank_token_ok:
+                    bank = bank.create({
+                        'partner_id': partner.id,
+                        'acc_holder_name': line.bank_holder,
+                    })
+                    bank_token = bank.api_token_ids.create({
+                        'partner_bank_id': bank.id,
+                        'api_merchant': line.bank_merchant,
+                    })
+                else:
+                    partner.bank_ids = [(0, 0, {
+                        'acc_number': line.bank_iban,
+                        'acc_holder_name': line.bank_holder,
+                        'api_merchant': line.bank_merchant,
+                    })]
 
         return {
             'parent_id': partner.id,
@@ -95,6 +125,8 @@ class PaymentItemImport(models.TransientModel):
             'system': line.company_id.system,
             'currency_id': line.currency_id.id,
             'company_id': line.company_id.id,
+            'bank_id': bank_token_ok and bank and bank.id or False,
+            'bank_token_id': bank_token_ok and bank_token and bank_token.id or False,
         }
 
     @api.onchange('file')
@@ -165,6 +197,7 @@ class PaymentItemImportLine(models.TransientModel):
     ref = fields.Char('Reference', readonly=True)
     tag = fields.Char('Tag', readonly=True)
     bank_iban = fields.Char('IBAN', readonly=True)
+    bank_holder = fields.Char('Account Holder', readonly=True)
     bank_merchant = fields.Char('Merchant', readonly=True)
     user_id = fields.Many2one('res.users', 'Sales Representative', readonly=True)
     user_name = fields.Char('Sales Representative Name', readonly=True)

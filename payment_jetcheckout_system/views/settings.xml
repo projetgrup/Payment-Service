@@ -323,6 +323,7 @@
                                                     <field name="unit" string=" " width="0.2" decoration-bf="1"/>
                                                     <field name="tolerance"/>
                                                     <field name="round" widget="boolean_toggle"/>
+                                                    <field name="partner_tag_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
                                                     <field name="campaign_id" options="{'no_create': True, 'no_open': True}" required="1"/>
                                                     <field name="mail_template_id" domain="[('model', '=', 'res.partner')]" options="{'no_create': True, 'no_open': True}" optional="hide" attrs="{'column_invisible': [('parent.payment_page_due_reminder_ok', '=', False)]}"/>
                                                     <field name="campaign_ids" invisible="1"/>

@@ -31,6 +31,7 @@
                             <field name="user_email" force_save="1" optional="hide"/>
                             <field name="user_mobile" force_save="1" optional="hide"/>
                             <field name="bank_iban" invisible="1" force_save="1"/>
+                            <field name="bank_holder" invisible="1" force_save="1"/>
                             <field name="bank_merchant" invisible="1" force_save="1"/>
                             <field name="currency_id" invisible="1" force_save="1"/>
                             <field name="partner_id" invisible="1" force_save="1"/>
