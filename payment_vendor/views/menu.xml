@@ -46,7 +46,6 @@
     <menuitem id="menu_conf_subscription_stage" action="payment_system_subscription.action_subscription_stage" name="Stages" parent="menu_conf_subscription" sequence="2" groups="payment_system_subscription.group_subscription"/>
     <menuitem id="menu_conf_subscription_reason" action="payment_system_subscription.action_subscription_reason" name="Reasons" parent="menu_conf_subscription" sequence="3" groups="payment_system_subscription.group_subscription"/>
 
-
     <menuitem id="menu_agreements" name="Agreement Settings" parent="menu_conf" sequence="4" groups="payment_system_agreement.group_agreement,base.group_system"/>
     <menuitem id="menu_agreement" action="payment_system_agreement.action_agreement" name="Agreements" parent="menu_agreements" sequence="1" groups="payment_system_agreement.group_agreement,base.group_system"/>
 

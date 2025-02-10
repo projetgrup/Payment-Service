@@ -309,7 +309,10 @@ class PaymentItem(models.Model):
             lang = get_lang(self.env)
             base = company.payment_page_due_base
             sign = -1 if base == 'date_document' else 1
+            partner = self.env['res.partner']
             for item in self:
+                if not partner:
+                    partner = item.parent_id
                 if item.residual_amount < 0:
                     continue
                 date = item.due_date if sign == 1 else item.date
@@ -321,7 +324,7 @@ class PaymentItem(models.Model):
 
             days = amount/total if total else 0
             date = (today + timedelta(days=days)).strftime(lang.date_format)
-            days, campaign, line, advance, hide_payment = company.payment_page_due_ids.get_campaign(item.parent_id, days * sign)
+            days, campaign, line, advance, hide_payment = company.payment_page_due_ids.get_campaign(partner, days * sign)
 
             if hide_payment:
                 hide_payment_message = company.payment_page_due_hide_payment_message
