@@ -7,7 +7,7 @@ from odoo.addons.payment_jetcheckout_system.controllers.main import PayloxSystem
 class PayloxSystemApiController(Controller):
 
     def _get_template(self, path, values):
-        if 'tx' in values and values['tx']['jetcheckout_api_ok']:
+        if 'tx' in values and values['tx'] and values['tx']['jetcheckout_api_ok']:
             template = request.env['payment.view'].sudo().search([
                 ('page_id.path', '=', path),
                 '|',
