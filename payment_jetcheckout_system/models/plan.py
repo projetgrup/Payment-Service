@@ -94,6 +94,7 @@ class PaymentPlan(models.Model):
             'threed': False,
             'card': {
                 'type': self.token_id.jetcheckout_type or '',
+                'program': self.token_id.jetcheckout_program or '',
                 'family': self.token_id.jetcheckout_family or '',
                 'code': self.token_id.jetcheckout_security or '',
                 'date': self.token_id.jetcheckout_expiry or '',

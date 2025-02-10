@@ -64,6 +64,7 @@ class PaymentTransaction(models.Model):
     jetcheckout_card_name = fields.Char('Card Holder Name', readonly=True, copy=False)
     jetcheckout_card_number = fields.Char('Card Number', readonly=True, copy=False)
     jetcheckout_card_type = fields.Char('Card Type', readonly=True, copy=False)
+    jetcheckout_card_program = fields.Char('Card Program', readonly=True, copy=False)
     jetcheckout_card_family = fields.Char('Card Family', readonly=True, copy=False)
     jetcheckout_vpos_id = fields.Integer('Virtual PoS Id', readonly=True, copy=False)
     jetcheckout_vpos_name = fields.Char('Virtual PoS', readonly=True, copy=False)
@@ -227,6 +228,7 @@ class PaymentTransaction(models.Model):
             'jetcheckout_card_name': self.jetcheckout_card_name,
             'jetcheckout_card_number': self.jetcheckout_card_number,
             'jetcheckout_card_type': self.jetcheckout_card_type,
+            'jetcheckout_card_program': self.jetcheckout_card_program,
             'jetcheckout_card_family': self.jetcheckout_card_family,
             'jetcheckout_vpos_id': self.jetcheckout_vpos_id,
             'jetcheckout_vpos_name': self.jetcheckout_vpos_name,
@@ -499,7 +501,8 @@ class PaymentTransaction(models.Model):
             'jetcheckout_service_message': values.get('service_message', False),
             'jetcheckout_commission_rate': values.get('commission_rate', 0),
             'jetcheckout_commission_amount': values.get('commission_amount', 0),
-            'jetcheckout_card_type': values.get('card_program', self.jetcheckout_card_type),
+            'jetcheckout_card_type': values.get('card_type', self.jetcheckout_card_type),
+            'jetcheckout_card_program': values.get('card_program', self.jetcheckout_card_program),
             'jetcheckout_card_family': values.get('card_family', self.jetcheckout_card_family),
             'jetcheckout_card_number': self.jetcheckout_card_number or '%s**********' % (values.get('bin_code', '') or '',),
             'jetcheckout_payment_amount': self.jetcheckout_payment_amount or amount - self.jetcheckout_customer_amount,
@@ -672,6 +675,7 @@ class PaymentTransaction(models.Model):
                     'jetcheckout_card_name': ref.jetcheckout_card_name,
                     'jetcheckout_card_number': ref.jetcheckout_card_number,
                     'jetcheckout_card_type': ref.jetcheckout_card_type,
+                    'jetcheckout_card_program': ref.jetcheckout_card_program,
                     'jetcheckout_card_family': ref.jetcheckout_card_family,
                     'jetcheckout_vpos_id': ref.jetcheckout_vpos_id,
                     'jetcheckout_vpos_name': ref.jetcheckout_vpos_name,
@@ -728,6 +732,7 @@ class PaymentTransaction(models.Model):
                     'jetcheckout_card_name': ref.jetcheckout_card_name,
                     'jetcheckout_card_number': ref.jetcheckout_card_number,
                     'jetcheckout_card_type': ref.jetcheckout_card_type,
+                    'jetcheckout_card_program': ref.jetcheckout_card_program,
                     'jetcheckout_card_family': ref.jetcheckout_card_family,
                     'jetcheckout_vpos_id': ref.jetcheckout_vpos_id,
                     'jetcheckout_vpos_name': ref.jetcheckout_vpos_name,
