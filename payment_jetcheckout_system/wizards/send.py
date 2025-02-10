@@ -228,7 +228,7 @@ class PaymentPayloxSend(models.TransientModel):
             id = int(params('paylox.sms.provider', '0'))
             sms_provider = self.env['sms.provider'].browse(id)
 
-        email_from = user.email_formatted or mail_server.email_formatted
+        email_from = mail_server.email_formatted or user.email_formatted
         reply_to = email_from
         mail_messages = []
         sms_messages = []

@@ -21,6 +21,11 @@ _logger = logging.getLogger(__name__)
 EMAIL_PATTERN = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 PHONE_PATTERN = r'^[0-9]{10}$'
 
+def normalize(value):
+    table = str.maketrans('ğĞıİöÖüÜşŞçÇ', 'gGiIoOuUsScC')
+    return re.sub(r'[^a-zA-Z0-9]', '_', value.translate(table))
+
+
 class PartnerTeam(models.Model):
     _inherit = 'crm.team'
 
@@ -80,11 +85,15 @@ class PartnerBank(models.Model):
 
     @api.model
     def create(self, values):
+        if 'api_merchant' in values:
+            values['api_merchant'] = normalize(values['api_merchant'])
         res = super().create(values)
         res.action_api_save(mode='create')
         return res
 
     def write(self, values):
+        if 'api_merchant' in values:
+            values['api_merchant'] = normalize(values['api_merchant'])
         res = super().write(values)
         if 'acc_number' in values or 'api_merchant' in values:
             for bank in self:

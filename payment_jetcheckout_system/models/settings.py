@@ -222,14 +222,17 @@ class PaymentSettingsDue(models.Model):
     tolerance = fields.Integer('Tolerance', default=0, required=True)
     unit = fields.Char('Unit', compute='_compute_unit')
     round = fields.Boolean('Round')
+    mail_template_id = fields.Many2one('mail.template', string='Email Template')
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
     campaign_id = fields.Many2one('payment.acquirer.jetcheckout.campaign', string='Campaign', ondelete='set null', domain='[("id", "in", campaign_ids)]', default=_default_campaign_id)
     campaign_ids = fields.Many2many('payment.acquirer.jetcheckout.campaign', 'Campaigns', compute='_compute_campaign_ids')
-    mail_template_id = fields.Many2one('mail.template', string='Email Template')
+    partner_tag_ids = fields.Many2many('res.partner.category', 'payment_settings_due_partner_tag_rel', 'due_id', 'tag_id', string='Tags')
 
-    def get_campaign(self, day):
+    def get_campaign(self, partner, day):
         advance = None
         for due in self:
+            if due.partner_tag_ids and due.partner_tag_ids.ids not in partner.category_id.ids:
+                continue
             rounding_method = 'HALF-UP' if due.round else 'DOWN'
             days = float_round(day, precision_digits=0, rounding_method=rounding_method)
             if due.due + due.tolerance >= days:
