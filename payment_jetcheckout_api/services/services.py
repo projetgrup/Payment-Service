@@ -472,6 +472,7 @@ class PaymentAPIService(Component):
                     'name': tx.jetcheckout_card_name or '',
                     'number': tx.jetcheckout_card_number or '',
                     'type': tx.jetcheckout_card_type or '',
+                    'program': tx.jetcheckout_card_program or '',
                     'family': tx.jetcheckout_card_family or '',
                 },
                 'credit': {

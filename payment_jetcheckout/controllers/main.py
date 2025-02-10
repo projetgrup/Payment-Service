@@ -1232,6 +1232,7 @@ class PayloxController(http.Controller):
                 'jetcheckout_card_name': kwargs['card']['holder'],
                 'jetcheckout_card_number': number and  ''.join([number[:6], '*'*6, number[-4:]]) or False,
                 'jetcheckout_card_type': kwargs['card']['type'].capitalize(),
+                'jetcheckout_card_program': kwargs['card']['program'].capitalize(),
                 'jetcheckout_card_family': kwargs['card']['family'].capitalize(),
                 'jetcheckout_payment_amount': amount,
                 'jetcheckout_installment_count': installment['count'],
@@ -1368,6 +1369,7 @@ class PayloxController(http.Controller):
                 tx.token_id.write({
                     'jetcheckout_number': tx.jetcheckout_card_number,
                     'jetcheckout_type': kwargs['card']['type'],
+                    'jetcheckout_program': kwargs['card']['program'],
                     'jetcheckout_holder': kwargs['card']['holder'],
                     'jetcheckout_family': kwargs['card']['family'],
                     'jetcheckout_expiry': kwargs['card']['date'],

@@ -28,6 +28,7 @@ class PaymentAgreement(models.Model):
     date_start = fields.Date('Start Date')
     date_end = fields.Date('End Date')
     version = fields.Char()
+    checked = fields.Boolean()
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     page_ids = fields.Many2many('payment.page', 'payment_agreement_page_rel', 'agreement_id', 'page_id', string='Pages')
     product_ids = fields.Many2many('product.template', 'payment_agreement_product_rel', 'agreement_id', 'product_id', string='Products')

@@ -67,6 +67,7 @@ class VendorAPIService(Component):
                 "card_name": payment.jetcheckout_card_name or '',
                 "card_number": payment.jetcheckout_card_number or '',
                 "card_type": payment.jetcheckout_card_type or '',
+                "card_program": payment.jetcheckout_card_program or '',
                 "card_family": payment.jetcheckout_card_family or '',
                 "campaign_name": payment.jetcheckout_campaign_name or '',
                 "pos_name": payment.jetcheckout_vpos_name or '',

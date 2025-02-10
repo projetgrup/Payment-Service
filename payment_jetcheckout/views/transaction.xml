@@ -104,6 +104,7 @@
                     <field name="token_id" attrs="{'invisible': [('token_id', '=', False)]}" options="{'no_create': True, 'no_open': True}"/>
                     <field name="jetcheckout_card_number" attrs="{'invisible': [('jetcheckout_payment_type', '=', 'credit')]}"/>
                     <field name="jetcheckout_card_type" attrs="{'invisible': [('jetcheckout_card_type', '=', False)]}"/>
+                    <field name="jetcheckout_card_program" attrs="{'invisible': [('jetcheckout_card_program', '=', False)]}"/>
                     <field name="jetcheckout_card_family" attrs="{'invisible': [('jetcheckout_card_family', '=', False)]}"/>
                     <field name="jetcheckout_campaign_name"/>
                     <label for="jetcheckout_vpos_name"/>
@@ -165,6 +166,7 @@
         <xpath expr="//tree//field" position="before">
             <header>
                 <button name="action_payment" type="object" string="Payment"/>
+                <button name="action_capture" type="object" string="Capture"/>
             </header>
         </xpath>
         <xpath expr='//field[@name="partner_name"]' position="replace">

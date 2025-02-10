@@ -79,6 +79,7 @@ publicWidget.registry.payloxTokenVerify = payloxPage.extend({
             verify: true,
             card: {
                 type: this.card.type || '',
+                program: this.card.program || '',
                 family: this.card.family || '',
                 code: this.card.code.value,
                 holder: this.card.holder.value,
