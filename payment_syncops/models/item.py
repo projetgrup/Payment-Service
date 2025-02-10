@@ -32,8 +32,8 @@ class PaymentItem(models.Model):
         for item in self:
             item.jetcheckout_connector_done = item.jetcheckout_connector_sent and not item.jetcheckout_connector_state
 
-    syncops_ok = fields.Boolean(readonly=True)
-    syncops_notif = fields.Boolean(readonly=True)
+    syncops_ok = fields.Boolean(string='syncOPS', readonly=True)
+    syncops_notif = fields.Boolean(string='syncOPS Notification', readonly=True)
     syncops_data = fields.Text(string='syncOPS Data')
     jetcheckout_connector_ok = fields.Boolean('Connector', readonly=True)
     jetcheckout_connector_sent = fields.Boolean('Connector Sent', readonly=True)
@@ -108,26 +108,73 @@ class PaymentItem(models.Model):
     def action_process_connector(self):
         self.ensure_one()
         if self.paid and self.jetcheckout_connector_ok and self.jetcheckout_connector_state:
-            result, message = self.env['syncops.connector'].sudo()._execute('payment_post_partner_payment', reference=str(self.id), params={
-                'reference': self.description or '',
-            }, company=self.company_id, message=True)
+            if self.syncops_ok:
+                result, message = self.env['syncops.connector'].sudo()._execute('payment_post_partner_payment', reference=str(self.id), params={
+                    'reference': self.description or '',
+                }, company=self.company_id, message=True)
 
-            if result is None:
-                values = {
-                    'jetcheckout_connector_sent': True,
-                    'jetcheckout_connector_state': True,
-                    #'jetcheckout_connector_payment_ref': False,
-                    'jetcheckout_connector_state_message': _('This transaction has not been successfully posted to connector.\n%s') % message
-                }
+                if result is None:
+                    values = {
+                        'jetcheckout_connector_sent': True,
+                        'jetcheckout_connector_state': True,
+                        #'jetcheckout_connector_payment_ref': False,
+                        'jetcheckout_connector_state_message': _('This payment has not been successfully posted to connector.\n%s') % message
+                    }
+                else:
+                    values = {
+                        'jetcheckout_connector_sent': True,
+                        'jetcheckout_connector_state': False,
+                        #'jetcheckout_connector_payment_ref': result and result[0].get('ref', False) or False,
+                        'jetcheckout_connector_state_message': _('This payment has been successfully posted to connector.')
+                    }
+                self.write(values)
+                self.flush()
             else:
-                values = {
-                    'jetcheckout_connector_sent': True,
-                    'jetcheckout_connector_state': False,
-                    #'jetcheckout_connector_payment_ref': result and result[0].get('ref', False) or False,
-                    'jetcheckout_connector_state_message': _('This transaction has been successfully posted to connector.')
-                }
-            self.write(values)
-            self.flush()
+                tx = self.transaction_ids and self.transaction_ids[0] or False,
+                line = tx and tx.acquirer_id._get_branch_line(name=tx.jetcheckout_vpos_name, user=self.create_uid)
+                result, message = self.env['syncops.connector'].sudo()._execute('payment_post_partner_collection', reference=str(self.id), params={
+                    'id': self.id,
+                    'collection_id': self.id,
+                    'partner_iban': self.bank_id.iban or '',
+                    'partner_ref': self.parent_id.ref or '',
+                    'partner_vat': self.parent_id.vat or '',
+                    'transaction_id': tx and tx.jetcheckout_transaction_id or '',
+                    'ref': self.ref or '',
+                    'date': self.paid_date and self.paid_date.strftime('%Y/%m/%dT%H:%M:%S') or '',
+                    'account_code': line and line.account_code or '',
+                    'card_number': tx and tx.jetcheckout_card_number or '',
+                    'card_name': tx and tx.jetcheckout_card_name or '',
+                    'amount': tx and tx.amount or 0,
+                    'amount_commission_rate': tx and tx.jetcheckout_commission_rate or 0,
+                    'amount_commission_cost': tx and tx.jetcheckout_commission_cost or 0,
+                    'amount_customer_rate': tx and tx.jetcheckout_commission_rate or 0,
+                    'amount_customer_cost': tx and tx.jetcheckout_commission_cost or 0,
+                    'currency': self.currency_id.name or '',
+                    'description': self.description or '',
+                    'items': [{
+                        'ref': self.ref,
+                        'number': self.name,
+                        'amount': self.amount,
+                        'commission': tx and tx.jetcheckout_commission_cost or 0,
+                    }]
+                }, company=self.company_id, message=True)
+
+                if result is None:
+                    values = {
+                        'jetcheckout_connector_sent': True,
+                        'jetcheckout_connector_state': True,
+                        #'jetcheckout_connector_payment_ref': False,
+                        'jetcheckout_connector_state_message': _('This payment has not been successfully posted to connector.\n%s') % message
+                    }
+                else:
+                    values = {
+                        'jetcheckout_connector_sent': True,
+                        'jetcheckout_connector_state': False,
+                        #'jetcheckout_connector_payment_ref': result and result[0].get('ref', False) or False,
+                        'jetcheckout_connector_state_message': _('This payment has been successfully posted to connector.')
+                    }
+                self.write(values)
+                self.flush()
 
     @api.model
     def cron_sync(self):
