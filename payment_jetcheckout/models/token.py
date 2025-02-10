@@ -11,6 +11,7 @@ class PaymentToken(models.Model):
     sequence = fields.Integer(default=10)
     jetcheckout_ref = fields.Char('Credit Card Token')
     jetcheckout_type = fields.Char('Credit Card Type')
+    jetcheckout_program = fields.Char('Credit Card Program')
     jetcheckout_holder = fields.Char('Credit Card Holder')
     jetcheckout_number = fields.Char('Credit Card Number')
     jetcheckout_family = fields.Char('Credit Card Family')

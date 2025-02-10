@@ -207,6 +207,7 @@ class PaymentPayloxSend(models.TransientModel):
 
         authorized = self.env.ref('payment_jetcheckout_system.categ_authorized')
         user = self.env['res.users'].search([
+            ('share', '=', False),
             ('company_id', '=', company.id),
             ('partner_id.category_id', 'in', [authorized.id])
         ], limit=1) or user
