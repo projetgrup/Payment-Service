@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-25 17:42+0000\n"
-"PO-Revision-Date: 2025-01-25 21:01+0300\n"
+"POT-Creation-Date: 2025-02-10 21:05+0000\n"
+"PO-Revision-Date: 2025-02-11 00:14+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -386,6 +386,11 @@ msgid "Display Name"
 msgstr "Görünen Ad"
 
 #. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Do not unlink any payment items while syncing"
+msgstr "Eşlerken herhangi bir ödeme kalemini silme"
+
+#. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.tree_wizard_sync_line_item_invoice
 msgid "Document"
 msgstr "Belge"
@@ -429,11 +434,6 @@ msgid "Even if they are paid, sync payment items all over"
 msgstr "Ödenmiş olsa bile, ödeme kalemlerini baştan eşle"
 
 #. module: payment_syncops
-#: model_terms:ir.ui.view,arch_db:payment_syncops.payment_transaction_list
-msgid "Excel"
-msgstr "Excel"
-
-#. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.acquirer_form
 msgid "Exclude Refunds"
 msgstr "İadeler Hariç"
@@ -442,6 +442,11 @@ msgstr "İadeler Hariç"
 #: model_terms:ir.ui.view,arch_db:payment_syncops.acquirer_form
 msgid "Excluded States"
 msgstr "Hariç Durumlar"
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.payment_transaction_list
+msgid "Export Excel"
+msgstr "Excel Dışa Aktar"
 
 #. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.item_tree
@@ -511,6 +516,11 @@ msgstr "Fatura Adı"
 #: model:ir.model.fields,field_description:payment_syncops.field_syncops_sync_wizard_line__invoice_tag
 msgid "Invoice Tag"
 msgstr "Fatura Etiketi"
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_syncops_sync_wizard_line__item_id
+msgid "Item"
+msgstr "Ödeme Kalemi"
 
 #. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_syncops_partner_iban____last_update
@@ -693,7 +703,6 @@ msgid "Partners"
 msgstr "İş Ortakları"
 
 #. module: payment_syncops
-#: model:ir.actions.server,name:payment_syncops.cron_sync_ir_actions_server
 #: model:ir.actions.server,name:payment_syncops.cron_sync_partner_ir_actions_server
 #: model:ir.cron,cron_name:payment_syncops.cron_sync_partner
 #: model:ir.cron,name:payment_syncops.cron_sync_partner
@@ -950,6 +959,11 @@ msgstr "Yeni İş Ortakları Olmadan Ödeme Kalemlerini Eşle"
 
 #. module: payment_syncops
 #: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
+msgid "Sync Payment Items Without Unlink"
+msgstr "Silmeden Ödeme Kalemlerini Eşle"
+
+#. module: payment_syncops
+#: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
 msgid "Sync Time"
 msgstr "Eşleme Saati"
 
@@ -1073,16 +1087,6 @@ msgid "Syncops Exclude State"
 msgstr "Syncops Hariç Durumlar"
 
 #. module: payment_syncops
-#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__syncops_notif
-msgid "Syncops Notif"
-msgstr "Syncops Bildirim"
-
-#. module: payment_syncops
-#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__syncops_ok
-msgid "Syncops Ok"
-msgstr "Syncops"
-
-#. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_payment_page_partner_required
 #: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_payment_page_partner_required
 msgid "Syncops Payment Page Partner Required"
@@ -1099,6 +1103,12 @@ msgstr "Syncops Eşleme Kalem Zorla"
 #: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_sync_item_no_partner
 msgid "Syncops Sync Item No Partner"
 msgstr "Syncops Eşleme Kalem İş Ortağı Yok"
+
+#. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_sync_item_soft
+#: model:ir.model.fields,field_description:payment_syncops.field_res_company__syncops_sync_item_soft
+msgid "Syncops Sync Item Soft"
+msgstr "Syncops Eşleme Kalem Hafif"
 
 #. module: payment_syncops
 #: model:ir.model.fields,field_description:payment_syncops.field_payment_settings__syncops_sync_item_split
@@ -1130,13 +1140,27 @@ msgstr "Bu ödeme alıcı için bir hesap satırı yok"
 
 #. module: payment_syncops
 #: code:addons/payment_syncops/models/item.py:0
+#, python-format
+msgid "This payment has been successfully posted to connector."
+msgstr "Ödeme başarıyla bağlayıcıya gönderildi."
+
+#. module: payment_syncops
+#: code:addons/payment_syncops/models/item.py:0
+#, python-format
+msgid ""
+"This payment has not been successfully posted to connector.\n"
+"%s"
+msgstr ""
+"Ödeme başarıyla bağlayıcıya gönderilemedi.\n"
+"%s"
+
+#. module: payment_syncops
 #: code:addons/payment_syncops/models/transaction.py:0
 #, python-format
 msgid "This transaction has been successfully posted to connector."
 msgstr "İşlem başarıyla bağlayıcıya gönderildi."
 
 #. module: payment_syncops
-#: code:addons/payment_syncops/models/item.py:0
 #: code:addons/payment_syncops/models/transaction.py:0
 #, python-format
 msgid ""
@@ -1231,6 +1255,7 @@ msgid "include"
 msgstr "dahil"
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__syncops_ok
 #: model_terms:ir.ui.view,arch_db:payment_syncops.acquirer_form
 #: model_terms:ir.ui.view,arch_db:payment_syncops.settings_form
 msgid "syncOPS"
@@ -1269,6 +1294,11 @@ msgid "syncOPS Integration"
 msgstr "syncOPS Entegrasyonu"
 
 #. module: payment_syncops
+#: model:ir.model.fields,field_description:payment_syncops.field_payment_item__syncops_notif
+msgid "syncOPS Notification"
+msgstr "syncOPS Bildirim"
+
+#. module: payment_syncops
 #: model:ir.model,name:payment_syncops.model_syncops_partner_iban
 msgid "syncOPS Partner Bank IBAN"
 msgstr "syncOPS İş Ortağı Banka IBAN"
@@ -1287,6 +1317,15 @@ msgstr "syncOPS Eşle Sihirbazı"
 #: model:ir.model,name:payment_syncops.model_syncops_sync_wizard_line
 msgid "syncOPS Sync Wizard Lines"
 msgstr "syncOPS Eşle Sihirbaz Satırları"
+
+#~ msgid "Excel"
+#~ msgstr "Excel"
+
+#~ msgid "Syncops Notif"
+#~ msgstr "Syncops Bildirim"
+
+#~ msgid "Syncops Ok"
+#~ msgstr "Syncops"
 
 #, python-format
 #~ msgid "Sync"
