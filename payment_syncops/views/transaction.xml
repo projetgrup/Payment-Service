@@ -55,7 +55,7 @@
             <field name="jetcheckout_connector_partner_vat" string="Related Partner VAT" optional="hide"/>
         </xpath>
         <xpath expr="//header" position="inside">
-            <button name="action_syncops_xlsx" type="object" string="Excel"/>
+            <button name="action_syncops_xlsx" type="object" string="Export Excel"/>
         </xpath>
     </field>
     </record>
