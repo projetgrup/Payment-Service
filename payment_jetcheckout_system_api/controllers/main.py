@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo.http import request
-from odoo.addons.payment_jetcheckout_api.controllers.main import PayloxApiController as Controller
+from odoo.addons.payment_jetcheckout_system.controllers.main import PayloxSystemController as Controller
 
 
 class PayloxSystemApiController(Controller):
