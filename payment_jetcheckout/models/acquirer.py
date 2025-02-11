@@ -61,6 +61,7 @@ class PaymentPayloxStatus(models.TransientModel):
     customer_rate = fields.Float(readonly=True, string='Customer Commission Rate')
     auth_code = fields.Char(readonly=True)
     card_family = fields.Char(readonly=True)
+    card_type = fields.Char(readonly=True)
     card_program = fields.Char(readonly=True)
     bin_code = fields.Char(readonly=True)
     service_ref_id = fields.Char(readonly=True)
