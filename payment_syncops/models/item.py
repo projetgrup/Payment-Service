@@ -130,12 +130,12 @@ class PaymentItem(models.Model):
                 self.write(values)
                 self.flush()
             else:
-                tx = self.transaction_ids and self.transaction_ids[0] or False,
+                tx = self.transaction_ids and self.transaction_ids[0] or False
                 line = tx and tx.acquirer_id._get_branch_line(name=tx.jetcheckout_vpos_name, user=self.create_uid)
                 result, message = self.env['syncops.connector'].sudo()._execute('payment_post_partner_collection', reference=str(self.id), params={
                     'id': self.id,
                     'collection_id': self.id,
-                    'partner_iban': self.bank_id.iban or '',
+                    'partner_iban': self.bank_id.acc_number or '',
                     'partner_ref': self.parent_id.ref or '',
                     'partner_vat': self.parent_id.vat or '',
                     'transaction_id': tx and tx.jetcheckout_transaction_id or '',
@@ -146,16 +146,16 @@ class PaymentItem(models.Model):
                     'card_name': tx and tx.jetcheckout_card_name or '',
                     'amount': tx and tx.amount or 0,
                     'amount_commission_rate': tx and tx.jetcheckout_commission_rate or 0,
-                    'amount_commission_cost': tx and tx.jetcheckout_commission_cost or 0,
+                    'amount_commission_cost': tx and tx.jetcheckout_commission_amount or 0,
                     'amount_customer_rate': tx and tx.jetcheckout_commission_rate or 0,
-                    'amount_customer_cost': tx and tx.jetcheckout_commission_cost or 0,
+                    'amount_customer_cost': tx and tx.jetcheckout_commission_amount or 0,
                     'currency': self.currency_id.name or '',
                     'description': self.description or '',
                     'items': [{
                         'ref': self.ref,
                         'number': self.name,
                         'amount': self.amount,
-                        'commission': tx and tx.jetcheckout_commission_cost or 0,
+                        'commission': tx and tx.jetcheckout_commission_amount or 0,
                     }]
                 }, company=self.company_id, message=True)
 
@@ -167,12 +167,21 @@ class PaymentItem(models.Model):
                         'jetcheckout_connector_state_message': _('This payment has not been successfully posted to connector.\n%s') % message
                     }
                 else:
+                    if isinstance(result, list):
+                        result = result[0]
                     values = {
                         'jetcheckout_connector_sent': True,
                         'jetcheckout_connector_state': False,
                         #'jetcheckout_connector_payment_ref': result and result[0].get('ref', False) or False,
-                        'jetcheckout_connector_state_message': _('This payment has been successfully posted to connector.')
+                        'jetcheckout_connector_state_message': _('This payment has been successfully posted to connector.'),
+                        'jetcheckout_connector_payment_ref': result.get('ref', False),
                     }
+                    if tx:
+                        tx.write({
+                            'jetcheckout_connector_ok': True,
+                            'jetcheckout_connector_payment_ref': result.get('ref', False),
+                            'jetcheckout_connector_state_message': result.get('message', False),
+                        })
                 self.write(values)
                 self.flush()
 

@@ -5,6 +5,7 @@ import requests
 from odoo import models, fields, api, _
 from odoo.tools.misc import formatLang
 from odoo.exceptions import UserError
+from odoo.tools.float_utils import float_compare
 
 
 class PaymentPlan(models.Model):
@@ -30,13 +31,18 @@ class PaymentPlan(models.Model):
     @api.depends('transaction_ids.state')    
     def _compute_paid(self):
         for plan in self:
-            transaction = plan.transaction_ids.filtered(lambda tx: tx.state == 'done')
-            if transaction:
+            transactions = plan.transaction_ids.filtered(lambda tx: tx.state == 'done' and not tx.source_transaction_id)
+            for transaction in transactions:
+                sources = self.sudo().search([('source_transaction_id', '=', transaction.id)])
+                refund_amount = -sum(sources.mapped('amount'))
+                if float_compare(refund_amount, transaction.amount, precision_rounding=transaction.currency_id.rounding):
+                    continue
                 plan.paid = True
-                plan.paid_date = transaction[0].last_state_change
-                plan.message = transaction[0].state_message
-                plan.amount_paid = transaction[0].jetcheckout_payment_paid
-                plan.amount_cost = transaction[0].jetcheckout_commission_amount
+                plan.paid_date = transaction.last_state_change
+                plan.message = transaction.state_message
+                plan.amount_paid = transaction.jetcheckout_payment_paid
+                plan.amount_cost = transaction.jetcheckout_commission_amount
+                break
             else:
                 plan.paid = False
                 plan.paid_date = False

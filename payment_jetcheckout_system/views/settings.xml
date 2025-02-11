@@ -323,10 +323,11 @@
                                                     <field name="unit" string=" " width="0.2" decoration-bf="1"/>
                                                     <field name="tolerance"/>
                                                     <field name="round" widget="boolean_toggle"/>
-                                                    <field name="partner_tag_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                                                    <field name="partner_tag_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
                                                     <field name="campaign_id" options="{'no_create': True, 'no_open': True}" required="1"/>
                                                     <field name="mail_template_id" domain="[('model', '=', 'res.partner')]" options="{'no_create': True, 'no_open': True}" optional="hide" attrs="{'column_invisible': [('parent.payment_page_due_reminder_ok', '=', False)]}"/>
                                                     <field name="campaign_ids" invisible="1"/>
+                                                    <field name="company_id" invisible="1"/>
                                                 </tree>
                                                 <form>
                                                     <sheet>
@@ -345,7 +346,9 @@
                                                                         <field name="name"/>
                                                                     </tree>
                                                                 </field>-->
+                                                                <field name="partner_tag_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
                                                                 <field name="campaign_ids" invisible="1"/>
+                                                                <field name="company_id" invisible="1"/>
                                                             </group>
                                                         </group>
                                                     </sheet>
