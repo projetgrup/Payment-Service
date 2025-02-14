@@ -7,6 +7,7 @@ class fields {
         this.$ = $();
         this._ = undefined;
         this._name = undefined;
+        this.options = options;
     }
 
     async start(self, name, force=false) {
@@ -100,9 +101,11 @@ class element extends fields {}
 class selection extends fields {
     async start() {
         super.start(...arguments);
-        this.$.select2({
+        let defaults = {
             placeholder: this.$.attr('placeholder'),
-        });
+            ...this.options,
+        };
+        this.$.select2(defaults);
     }
 
     get value() {

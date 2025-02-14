@@ -251,10 +251,11 @@
         </t>
     </t>
 
-    <t t-name="paylox.tokens">
-        <main>
-            test
-        </main>
+    <t t-name="paylox.token">
+        <div>
+            <span t-esc="text"></span>
+            <i class="fa fa-user"/>
+        </div>
     </t>
 
     <t t-name="paylox.campaigns">

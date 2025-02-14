@@ -973,8 +973,30 @@ class PayloxController(http.Controller):
 
     @staticmethod
     def _get_card_tokens(**kwargs):
+        return [
+            {
+                'id:': 0,
+                'text:': 'enhancement',
+            },
+            {
+                'id:': 1,
+                'text:': 'bug'
+            },
+            {
+                'id:': 2,
+                'text:': 'duplicate'
+            },
+            {
+                'id:': 3,
+                'text:': 'invalid'
+            },
+            {
+                'id:': 4,
+                'text:': 'wontfix'
+            }
+        ]
         acquirer = PayloxController._get_acquirer()
-        url = '%s/api/v1/prepayment/listcards' % acquirer._get_paylox_api_url()
+        url = '%s/api/v1/prepayment/listcustomercards' % acquirer._get_paylox_api_url()
         data = {
             "application_key": acquirer.jetcheckout_api_key,
             "mode": acquirer._get_paylox_env(),
@@ -1365,6 +1387,7 @@ class PayloxController(http.Controller):
                     "card_alias": tx.token_id.name,
                     "card_owner_key": tx.token_id.jetcheckout_ref,
                     "card_owner_email": tx.token_id.partner_id.email,
+                    "card_customer_token": tx.token_id.partner_id.paylox_token_ref,
                 })
                 tx.token_id.write({
                     'jetcheckout_number': tx.jetcheckout_card_number,
@@ -2260,6 +2283,10 @@ class PayloxController(http.Controller):
             values['tx'] = request.env['payment.transaction'].sudo().browse(txid)
         self._del()
         return request.render('payment_jetcheckout.page_token_result', values)
+
+    @http.route(['/payment/card/token'], type='http', auth='public', methods=['GET'], sitemap=False, csrf=False, website=True)
+    def card_token(self, **kwargs):
+        return self._get_card_tokens(**kwargs)
 
     @http.route(['/payment/card/point'], type='json', auth='public', sitemap=False, website=True)
     def card_point(self, **kwargs):

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import uuid
 from odoo import fields, models, api, _
 
 
@@ -39,3 +40,10 @@ class Partner(models.Model):
     campaign_id = fields.Many2one('payment.acquirer.jetcheckout.campaign', string='Campaign', ondelete='set null', default=_default_campaign_id, copy=False, tracking=True)
     campaign_ids = fields.Many2many('payment.acquirer.jetcheckout.campaign', 'partner_id', 'campaign_id', string='Campaigns', copy=False, tracking=True)
     campaign_table = fields.Boolean('Campaign Table', compute='_compute_campaign_table')
+    paylox_token_ref = fields.Char('Paylox Token Reference', default=lambda self: str(uuid.uuid4()))
+
+    def get_paylox_token_ref(self):
+        self.ensure_one()
+        if not self.paylox_token_ref:
+            self.write({'paylox_token_ref': str(uuid.uuid4())})
+        return self.paylox_token_ref

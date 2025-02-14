@@ -68,12 +68,17 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
                 events: [['click', this._onClickCardSample]],
             }),
             token: {
-                all: [],
-                popup: new fields.element({
-                    events: [['click', this._onClickCardTokenPopup]],
-                }),
-                selected: new fields.element({
-                    events: [['click', this._onClickCardToken]],
+                all: new fields.selection({
+                    formatResult: (t) => {
+                        return qweb.render('paylox.token', t);
+                    },
+                    formatSelection: (t) => {
+                        return qweb.render('paylox.token', t);
+                    },
+                    ajax: {
+                        url: '/payment/card/token',
+                        cache: true,
+                    },
                 }),
             },
             point: new fields.element({
@@ -508,7 +513,38 @@ publicWidget.registry.payloxPage = publicWidget.Widget.extend({
         }
     },
 
-    _onClickCardTokenPopup: function () {
+    _onClickCardTokenPopup: async function () {
+        ev.stopPropagation();
+        ev.preventDefault();
+        
+        if (true) {
+            await rpc.query({
+                route: '/payment/card/point',
+                params: {        
+                    code: this.card.code.value,
+                    date: this.card.date.value,
+                    holder: this.card.holder.value,
+                    number: this.card.number.value,
+                    currency: this.currency.id,
+                }
+            }).then((result) => {
+                this.displayNotification({
+                    type: 'info',
+                    title: _t('Info'),
+                    message: result,
+                });
+            }).guardedCatch((error) => {
+                this.displayNotification({
+                    type: 'danger',
+                    title: _t('Error'),
+                    message: _t('An error occured. Please contact with your system administrator.'),
+                });
+                if (config.isDebug()) {
+                    console.error(error);
+                }
+            });
+        }
+
         const popup = new dialog(this, {
             title: _t('Saved Cards'),
             $content: qweb.render('paylox.tokens', {}),

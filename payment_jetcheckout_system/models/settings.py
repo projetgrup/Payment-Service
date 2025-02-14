@@ -76,6 +76,8 @@ class PaymentSettings(models.TransientModel):
 
     payment_advance_amount_readonly = fields.Boolean(related='company_id.payment_advance_amount_readonly', readonly=False)
     payment_advance_ok = fields.Boolean(related='company_id.payment_advance_ok', readonly=False)
+    payment_token_ok = fields.Boolean(related='company_id.payment_token_ok', readonly=False)
+    payment_point_ok = fields.Boolean(related='company_id.payment_point_ok', readonly=False)
 
     payment_page_ok = fields.Boolean(related='company_id.payment_page_ok', readonly=False)
     payment_page_flow = fields.Selection(related='company_id.payment_page_flow', readonly=False)

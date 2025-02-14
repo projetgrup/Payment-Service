@@ -273,7 +273,28 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="payment_token_ok"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="payment_token_ok" string="Save Credit Card"/>
+                                    <div class="text-muted">
+                                        Store credit card tokens of your partners to get payments easily next time
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="payment_point_ok"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="payment_point_ok" string="Use Credit Card Points"/>
+                                    <div class="text-muted">
+                                        Deduct payment amount with credit card points
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="app_settings_block" data-string="Dues" string="Dues" data-key="hr_attendance">
